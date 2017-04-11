@@ -63,3 +63,44 @@ Get a list of all tags
             "2": "Another Tag",
             "3": "Tagtastic"
         }
+
+### segments.list [GET /segments.list]
+
+Get a list of all segments
+
++ Parameters
+
+    + object_type: `crm_companies` (enum[string], required)
+
+        Pick one of the following options:
+
+        + Members
+            + crm_companies
+            + crm_contacts
+            + crm_todos
+            + crm_callbacks
+            + crm_meetings
+            + inv_invoices
+            + inv_creditnotes
+            + pro_projects
+            + sale_sales
+            + ticket_tickets
+
+
++ Response 200 (application/json)
+
+        {
+            "Medewerkers": [
+                {
+                    "id": "owner--1",
+                    "name": "",
+                    "num_matches": -1
+                },
+                {
+                    "id": "owner-1",
+                    "name": "John Smith",
+                    "num_matches": -1
+                }
+            ],
+            "Smart segments": []
+        }
