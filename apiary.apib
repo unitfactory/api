@@ -1,0 +1,35 @@
+FORMAT: 1A
+HOST: https://api.teamleader.eu
+
+# Teamleader API v2
+
+This is the Teamleader API v2 documentation.
+
+### users.list [GET /users.list]
+
+Get a list of all users
+
++ Response 200 (application/json; charset=utf-8)
+
+        [
+            {
+                "id":1,
+                "name":"John Smith",
+                "email":"john@teamleader.eu",
+                "gsm":"+32412654321",
+                "telephone":"+3291239843",
+                "team_id":1,
+                "title":"Sales",
+                "active":1
+            },
+            {
+                "id":2,
+                "name":"Jane Doe",
+                "email":"jane@teamleader.eu",
+                "gsm":"+32412654322",
+                "telephone":"3291239844",
+                "team_id":1,
+                "title":"Designer",
+                "active":1
+            }
+        ]
