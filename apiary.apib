@@ -116,54 +116,7 @@ Get a paginated list of contacts
 
 + Response 200 (application/json)
 
-        [
-            {
-                "id": 1,
-                "forename": "John",
-                "surname": "Doe",
-                "street": "Central Ave",
-                "number": "123",
-                "zipcode": "90201",
-                "city": "Cityville",
-                "country": "BE",
-                "website": "http://example.com",
-                "email": "john@example.com",
-                "gsm": "",
-                "telephone": "",
-                "fax": "",
-                "gender": "M",
-                "dob": -1,
-                "language_code": "EN",
-                "language_name": "Engels",
-                "date_added": 1454604273,
-                "date_edited": 1457009916,
-                "status": "",
-                "deleted": 0
-            },
-            {
-                "id": 2,
-                "forename": "Jane",
-                "surname": "Smith",
-                "street": "Central Ave",
-                "number": "321",
-                "zipcode": "90201",
-                "city": "Cityville",
-                "country": "BE",
-                "website": "http://example.org",
-                "email": "jane@example.org",
-                "gsm": "",
-                "telephone": "",
-                "fax": "",
-                "gender": "U",
-                "dob": -1,
-                "language_code": "EN",
-                "language_name": "Engels",
-                "date_added": 1454671709,
-                "date_edited": 1454671709,
-                "status": "",
-                "deleted": 0
-            }
-        ]
+    + Attributes (array[Contact])
 
 ### contacts.info [GET /contacts.info{?contact_id}]
 
@@ -175,37 +128,7 @@ Get a paginated list of contacts
 
 + Response 200 (application/json)
 
-        {
-            "id": 1163240,
-            "forename": "Eee",
-            "surname": "Test",
-            "salutation": "",
-            "street": "",
-            "number": "",
-            "zipcode": "",
-            "city": "",
-            "country": "BE",
-            "dob": -1,
-            "gender": "U",
-            "telephone": "",
-            "gsm": "",
-            "fax": "",
-            "email": "simon@teamleader.be",
-            "website": "",
-            "iban": "",
-            "bic": "",
-            "date_added": 1454604273,
-            "tags": [],
-            "language_code": "EN",
-            "extra_addresses": [],
-            "deleted": 0,
-            "custom_fields": {},
-            "linked_company_ids": "",
-            "linked_company_names": [],
-            "linked_company_functions": "",
-            "background_info_html": "",
-            "external_customer_id": ""
-        }
+    + Attributes (Contact)
 
 ### contacts.add [POST /contacts.add]
 
@@ -314,3 +237,105 @@ Unlinks a contact from a company
         {
             "status": "success"
         }
+
+### companies.list [GET /companies.list{?amount,page,search_by,modified_since,filter_by_tag,segment_id,selected_customfields}]
+
+Search companies
+
++ Parameters
+
+    + amount: `20` (number, required) - The amount of contacts returned per request, max 1 to 100
+    + page: `0` (number, required) - The current page, the first page is 0
+    + search_by: `teamleader` (string, optional) - A search string. Teamleader will try to match each part of the string to the forename, surname, company name and email address.
+    + modified_since: `1454604273` (number, optional) - Unix timestamp. Teamleader will only return contacts that have been added or modified since that timestamp.
+    + filter_by_tag: `upsell` (string, optional) - Company tag. Teamleader will only return companies that have the tag.
+    + segment_id: `4` (number, optional) - The ID of a segment created for contacts. Teamleader will only return contacts that have been filtered out by the segment settings.
+    + selected_customfields: `` (string, optional) - Comma-separated list of the IDs of the custom fields you wish to select (max 10).
+
++ Response 200 (application/json)
+
+    + Attributes (array[Company])
+
+### companies.info [GET /companies.info{?company_id}]
+
+Get company info
+
++ Parameters
+
+    + company_id: 123 (number)
+
++ Response 200 (application/json)
+
+    + Attributes (Company)
+
+# Data Structures
+
+## Contact (object)
+
++ id: 456 (number)
++ forename: Erlich (string)
++ surname: Bachman (string)
++ street: Newell Road (string)
++ number: 5230 (string)
++ zipcode: 94020 (string)
++ city: Palo Alto (string)
++ country: US (string)
++ website: https://piedpiper.com (string)
++ email: info@piedpiper.eu (string)
++ gsm (string)
++ telephone: 09 298 06 15 (string)
++ fax (string)
++ gender: M (enum[string])
+    + Members
+        + M
+        + F
+        + U
++ birthdate: 1491480887 (number)
++ iban (string)
++ bic (string)
++ tags: [tag1,tag2] (array[string])
++ language_code: EN (string)
++ date_added: 1491480887 (number)
++ extra_addresses (array[string])
++ deleted: 0 (number)
++ custom_fields (object)
++ linked_company_ids (string)
++ linked_company_names (array[string])
++ linked_company_functions (string)
++ background_info_html (string)
++ external_customer_id (string)
+
+## Company (object)
+
++ id: 123 (number)
++ name: Pied Piper (string)
++ street: Newell Road (string)
++ number: 5230 (string)
++ zipcode: 94020 (string)
++ city: Palo Alto (string)
++ country: US (string)
++ taxcode: BE 0899.623.035 (string)
++ kvk_nummer (string)
++ local_business_number (string)
++ email: info@piedpiper.eu (string)
++ website: https://piedpiper.com (string)
++ telephone: 09 298 06 15 (string)
++ fax (string)
++ iban (string)
++ bic (string)
++ pricelist_id: 9 (number)
++ account_manager_id (number)
++ date_added: 1456388372 (number)
++ tags: [tag1,tag2] (array[string])
++ language_code: NL (string)
++ business_type: NV (string)
++ vat_liability: vat_liable (string)
++ sector_name (string)
++ invoice_email_address (string)
++ payment_term (string)
++ extra_addresses (array[string])
++ background_info_html (string)
++ related_companies (string)
++ deleted: 0 (number)
++ custom_fields (object)
++ external_customer_id (string)
