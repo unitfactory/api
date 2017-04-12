@@ -268,6 +268,40 @@ Get company info
 
     + Attributes (Company)
 
+### invoices.list [GET /invoices.list{?date_from,date_to}]
+
+Search invoices
+
++ Parameters
+
+    + `date_from`: `01/01/2017` (string, required) - Format: dd/mm/yyyy
+    + `date_to`: `31/12/2017` (string, required) - Format: dd/mm/yyyy
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 173111,
+                "invoice_nr": 5,
+                "invoice_nr_detailed": "2017 / 5 (MAIN-)",
+                "date": 1491343199,
+                "date_formatted": "04/04/2017",
+                "due_date": 1493157599,
+                "due_date_formatted": "25/04/2017",
+                "date_paid": -1,
+                "paid": 0,
+                "total_price_excl_vat": "123.00",
+                "total_price_incl_vat": "130.38",
+                "name": "De Rode Duivles",
+                "for_attention_of": "Radja Nainggolan",
+                "incasso_recall_costs": "0.00",
+                "incasso_interest_amount": "0.00",
+                "structured_communication": "+++000/1731/11048+++",
+                "contact_or_company": "company",
+                "contact_or_company_id": 485906
+            }
+        ]
+
 # Data Structures
 
 ## Contact (object)
