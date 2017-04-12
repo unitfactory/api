@@ -147,6 +147,7 @@ Add a contact to Teamleader
         + salutation: `Mr` (string, optional)
         + telephone: `1234567` (string, optional)
         + gsm: `7654321` (string, optional)
+        + fax: `7654321` (string, optional)
         + website: `http://example.com` (string, optional)
         + country: `BE` (string, optional) - Country code according to ISO 3166-1 alpha-2. For Belgium: "BE"
         + zipcode: `90201` (string, optional)
@@ -193,6 +194,46 @@ Add a contact to Teamleader
 
         {
             "id": 1163240
+        }
+
+### contacts.update [POST /contacts.update]
+
+Update a Teamleader contact
+
++ Request (application/json)
+
+    + Attributes (object)
+        + contact_id: `1` (number, required) - The ID of the contact you want to update
+        + track_changes: `1` (number, required) - If set to 1, all changes are logged and visible to users in the web-interfae
+        + forename: `John` (string) - The given name of the new contact
+        + surname: `Smith` (string) - The surname of the new contact
+        + email: `john@example.com` (string, required) - The email address of the new contact
+        + telephone: `1234567` (string, optional)
+        + gsm: `7654321` (string, optional)
+        + fax: `7654321` (string, optional)
+        + website: `http://example.com` (string, optional)
+        + country: `BE` (string, optional) - Country code according to ISO 3166-1 alpha-2. For Belgium: "BE"
+        + zipcode: `90201` (string, optional)
+        + city: `Cityville` (string, optional)
+        + street: `Central Ave` (string, optional)
+        + number: `1` (string, optional)
+        + language: `EN` (string, optional) - Language code according to ISO 639-1. For Dutch: "NL"
+        + gender: `M` (enum[string], optional)
+            + Members
+                + M
+                + F
+                + U
+        + dob: `1454604273` (number, optional) - Unix timestamp
+        + description: `Met at expo` (string, optional) - Background information on the contact
+        + linked_company_ids: `1,2` (string, optional) - Comma-separated list of company ids that should be linked to this contact. (overwrites existing links)
+        + add_tag_by_string: `expo upsell` (string, optional) - Pass one or more tags, comma-separated. Existing tags will be reused, other tags will be automatically created for you.
+        + remove_tag_by_string: `upsell` (string, optional) - Pass one or more tags, comma-separated. These tags will be removed from the contact.
+        + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
+
++ Response 200 (application/json)
+
+        {
+            "status":"OK"
         }
 
 ### contacts.delete [POST /contacts.delete]
