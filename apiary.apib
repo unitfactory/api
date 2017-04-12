@@ -5,11 +5,13 @@ HOST: https://api.teamleader.eu
 
 This is the Teamleader API v2 documentation.
 
+## General [/]
+
 ### users.list [GET /users.list]
 
 Get a list of all users
 
-+ Response 200 (application/json; charset=utf-8)
++ Response 200 (application/json)
 
         [
             {
@@ -33,3 +35,406 @@ Get a list of all users
                 "active":1
             }
         ]
+
+### departments.list [GET /departments.list]
+
+Get a list of all departments
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id":1,
+                "name":"Sales"
+            },
+            {
+                "id":2,
+                "name":"Customer Support"
+            }
+        ]
+
+
+### tags.list [GET /tags.list]
+
+Get a list of all tags
+
++ Response 200 (application/json)
+
+        {
+            "1": "A Tag",
+            "2": "Another Tag",
+            "3": "Tagtastic"
+        }
+
+### segments.list [POST /segments.list]
+
+Get a list of all segments
+
++ Request (application/json)
+
+    + Attributes (object)
+        + `object_type`: `crm_companies` (enum[string], required)
+
+            Pick one of the possible values.
+
+            + Members
+                + crm_companies
+                + crm_contacts
+                + crm_todos
+                + crm_callbacks
+                + crm_meetings
+                + inv_invoices
+                + inv_creditnotes
+                + pro_projects
+                + sale_sales
+                + ticket_tickets
+
++ Response 200 (application/json)
+
+        {
+            "Medewerkers": [
+                {
+                    "id": "owner--1",
+                    "name": "",
+                    "num_matches": -1
+                },
+                {
+                    "id": "owner-1",
+                    "name": "John Smith",
+                    "num_matches": -1
+                }
+            ],
+            "Smart segments": []
+        }
+
+## Contacts [/contacts]
+
+### contacts.list [GET /contacts.list{?amount,pageno}]
+
+Get a paginated list of contacts
+
++ Parameters
+
+    + amount: `20` (number, required) - Amount of contacts you want returned, 1 to 100.
+    + pageno: `0` (number, required) - The numerated page you want, starts at 0.
+
++ Response 200 (application/json)
+
+    + Attributes (array[Contact])
+
+### contacts.info [POST /contacts.info]
+
+Get a paginated list of contacts
+
++ Request (application/json)
+
+    + Attributes (object)
+        + `contact_id`: `1` (number, required)
+
++ Response 200 (application/json)
+
+    + Attributes (Contact)
+
+### contacts.byCompany [POST /contacts.byCompany]
+
+Get a paginated list of contacts
+
++ Request (application/json)
+
+    + Attributes (object)
+        + `company_id`: `1` (number, required)
+
++ Response 200 (application/json)
+
+    + Attributes (array[Contact])
+
+### contacts.add [POST /contacts.add]
+
+Add a contact to Teamleader
+
++ Request (application/json)
+
+    + Attributes (object)
+        + forename: `John` (string, required) - The given name of the new contact
+        + surname: `Smith` (string, required) - The surname of the new contact
+        + email: `john@example.com` (string, required) - The email address of the new contact
+        + salutation: `Mr` (string, optional)
+        + telephone: `1234567` (string, optional)
+        + gsm: `7654321` (string, optional)
+        + fax: `7654321` (string, optional)
+        + website: `http://example.com` (string, optional)
+        + country: `BE` (string, optional) - Country code according to ISO 3166-1 alpha-2. For Belgium: "BE"
+        + zipcode: `90201` (string, optional)
+        + city: `Cityville` (string, optional)
+        + street: `Central Ave` (string, optional)
+        + number: `1` (string, optional)
+        + address_name_delivery: `Delivery` (string, optional)
+        + zipcode_delivery: `90202` (string, optional)
+        + city_delivery: `Citytown` (string, optional)
+        + street_delivery: `Central Sq` (string, optional)
+        + number_delivery: `1` (string, optional)
+        + address_name_visiting: `Visiting` (string, optional)
+        + zipcode_visiting: `90203` (string, optional)
+        + city_visiting: `VilleCity` (string, optional)
+        + street_visiting: `Central Str` (string, optional)
+        + number_visiting: `1` (string, optional)
+        + address_name_invoicing: `Invoicing` (string, optional)
+        + zipcode_invoicing: `90204` (string, optional)
+        + city_invoicing: `TownCity` (string, optional)
+        + street_invoicing: `Central Rd` (string, optional)
+        + number_invoicing: `1` (string, optional)
+        + invoice_email_address: `invoicing@example.com` (string, optional)
+        + language: `EN` (string, optional) - Language code according to ISO 639-1. For Dutch: "NL"
+        + gender: `M` (enum[string], optional)
+            + Members
+                + M
+                + F
+                + U
+        + dob: `1454604273` (number, optional) - Unix timestamp
+        + description: `Met at expo` (string, optional) - Background information on the contact
+        + newsletter: `true` (boolean, optional)
+        + add_tag_by_string: `expo upsell` (string, optional) - Pass one or more tags, comma-separated. Existing tags will be reused, other tags will be automatically created for you.
+        + automerge_by_name: `true` (boolean, optional)
+            If this flag is set to 1, Teamleader will merge this info into an existing contact with the same forename and surname, if it finds any.
+            + Default: `false`
+        + automerge_by_email: `true` (boolean, optional)
+            If this flag is set to 1, Teamleader will merge this info into an existing contact with the same email address, if it finds any.
+            + Default: `false`
+        + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
+        + tracking string: `foo` (string, optional) - Title of the activity
+        + tracking_long: `foobar` (string, optional) - Description of the activity
+
++ Response 200 (application/json)
+
+        {
+            "id": 1163240
+        }
+
+### contacts.update [POST /contacts.update]
+
+Update a Teamleader contact
+
++ Request (application/json)
+
+    + Attributes (object)
+        + contact_id: `1` (number, required) - The ID of the contact you want to update
+        + track_changes: `1` (number, required) - If set to 1, all changes are logged and visible to users in the web-interfae
+        + forename: `John` (string) - The given name of the new contact
+        + surname: `Smith` (string) - The surname of the new contact
+        + email: `john@example.com` (string, required) - The email address of the new contact
+        + telephone: `1234567` (string, optional)
+        + gsm: `7654321` (string, optional)
+        + fax: `7654321` (string, optional)
+        + website: `http://example.com` (string, optional)
+        + country: `BE` (string, optional) - Country code according to ISO 3166-1 alpha-2. For Belgium: "BE"
+        + zipcode: `90201` (string, optional)
+        + city: `Cityville` (string, optional)
+        + street: `Central Ave` (string, optional)
+        + number: `1` (string, optional)
+        + language: `EN` (string, optional) - Language code according to ISO 639-1. For Dutch: "NL"
+        + gender: `M` (enum[string], optional)
+            + Members
+                + M
+                + F
+                + U
+        + dob: `1454604273` (number, optional) - Unix timestamp
+        + description: `Met at expo` (string, optional) - Background information on the contact
+        + linked_company_ids: `1,2` (string, optional) - Comma-separated list of company ids that should be linked to this contact. (overwrites existing links)
+        + add_tag_by_string: `expo upsell` (string, optional) - Pass one or more tags, comma-separated. Existing tags will be reused, other tags will be automatically created for you.
+        + remove_tag_by_string: `upsell` (string, optional) - Pass one or more tags, comma-separated. These tags will be removed from the contact.
+        + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
+
++ Response 200 (application/json)
+
+        {
+            "status":"OK"
+        }
+
+### contacts.delete [POST /contacts.delete]
+
+Delete a contact from Teamleader
+
++ Request (application/json)
+
+    + Attributes (object)
+        + contact_id: `1` (number, required) - The account id of the contact you wish to delete
+
++ Response 200 (application/json)
+
+        {
+            "status": "success"
+        }
+
+### contacts.link [POST /contacts.link]
+
+Linking a contact to a company
+
++ Request (application/json)
+
+    + Attributes (object)
+        + contact_id: `123` (number, required) - The ID of a contact
+        + company_id: `5` (number, required) - The ID of a company
+
++ Response 200 (application/json)
+
+        {
+            "status": "success"
+        }
+
+### contacts.unlink [POST /contacts.unlink]
+
+Unlinks a contact from a company
+
++ Request (application/json)
+
+    + Attributes (object)
+        + contact_id: `123` (number, required) - The ID of a contact
+        + company_id: `5` (number, required) - The ID of a company
+
++ Response 200 (application/json)
+
+        {
+            "status": "success"
+        }
+
+## Companies [/companies]
+
+### companies.list [POST /companies.list]
+
+Search companies
+
++ Request (application/json)
+
+    + Attributes (object)
+        + amount: `20` (number, required) - The amount of contacts returned per request, max 1 to 100
+        + pageno: `0` (number, required) - The current page, the first page is 0
+        + searchby: `teamleader` (string, optional) - A search string. Teamleader will try to match each part of the string to the forename, surname, company name and email address.
+        + modifiedsince: `1454604273` (number, optional) - Unix timestamp. Teamleader will only return contacts that have been added or modified since that timestamp.
+        + filter_by_tag: `upsell` (string, optional) - Company tag. Teamleader will only return companies that have the tag.
+        + segment_id: `4` (number, optional) - The ID of a segment created for contacts. Teamleader will only return contacts that have been filtered out by the segment settings.
+        + selected_customfields: `` (string, optional) - Comma-separated list of the IDs of the custom fields you wish to select (max 10).
+
++ Response 200 (application/json)
+
+    + Attributes (array[Company])
+
+### companies.info [POST /companies.info]
+
+Get company info
+
++ Request (application/json)
+
+    + Attributes (object)
+        + company_id: 123 (number)
+
++ Response 200 (application/json)
+
+    + Attributes (Company)
+
+## Invoices [/invoices]
+
+### invoices.list [POST /invoices.list]
+
+Search invoices
+
++ Request (application/json)
+
+    + Attributes (object)
+        + `date_from`: `01/01/2017` (string, required) - Format: dd/mm/yyyy
+        + `date_to`: `31/12/2017` (string, required) - Format: dd/mm/yyyy
+
++ Response 200 (application/json)
+
+    + Attributes (array[Invoice])
+
+# Data Structures
+
+## Contact (object)
+
++ id: 456 (number)
++ forename: Erlich (string)
++ surname: Bachman (string)
++ street: Newell Road (string)
++ number: 5230 (string)
++ zipcode: 94020 (string)
++ city: Palo Alto (string)
++ country: US (string)
++ website: https://piedpiper.com (string)
++ email: info@piedpiper.eu (string)
++ gsm (string)
++ telephone: 09 298 06 15 (string)
++ fax (string)
++ gender: M (enum[string])
+    + Members
+        + M
+        + F
+        + U
++ birthdate: 1491480887 (number)
++ iban (string)
++ bic (string)
++ tags: [tag1,tag2] (array[string])
++ language_code: EN (string)
++ date_added: 1491480887 (number)
++ extra_addresses (array[string])
++ deleted: 0 (number)
++ custom_fields (object)
++ linked_company_ids (string)
++ linked_company_names (array[string])
++ linked_company_functions (string)
++ background_info_html (string)
++ external_customer_id (string)
+
+## Company (object)
+
++ id: 123 (number)
++ name: Pied Piper (string)
++ street: Newell Road (string)
++ number: 5230 (string)
++ zipcode: 94020 (string)
++ city: Palo Alto (string)
++ country: US (string)
++ taxcode: BE 0899.623.035 (string)
++ kvk_nummer (string)
++ local_business_number (string)
++ email: info@piedpiper.eu (string)
++ website: https://piedpiper.com (string)
++ telephone: 09 298 06 15 (string)
++ fax (string)
++ iban (string)
++ bic (string)
++ pricelist_id: 9 (number)
++ account_manager_id (number)
++ date_added: 1456388372 (number)
++ tags: [tag1,tag2] (array[string])
++ language_code: NL (string)
++ business_type: NV (string)
++ vat_liability: vat_liable (string)
++ sector_name (string)
++ invoice_email_address (string)
++ payment_term (string)
++ extra_addresses (array[string])
++ background_info_html (string)
++ related_companies (string)
++ deleted: 0 (number)
++ custom_fields (object)
++ external_customer_id (string)
+
+## Invoice (object)
++ id: 173111 (number)
++ invoice_nr: 5 (number)
++ invoice_nr_detailed: `2017 / 5 (MAIN)` (string)
++ date: 1491343199 (number)
++ date_formatted: "04/04/2017" (string)
++ due_date: 1493157599 (number)
++ due_date_formatted: "25/04/2017" (string)
++ date_paid: `-1` (number)
++ paid: 0 (number)
++ total_price_excl_vat: "123.00" (string)
++ total_price_incl_vat: "130.38" (string)
++ name: "De Rode Duivles" (string)
++ for_attention_of: "Radja Nainggolan" (string)
++ incasso_recall_costs: "0.00" (string)
++ incasso_interest_amount: "0.00" (string)
++ structured_communication: "+++000/1731/11048+++" (string)
++ contact_or_company: "company" (string)
++ contact_or_company_id: 485906 (number)
