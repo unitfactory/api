@@ -66,28 +66,28 @@ Get a list of all tags
             "3": "Tagtastic"
         }
 
-### segments.list [GET /segments.list{?object_type}]
+### segments.list [POST /segments.list]
 
 Get a list of all segments
 
-+ Parameters
++ Request (application/json)
 
-    + `object_type`: `crm_companies` (enum[string], required)
+    + Attributes (object)
+        + `object_type`: `crm_companies` (enum[string], required)
 
-        Pick one of the possible values.
+            Pick one of the possible values.
 
-        + Members
-            + crm_companies
-            + crm_contacts
-            + crm_todos
-            + crm_callbacks
-            + crm_meetings
-            + inv_invoices
-            + inv_creditnotes
-            + pro_projects
-            + sale_sales
-            + ticket_tickets
-
+            + Members
+                + crm_companies
+                + crm_contacts
+                + crm_todos
+                + crm_callbacks
+                + crm_meetings
+                + inv_invoices
+                + inv_creditnotes
+                + pro_projects
+                + sale_sales
+                + ticket_tickets
 
 + Response 200 (application/json)
 
