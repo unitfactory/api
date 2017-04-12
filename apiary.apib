@@ -64,13 +64,13 @@ Get a list of all tags
             "3": "Tagtastic"
         }
 
-### segments.list [GET /segments.list]
+### segments.list [GET /segments.list{?object_type}]
 
 Get a list of all segments
 
 + Parameters
 
-    + object_type: `crm_companies` (enum[string], required)
+    + `object_type`: `crm_companies` (enum[string], required)
 
         Pick one of the possible values.
 
@@ -105,7 +105,7 @@ Get a list of all segments
             "Smart segments": []
         }
 
-### contacts.list [GET /contacts.list]
+### contacts.list [GET /contacts.list{?amount,pageno}]
 
 Get a paginated list of contacts
 
@@ -165,7 +165,7 @@ Get a paginated list of contacts
             }
         ]
 
-### contact.info [GET /contacts.info]
+### contact.info [GET /contacts.info{?contact_id}]
 
 Get a paginated list of contacts
 
@@ -205,4 +205,66 @@ Get a paginated list of contacts
             "linked_company_functions": "",
             "background_info_html": "",
             "external_customer_id": ""
+        }
+
+
+### contact.add [POST /contacts.add]
+
+Add a contact to Teamleader
+
++ Request (application/json)
+
+    + Attributes (object)
+        + forename: `John` (string, required) - The given name of the new contact
+        + surname: `Smith` (string, required) - The surname of the new contact
+        + email: `john@example.com` (string, required) - The email address of the new contact
+        + salutation: `Mr` (string, optional)
+        + telephone: `1234567` (string, optional)
+        + gsm: `7654321` (string, optional)
+        + website: `http://example.com` (string, optional)
+        + country: `BE` (string, optional) - Country code according to ISO 3166-1 alpha-2. For Belgium: "BE"
+        + zipcode: `90201` (string, optional)
+        + city: `Cityville` (string, optional)
+        + street: `Central Ave` (string, optional)
+        + number: `1` (string, optional)
+        + address_name_delivery: `Delivery` (string, optional)
+        + zipcode_delivery: `90202` (string, optional)
+        + city_delivery: `Citytown` (string, optional)
+        + street_delivery: `Central Sq` (string, optional)
+        + number_delivery: `1` (string, optional)
+        + address_name_visiting: `Visiting` (string, optional)
+        + zipcode_visiting: `90203` (string, optional)
+        + city_visiting: `VilleCity` (string, optional)
+        + street_visiting: `Central Str` (string, optional)
+        + number_visiting: `1` (string, optional)
+        + address_name_invoicing: `Invoicing` (string, optional)
+        + zipcode_invoicing: `90204` (string, optional)
+        + city_invoicing: `TownCity` (string, optional)
+        + street_invoicing: `Central Rd` (string, optional)
+        + number_invoicing: `1` (string, optional)
+        + invoice_email_address: `invoicing@example.com` (string, optional)
+        + language: `EN` (string, optional) - Language code according to ISO 639-1. For Dutch: "NL"
+        + gender: `M` (enum[string], optional)
+            + Members
+                + M
+                + F
+                + U
+        + dob: `1454604273` (number, optional) - Unix timestamp
+        + description: `Met at expo` (string, optional) - Background information on the contact
+        + newsletter: `true` (boolean, optional)
+        + add_tag_by_string: `expo upsell` (string, optional) - Pass one or more tags, comma-separated. Existing tags will be reused, other tags will be automatically created for you.
+        + automerge_by_name: `true` (boolean, optional)
+            If this flag is set to 1, Teamleader will merge this info into an existing contact with the same forename and surname, if it finds any.
+            + Default: `false`
+        + automerge_by_email: `true` (boolean, optional)
+            If this flag is set to 1, Teamleader will merge this info into an existing contact with the same email address, if it finds any.
+            + Default: `false`
+        + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
+        + tracking string: `foo` (string, optional) - Title of the activity
+        + tracking_long: `foobar` (string, optional) - Description of the activity
+
++ Response 200 (application/json)
+
+        {
+            "id": 1163240
         }
