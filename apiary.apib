@@ -434,6 +434,26 @@ Delete a company from Teamleader
             "status": "success"
         }
 
+### businessTypes.list [POST /businessTypes.list]
+
+Get the names of business types (legal structures) a company can have within a certain country.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + country: BE (string) -  country code according to ISO 3166-1 alpha-2. For Belgium: "BE"
+
++ Response 200 (application/json)
+
+        [
+            {
+                "name": "AG"
+            },
+            {
+                "name": "BVBA"
+            }
+        ]
+
 ## Invoices [/invoices]
 
 ### invoices.list [POST /invoices.list]
