@@ -165,7 +165,7 @@ Get a paginated list of contacts
             }
         ]
 
-### contact.info [GET /contacts.info{?contact_id}]
+### contacts.info [GET /contacts.info{?contact_id}]
 
 Get a paginated list of contacts
 
@@ -207,7 +207,7 @@ Get a paginated list of contacts
             "external_customer_id": ""
         }
 
-### contact.add [POST /contacts.add]
+### contacts.add [POST /contacts.add]
 
 Add a contact to Teamleader
 
@@ -268,7 +268,7 @@ Add a contact to Teamleader
             "id": 1163240
         }
 
-### contact.delete [POST /contacts.delete]
+### contacts.delete [POST /contacts.delete]
 
 Delete a contact from Teamleader
 
@@ -276,6 +276,38 @@ Delete a contact from Teamleader
 
     + Attributes (object)
         + contact_id: `1` (number, required) - The account id of the contact you wish to delete
+
++ Response 200 (application/json)
+
+        {
+            "status": "success"
+        }
+
+### contacts.link [POST /contacts.link]
+
+Linking a contact to a company
+
++ Request (application/json)
+
+    + Attributes (object)
+        + contact_id: `123` (number, required) - The ID of a contact
+        + company_id: `5` (number, required) - The ID of a company
+
++ Response 200 (application/json)
+
+        {
+            "status": "success"
+        }
+
+### contacts.unlink [POST /contacts.unlink]
+
+Unlinks a contact from a company
+
++ Request (application/json)
+
+    + Attributes (object)
+        + contact_id: `123` (number, required) - The ID of a contact
+        + company_id: `5` (number, required) - The ID of a company
 
 + Response 200 (application/json)
 
