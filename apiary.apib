@@ -5,6 +5,8 @@ HOST: https://api.teamleader.eu
 
 This is the Teamleader API v2 documentation.
 
+## General [/]
+
 ### users.list [GET /users.list]
 
 Get a list of all users
@@ -104,6 +106,8 @@ Get a list of all segments
             ],
             "Smart segments": []
         }
+
+## Contacts [/contacts]
 
 ### contacts.list [GET /contacts.list{?amount,pageno}]
 
@@ -238,6 +242,8 @@ Unlinks a contact from a company
             "status": "success"
         }
 
+## Companies [/companies]
+
 ### companies.list [GET /companies.list{?amount,page,search_by,modified_since,filter_by_tag,segment_id,selected_customfields}]
 
 Search companies
@@ -267,6 +273,8 @@ Get company info
 + Response 200 (application/json)
 
     + Attributes (Company)
+
+## Invoices [/invoices]
 
 ### invoices.list [GET /invoices.list{?date_from,date_to}]
 
