@@ -122,25 +122,27 @@ Get a paginated list of contacts
 
     + Attributes (array[Contact])
 
-### contacts.info [GET /contacts.info{?contact_id}]
+### contacts.info [POST /contacts.info]
 
 Get a paginated list of contacts
 
-+ Parameters
++ Request (application/json)
 
-    + contact_id: `1` (number, required) - ID of contact
+    + Attributes (object)
+        + `contact_id`: `1` (number, required)
 
 + Response 200 (application/json)
 
     + Attributes (Contact)
 
-### contacts.byCompany [GET /contacts.byCompany{?company_id}]
+### contacts.byCompany [POST /contacts.byCompany]
 
 Get a paginated list of contacts
 
-+ Parameters
++ Request (application/json)
 
-    + company_id: `1` (number, required) - ID of company
+    + Attributes (object)
+        + `company_id`: `1` (number, required)
 
 + Response 200 (application/json)
 
@@ -297,31 +299,33 @@ Unlinks a contact from a company
 
 ## Companies [/companies]
 
-### companies.list [GET /companies.list{?amount,page,search_by,modified_since,filter_by_tag,segment_id,selected_customfields}]
+### companies.list [POST /companies.list]
 
 Search companies
 
-+ Parameters
++ Request (application/json)
 
-    + amount: `20` (number, required) - The amount of contacts returned per request, max 1 to 100
-    + page: `0` (number, required) - The current page, the first page is 0
-    + search_by: `teamleader` (string, optional) - A search string. Teamleader will try to match each part of the string to the forename, surname, company name and email address.
-    + modified_since: `1454604273` (number, optional) - Unix timestamp. Teamleader will only return contacts that have been added or modified since that timestamp.
-    + filter_by_tag: `upsell` (string, optional) - Company tag. Teamleader will only return companies that have the tag.
-    + segment_id: `4` (number, optional) - The ID of a segment created for contacts. Teamleader will only return contacts that have been filtered out by the segment settings.
-    + selected_customfields: `` (string, optional) - Comma-separated list of the IDs of the custom fields you wish to select (max 10).
+    + Attributes (object)
+        + amount: `20` (number, required) - The amount of contacts returned per request, max 1 to 100
+        + pageno: `0` (number, required) - The current page, the first page is 0
+        + searchby: `teamleader` (string, optional) - A search string. Teamleader will try to match each part of the string to the forename, surname, company name and email address.
+        + modifiedsince: `1454604273` (number, optional) - Unix timestamp. Teamleader will only return contacts that have been added or modified since that timestamp.
+        + filter_by_tag: `upsell` (string, optional) - Company tag. Teamleader will only return companies that have the tag.
+        + segment_id: `4` (number, optional) - The ID of a segment created for contacts. Teamleader will only return contacts that have been filtered out by the segment settings.
+        + selected_customfields: `` (string, optional) - Comma-separated list of the IDs of the custom fields you wish to select (max 10).
 
 + Response 200 (application/json)
 
     + Attributes (array[Company])
 
-### companies.info [GET /companies.info{?company_id}]
+### companies.info [POST /companies.info]
 
 Get company info
 
-+ Parameters
++ Request (application/json)
 
-    + company_id: 123 (number)
+    + Attributes (object)
+        + company_id: 123 (number)
 
 + Response 200 (application/json)
 
@@ -329,39 +333,19 @@ Get company info
 
 ## Invoices [/invoices]
 
-### invoices.list [GET /invoices.list{?date_from,date_to}]
+### invoices.list [POST /invoices.list]
 
 Search invoices
 
-+ Parameters
++ Request (application/json)
 
-    + `date_from`: `01/01/2017` (string, required) - Format: dd/mm/yyyy
-    + `date_to`: `31/12/2017` (string, required) - Format: dd/mm/yyyy
+    + Attributes (object)
+        + `date_from`: `01/01/2017` (string, required) - Format: dd/mm/yyyy
+        + `date_to`: `31/12/2017` (string, required) - Format: dd/mm/yyyy
 
 + Response 200 (application/json)
 
-        [
-            {
-                "id": 173111,
-                "invoice_nr": 5,
-                "invoice_nr_detailed": "2017 / 5 (MAIN-)",
-                "date": 1491343199,
-                "date_formatted": "04/04/2017",
-                "due_date": 1493157599,
-                "due_date_formatted": "25/04/2017",
-                "date_paid": -1,
-                "paid": 0,
-                "total_price_excl_vat": "123.00",
-                "total_price_incl_vat": "130.38",
-                "name": "De Rode Duivles",
-                "for_attention_of": "Radja Nainggolan",
-                "incasso_recall_costs": "0.00",
-                "incasso_interest_amount": "0.00",
-                "structured_communication": "+++000/1731/11048+++",
-                "contact_or_company": "company",
-                "contact_or_company_id": 485906
-            }
-        ]
+    + Attributes (array[Invoice])
 
 # Data Structures
 
@@ -434,3 +418,23 @@ Search invoices
 + deleted: 0 (number)
 + custom_fields (object)
 + external_customer_id (string)
+
+## Invoice (object)
++ id: 173111 (number)
++ invoice_nr: 5 (number)
++ invoice_nr_detailed: `2017 / 5 (MAIN)` (string)
++ date: 1491343199 (number)
++ date_formatted: "04/04/2017" (string)
++ due_date: 1493157599 (number)
++ due_date_formatted: "25/04/2017" (string)
++ date_paid: `-1` (number)
++ paid: 0 (number)
++ total_price_excl_vat: "123.00" (string)
++ total_price_incl_vat: "130.38" (string)
++ name: "De Rode Duivles" (string)
++ for_attention_of: "Radja Nainggolan" (string)
++ incasso_recall_costs: "0.00" (string)
++ incasso_interest_amount: "0.00" (string)
++ structured_communication: "+++000/1731/11048+++" (string)
++ contact_or_company: "company" (string)
++ contact_or_company_id: 485906 (number)
