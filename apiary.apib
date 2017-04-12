@@ -104,3 +104,63 @@ Get a list of all segments
             ],
             "Smart segments": []
         }
+
+### contacts.list [GET /contacts.list]
+
+Get a paginated list of contacts
+
++ Parameters
+
+    + amount: `20` (number, required) - Amount of contacts you want returned, 1 to 100.
+    + pageno: `0` (number, required) - The numerated page you want, starts at 0.
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 1,
+                "forename": "John",
+                "surname": "Doe",
+                "street": "Central Ave",
+                "number": "123",
+                "zipcode": "90201",
+                "city": "Cityville",
+                "country": "BE",
+                "website": "http://example.com",
+                "email": "john@example.com",
+                "gsm": "",
+                "telephone": "",
+                "fax": "",
+                "gender": "M",
+                "dob": -1,
+                "language_code": "EN",
+                "language_name": "Engels",
+                "date_added": 1454604273,
+                "date_edited": 1457009916,
+                "status": "",
+                "deleted": 0
+            },
+            {
+                "id": 2,
+                "forename": "Jane",
+                "surname": "Smith",
+                "street": "Central Ave",
+                "number": "321",
+                "zipcode": "90201",
+                "city": "Cityville",
+                "country": "BE",
+                "website": "http://example.org",
+                "email": "jane@example.org",
+                "gsm": "",
+                "telephone": "",
+                "fax": "",
+                "gender": "U",
+                "dob": -1,
+                "language_code": "EN",
+                "language_name": "Engels",
+                "date_added": 1454671709,
+                "date_edited": 1454671709,
+                "status": "",
+                "deleted": 0
+            }
+        ]
