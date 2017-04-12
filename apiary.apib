@@ -164,3 +164,45 @@ Get a paginated list of contacts
                 "deleted": 0
             }
         ]
+
+### contact.info [GET /contacts.info]
+
+Get a paginated list of contacts
+
++ Parameters
+
+    + contact_id: `1` (number, required) - ID of contact
+
++ Response 200 (application/json)
+
+        {
+            "id": 1163240,
+            "forename": "Eee",
+            "surname": "Test",
+            "salutation": "",
+            "street": "",
+            "number": "",
+            "zipcode": "",
+            "city": "",
+            "country": "BE",
+            "dob": -1,
+            "gender": "U",
+            "telephone": "",
+            "gsm": "",
+            "fax": "",
+            "email": "simon@teamleader.be",
+            "website": "",
+            "iban": "",
+            "bic": "",
+            "date_added": 1454604273,
+            "tags": [],
+            "language_code": "EN",
+            "extra_addresses": [],
+            "deleted": 0,
+            "custom_fields": {},
+            "linked_company_ids": "",
+            "linked_company_names": [],
+            "linked_company_functions": "",
+            "background_info_html": "",
+            "external_customer_id": ""
+        }
