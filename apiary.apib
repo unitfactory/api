@@ -134,6 +134,18 @@ Get a paginated list of contacts
 
     + Attributes (Contact)
 
+### contacts.byCompany [GET /contacts.byCompany{?company_id}]
+
+Get a paginated list of contacts
+
++ Parameters
+
+    + company_id: `1` (number, required) - ID of company
+
++ Response 200 (application/json)
+
+    + Attributes (array[Contact])
+
 ### contacts.add [POST /contacts.add]
 
 Add a contact to Teamleader
