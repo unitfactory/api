@@ -207,7 +207,6 @@ Get a paginated list of contacts
             "external_customer_id": ""
         }
 
-
 ### contact.add [POST /contacts.add]
 
 Add a contact to Teamleader
@@ -267,4 +266,19 @@ Add a contact to Teamleader
 
         {
             "id": 1163240
+        }
+
+### contact.delete [POST /contacts.delete]
+
+Delete a contact from Teamleader
+
++ Request (application/json)
+
+    + Attributes (object)
+        + contact_id: `1` (number, required) - The account id of the contact you wish to delete
+
++ Response 200 (application/json)
+
+        {
+            "status": "success"
         }
