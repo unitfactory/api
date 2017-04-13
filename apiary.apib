@@ -509,6 +509,37 @@ Update a deal
 
     + Attributes (object)
         + deal_id: `1` (number, required) - Who is related to this deal?
+        + description_1: `Search module` (string, required)
+        + price_1: `5` (number, required)
+        + amount_1: `1` (number, required)
+        + vat_1: `21` (enum[string], required) - The vat tariff for this line
+            + Members
+                + 00
+                + 06
+                + 12
+                + 21
+                + CM
+                + EX
+                + MC
+                + VCMD
+        + product_id_1: `1` (number, optional) - ID of the product
+        + account_1: `1` (number, optional) - ID of the bookkeeping account
+        + subtitle_1: `Enable search` (string, optional)
+
++ Response 200 (application/json)
+
+        {
+            "status": "OK"
+        }
+
+### deals.updateItems [POST /deals.updateItems]
+
+Update a deal's items
+
++ Request (application/json)
+
+    + Attributes (object)
+        + deal_id: `1` (number, required) - Who is related to this deal?
         + title: `Interesting business deal` (string, optional)
         + source: `Google Adwords` (string, optional)
         + responsible_sys_client_id: `1` (number, optional) - ID of the user that is responsible for this deal
