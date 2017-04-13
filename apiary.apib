@@ -501,6 +501,27 @@ Add a deal for a contact or company.
             "id": 165655
         }
 
+### deals.update [POST /deals.update]
+
+Update a deal
+
++ Request (application/json)
+
+    + Attributes (object)
+        + deal_id: `1` (number, required) - Who is related to this deal?
+        + title: `Interesting business deal` (string, optional)
+        + source: `Google Adwords` (string, optional)
+        + responsible_sys_client_id: `1` (number, optional) - ID of the user that is responsible for this deal
+        + phase_id: `1` (number, optional) - new phase ID this deal should be moved to
+        + budget_estimation: `10` (number, optional) - budget estimation for this deal. This value will be overwritten once a quotation is made for this deal
+        + custom_field_ID: `1` (number, optional) - replace ID by the ID of your custom field.
+
++ Response 200 (application/json)
+
+        {
+            "status": "OK"
+        }
+
 ## Invoices [/invoices]
 
 ### invoices.list [POST /invoices.list]
