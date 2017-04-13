@@ -553,6 +553,25 @@ Update a deal's items
             "status": "OK"
         }
 
+### deals.sendToClient [POST /deals.sendToClient]
+
+Send a deal via email to client
+
++ Request (application/json)
+
+    + Attributes (object)
+        + sale_id: `1` (number, required) - ID of the deal
+        + email: `john@example.com` (string, required) - Email of the client
+        + subject: `1` (number, required) - Subject of the email
+        + message: `1` (number, required) -  Add <link> to the message to print out the InvoiceCloud link. (not required when using an email template, leave empty or discard from request when using template_id)
+        + template_id: `1` (number, optional) - ID of the email message created in Teamleader.
+
++ Response 200 (application/json)
+
+        {
+            "status": "OK"
+        }
+
 ## Invoices [/invoices]
 
 ### invoices.list [POST /invoices.list]
