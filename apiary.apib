@@ -572,6 +572,24 @@ Send a deal via email to client
             "status": "OK"
         }
 
+### deals.list [POST /deals.list]
+
+Get a list of all deals
+
++ Request (application/json)
+
+    + Attributes (object)
+        + amount: `10` (number, required) - Amount of results you want
+        + pageno: `0` (number, required) - Page of results you want
+        + searchby: `Teamleader` (string, optional) - A search string. Teamleader will try to search deals matching this string.
+        + selected_customfields: `42,142` (string, optional) - Comma-separated list of the IDs of the custom fields you wish to select (max 10).
+        + filter_by_phase_id: `5` (string, optional) - Only return deals with this phase ID
+        + segment_id: `1` (string, optional) - The ID of a segment created for deals.
+
++ Response 200 (application/json)
+
+    + Attributes (array[Deal])
+
 ## Invoices [/invoices]
 
 ### invoices.list [POST /invoices.list]
@@ -679,3 +697,25 @@ Search invoices
 + structured_communication: "+++000/1731/11048+++" (string)
 + contact_or_company: "company" (string)
 + contact_or_company_id: 485906 (number)
+
+## Deal (object)
++ id: 164938 (number)
++ title: `Interesting deal` (string)
++ for: contact (string)
++ for_id: 1176793 (number)
++ customer_name: `John`,
++ quotation_nr: 21 (number)
++ total_price_excl_vat: 0.00 (number)
++ probability: 5 (number)
++ phase_id: 5 (number)
++ responsible_user_id: `-1` (number)
++ entry_date: 1487250618 (number)
++ entry_date_formatted: 16/02/2017 (string)
++ latest_activity_date: 1487250618 (number)
++ latest_activity_date_formatted: 16/02/2017 (string)
++ close_date: 1487250618 (number)
++ close_date_formatted: 16/02/2017 (string)
++ date_lost: 1487250618 (number)
++ date_lost_formatted: 16/02/2017 (string)
++ reason_refused: `1` (number)
++ source_id: `8799` (number)
