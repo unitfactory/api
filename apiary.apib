@@ -572,7 +572,7 @@ Send a deal via email to client
             "status": "OK"
         }
 
-### deals.list [POST /deals.list]
+### deals.list [GET /deals.list]
 
 Get a list of all deals
 
@@ -589,6 +589,113 @@ Get a list of all deals
 + Response 200 (application/json)
 
     + Attributes (array[Deal])
+
+### deals.byContactOrCompany [POST /deals.byContactOrCompany]
+
+Get a list of all deals by contact or company
+
++ Request (application/json)
+
+    + Attributes (object)
+        + contact_or_company: `company` (enum[string], required) - Who is related to this deal?
+            + Members
+                + company
+                + contact
+        + contact_or_company_id: `1` (number, required) - ID of the related contact or company
+
++ Response 200 (application/json)
+
+        [
+            {
+                "deal_id": 1,
+                "phase_id": 5
+            }
+        ]
+
+### deals.byProject [POST /deals.byProject]
+
+Get a list of all deals by project
+
++ Request (application/json)
+
+    + Attributes (object)
+        + project_id: `1` (number, required) - ID of the project
+
++ Response 200 (application/json)
+
+        [
+            {
+                "deal_id": 1
+            }
+        ]
+
+### deals.info [POST /deals.info]
+
+Get deal details
+
++ Request (application/json)
+
+    + Attributes (object)
+        + deal_id: `1` (number, required) - ID of the deal you want
+
++ Response 200 (application/json)
+
+    + Attributes (Deal)
+
+### deals.phaseChanges [POST /deals.phaseChanges]
+
+Get a list of a deal phase changes
+
++ Request (application/json)
+
+    + Attributes (object)
+        + deal_id: `1` (number, required) - ID of the deal you want
+
++ Response 200 (application/json)
+
+        [
+            {
+                "old_phase_id": "",
+                "new_phase_id": 5,
+                "change_date": 1492074106,
+                "change_date_formatted": "13/04/2017",
+                "related_user_id": ""
+            }
+        ]
+
+### deals.phases [GET /deals.phases]
+
+Get a list of all phases a deal can go through
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": "1",
+                "name": "New"
+            },
+            {
+                "id": "2",
+                "name": "Contacted"
+            }
+        ]
+
+### deals.sources [GET /deals.sources]
+
+Get a list of all deal sources
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": "1",
+                "name": "Google Search"
+            },
+            {
+                "id": "2",
+                "name": "Exposition"
+            }
+        ]
 
 ## Invoices [/invoices]
 
@@ -705,7 +812,7 @@ Search invoices
 + for_id: 1176793 (number)
 + customer_name: `John`,
 + quotation_nr: 21 (number)
-+ total_price_excl_vat: 0.00 (number)
++ total_price_excl_vat: `0.00` (string)
 + probability: 5 (number)
 + phase_id: 5 (number)
 + responsible_user_id: `-1` (number)
@@ -717,5 +824,5 @@ Search invoices
 + close_date_formatted: 16/02/2017 (string)
 + date_lost: 1487250618 (number)
 + date_lost_formatted: 16/02/2017 (string)
-+ reason_refused: `1` (number)
++ reason_refused: `No interest` (string)
 + source_id: `8799` (number)
