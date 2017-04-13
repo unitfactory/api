@@ -1,5 +1,5 @@
 FORMAT: 1A
-HOST: https://api.teamleader.eu
+HOST: https://api.teamleader.eu/api
 
 # Teamleader API v2
 
@@ -7,7 +7,7 @@ This is the Teamleader API v2 documentation.
 
 ## General [/]
 
-### users.list [GET /users.list]
+### /getUsers.php [GET /getUsers.php]
 
 Get a list of all users
 
@@ -36,7 +36,7 @@ Get a list of all users
             }
         ]
 
-### departments.list [GET /departments.list]
+### /getDepartments.php [GET /getDepartments.php]
 
 Get a list of all departments
 
@@ -54,7 +54,7 @@ Get a list of all departments
         ]
 
 
-### tags.list [GET /tags.list]
+### getTags.php [GET /getTags.php]
 
 Get a list of all tags
 
@@ -66,7 +66,7 @@ Get a list of all tags
             "3": "Tagtastic"
         }
 
-### segments.list [POST /segments.list]
+### /getSegments.php [POST /getSegments.php]
 
 Get a list of all segments
 
@@ -109,7 +109,7 @@ Get a list of all segments
 
 ## Contacts [/contacts]
 
-### contacts.list [GET /contacts.list{?amount,pageno}]
+### /getContacts.php [GET /getContacts.php{?amount,pageno}]
 
 Get a paginated list of contacts
 
@@ -122,7 +122,7 @@ Get a paginated list of contacts
 
     + Attributes (array[Contact])
 
-### contacts.info [POST /contacts.info]
+### /getContact.php [POST /getContact.php]
 
 Get a paginated list of contacts
 
@@ -135,7 +135,7 @@ Get a paginated list of contacts
 
     + Attributes (Contact)
 
-### contacts.byCompany [POST /contacts.byCompany]
+### /getContactsByCompany.php [POST /getContactsByCompany.php]
 
 Get a paginated list of contacts
 
@@ -148,7 +148,7 @@ Get a paginated list of contacts
 
     + Attributes (array[Contact])
 
-### contacts.add [POST /contacts.add]
+### /addContact.php [POST /addContact.php]
 
 Add a contact to Teamleader
 
@@ -209,7 +209,7 @@ Add a contact to Teamleader
             "id": 1163240
         }
 
-### contacts.update [POST /contacts.update]
+### /updateContact.php [POST /updateContact.php]
 
 Update a Teamleader contact
 
@@ -249,7 +249,7 @@ Update a Teamleader contact
             "status":"OK"
         }
 
-### contacts.delete [POST /contacts.delete]
+### /deleteContact.php [POST /deleteContact.php]
 
 Delete a contact from Teamleader
 
@@ -264,7 +264,7 @@ Delete a contact from Teamleader
             "status": "success"
         }
 
-### contacts.link [POST /contacts.link]
+### /linkContactToCompany.php [POST /linkContactToCompany.php]
 
 Linking a contact to a company
 
@@ -273,22 +273,10 @@ Linking a contact to a company
     + Attributes (object)
         + contact_id: `123` (number, required) - The ID of a contact
         + company_id: `5` (number, required) - The ID of a company
-
-+ Response 200 (application/json)
-
-        {
-            "status": "success"
-        }
-
-### contacts.unlink [POST /contacts.unlink]
-
-Unlinks a contact from a company
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + contact_id: `123` (number, required) - The ID of a contact
-        + company_id: `5` (number, required) - The ID of a company
+        + mode: `link` (enum[string], required) - Wether you want to link or unlink a contact.
+            + Members
+                + link
+                + unlink
 
 + Response 200 (application/json)
 
@@ -298,7 +286,7 @@ Unlinks a contact from a company
 
 ## Companies [/companies]
 
-### companies.list [POST /companies.list]
+### /getCompanies.php [POST /getCompanies.php]
 
 Search companies
 
@@ -317,7 +305,7 @@ Search companies
 
     + Attributes (array[Company])
 
-### companies.info [POST /companies.info]
+### /getCompany.php [POST /getCompany.php]
 
 Get company info
 
@@ -330,7 +318,7 @@ Get company info
 
     + Attributes (Company)
 
-### companies.add [POST /companies.add]
+### /addCompany.php [POST /addCompany.php]
 
 Add a Teamleader company
 
@@ -383,7 +371,7 @@ Add a Teamleader company
             "id":"1"
         }
 
-### companies.update [POST /companies.update]
+### /updateCompany.php [POST /updateCompany.php]
 
 Update a Teamleader company
 
@@ -419,7 +407,7 @@ Update a Teamleader company
             "status":"OK"
         }
 
-### companies.delete [POST /companies.delete]
+### /deleteCompany.php [POST /deleteCompany.php]
 
 Delete a company from Teamleader
 
@@ -434,7 +422,7 @@ Delete a company from Teamleader
             "status": "success"
         }
 
-### businessTypes.list [POST /businessTypes.list]
+### /getBusinessTypes.php [POST /getBusinessTypes.php]
 
 Get the names of business types (legal structures) a company can have within a certain country.
 
@@ -456,7 +444,7 @@ Get the names of business types (legal structures) a company can have within a c
 
 ## Deals [/deals]
 
-### deals.add [POST /deals.add]
+### /addDeal.php [POST /addDeal.php]
 
 Add a deal for a contact or company.
 
@@ -501,7 +489,7 @@ Add a deal for a contact or company.
             "id": 165655
         }
 
-### deals.update [POST /deals.update]
+### /updateDeal.php [POST /updateDeal.php]
 
 Update a deal
 
@@ -532,7 +520,7 @@ Update a deal
             "status": "OK"
         }
 
-### deals.updateItems [POST /deals.updateItems]
+### /updateDealItems.php [POST /updateDealItems.php]
 
 Update a deal's items
 
@@ -553,7 +541,7 @@ Update a deal's items
             "status": "OK"
         }
 
-### deals.sendToClient [POST /deals.sendToClient]
+### /sendSaleToClient.php [POST /sendSaleToClient.php]
 
 Send a deal via email to client
 
@@ -572,7 +560,7 @@ Send a deal via email to client
             "status": "OK"
         }
 
-### deals.list [GET /deals.list]
+### /getDeals.php [GET /getDeals.php]
 
 Get a list of all deals
 
@@ -590,7 +578,7 @@ Get a list of all deals
 
     + Attributes (array[Deal])
 
-### deals.byContactOrCompany [POST /deals.byContactOrCompany]
+### /getDealsByContactOrCompany.php [POST /getDealsByContactOrCompany.php]
 
 Get a list of all deals by contact or company
 
@@ -612,7 +600,7 @@ Get a list of all deals by contact or company
             }
         ]
 
-### deals.byProject [POST /deals.byProject]
+### /getDealsByProject.php [POST /getDealsByProject.php]
 
 Get a list of all deals by project
 
@@ -629,7 +617,7 @@ Get a list of all deals by project
             }
         ]
 
-### deals.info [POST /deals.info]
+### /getDeal.php [POST /getDeal.php]
 
 Get deal details
 
@@ -642,7 +630,7 @@ Get deal details
 
     + Attributes (Deal)
 
-### deals.phaseChanges [POST /deals.phaseChanges]
+### /getDealPhaseChanges.php [POST /getDealPhaseChanges.php]
 
 Get a list of a deal phase changes
 
@@ -663,7 +651,7 @@ Get a list of a deal phase changes
             }
         ]
 
-### deals.phases [GET /deals.phases]
+### /getDealPhases.php [GET /getDealPhases.php]
 
 Get a list of all phases a deal can go through
 
@@ -680,7 +668,7 @@ Get a list of all phases a deal can go through
             }
         ]
 
-### deals.sources [GET /deals.sources]
+### /getDealSources.php [GET /getDealSources.php]
 
 Get a list of all deal sources
 
@@ -699,7 +687,7 @@ Get a list of all deal sources
 
 ## Invoices [/invoices]
 
-### invoices.list [POST /invoices.list]
+### /getInvoices.php [POST /getInvoices.php]
 
 Search invoices
 
