@@ -28,7 +28,7 @@ If you don't want to execute the above command manually every time you change th
 #!/bin/sh
 git diff --cached --name-status | while read st file; do
 	dir=$(dirname "$file")
-	if [ $dir = "src" ]
+	if [[ $dir == src* ]]
 	then
 		echo "Generating apiary.apib"
 		hercule src/apiary.apib -o apiary.apib
