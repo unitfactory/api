@@ -26,9 +26,16 @@ If you don't want to execute the above command manually every time you change th
 
 ```bash
 #!/bin/sh
-echo "Generating apiary.apib"
-hercule src/apiary.apib -o apiary.apib
-git add apiary.apib
+git diff --cached --name-status | while read st file; do
+	dir=$(dirname "$file")
+	if [ $dir = "src" ]
+	then
+		echo "Generating apiary.apib"
+		hercule src/apiary.apib -o apiary.apib
+		git add apiary.apib
+		break
+	fi
+done
 ```
 
 The `pre-commit` hook file is placed in the `.git/hooks` folder. 
