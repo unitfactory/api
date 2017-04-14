@@ -1,0 +1,15 @@
+## Invoices [/invoices]
+
+### /getInvoices.php [POST /getInvoices.php]
+
+Search invoices
+
++ Request (application/json)
+
+    + Attributes (object)
+        + `date_from`: `01/01/2017` (string, required) - Format: dd/mm/yyyy
+        + `date_to`: `31/12/2017` (string, required) - Format: dd/mm/yyyy
+
++ Response 200 (application/json)
+
+    + Attributes (array[Invoice])

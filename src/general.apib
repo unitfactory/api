@@ -1,0 +1,101 @@
+## General [/]
+
+### /getUsers.php [GET /getUsers.php]
+
+Get a list of all users
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id":1,
+                "name":"John Smith",
+                "email":"john@teamleader.eu",
+                "gsm":"+32412654321",
+                "telephone":"+3291239843",
+                "team_id":1,
+                "title":"Sales",
+                "active":1
+            },
+            {
+                "id":2,
+                "name":"Jane Doe",
+                "email":"jane@teamleader.eu",
+                "gsm":"+32412654322",
+                "telephone":"3291239844",
+                "team_id":1,
+                "title":"Designer",
+                "active":1
+            }
+        ]
+
+### /getDepartments.php [GET /getDepartments.php]
+
+Get a list of all departments
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id":1,
+                "name":"Sales"
+            },
+            {
+                "id":2,
+                "name":"Customer Support"
+            }
+        ]
+
+
+### getTags.php [GET /getTags.php]
+
+Get a list of all tags
+
++ Response 200 (application/json)
+
+        {
+            "1": "A Tag",
+            "2": "Another Tag",
+            "3": "Tagtastic"
+        }
+
+### /getSegments.php [POST /getSegments.php]
+
+Get a list of all segments
+
++ Request (application/json)
+
+    + Attributes (object)
+        + `object_type`: `crm_companies` (enum[string], required)
+
+            Pick one of the possible values.
+
+            + Members
+                + crm_companies
+                + crm_contacts
+                + crm_todos
+                + crm_callbacks
+                + crm_meetings
+                + inv_invoices
+                + inv_creditnotes
+                + pro_projects
+                + sale_sales
+                + ticket_tickets
+
++ Response 200 (application/json)
+
+        {
+            "Medewerkers": [
+                {
+                    "id": "owner--1",
+                    "name": "",
+                    "num_matches": -1
+                },
+                {
+                    "id": "owner-1",
+                    "name": "John Smith",
+                    "num_matches": -1
+                }
+            ],
+            "Smart segments": []
+        }
