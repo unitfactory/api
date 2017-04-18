@@ -16,6 +16,9 @@ Search invoices
         + contact_or_company_id: `1` (number, optional) - ID of the contact or company
         + deep_search: `1` (number, optional) Pass 1 to return not just invoices related to the requested contact, but also to invoices related to linked companies
         + selected_customfields: `1,2` (string, optional) - comma-separated list of the IDs of the custom fields you wish to select (max 10).
+        + project_id: `1` (number, optional) - The ID of the project you wish to filter by. If this parameter is set, all of the above are ignored.
+        + include_draft_invoices: `1` (number, optional) -  Set this parameter to 1 to include draft invoices. Only works in conjunction with `project_id`
+            + Default: `0`
 
 + Response 200 (application/json)
 
@@ -36,36 +39,7 @@ Search creditnotes
                 + company
         + contact_or_company_id: `1` (number, optional) - ID of the contact or company
         + deep_search: `1` (number, optional) Pass 1 to return not just invoices related to the requested contact, but also to invoices related to linked companies
-
-+ Response 200 (application/json)
-
-    + Attributes (array[Creditnote])
-
-### /invoices.byProject [POST /invoices.byProject]
-
-Search invoices
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + project_id: `1` (number, required)
-        + include_draft_invoices: `1` (number, optional) -  set this parameter to 1 to include draft invoices
-            + Default: `0`
-
-+ Response 200 (application/json)
-
-    + Attributes (array[Invoice])
-
-### /invoices.byProject [POST /invoices.byProject]
-
-Search creditnotes
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + project_id: `1` (number, required)
-        + include_draft_invoices: `1` (number, optional) -  set this parameter to 1 to include draft invoices
-            + Default: `0`
+        + project_id: `1` (number, optional) - The ID of the project you wish to filter by. If this parameter is set, all the others are ignored.
 
 + Response 200 (application/json)
 

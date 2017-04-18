@@ -109,7 +109,7 @@ Get a list of all segments
 
 ## Contacts [/contacts]
 
-### /contacts.list [GET /contacts.list{?amount,pageno}]
+### /contacts.list [GET /contacts.list{?amount,pageno,company_id}]
 
 Get a paginated list of contacts
 
@@ -117,6 +117,7 @@ Get a paginated list of contacts
 
     + amount: `20` (number, required) - Amount of contacts you want returned, 1 to 100.
     + pageno: `0` (number, required) - The numerated page you want, starts at 0.
+    + company_id: `1` (number, optional) - Filter contacts by a certain company.
 
 + Response 200 (application/json)
 
@@ -134,19 +135,6 @@ Get a paginated list of contacts
 + Response 200 (application/json)
 
     + Attributes (Contact)
-
-### /contacts.byCompany [POST /contacts.byCompany]
-
-Get a paginated list of contacts
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + `company_id`: `1` (number, required)
-
-+ Response 200 (application/json)
-
-    + Attributes (array[Contact])
 
 ### /contacts.create [POST /contacts.create]
 
@@ -578,18 +566,32 @@ Get a list of all deals
 
     + Attributes (array[Deal])
 
-### /deals.byContactOrCompany [POST /deals.byContactOrCompany]
+### /deals.byContact [POST /deals.byContact]
 
-Get a list of all deals by contact or company
+Get a list of all deals by contact
 
 + Request (application/json)
 
     + Attributes (object)
-        + contact_or_company: `company` (enum[string], required) - Who is related to this deal?
-            + Members
-                + company
-                + contact
-        + contact_or_company_id: `1` (number, required) - ID of the related contact or company
+        + contact_id: `1` (number, required) - ID of the related contact
+
++ Response 200 (application/json)
+
+        [
+            {
+                "deal_id": 1,
+                "phase_id": 5
+            }
+        ]
+
+### /deals.byCompany [POST /deals.byCompany]
+
+Get a list of all deals by company
+
++ Request (application/json)
+
+    + Attributes (object)
+        + company_id: `1` (number, required) - ID of the related company
 
 + Response 200 (application/json)
 
@@ -703,6 +705,9 @@ Search invoices
         + contact_or_company_id: `1` (number, optional) - ID of the contact or company
         + deep_search: `1` (number, optional) Pass 1 to return not just invoices related to the requested contact, but also to invoices related to linked companies
         + selected_customfields: `1,2` (string, optional) - comma-separated list of the IDs of the custom fields you wish to select (max 10).
+        + project_id: `1` (number, optional) - The ID of the project you wish to filter by. If this parameter is set, all of the above are ignored.
+        + include_draft_invoices: `1` (number, optional) -  Set this parameter to 1 to include draft invoices. Only works in conjunction with `project_id`
+            + Default: `0`
 
 + Response 200 (application/json)
 
@@ -723,36 +728,7 @@ Search creditnotes
                 + company
         + contact_or_company_id: `1` (number, optional) - ID of the contact or company
         + deep_search: `1` (number, optional) Pass 1 to return not just invoices related to the requested contact, but also to invoices related to linked companies
-
-+ Response 200 (application/json)
-
-    + Attributes (array[Creditnote])
-
-### /invoices.byProject [POST /invoices.byProject]
-
-Search invoices
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + project_id: `1` (number, required)
-        + include_draft_invoices: `1` (number, optional) -  set this parameter to 1 to include draft invoices
-            + Default: `0`
-
-+ Response 200 (application/json)
-
-    + Attributes (array[Invoice])
-
-### /invoices.byProject [POST /invoices.byProject]
-
-Search creditnotes
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + project_id: `1` (number, required)
-        + include_draft_invoices: `1` (number, optional) -  set this parameter to 1 to include draft invoices
-            + Default: `0`
+        + project_id: `1` (number, optional) - The ID of the project you wish to filter by. If this parameter is set, all the others are ignored.
 
 + Response 200 (application/json)
 

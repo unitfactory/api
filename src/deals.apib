@@ -134,18 +134,32 @@ Get a list of all deals
 
     + Attributes (array[Deal])
 
-### /deals.byContactOrCompany [POST /deals.byContactOrCompany]
+### /deals.byContact [POST /deals.byContact]
 
-Get a list of all deals by contact or company
+Get a list of all deals by contact
 
 + Request (application/json)
 
     + Attributes (object)
-        + contact_or_company: `company` (enum[string], required) - Who is related to this deal?
-            + Members
-                + company
-                + contact
-        + contact_or_company_id: `1` (number, required) - ID of the related contact or company
+        + contact_id: `1` (number, required) - ID of the related contact
+
++ Response 200 (application/json)
+
+        [
+            {
+                "deal_id": 1,
+                "phase_id": 5
+            }
+        ]
+
+### /deals.byCompany [POST /deals.byCompany]
+
+Get a list of all deals by company
+
++ Request (application/json)
+
+    + Attributes (object)
+        + company_id: `1` (number, required) - ID of the related company
 
 + Response 200 (application/json)
 

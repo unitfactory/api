@@ -1,6 +1,6 @@
 ## Contacts [/contacts]
 
-### /contacts.list [GET /contacts.list{?amount,pageno}]
+### /contacts.list [GET /contacts.list{?amount,pageno,company_id}]
 
 Get a paginated list of contacts
 
@@ -8,6 +8,7 @@ Get a paginated list of contacts
 
     + amount: `20` (number, required) - Amount of contacts you want returned, 1 to 100.
     + pageno: `0` (number, required) - The numerated page you want, starts at 0.
+    + company_id: `1` (number, optional) - Filter contacts by a certain company.
 
 + Response 200 (application/json)
 
@@ -25,19 +26,6 @@ Get a paginated list of contacts
 + Response 200 (application/json)
 
     + Attributes (Contact)
-
-### /contacts.byCompany [POST /contacts.byCompany]
-
-Get a paginated list of contacts
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + `company_id`: `1` (number, required)
-
-+ Response 200 (application/json)
-
-    + Attributes (array[Contact])
 
 ### /contacts.create [POST /contacts.create]
 
