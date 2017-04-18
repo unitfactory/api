@@ -7,8 +7,15 @@ Search invoices
 + Request (application/json)
 
     + Attributes (object)
-        + `date_from`: `01/01/2017` (string, required) - Format: dd/mm/yyyy
-        + `date_to`: `31/12/2017` (string, required) - Format: dd/mm/yyyy
+        + date_from: `01/01/2017` (string, required) - Format: dd/mm/yyyy
+        + date_to: `31/12/2017` (string, required) - Format: dd/mm/yyyy
+        + contact_or_company: `contact` (enum[string], optional) - Use this to filter by client
+            + Members
+                + contact
+                + company
+        + contact_or_company_id: `1` (number, optional) - ID of the contact or company
+        + deep_search: `1` (number, optional) Pass 1 to return not just invoices related to the requested contact, but also to invoices related to linked companies
+        + selected_customfields: `1,2` (string, optional) - comma-separated list of the IDs of the custom fields you wish to select (max 10).
 
 + Response 200 (application/json)
 
@@ -23,6 +30,42 @@ Search creditnotes
     + Attributes (object)
         + `date_from`: `01/01/2017` (string, required) - Format: dd/mm/yyyy
         + `date_to`: `31/12/2017` (string, required) - Format: dd/mm/yyyy
+        + contact_or_company: `contact` (enum[string], optional) - Use this to filter by client
+            + Members
+                + contact
+                + company
+        + contact_or_company_id: `1` (number, optional) - ID of the contact or company
+        + deep_search: `1` (number, optional) Pass 1 to return not just invoices related to the requested contact, but also to invoices related to linked companies
+
++ Response 200 (application/json)
+
+    + Attributes (array[Creditnote])
+
+### /getInvoicesByProject.php [POST /getInvoicesByProject.php]
+
+Search invoices
+
++ Request (application/json)
+
+    + Attributes (object)
+        + project_id: `1` (number, required)
+        + include_draft_invoices: `1` (number, optional) -  set this parameter to 1 to include draft invoices
+            + Default: `0`
+
++ Response 200 (application/json)
+
+    + Attributes (array[Invoice])
+
+### /getCreditnotesByProject.php [POST /getCreditnotesByProject.php]
+
+Search creditnotes
+
++ Request (application/json)
+
+    + Attributes (object)
+        + project_id: `1` (number, required)
+        + include_draft_invoices: `1` (number, optional) -  set this parameter to 1 to include draft invoices
+            + Default: `0`
 
 + Response 200 (application/json)
 
