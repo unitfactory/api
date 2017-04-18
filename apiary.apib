@@ -66,7 +66,7 @@ Get a list of all tags
             "3": "Tagtastic"
         }
 
-### /segments.list [POST /segments.list]
+### /segments.list [GET /segments.list]
 
 Get a list of all segments
 
@@ -123,7 +123,7 @@ Get a paginated list of contacts
 
     + Attributes (array[Contact])
 
-### /contacts.info [POST /contacts.info]
+### /contacts.info [GET /contacts.info]
 
 Get a paginated list of contacts
 
@@ -274,7 +274,7 @@ Linking a contact to a company
 
 ## Companies [/companies]
 
-### /companies.list [POST /companies.list]
+### /companies.list [GET /companies.list]
 
 Search companies
 
@@ -293,7 +293,7 @@ Search companies
 
     + Attributes (array[Company])
 
-### /companies.info [POST /companies.info]
+### /companies.info [GET /companies.info]
 
 Get company info
 
@@ -410,7 +410,7 @@ Delete a company from Teamleader
             "status": "success"
         }
 
-### /businessTypes.list [POST /businessTypes.list]
+### /businessTypes.list [GET /businessTypes.list]
 
 Get the names of business types (legal structures) a company can have within a certain country.
 
@@ -566,7 +566,7 @@ Get a list of all deals
 
     + Attributes (array[Deal])
 
-### /deals.byContact [POST /deals.byContact]
+### /deals.byContact [GET /deals.byContact]
 
 Get a list of all deals by contact
 
@@ -584,7 +584,7 @@ Get a list of all deals by contact
             }
         ]
 
-### /deals.byCompany [POST /deals.byCompany]
+### /deals.byCompany [GET /deals.byCompany]
 
 Get a list of all deals by company
 
@@ -602,7 +602,7 @@ Get a list of all deals by company
             }
         ]
 
-### /deals.byProject [POST /deals.byProject]
+### /deals.byProject [GET /deals.byProject]
 
 Get a list of all deals by project
 
@@ -619,7 +619,7 @@ Get a list of all deals by project
             }
         ]
 
-### /deals.info [POST /deals.info]
+### /deals.info [GET /deals.info]
 
 Get deal details
 
@@ -632,7 +632,7 @@ Get deal details
 
     + Attributes (Deal)
 
-### /deals.phases.changes [POST /deals.phases.changes]
+### /deals.phases.changes [GET /deals.phases.changes]
 
 Get a list of a deal phase changes
 
@@ -689,7 +689,7 @@ Get a list of all deal sources
 
 ## Invoices [/invoices]
 
-### /invoices.list [POST /invoices.list]
+### /invoices.list [GET /invoices.list]
 
 Search invoices
 
@@ -713,7 +713,7 @@ Search invoices
 
     + Attributes (array[Invoice])
 
-### /creditNotes.list [POST /creditNotes.list]
+### /creditNotes.list [GET /creditNotes.list]
 
 Search creditnotes
 
