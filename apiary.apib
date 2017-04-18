@@ -7,7 +7,7 @@ This is the Teamleader API v2 documentation.
 
 ## General [/]
 
-### /getUsers.php [GET /getUsers.php]
+### /users.list [GET /users.list]
 
 Get a list of all users
 
@@ -36,7 +36,7 @@ Get a list of all users
             }
         ]
 
-### /getDepartments.php [GET /getDepartments.php]
+### /departments.list [GET /departments.list]
 
 Get a list of all departments
 
@@ -54,7 +54,7 @@ Get a list of all departments
         ]
 
 
-### getTags.php [GET /getTags.php]
+### tags.list [GET /tags.list]
 
 Get a list of all tags
 
@@ -66,7 +66,7 @@ Get a list of all tags
             "3": "Tagtastic"
         }
 
-### /getSegments.php [POST /getSegments.php]
+### /segments.list [POST /segments.list]
 
 Get a list of all segments
 
@@ -109,7 +109,7 @@ Get a list of all segments
 
 ## Contacts [/contacts]
 
-### /getContacts.php [GET /getContacts.php{?amount,pageno}]
+### /contacts.list [GET /contacts.list{?amount,pageno}]
 
 Get a paginated list of contacts
 
@@ -122,7 +122,7 @@ Get a paginated list of contacts
 
     + Attributes (array[Contact])
 
-### /getContact.php [POST /getContact.php]
+### /contacts.info [POST /contacts.info]
 
 Get a paginated list of contacts
 
@@ -135,7 +135,7 @@ Get a paginated list of contacts
 
     + Attributes (Contact)
 
-### /getContactsByCompany.php [POST /getContactsByCompany.php]
+### /contacts.byCompany [POST /contacts.byCompany]
 
 Get a paginated list of contacts
 
@@ -148,7 +148,7 @@ Get a paginated list of contacts
 
     + Attributes (array[Contact])
 
-### /addContact.php [POST /addContact.php]
+### /contacts.create [POST /contacts.create]
 
 Add a contact to Teamleader
 
@@ -209,7 +209,7 @@ Add a contact to Teamleader
             "id": 1163240
         }
 
-### /updateContact.php [POST /updateContact.php]
+### /contacts.update [POST /contacts.update]
 
 Update a Teamleader contact
 
@@ -249,7 +249,7 @@ Update a Teamleader contact
             "status":"OK"
         }
 
-### /deleteContact.php [POST /deleteContact.php]
+### /contacts.delete [POST /contacts.delete]
 
 Delete a contact from Teamleader
 
@@ -264,7 +264,7 @@ Delete a contact from Teamleader
             "status": "success"
         }
 
-### /linkContactToCompany.php [POST /linkContactToCompany.php]
+### /contacts.linkToCompany [POST /contacts.linkToCompany]
 
 Linking a contact to a company
 
@@ -286,7 +286,7 @@ Linking a contact to a company
 
 ## Companies [/companies]
 
-### /getCompanies.php [POST /getCompanies.php]
+### /companies.list [POST /companies.lost]
 
 Search companies
 
@@ -305,7 +305,7 @@ Search companies
 
     + Attributes (array[Company])
 
-### /getCompany.php [POST /getCompany.php]
+### /companies.info [POST /companies.info]
 
 Get company info
 
@@ -318,7 +318,7 @@ Get company info
 
     + Attributes (Company)
 
-### /addCompany.php [POST /addCompany.php]
+### /companies.create [POST /companies.create]
 
 Add a Teamleader company
 
@@ -371,7 +371,7 @@ Add a Teamleader company
             "id":"1"
         }
 
-### /updateCompany.php [POST /updateCompany.php]
+### /companies.update [POST /companies.update]
 
 Update a Teamleader company
 
@@ -407,7 +407,7 @@ Update a Teamleader company
             "status":"OK"
         }
 
-### /deleteCompany.php [POST /deleteCompany.php]
+### /companies.delete [POST /deleteCompany.php]
 
 Delete a company from Teamleader
 
@@ -422,7 +422,7 @@ Delete a company from Teamleader
             "status": "success"
         }
 
-### /getBusinessTypes.php [POST /getBusinessTypes.php]
+### /businessTypes.list [POST /businessTypes.list]
 
 Get the names of business types (legal structures) a company can have within a certain country.
 
@@ -444,7 +444,7 @@ Get the names of business types (legal structures) a company can have within a c
 
 ## Deals [/deals]
 
-### /addDeal.php [POST /addDeal.php]
+### /deals.create [POST /deals.create]
 
 Add a deal for a contact or company.
 
@@ -489,7 +489,7 @@ Add a deal for a contact or company.
             "id": 165655
         }
 
-### /updateDeal.php [POST /updateDeal.php]
+### /deals.update [POST /deals.update]
 
 Update a deal
 
@@ -520,7 +520,7 @@ Update a deal
             "status": "OK"
         }
 
-### /updateDealItems.php [POST /updateDealItems.php]
+### /deals.items.update [POST /updateDealItems.php]
 
 Update a deal's items
 
@@ -541,7 +541,7 @@ Update a deal's items
             "status": "OK"
         }
 
-### /sendSaleToClient.php [POST /sendSaleToClient.php]
+### /deals.sendSaleToClient [POST /deals.sendSaleToClient]
 
 Send a deal via email to client
 
@@ -560,7 +560,7 @@ Send a deal via email to client
             "status": "OK"
         }
 
-### /getDeals.php [GET /getDeals.php]
+### /deals.list [GET /deals.list]
 
 Get a list of all deals
 
@@ -578,7 +578,7 @@ Get a list of all deals
 
     + Attributes (array[Deal])
 
-### /getDealsByContactOrCompany.php [POST /getDealsByContactOrCompany.php]
+### /deals.byContactOrCompany [POST /deals.byContactOrCompany]
 
 Get a list of all deals by contact or company
 
@@ -600,7 +600,7 @@ Get a list of all deals by contact or company
             }
         ]
 
-### /getDealsByProject.php [POST /getDealsByProject.php]
+### /deals.byProject [POST /deals.byProject]
 
 Get a list of all deals by project
 
@@ -617,7 +617,7 @@ Get a list of all deals by project
             }
         ]
 
-### /getDeal.php [POST /getDeal.php]
+### /deals.info [POST /deals.info]
 
 Get deal details
 
@@ -630,7 +630,7 @@ Get deal details
 
     + Attributes (Deal)
 
-### /getDealPhaseChanges.php [POST /getDealPhaseChanges.php]
+### /deals.phaseChanges.list [POST /deals.phaseChanges.list]
 
 Get a list of a deal phase changes
 
@@ -651,7 +651,7 @@ Get a list of a deal phase changes
             }
         ]
 
-### /getDealPhases.php [GET /getDealPhases.php]
+### /phaseChanges.list [GET /phaseChanges.list]
 
 Get a list of all phases a deal can go through
 
@@ -668,7 +668,7 @@ Get a list of all phases a deal can go through
             }
         ]
 
-### /getDealSources.php [GET /getDealSources.php]
+### /deals.sources.list [GET /deals.sources.list]
 
 Get a list of all deal sources
 
@@ -687,7 +687,7 @@ Get a list of all deal sources
 
 ## Invoices [/invoices]
 
-### /getInvoices.php [POST /getInvoices.php]
+### /invoices.list [POST /invoices.list]
 
 Search invoices
 
@@ -708,7 +708,7 @@ Search invoices
 
     + Attributes (array[Invoice])
 
-### /getCreditnotes.php [POST /getCreditnotes.php]
+### /creditnotes.list [POST /creditnotes.list]
 
 Search creditnotes
 
@@ -728,7 +728,7 @@ Search creditnotes
 
     + Attributes (array[Creditnote])
 
-### /getInvoicesByProject.php [POST /getInvoicesByProject.php]
+### /invoices.byProject [POST /invoices.byProject]
 
 Search invoices
 
@@ -743,7 +743,7 @@ Search invoices
 
     + Attributes (array[Invoice])
 
-### /getCreditnotesByProject.php [POST /getCreditnotesByProject.php]
+### /invoices.byProject [POST /invoices.byProject]
 
 Search creditnotes
 

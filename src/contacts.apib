@@ -1,6 +1,6 @@
 ## Contacts [/contacts]
 
-### /getContacts.php [GET /getContacts.php{?amount,pageno}]
+### /contacts.list [GET /contacts.list{?amount,pageno}]
 
 Get a paginated list of contacts
 
@@ -13,7 +13,7 @@ Get a paginated list of contacts
 
     + Attributes (array[Contact])
 
-### /getContact.php [POST /getContact.php]
+### /contacts.info [POST /contacts.info]
 
 Get a paginated list of contacts
 
@@ -26,7 +26,7 @@ Get a paginated list of contacts
 
     + Attributes (Contact)
 
-### /getContactsByCompany.php [POST /getContactsByCompany.php]
+### /contacts.byCompany [POST /contacts.byCompany]
 
 Get a paginated list of contacts
 
@@ -39,7 +39,7 @@ Get a paginated list of contacts
 
     + Attributes (array[Contact])
 
-### /addContact.php [POST /addContact.php]
+### /contacts.create [POST /contacts.create]
 
 Add a contact to Teamleader
 
@@ -100,7 +100,7 @@ Add a contact to Teamleader
             "id": 1163240
         }
 
-### /updateContact.php [POST /updateContact.php]
+### /contacts.update [POST /contacts.update]
 
 Update a Teamleader contact
 
@@ -140,7 +140,7 @@ Update a Teamleader contact
             "status":"OK"
         }
 
-### /deleteContact.php [POST /deleteContact.php]
+### /contacts.delete [POST /contacts.delete]
 
 Delete a contact from Teamleader
 
@@ -155,7 +155,7 @@ Delete a contact from Teamleader
             "status": "success"
         }
 
-### /linkContactToCompany.php [POST /linkContactToCompany.php]
+### /contacts.linkToCompany [POST /contacts.linkToCompany]
 
 Linking a contact to a company
 

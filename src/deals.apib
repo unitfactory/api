@@ -1,6 +1,6 @@
 ## Deals [/deals]
 
-### /addDeal.php [POST /addDeal.php]
+### /deals.create [POST /deals.create]
 
 Add a deal for a contact or company.
 
@@ -45,7 +45,7 @@ Add a deal for a contact or company.
             "id": 165655
         }
 
-### /updateDeal.php [POST /updateDeal.php]
+### /deals.update [POST /deals.update]
 
 Update a deal
 
@@ -76,7 +76,7 @@ Update a deal
             "status": "OK"
         }
 
-### /updateDealItems.php [POST /updateDealItems.php]
+### /deals.items.update [POST /updateDealItems.php]
 
 Update a deal's items
 
@@ -97,7 +97,7 @@ Update a deal's items
             "status": "OK"
         }
 
-### /sendSaleToClient.php [POST /sendSaleToClient.php]
+### /deals.sendSaleToClient [POST /deals.sendSaleToClient]
 
 Send a deal via email to client
 
@@ -116,7 +116,7 @@ Send a deal via email to client
             "status": "OK"
         }
 
-### /getDeals.php [GET /getDeals.php]
+### /deals.list [GET /deals.list]
 
 Get a list of all deals
 
@@ -134,7 +134,7 @@ Get a list of all deals
 
     + Attributes (array[Deal])
 
-### /getDealsByContactOrCompany.php [POST /getDealsByContactOrCompany.php]
+### /deals.byContactOrCompany [POST /deals.byContactOrCompany]
 
 Get a list of all deals by contact or company
 
@@ -156,7 +156,7 @@ Get a list of all deals by contact or company
             }
         ]
 
-### /getDealsByProject.php [POST /getDealsByProject.php]
+### /deals.byProject [POST /deals.byProject]
 
 Get a list of all deals by project
 
@@ -173,7 +173,7 @@ Get a list of all deals by project
             }
         ]
 
-### /getDeal.php [POST /getDeal.php]
+### /deals.info [POST /deals.info]
 
 Get deal details
 
@@ -186,7 +186,7 @@ Get deal details
 
     + Attributes (Deal)
 
-### /getDealPhaseChanges.php [POST /getDealPhaseChanges.php]
+### /deals.phaseChanges.list [POST /deals.phaseChanges.list]
 
 Get a list of a deal phase changes
 
@@ -207,7 +207,7 @@ Get a list of a deal phase changes
             }
         ]
 
-### /getDealPhases.php [GET /getDealPhases.php]
+### /phaseChanges.list [GET /phaseChanges.list]
 
 Get a list of all phases a deal can go through
 
@@ -224,7 +224,7 @@ Get a list of all phases a deal can go through
             }
         ]
 
-### /getDealSources.php [GET /getDealSources.php]
+### /deals.sources.list [GET /deals.sources.list]
 
 Get a list of all deal sources
 
