@@ -152,10 +152,22 @@ Linking a contact to a company
     + Attributes (object)
         + contact_id: `123` (number, required) - The ID of a contact
         + company_id: `5` (number, required) - The ID of a company
-        + mode: `link` (enum[string], required) - Wether you want to link or unlink a contact.
-            + Members
-                + link
-                + unlink
+
++ Response 200 (application/json)
+
+        {
+            "status": "success"
+        }
+
+### /contacts.unlinkFromCompany [POST /contacts.unlinkFromCompany]
+
+Unlinking a contact from a company
+
++ Request (application/json)
+
+    + Attributes (object)
+        + contact_id: `123` (number, required) - The ID of a contact
+        + company_id: `5` (number, required) - The ID of a company
 
 + Response 200 (application/json)
 
