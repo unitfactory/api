@@ -1,6 +1,6 @@
 ## Companies [/companies]
 
-### /getCompanies.php [POST /getCompanies.php]
+### /companies.list [GET /companies.list]
 
 Search companies
 
@@ -19,7 +19,7 @@ Search companies
 
     + Attributes (array[Company])
 
-### /getCompany.php [POST /getCompany.php]
+### /companies.info [GET /companies.info]
 
 Get company info
 
@@ -32,7 +32,7 @@ Get company info
 
     + Attributes (Company)
 
-### /addCompany.php [POST /addCompany.php]
+### /companies.create [POST /companies.create]
 
 Add a Teamleader company
 
@@ -85,7 +85,7 @@ Add a Teamleader company
             "id":"1"
         }
 
-### /updateCompany.php [POST /updateCompany.php]
+### /companies.update [POST /companies.update]
 
 Update a Teamleader company
 
@@ -121,7 +121,7 @@ Update a Teamleader company
             "status":"OK"
         }
 
-### /deleteCompany.php [POST /deleteCompany.php]
+### /companies.delete [POST /companies.delete]
 
 Delete a company from Teamleader
 
@@ -136,7 +136,7 @@ Delete a company from Teamleader
             "status": "success"
         }
 
-### /getBusinessTypes.php [POST /getBusinessTypes.php]
+### /businessTypes.list [GET /businessTypes.list]
 
 Get the names of business types (legal structures) a company can have within a certain country.
 

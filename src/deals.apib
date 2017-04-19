@@ -1,6 +1,6 @@
 ## Deals [/deals]
 
-### /addDeal.php [POST /addDeal.php]
+### /deals.create [POST /deals.create]
 
 Add a deal for a contact or company.
 
@@ -45,7 +45,7 @@ Add a deal for a contact or company.
             "id": 165655
         }
 
-### /updateDeal.php [POST /updateDeal.php]
+### /deals.update [POST /deals.update]
 
 Update a deal
 
@@ -76,7 +76,7 @@ Update a deal
             "status": "OK"
         }
 
-### /updateDealItems.php [POST /updateDealItems.php]
+### /deals.items.update [POST /deals.items.update]
 
 Update a deal's items
 
@@ -97,9 +97,9 @@ Update a deal's items
             "status": "OK"
         }
 
-### /sendSaleToClient.php [POST /sendSaleToClient.php]
+### /deals.quotation.emailToClient [POST /deals.quotation.emailToClient]
 
-Send a deal via email to client
+Send a deal's quotation via email to a client
 
 + Request (application/json)
 
@@ -116,7 +116,7 @@ Send a deal via email to client
             "status": "OK"
         }
 
-### /getDeals.php [GET /getDeals.php]
+### /deals.list [GET /deals.list]
 
 Get a list of all deals
 
@@ -134,18 +134,14 @@ Get a list of all deals
 
     + Attributes (array[Deal])
 
-### /getDealsByContactOrCompany.php [POST /getDealsByContactOrCompany.php]
+### /deals.byContact [GET /deals.byContact]
 
-Get a list of all deals by contact or company
+Get a list of all deals by contact
 
 + Request (application/json)
 
     + Attributes (object)
-        + contact_or_company: `company` (enum[string], required) - Who is related to this deal?
-            + Members
-                + company
-                + contact
-        + contact_or_company_id: `1` (number, required) - ID of the related contact or company
+        + contact_id: `1` (number, required) - ID of the related contact
 
 + Response 200 (application/json)
 
@@ -156,7 +152,25 @@ Get a list of all deals by contact or company
             }
         ]
 
-### /getDealsByProject.php [POST /getDealsByProject.php]
+### /deals.byCompany [GET /deals.byCompany]
+
+Get a list of all deals by company
+
++ Request (application/json)
+
+    + Attributes (object)
+        + company_id: `1` (number, required) - ID of the related company
+
++ Response 200 (application/json)
+
+        [
+            {
+                "deal_id": 1,
+                "phase_id": 5
+            }
+        ]
+
+### /deals.byProject [GET /deals.byProject]
 
 Get a list of all deals by project
 
@@ -173,7 +187,7 @@ Get a list of all deals by project
             }
         ]
 
-### /getDeal.php [POST /getDeal.php]
+### /deals.info [GET /deals.info]
 
 Get deal details
 
@@ -186,7 +200,7 @@ Get deal details
 
     + Attributes (Deal)
 
-### /getDealPhaseChanges.php [POST /getDealPhaseChanges.php]
+### /deals.phases.changes [GET /deals.phases.changes]
 
 Get a list of a deal phase changes
 
@@ -207,7 +221,7 @@ Get a list of a deal phase changes
             }
         ]
 
-### /getDealPhases.php [GET /getDealPhases.php]
+### /deals.phases.list [GET /deals.phases.list]
 
 Get a list of all phases a deal can go through
 
@@ -224,7 +238,7 @@ Get a list of all phases a deal can go through
             }
         ]
 
-### /getDealSources.php [GET /getDealSources.php]
+### /deals.sources.list [GET /deals.sources.list]
 
 Get a list of all deal sources
 

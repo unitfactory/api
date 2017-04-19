@@ -7,7 +7,7 @@ This is the Teamleader API v2 documentation.
 
 ## General [/]
 
-### /getUsers.php [GET /getUsers.php]
+### /users.list [GET /users.list]
 
 Get a list of all users
 
@@ -36,7 +36,7 @@ Get a list of all users
             }
         ]
 
-### /getDepartments.php [GET /getDepartments.php]
+### /departments.list [GET /departments.list]
 
 Get a list of all departments
 
@@ -54,7 +54,7 @@ Get a list of all departments
         ]
 
 
-### getTags.php [GET /getTags.php]
+### tags.list [GET /tags.list]
 
 Get a list of all tags
 
@@ -66,7 +66,7 @@ Get a list of all tags
             "3": "Tagtastic"
         }
 
-### /getSegments.php [POST /getSegments.php]
+### /segments.list [GET /segments.list]
 
 Get a list of all segments
 
@@ -109,7 +109,7 @@ Get a list of all segments
 
 ## Contacts [/contacts]
 
-### /getContacts.php [GET /getContacts.php{?amount,pageno}]
+### /contacts.list [GET /contacts.list{?amount,pageno,company_id}]
 
 Get a paginated list of contacts
 
@@ -117,14 +117,15 @@ Get a paginated list of contacts
 
     + amount: `20` (number, required) - Amount of contacts you want returned, 1 to 100.
     + pageno: `0` (number, required) - The numerated page you want, starts at 0.
+    + company_id: `1` (number, optional) - Filter contacts by a certain company.
 
 + Response 200 (application/json)
 
     + Attributes (array[Contact])
 
-### /getContact.php [POST /getContact.php]
+### /contacts.info [GET /contacts.info]
 
-Get a paginated list of contacts
+Get the details for a single contact
 
 + Request (application/json)
 
@@ -135,20 +136,7 @@ Get a paginated list of contacts
 
     + Attributes (Contact)
 
-### /getContactsByCompany.php [POST /getContactsByCompany.php]
-
-Get a paginated list of contacts
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + `company_id`: `1` (number, required)
-
-+ Response 200 (application/json)
-
-    + Attributes (array[Contact])
-
-### /addContact.php [POST /addContact.php]
+### /contacts.create [POST /contacts.create]
 
 Add a contact to Teamleader
 
@@ -209,7 +197,7 @@ Add a contact to Teamleader
             "id": 1163240
         }
 
-### /updateContact.php [POST /updateContact.php]
+### /contacts.update [POST /contacts.update]
 
 Update a Teamleader contact
 
@@ -249,7 +237,7 @@ Update a Teamleader contact
             "status":"OK"
         }
 
-### /deleteContact.php [POST /deleteContact.php]
+### /contacts.delete [POST /contacts.delete]
 
 Delete a contact from Teamleader
 
@@ -264,7 +252,7 @@ Delete a contact from Teamleader
             "status": "success"
         }
 
-### /linkContactToCompany.php [POST /linkContactToCompany.php]
+### /contacts.linkToCompany [POST /contacts.linkToCompany]
 
 Linking a contact to a company
 
@@ -273,10 +261,22 @@ Linking a contact to a company
     + Attributes (object)
         + contact_id: `123` (number, required) - The ID of a contact
         + company_id: `5` (number, required) - The ID of a company
-        + mode: `link` (enum[string], required) - Wether you want to link or unlink a contact.
-            + Members
-                + link
-                + unlink
+
++ Response 200 (application/json)
+
+        {
+            "status": "success"
+        }
+
+### /contacts.unlinkFromCompany [POST /contacts.unlinkFromCompany]
+
+Unlinking a contact from a company
+
++ Request (application/json)
+
+    + Attributes (object)
+        + contact_id: `123` (number, required) - The ID of a contact
+        + company_id: `5` (number, required) - The ID of a company
 
 + Response 200 (application/json)
 
@@ -286,7 +286,7 @@ Linking a contact to a company
 
 ## Companies [/companies]
 
-### /getCompanies.php [POST /getCompanies.php]
+### /companies.list [GET /companies.list]
 
 Search companies
 
@@ -305,7 +305,7 @@ Search companies
 
     + Attributes (array[Company])
 
-### /getCompany.php [POST /getCompany.php]
+### /companies.info [GET /companies.info]
 
 Get company info
 
@@ -318,7 +318,7 @@ Get company info
 
     + Attributes (Company)
 
-### /addCompany.php [POST /addCompany.php]
+### /companies.create [POST /companies.create]
 
 Add a Teamleader company
 
@@ -371,7 +371,7 @@ Add a Teamleader company
             "id":"1"
         }
 
-### /updateCompany.php [POST /updateCompany.php]
+### /companies.update [POST /companies.update]
 
 Update a Teamleader company
 
@@ -407,7 +407,7 @@ Update a Teamleader company
             "status":"OK"
         }
 
-### /deleteCompany.php [POST /deleteCompany.php]
+### /companies.delete [POST /companies.delete]
 
 Delete a company from Teamleader
 
@@ -422,7 +422,7 @@ Delete a company from Teamleader
             "status": "success"
         }
 
-### /getBusinessTypes.php [POST /getBusinessTypes.php]
+### /businessTypes.list [GET /businessTypes.list]
 
 Get the names of business types (legal structures) a company can have within a certain country.
 
@@ -444,7 +444,7 @@ Get the names of business types (legal structures) a company can have within a c
 
 ## Deals [/deals]
 
-### /addDeal.php [POST /addDeal.php]
+### /deals.create [POST /deals.create]
 
 Add a deal for a contact or company.
 
@@ -489,7 +489,7 @@ Add a deal for a contact or company.
             "id": 165655
         }
 
-### /updateDeal.php [POST /updateDeal.php]
+### /deals.update [POST /deals.update]
 
 Update a deal
 
@@ -520,7 +520,7 @@ Update a deal
             "status": "OK"
         }
 
-### /updateDealItems.php [POST /updateDealItems.php]
+### /deals.items.update [POST /deals.items.update]
 
 Update a deal's items
 
@@ -541,9 +541,9 @@ Update a deal's items
             "status": "OK"
         }
 
-### /sendSaleToClient.php [POST /sendSaleToClient.php]
+### /deals.quotation.emailToClient [POST /deals.quotation.emailToClient]
 
-Send a deal via email to client
+Send a deal's quotation via email to a client
 
 + Request (application/json)
 
@@ -560,7 +560,7 @@ Send a deal via email to client
             "status": "OK"
         }
 
-### /getDeals.php [GET /getDeals.php]
+### /deals.list [GET /deals.list]
 
 Get a list of all deals
 
@@ -578,18 +578,14 @@ Get a list of all deals
 
     + Attributes (array[Deal])
 
-### /getDealsByContactOrCompany.php [POST /getDealsByContactOrCompany.php]
+### /deals.byContact [GET /deals.byContact]
 
-Get a list of all deals by contact or company
+Get a list of all deals by contact
 
 + Request (application/json)
 
     + Attributes (object)
-        + contact_or_company: `company` (enum[string], required) - Who is related to this deal?
-            + Members
-                + company
-                + contact
-        + contact_or_company_id: `1` (number, required) - ID of the related contact or company
+        + contact_id: `1` (number, required) - ID of the related contact
 
 + Response 200 (application/json)
 
@@ -600,7 +596,25 @@ Get a list of all deals by contact or company
             }
         ]
 
-### /getDealsByProject.php [POST /getDealsByProject.php]
+### /deals.byCompany [GET /deals.byCompany]
+
+Get a list of all deals by company
+
++ Request (application/json)
+
+    + Attributes (object)
+        + company_id: `1` (number, required) - ID of the related company
+
++ Response 200 (application/json)
+
+        [
+            {
+                "deal_id": 1,
+                "phase_id": 5
+            }
+        ]
+
+### /deals.byProject [GET /deals.byProject]
 
 Get a list of all deals by project
 
@@ -617,7 +631,7 @@ Get a list of all deals by project
             }
         ]
 
-### /getDeal.php [POST /getDeal.php]
+### /deals.info [GET /deals.info]
 
 Get deal details
 
@@ -630,7 +644,7 @@ Get deal details
 
     + Attributes (Deal)
 
-### /getDealPhaseChanges.php [POST /getDealPhaseChanges.php]
+### /deals.phases.changes [GET /deals.phases.changes]
 
 Get a list of a deal phase changes
 
@@ -651,7 +665,7 @@ Get a list of a deal phase changes
             }
         ]
 
-### /getDealPhases.php [GET /getDealPhases.php]
+### /deals.phases.list [GET /deals.phases.list]
 
 Get a list of all phases a deal can go through
 
@@ -668,7 +682,7 @@ Get a list of all phases a deal can go through
             }
         ]
 
-### /getDealSources.php [GET /getDealSources.php]
+### /deals.sources.list [GET /deals.sources.list]
 
 Get a list of all deal sources
 
@@ -687,7 +701,7 @@ Get a list of all deal sources
 
 ## Invoices [/invoices]
 
-### /getInvoices.php [POST /getInvoices.php]
+### /invoices.list [GET /invoices.list]
 
 Search invoices
 
@@ -703,12 +717,15 @@ Search invoices
         + contact_or_company_id: `1` (number, optional) - ID of the contact or company
         + deep_search: `1` (number, optional) Pass 1 to return not just invoices related to the requested contact, but also to invoices related to linked companies
         + selected_customfields: `1,2` (string, optional) - comma-separated list of the IDs of the custom fields you wish to select (max 10).
+        + project_id: `1` (number, optional) - The ID of the project you wish to filter by. If this parameter is set, all of the above are ignored.
+        + include_draft_invoices: `1` (number, optional) -  Set this parameter to 1 to include draft invoices. Only works in conjunction with `project_id`
+            + Default: `0`
 
 + Response 200 (application/json)
 
     + Attributes (array[Invoice])
 
-### /getCreditnotes.php [POST /getCreditnotes.php]
+### /creditNotes.list [GET /creditNotes.list]
 
 Search creditnotes
 
@@ -723,36 +740,7 @@ Search creditnotes
                 + company
         + contact_or_company_id: `1` (number, optional) - ID of the contact or company
         + deep_search: `1` (number, optional) Pass 1 to return not just invoices related to the requested contact, but also to invoices related to linked companies
-
-+ Response 200 (application/json)
-
-    + Attributes (array[Creditnote])
-
-### /getInvoicesByProject.php [POST /getInvoicesByProject.php]
-
-Search invoices
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + project_id: `1` (number, required)
-        + include_draft_invoices: `1` (number, optional) -  set this parameter to 1 to include draft invoices
-            + Default: `0`
-
-+ Response 200 (application/json)
-
-    + Attributes (array[Invoice])
-
-### /getCreditnotesByProject.php [POST /getCreditnotesByProject.php]
-
-Search creditnotes
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + project_id: `1` (number, required)
-        + include_draft_invoices: `1` (number, optional) -  set this parameter to 1 to include draft invoices
-            + Default: `0`
+        + project_id: `1` (number, optional) - The ID of the project you wish to filter by. If this parameter is set, all the others are ignored.
 
 + Response 200 (application/json)
 
