@@ -758,6 +758,43 @@ Search creditnotes
 
     + Attributes (array[Creditnote])
 
+## Files [/files]
+
+### /getFiles.php [GET /getFiles.php]
+
+Get a list of all files relating to an object
+
++ Request (application/json)
+
+    + Attributes (object)
+        + amount: `20` (number, required) - The amount of contacts returned per request, max 1 to 100
+        + pageno: `0` (number, required) - The current page, the first page is 0
+        + object_type: `contact` (enum[string], required) - The type of object
+            + Members
+                + contact
+                + company
+                + sale
+                + ticket
+                + project
+                + meeting
+        + object_id: `1` (number, required) - ID of the object
+        + folder_name: `cat_pictures` (string, optional) - the folder name of which the contents should be displayed
+
++ Response 200 (application/json)
+
+        {
+            "status": "success",
+            "reason": "",
+            "data": [
+                {
+                    "id": 101942,
+                    "filename": "avatar.jpg",
+                    "date_last_edited": 1492673227,
+                    "filesize_bytes": 58493
+                }
+            ]
+        }
+
 # Data Structures
 
 ## Contact (object)
