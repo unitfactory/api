@@ -92,7 +92,8 @@ Get a paginated list of contacts
 
 + Response 200 (application/json)
 
-    + Attributes (array[Contact])
+    + Attributes (object)
+        + data (array[Contact])
 
 ### /contacts.info [GET /contacts.info]
 
@@ -105,7 +106,8 @@ Get the details for a single contact
 
 + Response 200 (application/json)
 
-    + Attributes (Contact)
+    + Attributes (object)
+        + data (Contact)
 
 ### /contacts.create [POST /contacts.create]
 
@@ -164,9 +166,9 @@ Add a contact to Teamleader
 
 + Response 201 (application/json)
 
-        {
-            "id": 1163240
-        }
+    + Attributes
+        + data (object)
+            + id: `1` (number)
 
 ### /contacts.update [POST /contacts.update]
 
@@ -276,7 +278,8 @@ Search companies
 
 + Response 200 (application/json)
 
-    + Attributes (array[Company])
+    + Attributes (object)
+        + data (array[Company])
 
 ### /companies.info [GET /companies.info]
 
@@ -289,7 +292,8 @@ Get company info
 
 + Response 200 (application/json)
 
-    + Attributes (Company)
+    + Attributes (object)
+        + data (Company)
 
 ### /companies.create [POST /companies.create]
 
@@ -340,9 +344,9 @@ Add a Teamleader company
 
 + Response 201 (application/json)
 
-        {
-            "id":"1"
-        }
+    + Attributes
+        + data (object)
+            + id: `1` (number)
 
 ### /companies.update [POST /companies.update]
 
@@ -406,14 +410,10 @@ Get the names of business types (legal structures) a company can have within a c
 
 + Response 200 (application/json)
 
-        [
-            {
-                "name": "AG"
-            },
-            {
-                "name": "BVBA"
-            }
-        ]
+    + Attributes (object)
+        + data (array, fixed)
+            + (object)
+                + name: `BVBA` (string)
 
 ## Deals [/deals]
 
@@ -458,9 +458,9 @@ Add a deal for a contact or company.
 
 + Response 201 (application/json)
 
-        {
-            "id": 165655
-        }
+    + Attributes
+        + data (object)
+            + id: `1` (number)
 
 ### /deals.update [POST /deals.update]
 
@@ -551,7 +551,8 @@ Get a list of all deals
 
 + Response 200 (application/json)
 
-    + Attributes (array[Deal])
+    + Attributes (object)
+        + data (array[Deal])
 
 ### /deals.byContact [GET /deals.byContact]
 
@@ -564,12 +565,8 @@ Get a list of all deals by contact
 
 + Response 200 (application/json)
 
-        [
-            {
-                "deal_id": 1,
-                "phase_id": 5
-            }
-        ]
+    + Attributes (object)
+        + data (array[DealPhase])
 
 ### /deals.byCompany [GET /deals.byCompany]
 
@@ -582,12 +579,8 @@ Get a list of all deals by company
 
 + Response 200 (application/json)
 
-        [
-            {
-                "deal_id": 1,
-                "phase_id": 5
-            }
-        ]
+    + Attributes (object)
+        + data (array[DealPhase])
 
 ### /deals.byProject [GET /deals.byProject]
 
@@ -600,11 +593,10 @@ Get a list of all deals by project
 
 + Response 200 (application/json)
 
-        [
-            {
-                "deal_id": 1
-            }
-        ]
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + deal_id: 1 (number)
 
 ### /deals.info [GET /deals.info]
 
@@ -617,7 +609,8 @@ Get deal details
 
 + Response 200 (application/json)
 
-    + Attributes (Deal)
+    + Attributes (object)
+        + data (Deal)
 
 ### /deals.phases.changes [GET /deals.phases.changes]
 
@@ -630,15 +623,13 @@ Get a list of a deal phase changes
 
 + Response 200 (application/json)
 
-        [
-            {
-                "old_phase_id": "",
-                "new_phase_id": 5,
-                "change_date": 1492074106,
-                "change_date_formatted": "13/04/2017",
-                "related_user_id": ""
-            }
-        ]
+    + Attributes (object)
+        + data (object)
+            + old_phase_id: 1 (number)
+            + new_phase_id: 2 (number)
+            + change_date: 1492074106 (number)
+            + change_date_formatted: `13/04/2017` (string)
+            + related_user_id: 1 (number)
 
 ### /deals.phases.list [GET /deals.phases.list]
 
@@ -646,16 +637,11 @@ Get a list of all phases a deal can go through
 
 + Response 200 (application/json)
 
-        [
-            {
-                "id": "1",
-                "name": "New"
-            },
-            {
-                "id": "2",
-                "name": "Contacted"
-            }
-        ]
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: 1 (number)
+                + name: `New` (string)
 
 ### /deals.sources.list [GET /deals.sources.list]
 
@@ -663,16 +649,11 @@ Get a list of all deal sources
 
 + Response 200 (application/json)
 
-        [
-            {
-                "id": "1",
-                "name": "Google Search"
-            },
-            {
-                "id": "2",
-                "name": "Exposition"
-            }
-        ]
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: 1 (number)
+                + name: `Google Search` (string)
 
 ## Invoices [/invoices]
 
@@ -698,7 +679,8 @@ Search invoices
 
 + Response 200 (application/json)
 
-    + Attributes (array[Invoice])
+    + Attributes (object)
+        data (array[Invoice])
 
 ### /creditNotes.list [GET /creditNotes.list]
 
@@ -719,7 +701,8 @@ Search creditnotes
 
 + Response 200 (application/json)
 
-    + Attributes (array[Creditnote])
+    + Attributes (object)
+        + data (array[Creditnote])
 
 ## Files [/files]
 
@@ -929,6 +912,10 @@ name: `A Tag` (string)
 + deleted: 0 (number)
 + custom_fields (object)
 + external_customer_id (string)
+
+## DealPhase (object)
++ deal_id: 1 (number)
++ phase_id: 5 (number)
 
 ## Invoice (object)
 + id: 173111 (number)

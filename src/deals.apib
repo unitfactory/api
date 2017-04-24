@@ -41,9 +41,9 @@ Add a deal for a contact or company.
 
 + Response 201 (application/json)
 
-        {
-            "id": 165655
-        }
+    + Attributes
+        + data (object)
+            + id: `1` (number)
 
 ### /deals.update [POST /deals.update]
 
@@ -134,7 +134,8 @@ Get a list of all deals
 
 + Response 200 (application/json)
 
-    + Attributes (array[Deal])
+    + Attributes (object)
+        + data (array[Deal])
 
 ### /deals.byContact [GET /deals.byContact]
 
@@ -147,12 +148,8 @@ Get a list of all deals by contact
 
 + Response 200 (application/json)
 
-        [
-            {
-                "deal_id": 1,
-                "phase_id": 5
-            }
-        ]
+    + Attributes (object)
+        + data (array[DealPhase])
 
 ### /deals.byCompany [GET /deals.byCompany]
 
@@ -165,12 +162,8 @@ Get a list of all deals by company
 
 + Response 200 (application/json)
 
-        [
-            {
-                "deal_id": 1,
-                "phase_id": 5
-            }
-        ]
+    + Attributes (object)
+        + data (array[DealPhase])
 
 ### /deals.byProject [GET /deals.byProject]
 
@@ -183,11 +176,10 @@ Get a list of all deals by project
 
 + Response 200 (application/json)
 
-        [
-            {
-                "deal_id": 1
-            }
-        ]
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + deal_id: 1 (number)
 
 ### /deals.info [GET /deals.info]
 
@@ -200,7 +192,8 @@ Get deal details
 
 + Response 200 (application/json)
 
-    + Attributes (Deal)
+    + Attributes (object)
+        + data (Deal)
 
 ### /deals.phases.changes [GET /deals.phases.changes]
 
@@ -213,15 +206,13 @@ Get a list of a deal phase changes
 
 + Response 200 (application/json)
 
-        [
-            {
-                "old_phase_id": "",
-                "new_phase_id": 5,
-                "change_date": 1492074106,
-                "change_date_formatted": "13/04/2017",
-                "related_user_id": ""
-            }
-        ]
+    + Attributes (object)
+        + data (object)
+            + old_phase_id: 1 (number)
+            + new_phase_id: 2 (number)
+            + change_date: 1492074106 (number)
+            + change_date_formatted: `13/04/2017` (string)
+            + related_user_id: 1 (number)
 
 ### /deals.phases.list [GET /deals.phases.list]
 
@@ -229,16 +220,11 @@ Get a list of all phases a deal can go through
 
 + Response 200 (application/json)
 
-        [
-            {
-                "id": "1",
-                "name": "New"
-            },
-            {
-                "id": "2",
-                "name": "Contacted"
-            }
-        ]
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: 1 (number)
+                + name: `New` (string)
 
 ### /deals.sources.list [GET /deals.sources.list]
 
@@ -246,13 +232,8 @@ Get a list of all deal sources
 
 + Response 200 (application/json)
 
-        [
-            {
-                "id": "1",
-                "name": "Google Search"
-            },
-            {
-                "id": "2",
-                "name": "Exposition"
-            }
-        ]
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: 1 (number)
+                + name: `Google Search` (string)

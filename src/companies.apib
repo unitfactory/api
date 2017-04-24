@@ -19,7 +19,8 @@ Search companies
 
 + Response 200 (application/json)
 
-    + Attributes (array[Company])
+    + Attributes (object)
+        + data (array[Company])
 
 ### /companies.info [GET /companies.info]
 
@@ -32,7 +33,8 @@ Get company info
 
 + Response 200 (application/json)
 
-    + Attributes (Company)
+    + Attributes (object)
+        + data (Company)
 
 ### /companies.create [POST /companies.create]
 
@@ -83,9 +85,9 @@ Add a Teamleader company
 
 + Response 201 (application/json)
 
-        {
-            "id":"1"
-        }
+    + Attributes
+        + data (object)
+            + id: `1` (number)
 
 ### /companies.update [POST /companies.update]
 
@@ -149,11 +151,7 @@ Get the names of business types (legal structures) a company can have within a c
 
 + Response 200 (application/json)
 
-        [
-            {
-                "name": "AG"
-            },
-            {
-                "name": "BVBA"
-            }
-        ]
+    + Attributes (object)
+        + data (array, fixed)
+            + (object)
+                + name: `BVBA` (string)

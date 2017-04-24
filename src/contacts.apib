@@ -14,7 +14,8 @@ Get a paginated list of contacts
 
 + Response 200 (application/json)
 
-    + Attributes (array[Contact])
+    + Attributes (object)
+        + data (array[Contact])
 
 ### /contacts.info [GET /contacts.info]
 
@@ -27,7 +28,8 @@ Get the details for a single contact
 
 + Response 200 (application/json)
 
-    + Attributes (Contact)
+    + Attributes (object)
+        + data (Contact)
 
 ### /contacts.create [POST /contacts.create]
 
@@ -86,9 +88,9 @@ Add a contact to Teamleader
 
 + Response 201 (application/json)
 
-        {
-            "id": 1163240
-        }
+    + Attributes
+        + data (object)
+            + id: `1` (number)
 
 ### /contacts.update [POST /contacts.update]
 
