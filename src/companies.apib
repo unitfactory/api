@@ -117,11 +117,7 @@ Update a Teamleader company
         + remove_tag_by_string: `upsell` (string, optional) - Pass one or more tags, comma-separated. These tags will be removed from the contact.
         + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
 
-+ Response 200 (application/json)
-
-        {
-            "status":"success"
-        }
++ Response 204
 
 ### /companies.delete [POST /companies.delete]
 
@@ -132,11 +128,7 @@ Delete a company from Teamleader
     + Attributes (object)
         + company_id: `1` (number, required) - The account ID of the company you wish to delete
 
-+ Response 200 (application/json)
-
-        {
-            "status": "success"
-        }
++ Response 204
 
 ### /businessTypes.list [GET /businessTypes.list]
 
