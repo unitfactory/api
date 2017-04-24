@@ -776,18 +776,13 @@ Get a list of all files relating to an object
 
 + Response 200 (application/json)
 
-        {
-            "status": "success",
-            "reason": "",
-            "data": [
-                {
-                    "id": 101942,
-                    "filename": "avatar.jpg",
-                    "date_last_edited": 1492673227,
-                    "filesize_bytes": 58493
-                }
-            ]
-        }
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `101` (number)
+                + filename: `cat.bmp` (string)
+                + date_last_edited: `1492673227` (number)
+                + filesize_bytes: `256` (number)
 
 ### /files.info [GET /files.info]
 
@@ -800,16 +795,16 @@ Get a info about a specific file
 
 + Response 200 (application/json)
 
-        {
-            "filename": "avatar.jpg",
-            "filesize_bytes": 58493,
-            "uploader_client_id": 40,
-            "related_object_type": "contact",
-            "related_object_id": 1178028,
-            "folder": "Business cards",
-            "date_last_edited": 1492673227,
-            "date_last_edited_formatted": "20/04/2017"
-        }
+    + Attributes (object)
+        + data (object)
+            + filename: `cat.bmp` (string)
+            + filesize_bytes: `256` (number)
+            + uploader_client_id: `1` (number)
+            + related_object_type: `contact (`string`)
+            + related_object_id: `1` (number)
+            + folder: `pics (`string`)
+            + date_last_edited: `1492673227` (number)
+            + date_last_edited_formatted: `20/04/2017` (string)
 
 ### /files.download [GET /files.download]
 
@@ -822,13 +817,9 @@ Get a signed URL where the file can be downloaded. The signed URL will remaing v
 
 + Response 200 (application/json)
 
-        {
-            "status": "success",
-            "reason": "",
-            "data": {
-                "signed_download_url": "https://test-teamleader.s3-eu-west-1.amazonaws.com/TL_uploaded_files/5/contact/1178028/101942_40_1492673227_NX3FH?response-cache-control=maxage%3D1&response-content-disposition=attachment%3B%20%20filename%2A%3DUTF-8%27%27avatar.jpg&AWSAccessKeyId=AKIAJW7R5Z6B2I3N4RPA&Expires=1492677109&Signature=K5aSuyWOIZ26sVeGx%2BizY1MOUTo%3D"
-            }
-        }
+    + Attributes (object)
+        + data (object)
+            + signed_download_url: `http://example.com/cat.bmp` (string)
 
 ### /files.upload [POST /files.upload]
 
@@ -852,11 +843,9 @@ Get a signed URL where the file can be downloaded. The signed URL will remaing v
 
 + Response 200 (application/json)
 
-        {
-            "status": "success",
-            "reason": "",
-            "data": "123"
-        }
+    + Attributes (object)
+        + data (object)
+            + id: `123` (number)
 
 ### /files.delete [POST /files.delete]
 
@@ -867,11 +856,7 @@ Delete a file
     + Attributes (object)
         + file_id: `20` (number, required) - The file's ID
 
-+ Response 200 (application/json)
-
-        {
-            "status": "success"
-        }
++ Response 204
 
 # Data Structures
 
