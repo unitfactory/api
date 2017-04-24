@@ -115,8 +115,10 @@ Get a paginated list of contacts
 
 + Parameters
 
-    + amount: `20` (number, required) - Amount of contacts you want returned, 1 to 100.
-    + pageno: `0` (number, required) - The numerated page you want, starts at 0.
+    + amount: `20` (number, optional) - Amount of contacts you want returned, 1 to 100.
+        + Default: `20`
+    + pageno: `0` (number, optional) - The numerated page you want, starts at 0.
+        + Default: `0`
     + company_id: `1` (number, optional) - Filter contacts by a certain company.
 
 + Response 200 (application/json)
@@ -293,8 +295,10 @@ Search companies
 + Request (application/json)
 
     + Attributes (object)
-        + amount: `20` (number, required) - The amount of contacts returned per request, max 1 to 100
-        + pageno: `0` (number, required) - The current page, the first page is 0
+        + amount: `20` (number, optional) - The amount of contacts returned per request, max 1 to 100
+            + Default: `20`
+        + pageno: `0` (number, optional) - The current page, the first page is 0
+            + Default: `20`
         + searchby: `teamleader` (string, optional) - A search string. Teamleader will try to match each part of the string to the forename, surname, company name and email address.
         + modifiedsince: `1454604273` (number, optional) - Unix timestamp. Teamleader will only return contacts that have been added or modified since that timestamp.
         + filter_by_tag: `upsell` (string, optional) - Company tag. Teamleader will only return companies that have the tag.
@@ -567,8 +571,10 @@ Get a list of all deals
 + Request (application/json)
 
     + Attributes (object)
-        + amount: `10` (number, required) - Amount of results you want
-        + pageno: `0` (number, required) - Page of results you want
+        + amount: `10` (number, optional) - Amount of results you want
+            + Default: `20`
+        + pageno: `0` (number, optional) - Page of results you want
+            + Default: `0`
         + searchby: `Teamleader` (string, optional) - A search string. Teamleader will try to search deals matching this string.
         + selected_customfields: `42,142` (string, optional) - Comma-separated list of the IDs of the custom fields you wish to select (max 10).
         + filter_by_phase_id: `5` (string, optional) - Only return deals with this phase ID
