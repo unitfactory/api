@@ -51,7 +51,13 @@ You will receive a JSON response containing an `access_token` and `refresh_token
 }
 ```
 
-You can then use this access token to call API methods on behalf of the user. The access token will continue functioning until the installing user either revokes the token and/or uninstalls your integration.
+You can use this access token to call API methods on behalf of the user using the Authorization-header. Example:
+
+	GET https://api.teamleader.eu/contacts.list HTTP/1.1
+	Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciO...
+	Accept: application/json
+
+The access token will continue functioning until the installing user either revokes the token and/or uninstalls your integration.
 
 ## Refresh tokens
 
