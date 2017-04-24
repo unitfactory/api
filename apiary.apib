@@ -204,11 +204,7 @@ Update a Teamleader contact
         + remove_tag_by_string: `upsell` (string, optional) - Pass one or more tags, comma-separated. These tags will be removed from the contact.
         + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
 
-+ Response 200 (application/json)
-
-        {
-            "status":"success"
-        }
++ Response 204
 
 ### /contacts.delete [POST /contacts.delete]
 
@@ -219,11 +215,7 @@ Delete a contact from Teamleader
     + Attributes (object)
         + contact_ID: `1` (number, required) - The account ID of the contact you wish to delete
 
-+ Response 200 (application/json)
-
-        {
-            "status": "success"
-        }
++ Response 204
 
 ### /contacts.linkToCompany [POST /contacts.linkToCompany]
 
@@ -235,11 +227,7 @@ Linking a contact to a company
         + contact_id: `123` (number, required) - The ID of a contact
         + company_id: `5` (number, required) - The ID of a company
 
-+ Response 200 (application/json)
-
-        {
-            "status": "success"
-        }
++ Response 204
 
 ### /contacts.unlinkFromCompany [POST /contacts.unlinkFromCompany]
 
@@ -251,11 +239,7 @@ Unlinking a contact from a company
         + contact_id: `123` (number, required) - The ID of a contact
         + company_id: `5` (number, required) - The ID of a company
 
-+ Response 200 (application/json)
-
-        {
-            "status": "success"
-        }
++ Response 204
 
 ## Companies [/companies]
 
@@ -378,11 +362,7 @@ Update a Teamleader company
         + remove_tag_by_string: `upsell` (string, optional) - Pass one or more tags, comma-separated. These tags will be removed from the contact.
         + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
 
-+ Response 200 (application/json)
-
-        {
-            "status":"success"
-        }
++ Response 204
 
 ### /companies.delete [POST /companies.delete]
 
@@ -393,11 +373,7 @@ Delete a company from Teamleader
     + Attributes (object)
         + company_id: `1` (number, required) - The account ID of the company you wish to delete
 
-+ Response 200 (application/json)
-
-        {
-            "status": "success"
-        }
++ Response 204
 
 ### /businessTypes.list [GET /businessTypes.list]
 
@@ -487,11 +463,7 @@ Update a deal
         + account_1: `1` (number, optional) - ID of the bookkeeping account
         + subtitle_1: `Enable search` (string, optional)
 
-+ Response 200 (application/json)
-
-        {
-            "status": "success"
-        }
++ Response 204
 
 ### /deals.items.update [POST /deals.items.update]
 
@@ -508,11 +480,7 @@ Update a deal's items
         + budget_estimation: `10` (number, optional) - budget estimation for this deal. This value will be overwritten once a quotation is made for this deal
         + custom_field_ID: `1` (number, optional) - replace ID by the ID of your custom field.
 
-+ Response 200 (application/json)
-
-        {
-            "status": "success"
-        }
++ Response 204
 
 ### /deals.quotation.emailToClient [POST /deals.quotation.emailToClient]
 
@@ -527,11 +495,7 @@ Send a deal's quotation via email to a client
         + message: `1` (number, required) -  Add <link> to the message to print out the InvoiceCloud link. (not required when using an email template, leave empty or discard from request when using template_id)
         + template_id: `1` (number, optional) - ID of the email message created in Teamleader.
 
-+ Response 200 (application/json)
-
-        {
-            "status": "success"
-        }
++ Response 204
 
 ### /deals.list [GET /deals.list]
 

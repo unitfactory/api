@@ -70,11 +70,7 @@ Update a deal
         + account_1: `1` (number, optional) - ID of the bookkeeping account
         + subtitle_1: `Enable search` (string, optional)
 
-+ Response 200 (application/json)
-
-        {
-            "status": "success"
-        }
++ Response 204
 
 ### /deals.items.update [POST /deals.items.update]
 
@@ -91,11 +87,7 @@ Update a deal's items
         + budget_estimation: `10` (number, optional) - budget estimation for this deal. This value will be overwritten once a quotation is made for this deal
         + custom_field_ID: `1` (number, optional) - replace ID by the ID of your custom field.
 
-+ Response 200 (application/json)
-
-        {
-            "status": "success"
-        }
++ Response 204
 
 ### /deals.quotation.emailToClient [POST /deals.quotation.emailToClient]
 
@@ -110,11 +102,7 @@ Send a deal's quotation via email to a client
         + message: `1` (number, required) -  Add <link> to the message to print out the InvoiceCloud link. (not required when using an email template, leave empty or discard from request when using template_id)
         + template_id: `1` (number, optional) - ID of the email message created in Teamleader.
 
-+ Response 200 (application/json)
-
-        {
-            "status": "success"
-        }
++ Response 204
 
 ### /deals.list [GET /deals.list]
 

@@ -126,11 +126,7 @@ Update a Teamleader contact
         + remove_tag_by_string: `upsell` (string, optional) - Pass one or more tags, comma-separated. These tags will be removed from the contact.
         + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
 
-+ Response 200 (application/json)
-
-        {
-            "status":"success"
-        }
++ Response 204
 
 ### /contacts.delete [POST /contacts.delete]
 
@@ -141,11 +137,7 @@ Delete a contact from Teamleader
     + Attributes (object)
         + contact_ID: `1` (number, required) - The account ID of the contact you wish to delete
 
-+ Response 200 (application/json)
-
-        {
-            "status": "success"
-        }
++ Response 204
 
 ### /contacts.linkToCompany [POST /contacts.linkToCompany]
 
@@ -157,11 +149,7 @@ Linking a contact to a company
         + contact_id: `123` (number, required) - The ID of a contact
         + company_id: `5` (number, required) - The ID of a company
 
-+ Response 200 (application/json)
-
-        {
-            "status": "success"
-        }
++ Response 204
 
 ### /contacts.unlinkFromCompany [POST /contacts.unlinkFromCompany]
 
@@ -173,8 +161,4 @@ Unlinking a contact from a company
         + contact_id: `123` (number, required) - The ID of a contact
         + company_id: `5` (number, required) - The ID of a company
 
-+ Response 200 (application/json)
-
-        {
-            "status": "success"
-        }
++ Response 204
