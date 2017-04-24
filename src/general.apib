@@ -6,28 +6,8 @@ Get a list of all users
 
 + Response 200 (application/json)
 
-        [
-            {
-                "id":1,
-                "name":"John Smith",
-                "email":"john@teamleader.eu",
-                "gsm":"+32412654321",
-                "telephone":"+3291239843",
-                "team_id":1,
-                "title":"Sales",
-                "active":1
-            },
-            {
-                "id":2,
-                "name":"Jane Doe",
-                "email":"jane@teamleader.eu",
-                "gsm":"+32412654322",
-                "telephone":"3291239844",
-                "team_id":1,
-                "title":"Designer",
-                "active":1
-            }
-        ]
+    + Attributes (object)
+        + data (array[User])
 
 ### /departments.list [GET /departments.list]
 
@@ -35,16 +15,8 @@ Get a list of all departments
 
 + Response 200 (application/json)
 
-        [
-            {
-                "id":1,
-                "name":"Sales"
-            },
-            {
-                "id":2,
-                "name":"Customer Support"
-            }
-        ]
+    + Attributes (object)
+        + data (array[Department])
 
 
 ### tags.list [GET /tags.list]
@@ -53,11 +25,8 @@ Get a list of all tags
 
 + Response 200 (application/json)
 
-        {
-            "1": "A Tag",
-            "2": "Another Tag",
-            "3": "Tagtastic"
-        }
+    + Attributes (object)
+        + data (array[Tag])
 
 ### /segments.list [GET /segments.list]
 
