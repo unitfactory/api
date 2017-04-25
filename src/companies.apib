@@ -1,14 +1,16 @@
 ## Companies [/companies]
 
-### /getCompanies.php [POST /getCompanies.php]
+### /companies.list [GET /companies.list]
 
 Search companies
 
 + Request (application/json)
 
     + Attributes (object)
-        + amount: `20` (number, required) - The amount of contacts returned per request, max 1 to 100
-        + pageno: `0` (number, required) - The current page, the first page is 0
+        + amount: `20` (number, optional) - The amount of contacts returned per request, max 1 to 100
+            + Default: `20`
+        + pageno: `0` (number, optional) - The current page, the first page is 0
+            + Default: `20`
         + searchby: `teamleader` (string, optional) - A search string. Teamleader will try to match each part of the string to the forename, surname, company name and email address.
         + modifiedsince: `1454604273` (number, optional) - Unix timestamp. Teamleader will only return contacts that have been added or modified since that timestamp.
         + filter_by_tag: `upsell` (string, optional) - Company tag. Teamleader will only return companies that have the tag.
@@ -17,9 +19,10 @@ Search companies
 
 + Response 200 (application/json)
 
-    + Attributes (array[Company])
+    + Attributes (object)
+        + data (array[Company])
 
-### /getCompany.php [POST /getCompany.php]
+### /companies.info [GET /companies.info]
 
 Get company info
 
@@ -30,9 +33,10 @@ Get company info
 
 + Response 200 (application/json)
 
-    + Attributes (Company)
+    + Attributes (object)
+        + data (Company)
 
-### /addCompany.php [POST /addCompany.php]
+### /companies.create [POST /companies.create]
 
 Add a Teamleader company
 
@@ -81,11 +85,11 @@ Add a Teamleader company
 
 + Response 201 (application/json)
 
-        {
-            "id":"1"
-        }
+    + Attributes
+        + data (object)
+            + id: `1` (number)
 
-### /updateCompany.php [POST /updateCompany.php]
+### /companies.update [POST /companies.update]
 
 Update a Teamleader company
 
@@ -115,13 +119,9 @@ Update a Teamleader company
         + remove_tag_by_string: `upsell` (string, optional) - Pass one or more tags, comma-separated. These tags will be removed from the contact.
         + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
 
-+ Response 200 (application/json)
++ Response 204
 
-        {
-            "status":"OK"
-        }
-
-### /deleteCompany.php [POST /deleteCompany.php]
+### /companies.delete [POST /companies.delete]
 
 Delete a company from Teamleader
 
@@ -130,13 +130,9 @@ Delete a company from Teamleader
     + Attributes (object)
         + company_id: `1` (number, required) - The account ID of the company you wish to delete
 
-+ Response 200 (application/json)
++ Response 204
 
-        {
-            "status": "success"
-        }
-
-### /getBusinessTypes.php [POST /getBusinessTypes.php]
+### /businessTypes.list [GET /businessTypes.list]
 
 Get the names of business types (legal structures) a company can have within a certain country.
 
@@ -147,11 +143,7 @@ Get the names of business types (legal structures) a company can have within a c
 
 + Response 200 (application/json)
 
-        [
-            {
-                "name": "AG"
-            },
-            {
-                "name": "BVBA"
-            }
-        ]
+    + Attributes (object)
+        + data (array, fixed)
+            + (object)
+                + name: `BVBA` (string)

@@ -1,6 +1,6 @@
 ## Deals [/deals]
 
-### /addDeal.php [POST /addDeal.php]
+### /deals.create [POST /deals.create]
 
 Add a deal for a contact or company.
 
@@ -41,11 +41,11 @@ Add a deal for a contact or company.
 
 + Response 201 (application/json)
 
-        {
-            "id": 165655
-        }
+    + Attributes
+        + data (object)
+            + id: `1` (number)
 
-### /updateDeal.php [POST /updateDeal.php]
+### /deals.update [POST /deals.update]
 
 Update a deal
 
@@ -70,13 +70,9 @@ Update a deal
         + account_1: `1` (number, optional) - ID of the bookkeeping account
         + subtitle_1: `Enable search` (string, optional)
 
-+ Response 200 (application/json)
++ Response 204
 
-        {
-            "status": "OK"
-        }
-
-### /updateDealItems.php [POST /updateDealItems.php]
+### /deals.items.update [POST /deals.items.update]
 
 Update a deal's items
 
@@ -91,15 +87,11 @@ Update a deal's items
         + budget_estimation: `10` (number, optional) - budget estimation for this deal. This value will be overwritten once a quotation is made for this deal
         + custom_field_ID: `1` (number, optional) - replace ID by the ID of your custom field.
 
-+ Response 200 (application/json)
++ Response 204
 
-        {
-            "status": "OK"
-        }
+### /deals.quotation.emailToClient [POST /deals.quotation.emailToClient]
 
-### /sendSaleToClient.php [POST /sendSaleToClient.php]
-
-Send a deal via email to client
+Send a deal's quotation via email to a client
 
 + Request (application/json)
 
@@ -110,21 +102,19 @@ Send a deal via email to client
         + message: `1` (number, required) -  Add <link> to the message to print out the InvoiceCloud link. (not required when using an email template, leave empty or discard from request when using template_id)
         + template_id: `1` (number, optional) - ID of the email message created in Teamleader.
 
-+ Response 200 (application/json)
++ Response 204
 
-        {
-            "status": "OK"
-        }
-
-### /getDeals.php [GET /getDeals.php]
+### /deals.list [GET /deals.list]
 
 Get a list of all deals
 
 + Request (application/json)
 
     + Attributes (object)
-        + amount: `10` (number, required) - Amount of results you want
-        + pageno: `0` (number, required) - Page of results you want
+        + amount: `10` (number, optional) - Amount of results you want
+            + Default: `20`
+        + pageno: `0` (number, optional) - Page of results you want
+            + Default: `0`
         + searchby: `Teamleader` (string, optional) - A search string. Teamleader will try to search deals matching this string.
         + selected_customfields: `42,142` (string, optional) - Comma-separated list of the IDs of the custom fields you wish to select (max 10).
         + filter_by_phase_id: `5` (string, optional) - Only return deals with this phase ID
@@ -132,31 +122,38 @@ Get a list of all deals
 
 + Response 200 (application/json)
 
-    + Attributes (array[Deal])
+    + Attributes (object)
+        + data (array[Deal])
 
-### /getDealsByContactOrCompany.php [POST /getDealsByContactOrCompany.php]
+### /deals.byContact [GET /deals.byContact]
 
-Get a list of all deals by contact or company
+Get a list of all deals by contact
 
 + Request (application/json)
 
     + Attributes (object)
-        + contact_or_company: `company` (enum[string], required) - Who is related to this deal?
-            + Members
-                + company
-                + contact
-        + contact_or_company_id: `1` (number, required) - ID of the related contact or company
+        + contact_id: `1` (number, required) - ID of the related contact
 
 + Response 200 (application/json)
 
-        [
-            {
-                "deal_id": 1,
-                "phase_id": 5
-            }
-        ]
+    + Attributes (object)
+        + data (array[DealPhase])
 
-### /getDealsByProject.php [POST /getDealsByProject.php]
+### /deals.byCompany [GET /deals.byCompany]
+
+Get a list of all deals by company
+
++ Request (application/json)
+
+    + Attributes (object)
+        + company_id: `1` (number, required) - ID of the related company
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (array[DealPhase])
+
+### /deals.byProject [GET /deals.byProject]
 
 Get a list of all deals by project
 
@@ -167,13 +164,12 @@ Get a list of all deals by project
 
 + Response 200 (application/json)
 
-        [
-            {
-                "deal_id": 1
-            }
-        ]
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + deal_id: 1 (number)
 
-### /getDeal.php [POST /getDeal.php]
+### /deals.info [GET /deals.info]
 
 Get deal details
 
@@ -184,9 +180,10 @@ Get deal details
 
 + Response 200 (application/json)
 
-    + Attributes (Deal)
+    + Attributes (object)
+        + data (Deal)
 
-### /getDealPhaseChanges.php [POST /getDealPhaseChanges.php]
+### /deals.phases.changes [GET /deals.phases.changes]
 
 Get a list of a deal phase changes
 
@@ -197,46 +194,34 @@ Get a list of a deal phase changes
 
 + Response 200 (application/json)
 
-        [
-            {
-                "old_phase_id": "",
-                "new_phase_id": 5,
-                "change_date": 1492074106,
-                "change_date_formatted": "13/04/2017",
-                "related_user_id": ""
-            }
-        ]
+    + Attributes (object)
+        + data (object)
+            + old_phase_id: 1 (number)
+            + new_phase_id: 2 (number)
+            + change_date: 1492074106 (number)
+            + change_date_formatted: `13/04/2017` (string)
+            + related_user_id: 1 (number)
 
-### /getDealPhases.php [GET /getDealPhases.php]
+### /deals.phases.list [GET /deals.phases.list]
 
 Get a list of all phases a deal can go through
 
 + Response 200 (application/json)
 
-        [
-            {
-                "id": "1",
-                "name": "New"
-            },
-            {
-                "id": "2",
-                "name": "Contacted"
-            }
-        ]
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: 1 (number)
+                + name: `New` (string)
 
-### /getDealSources.php [GET /getDealSources.php]
+### /deals.sources.list [GET /deals.sources.list]
 
 Get a list of all deal sources
 
 + Response 200 (application/json)
 
-        [
-            {
-                "id": "1",
-                "name": "Google Search"
-            },
-            {
-                "id": "2",
-                "name": "Exposition"
-            }
-        ]
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: 1 (number)
+                + name: `Google Search` (string)

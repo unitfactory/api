@@ -1,7 +1,24 @@
 # Data Structures
 
-## Contact (object)
+## User (object)
+id: 1 (number)
+name: `John Smith` (string)
+email: `john@teamleader.eu` (string)
+gsm: `+32412654321` (string)
+telephone: `+3291239843` (string)
+team_id: 1 (number)
+title: Sales (string)
+active: 1 (number)
 
+## Department (object)
+id: 1 (number)
+name: `Sales` (string)
+
+## Tag (object)
+id: 1 (number)
+name: `A Tag` (string)
+
+## Contact (object)
 + id: 456 (number)
 + forename: Erlich (string)
 + surname: Bachman (string)
@@ -36,7 +53,6 @@
 + external_customer_id (string)
 
 ## Company (object)
-
 + id: 123 (number)
 + name: Pied Piper (string)
 + street: Newell Road (string)
@@ -70,6 +86,10 @@
 + custom_fields (object)
 + external_customer_id (string)
 
+## DealPhase (object)
++ deal_id: 1 (number)
++ phase_id: 5 (number)
+
 ## Invoice (object)
 + id: 173111 (number)
 + invoice_nr: 5 (number)
@@ -90,7 +110,7 @@
 + contact_or_company: "company" (string)
 + contact_or_company_id: 485906 (number)
 
-## Creditnote (object)
+## CreditNote (object)
 + id: 173111 (number)
 + creditnote_nr: 5 (number)
 + creditnote_nr_detailed: `2017 / 5 (MAIN)` (string)

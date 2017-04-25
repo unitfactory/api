@@ -1,21 +1,25 @@
 ## Contacts [/contacts]
 
-### /getContacts.php [GET /getContacts.php{?amount,pageno}]
+### /contacts.list [GET /contacts.list{?amount,pageno,company_id}]
 
 Get a paginated list of contacts
 
 + Parameters
 
-    + amount: `20` (number, required) - Amount of contacts you want returned, 1 to 100.
-    + pageno: `0` (number, required) - The numerated page you want, starts at 0.
+    + amount: `20` (number, optional) - Amount of contacts you want returned, 1 to 100.
+        + Default: `20`
+    + pageno: `0` (number, optional) - The numerated page you want, starts at 0.
+        + Default: `0`
+    + company_id: `1` (number, optional) - Filter contacts by a certain company.
 
 + Response 200 (application/json)
 
-    + Attributes (array[Contact])
+    + Attributes (object)
+        + data (array[Contact])
 
-### /getContact.php [POST /getContact.php]
+### /contacts.info [GET /contacts.info]
 
-Get a paginated list of contacts
+Get the details for a single contact
 
 + Request (application/json)
 
@@ -24,22 +28,10 @@ Get a paginated list of contacts
 
 + Response 200 (application/json)
 
-    + Attributes (Contact)
-
-### /getContactsByCompany.php [POST /getContactsByCompany.php]
-
-Get a paginated list of contacts
-
-+ Request (application/json)
-
     + Attributes (object)
-        + `company_id`: `1` (number, required)
+        + data (Contact)
 
-+ Response 200 (application/json)
-
-    + Attributes (array[Contact])
-
-### /addContact.php [POST /addContact.php]
+### /contacts.create [POST /contacts.create]
 
 Add a contact to Teamleader
 
@@ -96,11 +88,11 @@ Add a contact to Teamleader
 
 + Response 201 (application/json)
 
-        {
-            "id": 1163240
-        }
+    + Attributes
+        + data (object)
+            + id: `1` (number)
 
-### /updateContact.php [POST /updateContact.php]
+### /contacts.update [POST /contacts.update]
 
 Update a Teamleader contact
 
@@ -134,13 +126,9 @@ Update a Teamleader contact
         + remove_tag_by_string: `upsell` (string, optional) - Pass one or more tags, comma-separated. These tags will be removed from the contact.
         + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
 
-+ Response 200 (application/json)
++ Response 204
 
-        {
-            "status":"OK"
-        }
-
-### /deleteContact.php [POST /deleteContact.php]
+### /contacts.delete [POST /contacts.delete]
 
 Delete a contact from Teamleader
 
@@ -149,13 +137,9 @@ Delete a contact from Teamleader
     + Attributes (object)
         + contact_ID: `1` (number, required) - The account ID of the contact you wish to delete
 
-+ Response 200 (application/json)
++ Response 204
 
-        {
-            "status": "success"
-        }
-
-### /linkContactToCompany.php [POST /linkContactToCompany.php]
+### /contacts.linkToCompany [POST /contacts.linkToCompany]
 
 Linking a contact to a company
 
@@ -164,13 +148,17 @@ Linking a contact to a company
     + Attributes (object)
         + contact_id: `123` (number, required) - The ID of a contact
         + company_id: `5` (number, required) - The ID of a company
-        + mode: `link` (enum[string], required) - Wether you want to link or unlink a contact.
-            + Members
-                + link
-                + unlink
 
-+ Response 200 (application/json)
++ Response 204
 
-        {
-            "status": "success"
-        }
+### /contacts.unlinkFromCompany [POST /contacts.unlinkFromCompany]
+
+Unlinking a contact from a company
+
++ Request (application/json)
+
+    + Attributes (object)
+        + contact_id: `123` (number, required) - The ID of a contact
+        + company_id: `5` (number, required) - The ID of a company
+
++ Response 204

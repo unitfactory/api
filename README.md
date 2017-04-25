@@ -27,7 +27,7 @@ $ npm install -g hercule
 After making the necessary changes, build the docs.
 
 ```bash
-hercule src/apiary.apic -o apiary.apib
+hercule src/apiary.apib -o apiary.apib
 ```
 
 ### Automatically building the docs
