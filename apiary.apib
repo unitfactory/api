@@ -839,6 +839,127 @@ Delete a file
 
 + Response 204
 
+## Files [/files]
+
+### /getFiles.php [GET /getFiles.php]
+
+Get a list of all files relating to an object
+
++ Request (application/json)
+
+    + Attributes (object)
+        + amount: `20` (number, required) - The amount of contacts returned per request, max 1 to 100
+        + pageno: `0` (number, required) - The current page, the first page is 0
+        + object_type: `contact` (enum[string], required) - The type of object
+            + Members
+                + contact
+                + company
+                + sale
+                + ticket
+                + project
+                + meeting
+        + object_id: `1` (number, required) - ID of the object
+        + folder_name: `cat_pictures` (string, optional) - the folder name of which the contents should be displayed
+
++ Response 200 (application/json)
+
+        {
+            "status": "success",
+            "reason": "",
+            "data": [
+                {
+                    "id": 101942,
+                    "filename": "avatar.jpg",
+                    "date_last_edited": 1492673227,
+                    "filesize_bytes": 58493
+                }
+            ]
+        }
+
+### /getFileInfo.php [GET /getFileInfo.php]
+
+Get a info about a specific file
+
++ Request (application/json)
+
+    + Attributes (object)
+        + file_id: `20` (number, required) - The file's ID
+
++ Response 200 (application/json)
+
+        {
+            "filename": "avatar.jpg",
+            "filesize_bytes": 58493,
+            "uploader_client_id": 40,
+            "related_object_type": "contact",
+            "related_object_id": 1178028,
+            "folder": "Business cards",
+            "date_last_edited": 1492673227,
+            "date_last_edited_formatted": "20/04/2017"
+        }
+
+### /downloadFile.php [GET /downloadFile.php]
+
+Get a signed URL where the file can be downloaded. The signed URL will remaing valid for 30 seconds.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + file_id: `20` (number, required) - The file's ID
+
++ Response 200 (application/json)
+
+        {
+            "status": "success",
+            "reason": "",
+            "data": {
+                "signed_download_url": "https://test-teamleader.s3-eu-west-1.amazonaws.com/TL_uploaded_files/5/contact/1178028/101942_40_1492673227_NX3FH?response-cache-control=maxage%3D1&response-content-disposition=attachment%3B%20%20filename%2A%3DUTF-8%27%27avatar.jpg&AWSAccessKeyId=AKIAJW7R5Z6B2I3N4RPA&Expires=1492677109&Signature=K5aSuyWOIZ26sVeGx%2BizY1MOUTo%3D"
+            }
+        }
+
+### /uploadFile.php [GET /uploadFile.php]
+
+Get a signed URL where the file can be downloaded. The signed URL will remaing valid for 30 seconds.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + object_type: `contact` (enum[string], required) - The type of object
+            + Members
+                + contact
+                + company
+                + sale
+                + ticket
+                + project
+                + meeting
+        + object_id: `1` (number, required) - ID of the object
+        + file_content: `TG9yZW0gSXBzdW0gaXMgc2ltcGx5IGR1bW15IHRleHQgb2YgdGhlIHByaW50aW5nIGFuZCB0eXBlc2V0dGluZyBpbmR1c3RyeS4=` (string, required) - Base64 encoded version the file
+        + file_name: `cat.bmp` (string, required) - Name of the file, including extension
+        + folder_name: `cat_pictures` (string, optional) - the folder name of which the contents should be displayed
+
++ Response 200 (application/json)
+
+        {
+            "status": "success",
+            "reason": "",
+            "data": "123"
+        }
+
+### /deleteFile.php [GET /deleteFile.php]
+
+Delete a file
+
++ Request (application/json)
+
+    + Attributes (object)
+        + file_id: `20` (number, required) - The file's ID
+
++ Response 200 (application/json)
+
+        {
+            "status": "success"
+        }
+
 # Data Structures
 
 ## User (object)
