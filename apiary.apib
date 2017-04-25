@@ -15,7 +15,7 @@ Before starting you will need to register your integration. Each registered inte
 
 Redirect users to the Teamleader authorization page:
 
-`https://api.teamleader.eu/oauth2/authorize`
+`https://app.teamleader.eu/oauth2/authorize`
 
 The following values should be passed as GET parameters:
  - `client_id` - issued when you create your integration
@@ -31,7 +31,7 @@ If the user authorizes your integration, Teamleader will redirect back to the pr
 
 Your server can exchange this authorization code for an access token. Note that authorization codes may only be exchanged once and expire 10 minutes after issuance.
 
-`https://api.teamleader.eu/oauth2/access_token`
+`https://app.teamleader.eu/oauth2/access_token`
 
 The following values should be passed as POST parameters:
  - `client_id` - issued when you register your integration
@@ -65,7 +65,7 @@ The access token will continue functioning until the installing user either revo
 
 Access tokens expire shortly (1 hour) after they are issued for security reasons. If your integration needs to communicate with the API beyond the access token's lifespan you will need to request a new access token using the refresh token which was issued with the access token. Note that refresh tokens can only used once to get a new access token and refresh token.
 
-`https://api.teamleader.eu/oauth2/access_token`
+`https://app.teamleader.eu/oauth2/access_token`
 
 The following values should be passed as POST parameters:
  - `client_id` - issued when you register your integration
