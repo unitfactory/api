@@ -1,6 +1,6 @@
 ## Deals [/deals]
 
-### /deals.create [POST /deals.create]
+### deals.create [POST /deals.create]
 
 Add a deal for a contact or company.
 
@@ -45,7 +45,7 @@ Add a deal for a contact or company.
         + data (object)
             + id: `1` (number)
 
-### /deals.update [POST /deals.update]
+### deals.update [POST /deals.update]
 
 Update a deal
 
@@ -72,7 +72,7 @@ Update a deal
 
 + Response 204
 
-### /deals.items.update [POST /deals.items.update]
+### deals.items.update [POST /deals.items.update]
 
 Update a deal's items
 
@@ -89,7 +89,7 @@ Update a deal's items
 
 + Response 204
 
-### /deals.quotation.emailToClient [POST /deals.quotation.emailToClient]
+### deals.quotation.emailToClient [POST /deals.quotation.emailToClient]
 
 Send a deal's quotation via email to a client
 
@@ -104,7 +104,7 @@ Send a deal's quotation via email to a client
 
 + Response 204
 
-### /deals.list [GET /deals.list]
+### deals.list [GET /deals.list]
 
 Get a list of all deals
 
@@ -125,7 +125,7 @@ Get a list of all deals
     + Attributes (object)
         + data (array[Deal])
 
-### /deals.byContact [GET /deals.byContact]
+### deals.byContact [GET /deals.byContact]
 
 Get a list of all deals by contact
 
@@ -139,7 +139,7 @@ Get a list of all deals by contact
     + Attributes (object)
         + data (array[DealPhase])
 
-### /deals.byCompany [GET /deals.byCompany]
+### deals.byCompany [GET /deals.byCompany]
 
 Get a list of all deals by company
 
@@ -153,7 +153,7 @@ Get a list of all deals by company
     + Attributes (object)
         + data (array[DealPhase])
 
-### /deals.byProject [GET /deals.byProject]
+### deals.byProject [GET /deals.byProject]
 
 Get a list of all deals by project
 
@@ -169,7 +169,7 @@ Get a list of all deals by project
             + (object)
                 + deal_id: 1 (number)
 
-### /deals.info [GET /deals.info]
+### deals.info [GET /deals.info]
 
 Get deal details
 
@@ -183,7 +183,7 @@ Get deal details
     + Attributes (object)
         + data (Deal)
 
-### /deals.phases.changes [GET /deals.phases.changes]
+### deals.phases.changes [GET /deals.phases.changes]
 
 Get a list of a deal phase changes
 
@@ -202,7 +202,7 @@ Get a list of a deal phase changes
             + change_date_formatted: `13/04/2017` (string)
             + related_user_id: 1 (number)
 
-### /deals.phases.list [GET /deals.phases.list]
+### deals.phases.list [GET /deals.phases.list]
 
 Get a list of all phases a deal can go through
 
@@ -214,7 +214,7 @@ Get a list of all phases a deal can go through
                 + id: 1 (number)
                 + name: `New` (string)
 
-### /deals.sources.list [GET /deals.sources.list]
+### deals.sources.list [GET /deals.sources.list]
 
 Get a list of all deal sources
 

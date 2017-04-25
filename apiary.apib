@@ -75,7 +75,7 @@ The following values should be passed as POST parameters:
 
 ## General [/]
 
-### /users.list [GET /users.list]
+### users.list [GET /users.list]
 
 Get a list of all users
 
@@ -84,7 +84,7 @@ Get a list of all users
     + Attributes (object)
         + data (array[User])
 
-### /departments.list [GET /departments.list]
+### departments.list [GET /departments.list]
 
 Get a list of all departments
 
@@ -103,7 +103,7 @@ Get a list of all tags
     + Attributes (object)
         + data (array[Tag])
 
-### /segments.list [GET /segments.list]
+### segments.list [GET /segments.list]
 
 Get a list of all segments
 
@@ -146,7 +146,7 @@ Get a list of all segments
 
 ## Contacts [/contacts]
 
-### /contacts.list [GET /contacts.list{?amount,pageno,company_id}]
+### contacts.list [GET /contacts.list{?amount,pageno,company_id}]
 
 Get a paginated list of contacts
 
@@ -163,7 +163,7 @@ Get a paginated list of contacts
     + Attributes (object)
         + data (array[Contact])
 
-### /contacts.info [GET /contacts.info]
+### contacts.info [GET /contacts.info]
 
 Get the details for a single contact
 
@@ -177,7 +177,7 @@ Get the details for a single contact
     + Attributes (object)
         + data (Contact)
 
-### /contacts.create [POST /contacts.create]
+### contacts.create [POST /contacts.create]
 
 Add a contact to Teamleader
 
@@ -238,7 +238,7 @@ Add a contact to Teamleader
         + data (object)
             + id: `1` (number)
 
-### /contacts.update [POST /contacts.update]
+### contacts.update [POST /contacts.update]
 
 Update a Teamleader contact
 
@@ -274,7 +274,7 @@ Update a Teamleader contact
 
 + Response 204
 
-### /contacts.delete [POST /contacts.delete]
+### contacts.delete [POST /contacts.delete]
 
 Delete a contact from Teamleader
 
@@ -285,7 +285,7 @@ Delete a contact from Teamleader
 
 + Response 204
 
-### /contacts.linkToCompany [POST /contacts.linkToCompany]
+### contacts.linkToCompany [POST /contacts.linkToCompany]
 
 Linking a contact to a company
 
@@ -297,7 +297,7 @@ Linking a contact to a company
 
 + Response 204
 
-### /contacts.unlinkFromCompany [POST /contacts.unlinkFromCompany]
+### contacts.unlinkFromCompany [POST /contacts.unlinkFromCompany]
 
 Unlinking a contact from a company
 
@@ -311,7 +311,7 @@ Unlinking a contact from a company
 
 ## Companies [/companies]
 
-### /companies.list [GET /companies.list]
+### companies.list [GET /companies.list]
 
 Search companies
 
@@ -333,7 +333,7 @@ Search companies
     + Attributes (object)
         + data (array[Company])
 
-### /companies.info [GET /companies.info]
+### companies.info [GET /companies.info]
 
 Get company info
 
@@ -347,7 +347,7 @@ Get company info
     + Attributes (object)
         + data (Company)
 
-### /companies.create [POST /companies.create]
+### companies.create [POST /companies.create]
 
 Add a Teamleader company
 
@@ -400,7 +400,7 @@ Add a Teamleader company
         + data (object)
             + id: `1` (number)
 
-### /companies.update [POST /companies.update]
+### companies.update [POST /companies.update]
 
 Update a Teamleader company
 
@@ -432,7 +432,7 @@ Update a Teamleader company
 
 + Response 204
 
-### /companies.delete [POST /companies.delete]
+### companies.delete [POST /companies.delete]
 
 Delete a company from Teamleader
 
@@ -443,7 +443,7 @@ Delete a company from Teamleader
 
 + Response 204
 
-### /businessTypes.list [GET /businessTypes.list]
+### businessTypes.list [GET /businessTypes.list]
 
 Get the names of business types (legal structures) a company can have within a certain country.
 
@@ -461,7 +461,7 @@ Get the names of business types (legal structures) a company can have within a c
 
 ## Deals [/deals]
 
-### /deals.create [POST /deals.create]
+### deals.create [POST /deals.create]
 
 Add a deal for a contact or company.
 
@@ -506,7 +506,7 @@ Add a deal for a contact or company.
         + data (object)
             + id: `1` (number)
 
-### /deals.update [POST /deals.update]
+### deals.update [POST /deals.update]
 
 Update a deal
 
@@ -533,7 +533,7 @@ Update a deal
 
 + Response 204
 
-### /deals.items.update [POST /deals.items.update]
+### deals.items.update [POST /deals.items.update]
 
 Update a deal's items
 
@@ -550,7 +550,7 @@ Update a deal's items
 
 + Response 204
 
-### /deals.quotation.emailToClient [POST /deals.quotation.emailToClient]
+### deals.quotation.emailToClient [POST /deals.quotation.emailToClient]
 
 Send a deal's quotation via email to a client
 
@@ -565,7 +565,7 @@ Send a deal's quotation via email to a client
 
 + Response 204
 
-### /deals.list [GET /deals.list]
+### deals.list [GET /deals.list]
 
 Get a list of all deals
 
@@ -586,7 +586,7 @@ Get a list of all deals
     + Attributes (object)
         + data (array[Deal])
 
-### /deals.byContact [GET /deals.byContact]
+### deals.byContact [GET /deals.byContact]
 
 Get a list of all deals by contact
 
@@ -600,7 +600,7 @@ Get a list of all deals by contact
     + Attributes (object)
         + data (array[DealPhase])
 
-### /deals.byCompany [GET /deals.byCompany]
+### deals.byCompany [GET /deals.byCompany]
 
 Get a list of all deals by company
 
@@ -614,7 +614,7 @@ Get a list of all deals by company
     + Attributes (object)
         + data (array[DealPhase])
 
-### /deals.byProject [GET /deals.byProject]
+### deals.byProject [GET /deals.byProject]
 
 Get a list of all deals by project
 
@@ -630,7 +630,7 @@ Get a list of all deals by project
             + (object)
                 + deal_id: 1 (number)
 
-### /deals.info [GET /deals.info]
+### deals.info [GET /deals.info]
 
 Get deal details
 
@@ -644,7 +644,7 @@ Get deal details
     + Attributes (object)
         + data (Deal)
 
-### /deals.phases.changes [GET /deals.phases.changes]
+### deals.phases.changes [GET /deals.phases.changes]
 
 Get a list of a deal phase changes
 
@@ -663,7 +663,7 @@ Get a list of a deal phase changes
             + change_date_formatted: `13/04/2017` (string)
             + related_user_id: 1 (number)
 
-### /deals.phases.list [GET /deals.phases.list]
+### deals.phases.list [GET /deals.phases.list]
 
 Get a list of all phases a deal can go through
 
@@ -675,7 +675,7 @@ Get a list of all phases a deal can go through
                 + id: 1 (number)
                 + name: `New` (string)
 
-### /deals.sources.list [GET /deals.sources.list]
+### deals.sources.list [GET /deals.sources.list]
 
 Get a list of all deal sources
 
@@ -689,7 +689,7 @@ Get a list of all deal sources
 
 ## Invoices [/invoices]
 
-### /invoices.list [GET /invoices.list]
+### invoices.list [GET /invoices.list]
 
 Search invoices
 
@@ -714,7 +714,7 @@ Search invoices
     + Attributes (object)
         data (array[Invoice])
 
-### /creditNotes.list [GET /creditNotes.list]
+### creditNotes.list [GET /creditNotes.list]
 
 Search creditnotes
 
@@ -737,7 +737,7 @@ Search creditnotes
 
 ## Files [/files]
 
-### /files.list [GET /files.list]
+### files.list [GET /files.list]
 
 Get a list of all files relating to an object
 
@@ -767,7 +767,7 @@ Get a list of all files relating to an object
                 + date_last_edited: `1492673227` (number)
                 + filesize_bytes: `256` (number)
 
-### /files.info [GET /files.info]
+### files.info [GET /files.info]
 
 Get a info about a specific file
 
@@ -789,7 +789,7 @@ Get a info about a specific file
             + date_last_edited: `1492673227` (number)
             + date_last_edited_formatted: `20/04/2017` (string)
 
-### /files.download [GET /files.download]
+### files.download [GET /files.download]
 
 Get a signed URL where the file can be downloaded. The signed URL will remaing valid for 30 seconds.
 
@@ -804,7 +804,7 @@ Get a signed URL where the file can be downloaded. The signed URL will remaing v
         + data (object)
             + signed_download_url: `http://example.com/cat.bmp` (string)
 
-### /files.upload [POST /files.upload]
+### files.upload [POST /files.upload]
 
 Get a signed URL where the file can be downloaded. The signed URL will remaing valid for 30 seconds.
 
@@ -830,7 +830,7 @@ Get a signed URL where the file can be downloaded. The signed URL will remaing v
         + data (object)
             + id: `123` (number)
 
-### /files.delete [POST /files.delete]
+### files.delete [POST /files.delete]
 
 Delete a file
 

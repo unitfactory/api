@@ -1,6 +1,6 @@
 ## Files [/files]
 
-### /files.list [GET /files.list]
+### files.list [GET /files.list]
 
 Get a list of all files relating to an object
 
@@ -30,7 +30,7 @@ Get a list of all files relating to an object
                 + date_last_edited: `1492673227` (number)
                 + filesize_bytes: `256` (number)
 
-### /files.info [GET /files.info]
+### files.info [GET /files.info]
 
 Get a info about a specific file
 
@@ -52,7 +52,7 @@ Get a info about a specific file
             + date_last_edited: `1492673227` (number)
             + date_last_edited_formatted: `20/04/2017` (string)
 
-### /files.download [GET /files.download]
+### files.download [GET /files.download]
 
 Get a signed URL where the file can be downloaded. The signed URL will remaing valid for 30 seconds.
 
@@ -67,7 +67,7 @@ Get a signed URL where the file can be downloaded. The signed URL will remaing v
         + data (object)
             + signed_download_url: `http://example.com/cat.bmp` (string)
 
-### /files.upload [POST /files.upload]
+### files.upload [POST /files.upload]
 
 Get a signed URL where the file can be downloaded. The signed URL will remaing valid for 30 seconds.
 
@@ -93,7 +93,7 @@ Get a signed URL where the file can be downloaded. The signed URL will remaing v
         + data (object)
             + id: `123` (number)
 
-### /files.delete [POST /files.delete]
+### files.delete [POST /files.delete]
 
 Delete a file
 

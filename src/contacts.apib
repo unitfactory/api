@@ -1,6 +1,6 @@
 ## Contacts [/contacts]
 
-### /contacts.list [GET /contacts.list{?amount,pageno,company_id}]
+### contacts.list [GET /contacts.list{?amount,pageno,company_id}]
 
 Get a paginated list of contacts
 
@@ -17,7 +17,7 @@ Get a paginated list of contacts
     + Attributes (object)
         + data (array[Contact])
 
-### /contacts.info [GET /contacts.info]
+### contacts.info [GET /contacts.info]
 
 Get the details for a single contact
 
@@ -31,7 +31,7 @@ Get the details for a single contact
     + Attributes (object)
         + data (Contact)
 
-### /contacts.create [POST /contacts.create]
+### contacts.create [POST /contacts.create]
 
 Add a contact to Teamleader
 
@@ -92,7 +92,7 @@ Add a contact to Teamleader
         + data (object)
             + id: `1` (number)
 
-### /contacts.update [POST /contacts.update]
+### contacts.update [POST /contacts.update]
 
 Update a Teamleader contact
 
@@ -128,7 +128,7 @@ Update a Teamleader contact
 
 + Response 204
 
-### /contacts.delete [POST /contacts.delete]
+### contacts.delete [POST /contacts.delete]
 
 Delete a contact from Teamleader
 
@@ -139,7 +139,7 @@ Delete a contact from Teamleader
 
 + Response 204
 
-### /contacts.linkToCompany [POST /contacts.linkToCompany]
+### contacts.linkToCompany [POST /contacts.linkToCompany]
 
 Linking a contact to a company
 
@@ -151,7 +151,7 @@ Linking a contact to a company
 
 + Response 204
 
-### /contacts.unlinkFromCompany [POST /contacts.unlinkFromCompany]
+### contacts.unlinkFromCompany [POST /contacts.unlinkFromCompany]
 
 Unlinking a contact from a company
 
