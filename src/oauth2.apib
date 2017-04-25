@@ -12,7 +12,7 @@ Redirect users to the Teamleader authorization page:
 
 The following values should be passed as GET parameters:
  - `client_id` - issued when you create your integration
- - `response_type` - should be "code"
+ - `response_type` - must be "code"
  - `state` - unique string to be passed back upon completion (optional)
  - `redirect_uri` - URL to redirect back to after authorization
 
@@ -30,7 +30,7 @@ The following values should be passed as POST parameters:
  - `client_id` - issued when you register your integration
  - `client_secret` - issued when you register your integration
  - `code` - the authorization code
- - `grant_type` - should be "authorization_code"
+ - `grant_type` - must be "authorization_code"
  - `redirect_uri` - the original submitted redirect URL
 
 You will receive a JSON response containing an `access_token` and `refresh_token`:
@@ -62,4 +62,4 @@ The following values should be passed as POST parameters:
  - `client_id` - issued when you register your integration
  - `client_secret` - issued when you register your integration
  - `refresh_token` - the refresh token
- - `grant_type` - should be "refresh_token"
+ - `grant_type` - must be "refresh_token"
