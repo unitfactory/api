@@ -1,0 +1,65 @@
+## OAuth 2
+
+OAuth 2 is an authorization framework that lets your integration request authorization to data in a user's Teamleader account without getting their password.
+
+Before starting you will need to register your integration. Each registered integration is assigned a unique `client_id` and `client_secret` which will be used in the OAuth flow. Note that the `client_secret` key should not be shared.
+
+### Authorization
+
+Redirect users to the Teamleader authorization page:
+
+`https://api.teamleader.eu/oauth2/authorize`
+
+The following values should be passed as GET parameters:
+ - `client_id` - issued when you create your integration
+ - `response_type` - must be "code"
+ - `state` - unique string to be passed back upon completion (optional)
+ - `redirect_uri` - URL to redirect back to after authorization
+
+### Token issuing
+
+If the user authorizes your integration, Teamleader will redirect back to the previously specified `redirect_uri` with a temporary authorization code and the original state parameter if it was provided. If the states don't match, the request may have been created by a third party and you should abort the process.
+
+`https://YOUR_REDIRECT_URI/?code=CODE&state=STATE`
+
+Your server can exchange this authorization code for an access token. Note that authorization codes may only be exchanged once and expire 10 minutes after issuance.
+
+`https://api.teamleader.eu/oauth2/access_token`
+
+The following values should be passed as POST parameters:
+ - `client_id` - issued when you register your integration
+ - `client_secret` - issued when you register your integration
+ - `code` - the authorization code
+ - `grant_type` - must be "authorization_code"
+ - `redirect_uri` - the original submitted redirect URL
+
+You will receive a JSON response containing an `access_token` and `refresh_token`:
+
+```
+{
+    "token_type": "Bearer",
+    "expires_in": 3600,
+    "access_token": ACCESS_TOKEN,
+    "refresh_token": REFRESH_TOKEN
+}
+```
+
+You can use this access token to call API methods on behalf of the user using the Authorization-header. Example:
+
+	GET https://api.teamleader.eu/contacts.list HTTP/1.1
+	Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciO...
+	Accept: application/json
+
+The access token will continue functioning until the installing user either revokes the token and/or uninstalls your integration.
+
+### Refresh tokens
+
+Access tokens expire shortly (1 hour) after they are issued for security reasons. If your integration needs to communicate with the API beyond the access token's lifespan you will need to request a new access token using the refresh token which was issued with the access token. Note that refresh tokens can only used once to get a new access token and refresh token.
+
+`https://api.teamleader.eu/oauth2/access_token`
+
+The following values should be passed as POST parameters:
+ - `client_id` - issued when you register your integration
+ - `client_secret` - issued when you register your integration
+ - `refresh_token` - the refresh token
+ - `grant_type` - must be "refresh_token"
