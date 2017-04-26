@@ -18,7 +18,6 @@ Get a list of all departments
     + Attributes (object)
         + data (array[Department])
 
-
 ### tags.list [GET /tags.list]
 
 Get a list of all tags
@@ -28,43 +27,18 @@ Get a list of all tags
     + Attributes (object)
         + data (array[Tag])
 
-### segments.list [GET /segments.list]
+### businessTypes.list [GET /businessTypes.list]
 
-Get a list of all segments
+Get the names of business types (legal structures) a company can have within a certain country.
 
 + Request (application/json)
 
     + Attributes (object)
-        + `object_type`: `crm_companies` (enum[string], required)
-
-            Pick one of the possible values.
-
-            + Members
-                + crm_companies
-                + crm_contacts
-                + crm_todos
-                + crm_callbacks
-                + crm_meetings
-                + inv_invoices
-                + inv_creditnotes
-                + pro_projects
-                + sale_sales
-                + ticket_tickets
+        + country: BE (string) -  country code according to ISO 3166-1 alpha-2. For Belgium: "BE"
 
 + Response 200 (application/json)
 
-        {
-            "Medewerkers": [
-                {
-                    "id": "owner--1",
-                    "name": "",
-                    "num_matches": -1
-                },
-                {
-                    "id": "owner-1",
-                    "name": "John Smith",
-                    "num_matches": -1
-                }
-            ],
-            "Smart segments": []
-        }
+    + Attributes (object)
+        + data (array, fixed)
+            + (object)
+                + name: `BVBA` (string)

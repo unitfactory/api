@@ -93,7 +93,6 @@ Get a list of all departments
     + Attributes (object)
         + data (array[Department])
 
-
 ### tags.list [GET /tags.list]
 
 Get a list of all tags
@@ -103,46 +102,21 @@ Get a list of all tags
     + Attributes (object)
         + data (array[Tag])
 
-### segments.list [GET /segments.list]
+### businessTypes.list [GET /businessTypes.list]
 
-Get a list of all segments
+Get the names of business types (legal structures) a company can have within a certain country.
 
 + Request (application/json)
 
     + Attributes (object)
-        + `object_type`: `crm_companies` (enum[string], required)
-
-            Pick one of the possible values.
-
-            + Members
-                + crm_companies
-                + crm_contacts
-                + crm_todos
-                + crm_callbacks
-                + crm_meetings
-                + inv_invoices
-                + inv_creditnotes
-                + pro_projects
-                + sale_sales
-                + ticket_tickets
+        + country: BE (string) -  country code according to ISO 3166-1 alpha-2. For Belgium: "BE"
 
 + Response 200 (application/json)
 
-        {
-            "Medewerkers": [
-                {
-                    "id": "owner--1",
-                    "name": "",
-                    "num_matches": -1
-                },
-                {
-                    "id": "owner-1",
-                    "name": "John Smith",
-                    "num_matches": -1
-                }
-            ],
-            "Smart segments": []
-        }
+    + Attributes (object)
+        + data (array, fixed)
+            + (object)
+                + name: `BVBA` (string)
 
 ## Contacts [/contacts]
 
@@ -177,7 +151,7 @@ Get the details for a single contact
     + Attributes (object)
         + data (Contact)
 
-### contacts.create [POST /contacts.create]
+### contacts.add [POST /contacts.create]
 
 Add a contact to Teamleader
 
@@ -347,7 +321,7 @@ Get company info
     + Attributes (object)
         + data (Company)
 
-### companies.create [POST /companies.create]
+### companies.add [POST /companies.create]
 
 Add a Teamleader company
 
@@ -443,27 +417,46 @@ Delete a company from Teamleader
 
 + Response 204
 
-### businessTypes.list [GET /businessTypes.list]
+## Deals [/deals]
 
-Get the names of business types (legal structures) a company can have within a certain country.
+### deals.list [GET /deals.list]
+
+Get a list of all deals
 
 + Request (application/json)
 
     + Attributes (object)
-        + country: BE (string) -  country code according to ISO 3166-1 alpha-2. For Belgium: "BE"
+        + amount: `10` (number, optional) - Amount of results you want
+            + Default: `20`
+        + pageno: `0` (number, optional) - Page of results you want
+            + Default: `0`
+        + searchby: `Teamleader` (string, optional) - A search string. Teamleader will try to search deals matching this string.
+        + selected_customfields: `42,142` (string, optional) - Comma-separated list of the IDs of the custom fields you wish to select (max 10).
+        + filter_by_phase_id: `5` (string, optional) - Only return deals with this phase ID
+        + segment_id: `1` (string, optional) - The ID of a segment created for deals.
 
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array, fixed)
-            + (object)
-                + name: `BVBA` (string)
+        + data (array[Deal])
 
-## Deals [/deals]
+### deals.info [GET /deals.info]
+
+Get deal details
+
++ Request (application/json)
+
+    + Attributes (object)
+        + deal_id: `1` (number, required) - ID of the deal you want
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (Deal)
 
 ### deals.create [POST /deals.create]
 
-Add a deal for a contact or company.
+Create a deal for a contact or company.
 
 + Request (application/json)
 
@@ -508,7 +501,30 @@ Add a deal for a contact or company.
 
 ### deals.update [POST /deals.update]
 
-Update a deal
+Update a deal.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + deal_id: `1` (number, required) - Who is related to this deal?
+        + title: `Interesting business deal` (string, optional)
+        + source: `Google Adwords` (string, optional)
+        + responsible_sys_client_id: `1` (number, optional) - ID of the user that is responsible for this deal
+        + phase_id: `1` (number, optional) - new phase ID this deal should be moved to
+        + budget_estimation: `10` (number, optional) - budget estimation for this deal. This value will be overwritten once a quotation is made for this deal
+        + custom_field_ID: `1` (number, optional) - replace ID by the ID of your custom field.
+
++ Response 204
+
+### deals.quote [POST /deals.quote]
+
+Create a quotation from a deal.
+
++ Response 204
+
+### deals.items.update [POST /deals.items.update]
+
+Update a deal's items
 
 + Request (application/json)
 
@@ -533,24 +549,7 @@ Update a deal
 
 + Response 204
 
-### deals.items.update [POST /deals.items.update]
-
-Update a deal's items
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + deal_id: `1` (number, required) - Who is related to this deal?
-        + title: `Interesting business deal` (string, optional)
-        + source: `Google Adwords` (string, optional)
-        + responsible_sys_client_id: `1` (number, optional) - ID of the user that is responsible for this deal
-        + phase_id: `1` (number, optional) - new phase ID this deal should be moved to
-        + budget_estimation: `10` (number, optional) - budget estimation for this deal. This value will be overwritten once a quotation is made for this deal
-        + custom_field_ID: `1` (number, optional) - replace ID by the ID of your custom field.
-
-+ Response 204
-
-### deals.quotation.emailToClient [POST /deals.quotation.emailToClient]
+### deals.quotation.send [POST /deals.quotation.emailToClient]
 
 Send a deal's quotation via email to a client
 
@@ -565,105 +564,7 @@ Send a deal's quotation via email to a client
 
 + Response 204
 
-### deals.list [GET /deals.list]
-
-Get a list of all deals
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + amount: `10` (number, optional) - Amount of results you want
-            + Default: `20`
-        + pageno: `0` (number, optional) - Page of results you want
-            + Default: `0`
-        + searchby: `Teamleader` (string, optional) - A search string. Teamleader will try to search deals matching this string.
-        + selected_customfields: `42,142` (string, optional) - Comma-separated list of the IDs of the custom fields you wish to select (max 10).
-        + filter_by_phase_id: `5` (string, optional) - Only return deals with this phase ID
-        + segment_id: `1` (string, optional) - The ID of a segment created for deals.
-
-+ Response 200 (application/json)
-
-    + Attributes (object)
-        + data (array[Deal])
-
-### deals.byContact [GET /deals.byContact]
-
-Get a list of all deals by contact
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + contact_id: `1` (number, required) - ID of the related contact
-
-+ Response 200 (application/json)
-
-    + Attributes (object)
-        + data (array[DealPhase])
-
-### deals.byCompany [GET /deals.byCompany]
-
-Get a list of all deals by company
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + company_id: `1` (number, required) - ID of the related company
-
-+ Response 200 (application/json)
-
-    + Attributes (object)
-        + data (array[DealPhase])
-
-### deals.byProject [GET /deals.byProject]
-
-Get a list of all deals by project
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + project_id: `1` (number, required) - ID of the project
-
-+ Response 200 (application/json)
-
-    + Attributes (object)
-        + data (array)
-            + (object)
-                + deal_id: 1 (number)
-
-### deals.info [GET /deals.info]
-
-Get deal details
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + deal_id: `1` (number, required) - ID of the deal you want
-
-+ Response 200 (application/json)
-
-    + Attributes (object)
-        + data (Deal)
-
-### deals.phases.changes [GET /deals.phases.changes]
-
-Get a list of a deal phase changes
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + deal_id: `1` (number, required) - ID of the deal you want
-
-+ Response 200 (application/json)
-
-    + Attributes (object)
-        + data (object)
-            + old_phase_id: 1 (number)
-            + new_phase_id: 2 (number)
-            + change_date: 1492074106 (number)
-            + change_date_formatted: `13/04/2017` (string)
-            + related_user_id: 1 (number)
-
-### deals.phases.list [GET /deals.phases.list]
+### dealPhases.list [GET /dealPhases.list]
 
 Get a list of all phases a deal can go through
 
@@ -675,7 +576,7 @@ Get a list of all phases a deal can go through
                 + id: 1 (number)
                 + name: `New` (string)
 
-### deals.sources.list [GET /deals.sources.list]
+### dealSources.list [GET /dealSources.list]
 
 Get a list of all deal sources
 
@@ -686,160 +587,6 @@ Get a list of all deal sources
             + (object)
                 + id: 1 (number)
                 + name: `Google Search` (string)
-
-## Invoices [/invoices]
-
-### invoices.list [GET /invoices.list]
-
-Search invoices
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + date_from: `01/01/2017` (string, required) - Format: dd/mm/yyyy
-        + date_to: `31/12/2017` (string, required) - Format: dd/mm/yyyy
-        + contact_or_company: `contact` (enum[string], optional) - Use this to filter by client
-            + Members
-                + contact
-                + company
-        + contact_or_company_id: `1` (number, optional) - ID of the contact or company
-        + deep_search: `1` (number, optional) Pass 1 to return not just invoices related to the requested contact, but also to invoices related to linked companies
-        + selected_customfields: `1,2` (string, optional) - comma-separated list of the IDs of the custom fields you wish to select (max 10).
-        + project_id: `1` (number, optional) - The ID of the project you wish to filter by. If this parameter is set, all of the above are ignored.
-        + include_draft_invoices: `1` (number, optional) -  Set this parameter to 1 to include draft invoices. Only works in conjunction with `project_id`
-            + Default: `0`
-
-+ Response 200 (application/json)
-
-    + Attributes (object)
-        data (array[Invoice])
-
-### creditNotes.list [GET /creditNotes.list]
-
-Search creditnotes
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + `date_from`: `01/01/2017` (string, required) - Format: dd/mm/yyyy
-        + `date_to`: `31/12/2017` (string, required) - Format: dd/mm/yyyy
-        + contact_or_company: `contact` (enum[string], optional) - Use this to filter by client
-            + Members
-                + contact
-                + company
-        + contact_or_company_id: `1` (number, optional) - ID of the contact or company
-        + deep_search: `1` (number, optional) Pass 1 to return not just invoices related to the requested contact, but also to invoices related to linked companies
-        + project_id: `1` (number, optional) - The ID of the project you wish to filter by. If this parameter is set, all the others are ignored.
-
-+ Response 200 (application/json)
-
-    + Attributes (array[CreditNote])
-
-## Files [/files]
-
-### files.list [GET /files.list]
-
-Get a list of all files relating to an object
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + amount: `20` (number, required) - The amount of contacts returned per request, max 1 to 100
-        + pageno: `0` (number, required) - The current page, the first page is 0
-        + object_type: `contact` (enum[string], required) - The type of object
-            + Members
-                + contact
-                + company
-                + sale
-                + ticket
-                + project
-                + meeting
-        + object_id: `1` (number, required) - ID of the object
-        + folder_name: `cat_pictures` (string, optional) - the folder name of which the contents should be displayed
-
-+ Response 200 (application/json)
-
-    + Attributes (object)
-        + data (array)
-            + (object)
-                + id: `101` (number)
-                + filename: `cat.bmp` (string)
-                + date_last_edited: `1492673227` (number)
-                + filesize_bytes: `256` (number)
-
-### files.info [GET /files.info]
-
-Get a info about a specific file
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + file_id: `20` (number, required) - The file's ID
-
-+ Response 200 (application/json)
-
-    + Attributes (object)
-        + data (object)
-            + filename: `cat.bmp` (string)
-            + filesize_bytes: `256` (number)
-            + uploader_client_id: `1` (number)
-            + related_object_type: `contact (`string`)
-            + related_object_id: `1` (number)
-            + folder: `pics (`string`)
-            + date_last_edited: `1492673227` (number)
-            + date_last_edited_formatted: `20/04/2017` (string)
-
-### files.download [GET /files.download]
-
-Get a signed URL where the file can be downloaded. The signed URL will remaing valid for 30 seconds.
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + file_id: `20` (number, required) - The file's ID
-
-+ Response 200 (application/json)
-
-    + Attributes (object)
-        + data (object)
-            + signed_download_url: `http://example.com/cat.bmp` (string)
-
-### files.upload [POST /files.upload]
-
-Get a signed URL where the file can be downloaded. The signed URL will remaing valid for 30 seconds.
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + object_type: `contact` (enum[string], required) - The type of object
-            + Members
-                + contact
-                + company
-                + sale
-                + ticket
-                + project
-                + meeting
-        + object_id: `1` (number, required) - ID of the object
-        + file_content: `TG9yZW0gSXBzdW0gaXMgc2ltcGx5IGR1bW15IHRleHQgb2YgdGhlIHByaW50aW5nIGFuZCB0eXBlc2V0dGluZyBpbmR1c3RyeS4=` (string, required) - Base64 encoded version the file
-        + file_name: `cat.bmp` (string, required) - Name of the file, including extension
-        + folder_name: `cat_pictures` (string, optional) - the folder name of which the contents should be displayed
-
-+ Response 200 (application/json)
-
-    + Attributes (object)
-        + data (object)
-            + id: `123` (number)
-
-### files.delete [POST /files.delete]
-
-Delete a file
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + file_id: `20` (number, required) - The file's ID
-
-+ Response 204
 
 # Data Structures
 
