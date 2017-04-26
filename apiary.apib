@@ -113,9 +113,9 @@ Get a paginated list of contacts
     + filter (object)
         + company_id: `1` (number, optional) - Filter contacts by a certain company.
     + page (object)
-        + limit: `20` (number, optional) - Amount of contacts you want returned, 1 to 100.
+        + size: `20` (number, optional) - Amount of contacts you want returned, 1 to 100.
             + Default: `20`
-        + page: `0` (number, optional) - The numerated page you want, starts at 0.
+        + number: `0` (number, optional) - The numerated page you want, starts at 0.
             + Default: `0`
 
 + Response 200 (application/json)
@@ -283,9 +283,9 @@ Search companies
             + modified_since: `2017-04-26T10:01:49+00:00` (string, optional) - ISO 8601 date. Teamleader will only return contacts that have been added or modified since that date.
             + query: `teamleader` (string, optional) - A search string. Teamleader will try to match each part of the string to the forename, surname, company name and email address.
         + page (object)
-            + limit: `20` (number, optional) - The amount of contacts returned per request, max 1 to 100
+            + size: `20` (number, optional) - The amount of contacts returned per request, max 1 to 100
                 + Default: `20`
-            + page: `0` (number, optional) - The current page, the first page is 0
+            + number: `0` (number, optional) - The current page, the first page is 0
                 + Default: `0`
 
 + Response 200 (application/json)
@@ -429,9 +429,9 @@ Get a list of all deals
 
     + Attributes (object)
         + page (object)
-            + limit: `10` (number, optional) - Amount of results you want
+            + size: `10` (number, optional) - Amount of results you want
                 + Default: `20`
-            + page: `0` (number, optional) - Page of results you want
+            + number: `0` (number, optional) - Page of results you want
                 + Default: `0`
         + filter (object)
             + query: `Teamleader` (string, optional) - A search string. Teamleader will try to search deals matching this string.

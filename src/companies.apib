@@ -12,9 +12,9 @@ Search companies
             + modified_since: `2017-04-26T10:01:49+00:00` (string, optional) - ISO 8601 date. Teamleader will only return contacts that have been added or modified since that date.
             + query: `teamleader` (string, optional) - A search string. Teamleader will try to match each part of the string to the forename, surname, company name and email address.
         + page (object)
-            + limit: `20` (number, optional) - The amount of contacts returned per request, max 1 to 100
+            + size: `20` (number, optional) - The amount of contacts returned per request, max 1 to 100
                 + Default: `20`
-            + page: `0` (number, optional) - The current page, the first page is 0
+            + number: `0` (number, optional) - The current page, the first page is 0
                 + Default: `0`
 
 + Response 200 (application/json)
