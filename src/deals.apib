@@ -1,20 +1,23 @@
 ## Deals [/deals]
 
-### deals.list [GET /deals.list]
+### deals.list [POST /deals.list]
 
 Get a list of all deals
 
 + Request (application/json)
 
     + Attributes (object)
-        + amount: `10` (number, optional) - Amount of results you want
-            + Default: `20`
-        + pageno: `0` (number, optional) - Page of results you want
-            + Default: `0`
-        + searchby: `Teamleader` (string, optional) - A search string. Teamleader will try to search deals matching this string.
-        + selected_customfields: `42,142` (string, optional) - Comma-separated list of the IDs of the custom fields you wish to select (max 10).
-        + filter_by_phase_id: `5` (string, optional) - Only return deals with this phase ID
-        + segment_id: `1` (string, optional) - The ID of a segment created for deals.
+        + page (object)
+            + limit: `10` (number, optional) - Amount of results you want
+                + Default: `20`
+            + page: `0` (number, optional) - Page of results you want
+                + Default: `0`
+        + filter (object)
+            + query: `Teamleader` (string, optional) - A search string. Teamleader will try to search deals matching this string.
+            + phase_id: `5` (number, optional) - Only return deals with this phase ID
+            + company_id: `123` (number, optional) - Only return deals for this company
+            + contact_id: `456` (number, optional) - Only return deals for this contact
+            + project_id: `789` (number, optional) - Only return deals for this project
 
 + Response 200 (application/json)
 
