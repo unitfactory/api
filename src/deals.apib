@@ -7,12 +7,12 @@ Get a list of all deals
 + Request (application/json)
 
     + Attributes (object)
-        + page (object)
+        + page (object, optional)
             + size: `10` (number, optional) - Amount of results you want
                 + Default: `20`
             + number: `1` (number, optional) - Page of results you want
                 + Default: `1`
-        + filter (object)
+        + filter (object, optional)
             + query: `Teamleader` (string, optional) - A search string. Teamleader will try to search deals matching this string.
             + phase_id: `5` (number, optional) - Only return deals with this phase ID
             + company_id: `123` (number, optional) - Only return deals for this company
