@@ -281,7 +281,7 @@ Search companies
         + filter (object, optional)
             + tag: `upsell` (string, optional) - Company tag. Teamleader will only return companies that have the tag.
             + modified_since: `2017-04-26T10:01:49+00:00` (string, optional) - ISO 8601 date. Teamleader will only return contacts that have been added or modified since that date.
-            + query: `teamleader` (string, optional) - A search string. Teamleader will try to match each part of the string to the forename, surname, company name and email address.
+            + term: `teamleader` (string, optional) - A search string. Teamleader will try to match each part of the string to the forename, surname, company name and email address.
         + page (object, optional)
             + size: `20` (number, optional) - The amount of contacts returned per request, max 1 to 100
                 + Default: `20`
@@ -434,7 +434,7 @@ Get a list of all deals
             + number: `1` (number, optional) - Page of results you want
                 + Default: `1`
         + filter (object, optional)
-            + query: `Teamleader` (string, optional) - A search string. Teamleader will try to search deals matching this string.
+            + term: `Teamleader` (string, optional) - A search string. Teamleader will try to search deals matching this string.
             + phase_id: `5` (number, optional) - Only return deals with this phase ID
             + company_id: `123` (number, optional) - Only return deals for this company
             + contact_id: `456` (number, optional) - Only return deals for this contact
