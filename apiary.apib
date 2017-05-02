@@ -108,15 +108,16 @@ Get a list of all tags
 
 Get a paginated list of contacts
 
-+ Parameters
++ Request (application/json)
 
-    + filter (object, optional)
-        + company_id: `1` (number, optional) - Filter contacts by a certain company.
-    + page (object, optional)
-        + size: `20` (number, optional) - Amount of contacts you want returned, 1 to 100.
-            + Default: `20`
-        + number: `1` (number, optional) - The numerated page you want, starts at 1.
-            + Default: `1`
+    + Attributes (object)
+        + filter (object, optional)
+            + company_id: `1` (number, optional) - Filter contacts by a certain company.
+        + page (object, optional)
+            + size: `20` (number, optional) - Amount of contacts you want returned, 1 to 100.
+                + Default: `20`
+            + number: `1` (number, optional) - The numerated page you want, starts at 1.
+                + Default: `1`
 
 + Response 200 (application/json)
 
@@ -710,7 +711,7 @@ name: `A Tag` (string)
 + date_added: 1491480887 (number)
 + extra_addresses (array[string])
 + deleted: 0 (number)
-+ custom_fields (object)
++ custom_fields (array)
 + linked_company_ids (string)
 + linked_company_names (array[string])
 + linked_company_functions (string)

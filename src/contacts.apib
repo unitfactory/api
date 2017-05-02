@@ -4,15 +4,16 @@
 
 Get a paginated list of contacts
 
-+ Parameters
++ Request (application/json)
 
-    + filter (object, optional)
-        + company_id: `1` (number, optional) - Filter contacts by a certain company.
-    + page (object, optional)
-        + size: `20` (number, optional) - Amount of contacts you want returned, 1 to 100.
-            + Default: `20`
-        + number: `1` (number, optional) - The numerated page you want, starts at 1.
-            + Default: `1`
+    + Attributes (object)
+        + filter (object, optional)
+            + company_id: `1` (number, optional) - Filter contacts by a certain company.
+        + page (object, optional)
+            + size: `20` (number, optional) - Amount of contacts you want returned, 1 to 100.
+                + Default: `20`
+            + number: `1` (number, optional) - The numerated page you want, starts at 1.
+                + Default: `1`
 
 + Response 200 (application/json)
 
