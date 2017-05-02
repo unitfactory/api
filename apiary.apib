@@ -104,17 +104,19 @@ Get a list of all tags
 
 ## Contacts [/contacts]
 
-### contacts.list [GET /contacts.list{?amount,pageno,company_id}]
+### contacts.list [GET /contacts.list]
 
 Get a paginated list of contacts
 
 + Parameters
 
-    + amount: `20` (number, optional) - Amount of contacts you want returned, 1 to 100.
-        + Default: `20`
-    + pageno: `0` (number, optional) - The numerated page you want, starts at 0.
-        + Default: `0`
-    + company_id: `1` (number, optional) - Filter contacts by a certain company.
+    + filter (object, optional)
+        + company_id: `1` (number, optional) - Filter contacts by a certain company.
+    + page (object, optional)
+        + size: `20` (number, optional) - Amount of contacts you want returned, 1 to 100.
+            + Default: `20`
+        + number: `1` (number, optional) - The numerated page you want, starts at 1.
+            + Default: `1`
 
 + Response 200 (application/json)
 
@@ -276,15 +278,15 @@ Search companies
 + Request (application/json)
 
     + Attributes (object)
-        + amount: `20` (number, optional) - The amount of contacts returned per request, max 1 to 100
-            + Default: `20`
-        + pageno: `0` (number, optional) - The current page, the first page is 0
-            + Default: `20`
-        + searchby: `teamleader` (string, optional) - A search string. Teamleader will try to match each part of the string to the forename, surname, company name and email address.
-        + modifiedsince: `1454604273` (number, optional) - Unix timestamp. Teamleader will only return contacts that have been added or modified since that timestamp.
-        + filter_by_tag: `upsell` (string, optional) - Company tag. Teamleader will only return companies that have the tag.
-        + segment_id: `4` (number, optional) - The ID of a segment created for contacts. Teamleader will only return contacts that have been filtered out by the segment settings.
-        + selected_customfields: `` (string, optional) - Comma-separated list of the IDs of the custom fields you wish to select (max 10).
+        + filter (object, optional)
+            + tag: `upsell` (string, optional) - Company tag. Teamleader will only return companies that have the tag.
+            + modified_since: `2017-04-26T10:01:49+00:00` (string, optional) - ISO 8601 date. Teamleader will only return contacts that have been added or modified since that date.
+            + term: `teamleader` (string, optional) - A search string. Teamleader will try to match each part of the string to the forename, surname, company name and email address.
+        + page (object, optional)
+            + size: `20` (number, optional) - The amount of contacts returned per request, max 1 to 100
+                + Default: `20`
+            + number: `1` (number, optional) - The current page, the first page is 1
+                + Default: `1`
 
 + Response 200 (application/json)
 
@@ -426,14 +428,17 @@ Get a list of all deals
 + Request (application/json)
 
     + Attributes (object)
-        + amount: `10` (number, optional) - Amount of results you want
-            + Default: `20`
-        + pageno: `0` (number, optional) - Page of results you want
-            + Default: `0`
-        + searchby: `Teamleader` (string, optional) - A search string. Teamleader will try to search deals matching this string.
-        + selected_customfields: `42,142` (string, optional) - Comma-separated list of the IDs of the custom fields you wish to select (max 10).
-        + filter_by_phase_id: `5` (string, optional) - Only return deals with this phase ID
-        + segment_id: `1` (string, optional) - The ID of a segment created for deals.
+        + page (object, optional)
+            + size: `10` (number, optional) - Amount of results you want
+                + Default: `20`
+            + number: `1` (number, optional) - Page of results you want
+                + Default: `1`
+        + filter (object, optional)
+            + term: `Teamleader` (string, optional) - A search string. Teamleader will try to search deals matching this string.
+            + phase_id: `5` (number, optional) - Only return deals with this phase ID
+            + company_id: `123` (number, optional) - Only return deals for this company
+            + contact_id: `456` (number, optional) - Only return deals for this contact
+            + project_id: `789` (number, optional) - Only return deals for this project
 
 + Response 200 (application/json)
 
