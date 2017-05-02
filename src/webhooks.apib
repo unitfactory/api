@@ -7,7 +7,7 @@ Register a webhook.
 + Request (application/json)
 
     + Attributes (object)
-        + url: `https://www.mywebhookurl.com` (enum[string], required) - Your webhook url
+        + url: `https://www.mywebhookurl.com` (string, required) - Your webhook url
         + types: `["CONTACT_ADDED", "CONTACT_EDITED"]` (array[enum[string]], required) - Array of event types that should fire the webhook
             + Members
                 + CONTACT_ADDED

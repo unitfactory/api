@@ -139,11 +139,9 @@ Get the names of business types (legal structures) a company can have within a c
 + Request (application/json)
 
     + Attributes (object)
-        + country: BE (string) -  country code according to ISO 3166-1 alpha-2. For Belgium: "BE"
+        + country: `BE` (string) -  country code according to ISO 3166-1 alpha-2. For Belgium: "BE"
 
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array, fixed)
-            + (object)
-                + name: `BVBA` (string)
+        + data (array[CompanyType])

@@ -411,14 +411,12 @@ Get the names of business types (legal structures) a company can have within a c
 + Request (application/json)
 
     + Attributes (object)
-        + country: BE (string) -  country code according to ISO 3166-1 alpha-2. For Belgium: "BE"
+        + country: `BE` (string) -  country code according to ISO 3166-1 alpha-2. For Belgium: "BE"
 
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array, fixed)
-            + (object)
-                + name: `BVBA` (string)
+        + data (array[CompanyType])
 
 ## Deals [/deals]
 
@@ -597,7 +595,7 @@ Register a webhook.
 + Request (application/json)
 
     + Attributes (object)
-        + url: `https://www.mywebhookurl.com` (enum[string], required) - Your webhook url
+        + url: `https://www.mywebhookurl.com` (string, required) - Your webhook url
         + types: `["CONTACT_ADDED", "CONTACT_EDITED"]` (array[enum[string]], required) - Array of event types that should fire the webhook
             + Members
                 + CONTACT_ADDED
@@ -745,6 +743,9 @@ name: `A Tag` (string)
 + deleted: 0 (number)
 + custom_fields (array)
 + external_customer_id (string)
+
+## CompanyType (object)
++ name: BVBA (string)
 
 ## DealPhase (object)
 + deal_id: 1 (number)
