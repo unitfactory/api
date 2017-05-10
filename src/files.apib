@@ -7,8 +7,11 @@ Get a list of all files relating to an object
 + Request (application/json)
 
     + Attributes (object)
-        + amount: `20` (number, required) - The amount of contacts returned per request, max 1 to 100
-        + pageno: `0` (number, required) - The current page, the first page is 0
+        + page (object, optional)
+            + size: `20` (number, optional) - Amount of contacts you want returned, 1 to 100.
+                + Default: `20`
+            + number: `1` (number, optional) - The numerated page you want, starts at 1.
+                + Default: `1`
         + object_type: `contact` (enum[string], required) - The type of object
             + Members
                 + contact
