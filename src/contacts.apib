@@ -41,8 +41,8 @@ Add a contact to Teamleader
 + Request (application/json)
 
     + Attributes (object)
-        + forename: `John` (string, required) - The given name of the new contact
-        + surname: `Smith` (string, required) - The surname of the new contact
+        + first_name: `John` (string, required) - The given name of the new contact
+        + last_name: `Smith` (string, required) - The last_name of the new contact
         + email: `john@example.com` (string, required) - The email address of the new contact
         + salutation: `Mr` (string, optional)
         + telephone: `1234567` (string, optional)
@@ -80,7 +80,7 @@ Add a contact to Teamleader
         + newsletter: `true` (boolean, optional)
         + add_tag_by_string: `expo upsell` (string, optional) - Pass one or more tags, comma-separated. Existing tags will be reused, other tags will be automatically created for you.
         + automerge_by_name: `true` (boolean, optional)
-            If this flag is set to 1, Teamleader will merge this info into an existing contact with the same forename and surname, if it finds any.
+            If this flag is set to 1, Teamleader will merge this info into an existing contact with the same first and last name, if it finds any.
             + Default: `false`
         + automerge_by_email: `true` (boolean, optional)
             If this flag is set to 1, Teamleader will merge this info into an existing contact with the same email address, if it finds any.
@@ -104,8 +104,8 @@ Update a Teamleader contact
     + Attributes (object)
         + contact_id: `1` (number, required) - The ID of the contact you want to update
         + track_changes: `1` (number, required) - If set to 1, all changes are logged and visible to users in the web-interface
-        + forename: `John` (string) - The given name of the new contact
-        + surname: `Smith` (string) - The surname of the new contact
+        + first_name: `John` (string) - The given name of the new contact
+        + last_name: `Smith` (string) - The last name of the new contact
         + email: `john@example.com` (string, required) - The email address of the new contact
         + telephone: `1234567` (string, optional)
         + gsm: `7654321` (string, optional)
