@@ -23,11 +23,15 @@ The following values should be passed as GET parameters:
  - `state` - unique string to be passed back upon completion (optional)
  - `redirect_uri` - URL to redirect back to after authorization
 
+If the user denies your request, we will redirect back to the `redirect_uri` with an `error` parameter:
+
+`https://YOUR_REDIRECT_URI?error=access_denied`
+
 ### Token issuing
 
 If the user authorizes your integration, Teamleader will redirect back to the previously specified `redirect_uri` with a temporary authorization code and the original state parameter if it was provided. If the states don't match, the request may have been created by a third party and you should abort the process.
 
-`https://YOUR_REDIRECT_URI/?code=CODE&state=STATE`
+`https://YOUR_REDIRECT_URI?code=CODE&state=STATE`
 
 Your server can exchange this authorization code for an access token. Note that authorization codes may only be exchanged once and expire 10 minutes after issuance.
 
@@ -72,6 +76,12 @@ The following values should be passed as POST parameters:
  - `client_secret` - issued when you register your integration
  - `refresh_token` - the refresh token
  - `grant_type` - must be "refresh_token"
+
+### User Identity
+
+To retrieve information about the user who authorized your application you can call the following endpoint:
+
+`https://app.teamleader.eu/api/account/me`
 
 ## General [/]
 
