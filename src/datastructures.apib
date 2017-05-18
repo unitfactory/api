@@ -134,6 +134,22 @@
 + for: `contact` (string)
 + for_id: `1176793` (number)
 + customer_name: `John`,
++ probability: `5` (number)
++ phase_id: `5` (number)
++ responsible_user_id: `-1` (number)
++ entry_date: `2017-05-09T11:25:11+00:00` (number)
++ latest_activity_date: `2017-05-09T11:30:58+00:00` (number)
++ close_date: `2017-05-09T11:31:15+00:00` (number)
++ date_lost: `2017-05-09T11:31:30+00:00` (number)
++ reason_refused: `No interest` (string)
++ source_id: `8799` (number)
+
+## DealDetail (object)
++ id: `164938` (number)
++ title: `Interesting deal` (string)
++ for: `contact` (string)
++ for_id: `1176793` (number)
++ customer_name: `John`,
 + quotation_nr: `21` (number)
 + total_price_excl_vat: `0.00` (number)
 + probability: `5` (number)
@@ -145,6 +161,8 @@
 + date_lost: `2017-05-09T11:31:30+00:00` (number)
 + reason_refused: `No interest` (string)
 + source_id: `8799` (number)
++ quotation (Quotation)
++ phase_changes (array[PhaseChange])
 
 ## DealPhase (object)
 + deal_id: `1` (number)
@@ -171,6 +189,34 @@ name: `Sales` (string)
 + structured_communication: `+++000/1731/11048+++` (string)
 + contact_or_company: `company` (string)
 + contact_or_company_id: 485906 (number)
+
+## PhaseChange (object)
++ old_phase_id: `1` (int)
++ new_phase_id: `2` (int)
++ change_date: `2017-05-01 12:00:00` (string)
++ related_user_id: `5` (int)
+
+## Quotation (object)
++ quotation_nr: `21` (number)
++ total_price_excl_vat: `0.00` (number)
++ items (array[QuotationItem])
+
+## QuotationItem (object)
++ price: `5` (number)
++ amount: `1` (number)
++ vat: `21` (enum[string]) - The vat tariff for this line
+    + Members
+        + 00
+        + 06
+        + 12
+        + 21
+        + CM
+        + EX
+        + MC
+        + VCMD
++ product_id: `1` (number) - ID of the product
++ account: `1` (number) - ID of the bookkeeping account
++ subtitle: `Enable search` (string)
 
 ## Tag (object)
 id: `1` (number)
