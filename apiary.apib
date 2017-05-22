@@ -450,6 +450,12 @@ Create a deal for a contact or company.
         + optional_contact_id: `1` (number, optional) - if this deal is related to a company, you can specify the ID of a related contact within that company via this parameter
         + filter_double_sales: `0` (number, optional) - if set to 1, an extra check added to make sure the deal isn't a double of the previous one.'
 
++ Response 201 (application/json)
+
+    + Attributes
+        + data (object)
+            + id: `1` (number)
+
 ### deals.update [POST /deals.update]
 
 Update a deal.
