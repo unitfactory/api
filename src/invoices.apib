@@ -8,12 +8,7 @@ List invoices
 
     + Attributes (object)
         + filter (object, optional)
-            + customer (object, optional) - Use this to filter by customer
-                + type: `contact` (enum[string], required) 
-                    + Members
-                        + contact
-                        + company
-                + id: `1` (number, required) - ID of the contact or company
+            + customer_id (string, optional) - Format: "type-int" (e.g. contact-1234 or company-4321)
             + date_from: `2016-01-01` (string, optional) - Format: yyyy-mm-dd
             + date_to: `2016-01-01` (string, optional) - yyyy-mm-dd
             + deal_id: `1` (number, optional) - The ID of the deal you wish to filter on.
@@ -43,12 +38,7 @@ List credit notes
 
     + Attributes (object)
         + filter (object, optional)
-            + customer (object, optional) - Use this to filter by customer
-                + type: `contact` (enum[string], required) 
-                    + Members
-                        + contact
-                        + company
-                + id: `1` (number, required) - ID of the contact or company
+            + customer_id (string, optional) - Format: "type-int" (e.g. contact-1234 or company-4321)
             + date_from: `2016-01-01` (string, optional) - Format: yyyy-mm-dd
             + date_to: `2016-01-01` (string, optional) - yyyy-mm-dd
             + department_id: `1` (number, optional) - The ID of the department you wish to filter on.
