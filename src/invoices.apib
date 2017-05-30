@@ -2,25 +2,28 @@
 
 ### invoices.list [GET /invoices.list]
 
-Search invoices
+List invoices
 
 + Request (application/json)
 
     + Attributes (object)
         + filter (object, optional)
-            + date_from: `2016-01-01` (string, optional) - Format: yyyy-mm-dd
-            + date_to: `2016-01-01` (string, optional) - yyyy-mm-dd
             + customer (object, optional) - Use this to filter by customer
                 + type: `contact` (enum[string], required) 
                     + Members
                         + contact
                         + company
                 + id: `1` (number, required) - ID of the contact or company
-            + deal_id: `1` (number, optional) - The ID of the deal you wish to filter by.
-            + project_id: `1` (number, optional) - The ID of the project you wish to filter by.
-            + subscription_id: `1` (number, optional) - The ID of the subscription you wish to filter by.
-            + include_draft_invoices: `true` (boolean, optional) -  Set this parameter to 1 to include draft invoices. Only works in conjunction with `project_id`
-                + Default: `false`
+            + date_from: `2016-01-01` (string, optional) - Format: yyyy-mm-dd
+            + date_to: `2016-01-01` (string, optional) - yyyy-mm-dd
+            + deal_id: `1` (number, optional) - The ID of the deal you wish to filter on.
+            + department_id: `1` (number, optional) - The ID of the department you wish to filter on.
+            + project_id: `1` (number, optional) - The ID of the project you wish to filter on.
+            + subscription_id: `1` (number, optional) - The ID of the subscription you wish to filter on.
+            + status: `booked`  (enum[string], optional)
+                + Members
+                    + booked
+                    + draft
         + page (object, optional)
             + size: `20` (number, optional) - Amount of invoices you want returned, 1 to 100.
                 + Default: `20`
@@ -51,22 +54,28 @@ Search invoices
 
 ### creditNotes.list [GET /creditNotes.list]
 
-Search creditnotes
+List credit notes
 
 + Request (application/json)
 
     + Attributes (object)
-        + date_from: `2016-01-01` (string, required) - Format: yyyy-mm-dd
-        + date_to: `2016-01-01` (string, required) - yyyy-mm-dd
-        + contact_or_company: `contact` (enum[string], optional) - Use this to filter by client
-            + Members
-                + contact
-                + company
-        + contact_or_company_id: `1` (number, optional) - ID of the contact or company
-        + deep_search: `true` (boolean, optional) Pass true to return not just invoices related to the requested contact, but also to invoices related to linked companies
-            + Default: `false`
-        + project_id: `1` (number, optional) - The ID of the project you wish to filter by. If this parameter is set, all the others are ignored.
-
+        + filter (object, optional)
+            + customer (object, optional) - Use this to filter by customer
+                + type: `contact` (enum[string], required) 
+                    + Members
+                        + contact
+                        + company
+                + id: `1` (number, required) - ID of the contact or company
+            + date_from: `2016-01-01` (string, optional) - Format: yyyy-mm-dd
+            + date_to: `2016-01-01` (string, optional) - yyyy-mm-dd
+            + department_id: `1` (number, optional) - The ID of the department you wish to filter on.
+            + project_id: `1` (number, optional) - The ID of the project you wish to filter on.
+        + page (object, optional)
+            + size: `20` (number, optional) - Amount of credit notes you want returned, 1 to 100.
+                + Default: `20`
+            + number: `1` (number, optional) - The numerated page you want, starts at 1.
+                + Default: `1`
+                
 + Response 200 (application/json)
 
     + Attributes (object)
