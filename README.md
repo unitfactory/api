@@ -6,15 +6,10 @@ The `apiary.apib` file in the root of this repository should only be generated u
 
 The root `apiary.apib` is still committed in this repository so apiary.io can read it.
 
-## Branches
+## Branch structure and contributing
 
-This repository has, besides `master`, two important branches: [`v1`](https://github.com/teamleadercrm/api/tree/v1) and [`v2`](https://github.com/teamleadercrm/api/tree/v2). Following rules apply:
+See [CONTRIBUTING](CONTRIBUTING.md)
 
-- `v1` documents the exisiting API (living in [teamleadercrm/core](https://github.com/teamleadercrm/core/tree/development/public_html/api)).
-- `v2` will document how we want a more modern API to look. We will implement those changes by changing [teamleadercrm/api-proxy](https://github.com/teamleadercrm/api-proxy).
-- As long as `v2` is under development, `master` will coincide with `v1` (merge all `v1` changes to `master`).
-- Functionality of the existing API should not be changed any further. The only commits made to `v1` should aim to complete the documentation.
-- Additions to `v1` should be copied over to `v2` as well, ensuring those changes respect the structure of `v2` (URL style, authentication, request and response bodies...)
 
 ## Building the docs
 
@@ -33,6 +28,7 @@ Run `gulp build` to build. This will perform two operations:
 Once you built the docs, you can open `build/php/index.html` in your browser to preview.
 
 Run `gulp` when in development to automatically build when files change.
+
 
 ### Automatically building the docs before commit
 

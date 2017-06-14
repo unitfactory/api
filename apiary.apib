@@ -1,130 +1,142 @@
 FORMAT: 1A
-HOST: https://api.teamleader.eu/api
+HOST: https://api.teamleader.eu
 
 # Teamleader API v2
 
 This is the Teamleader API v2 documentation.
 
+## OAuth 2
+
+OAuth 2 is an authorization framework that lets your integration request authorization to data in a user's Teamleader account without getting their password.
+
+Before starting you will need to register your integration. Each registered integration is assigned a unique `client_id` and `client_secret` which will be used in the OAuth flow. Note that the `client_secret` key should not be shared.
+
+### Authorization
+
+Redirect users to the Teamleader authorization page:
+
+`https://app.teamleader.eu/oauth2/authorize`
+
+The following values should be passed as GET parameters:
+ - `client_id` - issued when you create your integration
+ - `response_type` - must be "code"
+ - `state` - unique string to be passed back upon completion (optional)
+ - `redirect_uri` - URL to redirect back to after authorization
+
+If the user denies your request, we will redirect back to the `redirect_uri` with an `error` parameter:
+
+`https://YOUR_REDIRECT_URI?error=access_denied`
+
+### Token issuing
+
+If the user authorizes your integration, Teamleader will redirect back to the previously specified `redirect_uri` with a temporary authorization code and the original state parameter if it was provided. If the states don't match, the request may have been created by a third party and you should abort the process.
+
+`https://YOUR_REDIRECT_URI?code=CODE&state=STATE`
+
+Your server can exchange this authorization code for an access token. Note that authorization codes may only be exchanged once and expire 10 minutes after issuance.
+
+`https://app.teamleader.eu/oauth2/access_token`
+
+The following values should be passed as POST parameters:
+ - `client_id` - issued when you register your integration
+ - `client_secret` - issued when you register your integration
+ - `code` - the authorization code
+ - `grant_type` - must be "authorization_code"
+ - `redirect_uri` - the original submitted redirect URL
+
+You will receive a JSON response containing an `access_token` and `refresh_token`:
+
+```
+{
+    "token_type": "Bearer",
+    "expires_in": 3600,
+    "access_token": ACCESS_TOKEN,
+    "refresh_token": REFRESH_TOKEN
+}
+```
+
+You can use this access token to call API methods on behalf of the user using the Authorization-header. Example:
+
+```
+GET https://api.teamleader.eu/contacts.list HTTP/1.1
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciO...
+Accept: application/json
+```
+
+The access token will continue functioning until the installing user either revokes the token and/or uninstalls your integration.
+
+### Refresh tokens
+
+Access tokens expire shortly (1 hour) after they are issued for security reasons. If your integration needs to communicate with the API beyond the access token's lifespan you will need to request a new access token using the refresh token which was issued with the access token. Note that refresh tokens can only used once to get a new access token and refresh token.
+
+`https://app.teamleader.eu/oauth2/access_token`
+
+The following values should be passed as POST parameters:
+ - `client_id` - issued when you register your integration
+ - `client_secret` - issued when you register your integration
+ - `refresh_token` - the refresh token
+ - `grant_type` - must be "refresh_token"
+
+### User Identity
+
+To retrieve information about the user who authorized your application (the resource owner), you can call the following endpoint:
+
+`https://app.teamleader.eu/api/account/me`
+
 ## General [/]
 
-### /getUsers.php [GET /getUsers.php]
+### users.list [GET /users.list]
 
 Get a list of all users
 
 + Response 200 (application/json)
 
-        [
-            {
-                "id":1,
-                "name":"John Smith",
-                "email":"john@teamleader.eu",
-                "gsm":"+32412654321",
-                "telephone":"+3291239843",
-                "team_id":1,
-                "title":"Sales",
-                "active":1
-            },
-            {
-                "id":2,
-                "name":"Jane Doe",
-                "email":"jane@teamleader.eu",
-                "gsm":"+32412654322",
-                "telephone":"3291239844",
-                "team_id":1,
-                "title":"Designer",
-                "active":1
-            }
-        ]
+    + Attributes (object)
+        + data (array[User])
 
-### /getDepartments.php [GET /getDepartments.php]
+### departments.list [GET /departments.list]
 
 Get a list of all departments
 
 + Response 200 (application/json)
 
-        [
-            {
-                "id":1,
-                "name":"Sales"
-            },
-            {
-                "id":2,
-                "name":"Customer Support"
-            }
-        ]
+    + Attributes (object)
+        + data (array[Department])
 
-
-### getTags.php [GET /getTags.php]
+### tags.list [GET /tags.list]
 
 Get a list of all tags
 
 + Response 200 (application/json)
 
-        {
-            "1": "A Tag",
-            "2": "Another Tag",
-            "3": "Tagtastic"
-        }
+    + Attributes (object)
+        + data (array[Tag])
 
-### /getSegments.php [POST /getSegments.php]
+## Contacts [/contacts]
 
-Get a list of all segments
+### contacts.list [GET /contacts.list]
+
+Get a paginated list of contacts
 
 + Request (application/json)
 
     + Attributes (object)
-        + `object_type`: `crm_companies` (enum[string], required)
-
-            Pick one of the possible values.
-
-            + Members
-                + crm_companies
-                + crm_contacts
-                + crm_todos
-                + crm_callbacks
-                + crm_meetings
-                + inv_invoices
-                + inv_creditnotes
-                + pro_projects
-                + sale_sales
-                + ticket_tickets
+        + filter (object, optional)
+            + company_id: `1` (number, optional) - Filter contacts by a certain company.
+        + page (object, optional)
+            + size: `20` (number, optional) - Amount of contacts you want returned, 1 to 100.
+                + Default: `20`
+            + number: `1` (number, optional) - The numerated page you want, starts at 1.
+                + Default: `1`
 
 + Response 200 (application/json)
 
-        {
-            "Medewerkers": [
-                {
-                    "id": "owner--1",
-                    "name": "",
-                    "num_matches": -1
-                },
-                {
-                    "id": "owner-1",
-                    "name": "John Smith",
-                    "num_matches": -1
-                }
-            ],
-            "Smart segments": []
-        }
+    + Attributes (object)
+        + data (array[Contact])
 
-## Contacts [/contacts]
+### contacts.info [GET /contacts.info]
 
-### /getContacts.php [GET /getContacts.php{?amount,pageno}]
-
-Get a paginated list of contacts
-
-+ Parameters
-
-    + amount: `20` (number, required) - Amount of contacts you want returned, 1 to 100.
-    + pageno: `0` (number, required) - The numerated page you want, starts at 0.
-
-+ Response 200 (application/json)
-
-    + Attributes (array[Contact])
-
-### /getContact.php [POST /getContact.php]
-
-Get a paginated list of contacts
+Get the details for a single contact
 
 + Request (application/json)
 
@@ -133,55 +145,30 @@ Get a paginated list of contacts
 
 + Response 200 (application/json)
 
-    + Attributes (Contact)
-
-### /getContactsByCompany.php [POST /getContactsByCompany.php]
-
-Get a paginated list of contacts
-
-+ Request (application/json)
-
     + Attributes (object)
-        + `company_id`: `1` (number, required)
+        + data (ContactDetail)
 
-+ Response 200 (application/json)
-
-    + Attributes (array[Contact])
-
-### /addContact.php [POST /addContact.php]
+### contacts.add [POST /contacts.create]
 
 Add a contact to Teamleader
 
 + Request (application/json)
 
     + Attributes (object)
-        + forename: `John` (string, required) - The given name of the new contact
-        + surname: `Smith` (string, required) - The surname of the new contact
+        + first_name: `John` (string, required) - The given name of the new contact
+        + last_name: `Smith` (string, required) - The last_name of the new contact
         + email: `john@example.com` (string, required) - The email address of the new contact
         + salutation: `Mr` (string, optional)
         + telephone: `1234567` (string, optional)
         + gsm: `7654321` (string, optional)
         + website: `http://example.com` (string, optional)
-        + country: `BE` (string, optional) - Country code according to ISO 3166-1 alpha-2. For Belgium: "BE"
-        + zipcode: `90201` (string, optional)
-        + city: `Cityville` (string, optional)
-        + street: `Central Ave` (string, optional)
-        + number: `1` (string, optional)
+        + address (Address, optional)
         + address_name_delivery: `Delivery` (string, optional)
-        + zipcode_delivery: `90202` (string, optional)
-        + city_delivery: `Citytown` (string, optional)
-        + street_delivery: `Central Sq` (string, optional)
-        + number_delivery: `1` (string, optional)
+        + address_delivery (Address, optional)
         + address_name_visiting: `Visiting` (string, optional)
-        + zipcode_visiting: `90203` (string, optional)
-        + city_visiting: `VilleCity` (string, optional)
-        + street_visiting: `Central Str` (string, optional)
-        + number_visiting: `1` (string, optional)
+        + address_visiting (Address, optional)
         + address_name_invoicing: `Invoicing` (string, optional)
-        + zipcode_invoicing: `90204` (string, optional)
-        + city_invoicing: `TownCity` (string, optional)
-        + street_invoicing: `Central Rd` (string, optional)
-        + number_invoicing: `1` (string, optional)
+        + address_invoicing (Address, optional)
         + invoice_email_address: `invoicing@example.com` (string, optional)
         + language: `EN` (string, optional) - Language code according to ISO 639-1. For Dutch: "NL"
         + gender: `M` (enum[string], optional)
@@ -189,12 +176,12 @@ Add a contact to Teamleader
                 + M
                 + F
                 + U
-        + dob: `1454604273` (number, optional) - Unix timestamp
+        + birthdate: `1454604273` (number, optional) - Unix timestamp
         + description: `Met at expo` (string, optional) - Background information on the contact
         + newsletter: `true` (boolean, optional)
         + add_tag_by_string: `expo upsell` (string, optional) - Pass one or more tags, comma-separated. Existing tags will be reused, other tags will be automatically created for you.
         + automerge_by_name: `true` (boolean, optional)
-            If this flag is set to 1, Teamleader will merge this info into an existing contact with the same forename and surname, if it finds any.
+            If this flag is set to 1, Teamleader will merge this info into an existing contact with the same first and last name, if it finds any.
             + Default: `false`
         + automerge_by_email: `true` (boolean, optional)
             If this flag is set to 1, Teamleader will merge this info into an existing contact with the same email address, if it finds any.
@@ -205,11 +192,11 @@ Add a contact to Teamleader
 
 + Response 201 (application/json)
 
-        {
-            "id": 1163240
-        }
+    + Attributes
+        + data (object)
+            + id: `1` (number)
 
-### /updateContact.php [POST /updateContact.php]
+### contacts.update [POST /contacts.update]
 
 Update a Teamleader contact
 
@@ -218,38 +205,30 @@ Update a Teamleader contact
     + Attributes (object)
         + contact_id: `1` (number, required) - The ID of the contact you want to update
         + track_changes: `1` (number, required) - If set to 1, all changes are logged and visible to users in the web-interface
-        + forename: `John` (string) - The given name of the new contact
-        + surname: `Smith` (string) - The surname of the new contact
+        + first_name: `John` (string) - The given name of the new contact
+        + last_name: `Smith` (string) - The last name of the new contact
         + email: `john@example.com` (string, required) - The email address of the new contact
         + telephone: `1234567` (string, optional)
         + gsm: `7654321` (string, optional)
         + fax: `7654321` (string, optional)
         + website: `http://example.com` (string, optional)
-        + country: `BE` (string, optional) - Country code according to ISO 3166-1 alpha-2. For Belgium: "BE"
-        + zipcode: `90201` (string, optional)
-        + city: `Cityville` (string, optional)
-        + street: `Central Ave` (string, optional)
-        + number: `1` (string, optional)
+        + address (Address, optional)
         + language: `EN` (string, optional) - Language code according to ISO 639-1. For Dutch: "NL"
         + gender: `M` (enum[string], optional)
             + Members
                 + M
                 + F
                 + U
-        + dob: `1454604273` (number, optional) - Unix timestamp
+        + birthdate: `1454604273` (number, optional) - Unix timestamp
         + description: `Met at expo` (string, optional) - Background information on the contact
         + linked_company_ids: `1,2` (string, optional) - Comma-separated list of company IDs that should be linked to this contact. (overwrites existing links)
         + add_tag_by_string: `expo upsell` (string, optional) - Pass one or more tags, comma-separated. Existing tags will be reused, other tags will be automatically created for you.
         + remove_tag_by_string: `upsell` (string, optional) - Pass one or more tags, comma-separated. These tags will be removed from the contact.
         + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
 
-+ Response 200 (application/json)
++ Response 204
 
-        {
-            "status":"OK"
-        }
-
-### /deleteContact.php [POST /deleteContact.php]
+### contacts.delete [POST /contacts.delete]
 
 Delete a contact from Teamleader
 
@@ -258,13 +237,9 @@ Delete a contact from Teamleader
     + Attributes (object)
         + contact_ID: `1` (number, required) - The account ID of the contact you wish to delete
 
-+ Response 200 (application/json)
++ Response 204
 
-        {
-            "status": "success"
-        }
-
-### /linkContactToCompany.php [POST /linkContactToCompany.php]
+### contacts.linkToCompany [POST /contacts.linkToCompany]
 
 Linking a contact to a company
 
@@ -273,39 +248,46 @@ Linking a contact to a company
     + Attributes (object)
         + contact_id: `123` (number, required) - The ID of a contact
         + company_id: `5` (number, required) - The ID of a company
-        + mode: `link` (enum[string], required) - Wether you want to link or unlink a contact.
-            + Members
-                + link
-                + unlink
 
-+ Response 200 (application/json)
++ Response 204
 
-        {
-            "status": "success"
-        }
+### contacts.unlinkFromCompany [POST /contacts.unlinkFromCompany]
+
+Unlinking a contact from a company
+
++ Request (application/json)
+
+    + Attributes (object)
+        + contact_id: `123` (number, required) - The ID of a contact
+        + company_id: `5` (number, required) - The ID of a company
+
++ Response 204
 
 ## Companies [/companies]
 
-### /getCompanies.php [POST /getCompanies.php]
+### companies.list [GET /companies.list]
 
 Search companies
 
 + Request (application/json)
 
     + Attributes (object)
-        + amount: `20` (number, required) - The amount of contacts returned per request, max 1 to 100
-        + pageno: `0` (number, required) - The current page, the first page is 0
-        + searchby: `teamleader` (string, optional) - A search string. Teamleader will try to match each part of the string to the forename, surname, company name and email address.
-        + modifiedsince: `1454604273` (number, optional) - Unix timestamp. Teamleader will only return contacts that have been added or modified since that timestamp.
-        + filter_by_tag: `upsell` (string, optional) - Company tag. Teamleader will only return companies that have the tag.
-        + segment_id: `4` (number, optional) - The ID of a segment created for contacts. Teamleader will only return contacts that have been filtered out by the segment settings.
-        + selected_customfields: `` (string, optional) - Comma-separated list of the IDs of the custom fields you wish to select (max 10).
+        + filter (object, optional)
+            + tag: `upsell` (string, optional) - Company tag. Teamleader will only return companies that have the tag.
+            + modified_since: `2017-04-26T10:01:49+00:00` (string, optional) - ISO 8601 date. Teamleader will only return contacts that have been added or modified since that date.
+            + term: `teamleader` (string, optional) - A search string. Teamleader will try to match each part of the string to the first name, last name, company name and email address.
+        + page (object, optional)
+            + size: `20` (number, optional) - The amount of contacts returned per request, max 1 to 100
+                + Default: `20`
+            + number: `1` (number, optional) - The current page, the first page is 1
+                + Default: `1`
 
 + Response 200 (application/json)
 
-    + Attributes (array[Company])
+    + Attributes (object)
+        + data (array[Company])
 
-### /getCompany.php [POST /getCompany.php]
+### companies.info [GET /companies.info]
 
 Get company info
 
@@ -316,9 +298,10 @@ Get company info
 
 + Response 200 (application/json)
 
-    + Attributes (Company)
+    + Attributes (object)
+        + data (CompanyDetail)
 
-### /addCompany.php [POST /addCompany.php]
+### companies.add [POST /companies.create]
 
 Add a Teamleader company
 
@@ -329,26 +312,13 @@ Add a Teamleader company
         + email: `john@example.com` (string, required) - The email address of the new contact
         + vat_code: `Mr` (string, optional)
         + telephone: `1234567` (string, optional)
-        + country: `7654321` (string, optional)
-        + zipcode: `90201` (string, optional)
-        + city: `Cityville` (string, optional)
-        + street: `Central Ave` (string, optional)
-        + number: `1` (string, optional)
+        + address (Address, optional)
         + address_name_delivery: `Delivery` (string, optional)
-        + zipcode_delivery: `90202` (string, optional)
-        + city_delivery: `Citytown` (string, optional)
-        + street_delivery: `Central Sq` (string, optional)
-        + number_delivery: `1` (string, optional)
+        + address_delivery (Address, optional)
         + address_name_visiting: `Visiting` (string, optional)
-        + zipcode_visiting: `90203` (string, optional)
-        + city_visiting: `VilleCity` (string, optional)
-        + street_visiting: `Central Str` (string, optional)
-        + number_visiting: `1` (string, optional)
+        + address_visiting (Address, optional)
         + address_name_invoicing: `Invoicing` (string, optional)
-        + zipcode_invoicing: `90204` (string, optional)
-        + city_invoicing: `TownCity` (string, optional)
-        + street_invoicing: `Central Rd` (string, optional)
-        + number_invoicing: `1` (string, optional)
+        + address_invoicing (Address, optional)
         + invoice_email_address: `invoicing@example.com` (string, optional)
         + website: `http://example.com` (string, optional)
         + description: `Met at expo` (string, optional) - Background information on the contact
@@ -358,7 +328,7 @@ Add a Teamleader company
         + language: `EN` (string, optional) - Language code according to ISO 639-1. For Dutch: "NL"
         + add_tag_by_string: `expo upsell` (string, optional) - Pass one or more tags, comma-separated. Existing tags will be reused, other tags will be automatically created for you.
         + automerge_by_name: `true` (boolean, optional)
-            If this flag is set to 1, Teamleader will merge this info into an existing contact with the same forename and surname, if it finds any.
+            If this flag is set to 1, Teamleader will merge this info into an existing contact with the same first and last name, if it finds any.
             + Default: `false`
         + automerge_by_email: `true` (boolean, optional)
             If this flag is set to 1, Teamleader will merge this info into an existing contact with the same email address, if it finds any.
@@ -367,11 +337,11 @@ Add a Teamleader company
 
 + Response 201 (application/json)
 
-        {
-            "id":"1"
-        }
+    + Attributes
+        + data (object)
+            + id: `1` (number)
 
-### /updateCompany.php [POST /updateCompany.php]
+### companies.update [POST /companies.update]
 
 Update a Teamleader company
 
@@ -385,11 +355,7 @@ Update a Teamleader company
         + vat_code: `Mr` (string, optional)
         + telephone: `1234567` (string, optional)
         + fax: `7654321` (string, optional)
-        + country: `7654321` (string, optional)
-        + zipcode: `90201` (string, optional)
-        + city: `Cityville` (string, optional)
-        + street: `Central Ave` (string, optional)
-        + number: `1` (string, optional)
+        + address (Address, optional)
         + invoice_email_address: `invoicing@example.com` (string, optional)
         + website: `http://example.com` (string, optional)
         + description: `Met at expo` (string, optional) - Background information on the contact
@@ -401,13 +367,9 @@ Update a Teamleader company
         + remove_tag_by_string: `upsell` (string, optional) - Pass one or more tags, comma-separated. These tags will be removed from the contact.
         + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
 
-+ Response 200 (application/json)
++ Response 204
 
-        {
-            "status":"OK"
-        }
-
-### /deleteCompany.php [POST /deleteCompany.php]
+### companies.delete [POST /companies.delete]
 
 Delete a company from Teamleader
 
@@ -416,37 +378,68 @@ Delete a company from Teamleader
     + Attributes (object)
         + company_id: `1` (number, required) - The account ID of the company you wish to delete
 
-+ Response 200 (application/json)
++ Response 204
 
-        {
-            "status": "success"
-        }
-
-### /getBusinessTypes.php [POST /getBusinessTypes.php]
+### companyTypes.list [GET /companyTypes.list]
 
 Get the names of business types (legal structures) a company can have within a certain country.
 
 + Request (application/json)
 
     + Attributes (object)
-        + country: BE (string) -  country code according to ISO 3166-1 alpha-2. For Belgium: "BE"
+        + country: `BE` (string) -  country code according to ISO 3166-1 alpha-2. For Belgium: "BE"
 
 + Response 200 (application/json)
 
-        [
-            {
-                "name": "AG"
-            },
-            {
-                "name": "BVBA"
-            }
-        ]
+    + Attributes (object)
+        + data (array[CompanyType])
 
 ## Deals [/deals]
 
-### /addDeal.php [POST /addDeal.php]
+### deals.list [GET /deals.list]
 
-Add a deal for a contact or company.
+Get a list of all deals
+
++ Request (application/json)
+
+    + Attributes (object)
+        + page (object, optional)
+            + size: `10` (number, optional) - Amount of results you want
+                + Default: `20`
+            + number: `1` (number, optional) - Page of results you want
+                + Default: `1`
+        + filter (object, optional)
+            + term: `Teamleader` (string, optional) - A search string. Teamleader will try to search deals matching this string.
+            + phase_id: `5` (number, optional) - Only return deals with this phase ID
+            + company_id: `123` (number, optional) - Only return deals for this company
+            + contact_id: `456` (number, optional) - Only return deals for this contact
+            + project_id: `789` (number, optional) - Only return deals for this project
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (array[Deal])
+
+### deals.info [GET /deals.info{?include}]
+
+Get deal details
+
++ Request (application/json)
+
+    + Parameters
+        + include: `quotation,phaseChanges` (string, optional) - Comma separated string with additional data you wish to include
+
+    + Attributes (object)
+        + deal_id: `1` (number, required) - ID of the deal you want
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (DealDetail)
+
+### deals.create [POST /deals.create]
+
+Create a deal for a contact or company.
 
 + Request (application/json)
 
@@ -458,26 +451,10 @@ Add a deal for a contact or company.
         + contact_or_company_id: `1` (number, required) - ID of the related contact or company
         + title: `Interesting business deal` (string, required)
         + source: `Google Adwords` (string, required)
-        + description_1: `Search module` (string, required)
-        + price_1: `5` (number, required)
-        + amount_1: `1` (number, required)
-        + vat_1: `21` (enum[string], required) - The vat tariff for this line
-            + Members
-                + 00
-                + 06
-                + 12
-                + 21
-                + CM
-                + EX
-                + MC
-                + VCMD
-        + product_id_1: `1` (number, optional) - ID of the product
-        + account_1: `1` (number, optional) - ID of the bookkeeping account
-        + subtitle_1: `Enable search` (string, optional)
         + custom_field_ID: `1` (number, optional) - replace ID by the ID of your custom field.
         + sys_department_id: `1` (number, optional) - ID of the department the deal will be added to
         + responsible_sys_client_id: `1` (number, optional) - ID of the user that is responsible for this deal
-        + phase_id: `1` (number, optional) - new phase ID this deal should be moved to
+        + phase_id: `1` (number, optional) - Phase ID of the initial deal phase
         + description: `1` (string, optional) - If this parameter is filled out a quotation (PDF) is generated by Teamleader using the text provided and the items. The PDF is accessible via the web interface.
         + budget_estimation: `10` (number, optional) - budget estimation for this deal. This value will be overwritten once a quotation is made for this deal
         + optional_contact_id: `1` (number, optional) - if this deal is related to a company, you can specify the ID of a related contact within that company via this parameter
@@ -485,44 +462,13 @@ Add a deal for a contact or company.
 
 + Response 201 (application/json)
 
-        {
-            "id": 165655
-        }
+    + Attributes
+        + data (object)
+            + id: `1` (number)
 
-### /updateDeal.php [POST /updateDeal.php]
+### deals.update [POST /deals.update]
 
-Update a deal
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + deal_id: `1` (number, required) - Who is related to this deal?
-        + description_1: `Search module` (string, required)
-        + price_1: `5` (number, required)
-        + amount_1: `1` (number, required)
-        + vat_1: `21` (enum[string], required) - The vat tariff for this line
-            + Members
-                + 00
-                + 06
-                + 12
-                + 21
-                + CM
-                + EX
-                + MC
-                + VCMD
-        + product_id_1: `1` (number, optional) - ID of the product
-        + account_1: `1` (number, optional) - ID of the bookkeeping account
-        + subtitle_1: `Enable search` (string, optional)
-
-+ Response 200 (application/json)
-
-        {
-            "status": "OK"
-        }
-
-### /updateDealItems.php [POST /updateDealItems.php]
-
-Update a deal's items
+Update a deal.
 
 + Request (application/json)
 
@@ -531,19 +477,68 @@ Update a deal's items
         + title: `Interesting business deal` (string, optional)
         + source: `Google Adwords` (string, optional)
         + responsible_sys_client_id: `1` (number, optional) - ID of the user that is responsible for this deal
-        + phase_id: `1` (number, optional) - new phase ID this deal should be moved to
         + budget_estimation: `10` (number, optional) - budget estimation for this deal. This value will be overwritten once a quotation is made for this deal
         + custom_field_ID: `1` (number, optional) - replace ID by the ID of your custom field.
 
-+ Response 200 (application/json)
++ Response 204
 
-        {
-            "status": "OK"
-        }
+### deals.changePhase [POST /deals.changePhase]
 
-### /sendSaleToClient.php [POST /sendSaleToClient.php]
+Move a deal to a new phase.
 
-Send a deal via email to client
++ Request (application/json)
+
+    + Attributes (object)
+        + deal_id: `1` (number, required) - Who is related to this deal?
+        + phase_id: `1` (number, optional) - new phase ID this deal should be moved to
+
++ Response 204
+
+### deals.quotations.add [POST /deals.quotations.add]
+
+Add a quotation to a deal
+
++ Request (application/json)
+
+    + Attributes (object)
+        + deal_id: `1` (number, required) - Who is related to this deal?
+        + items (array[object])
+            + description: `Search module` (string, required)
+            + price: `5` (number, required)
+            + amount: `1` (number, required)
+            + vat: `21` (string, required) - The vat tariff for this line
+            + product_id: `1` (number, optional) - ID of the product
+            + account: `1` (number, optional) - ID of the bookkeeping account
+            + subtitle: `Enable search` (string, optional)
+
++ Response 204
+
++ Response 400
+
+A quotation can only be added once
+
+### deals.quotations.update [POST /deals.quotations.update]
+
+Update a deal quotation's items
+
++ Request (application/json)
+
+    + Attributes (object)
+        + deal_id: `1` (number, required) - Who is related to this deal?
+        + items (array[object]) - Replaces a deals previous items
+            + description: `Search module` (string, required)
+            + price: `5` (number, required)
+            + amount: `1` (number, required)
+            + vat: `21` (string, required) - The vat tariff for this line
+            + product_id: `1` (number, optional) - ID of the product
+            + account: `1` (number, optional) - ID of the bookkeeping account
+            + subtitle: `Enable search` (string, optional)
+
++ Response 204
+
+### deals.quotations.send [POST /deals.quotations.emailToClient]
+
+Send a deal's quotation via email to a client
 
 + Request (application/json)
 
@@ -554,456 +549,323 @@ Send a deal via email to client
         + message: `1` (number, required) -  Add <link> to the message to print out the InvoiceCloud link. (not required when using an email template, leave empty or discard from request when using template_id)
         + template_id: `1` (number, optional) - ID of the email message created in Teamleader.
 
-+ Response 200 (application/json)
++ Response 204
 
-        {
-            "status": "OK"
-        }
-
-### /getDeals.php [GET /getDeals.php]
-
-Get a list of all deals
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + amount: `10` (number, required) - Amount of results you want
-        + pageno: `0` (number, required) - Page of results you want
-        + searchby: `Teamleader` (string, optional) - A search string. Teamleader will try to search deals matching this string.
-        + selected_customfields: `42,142` (string, optional) - Comma-separated list of the IDs of the custom fields you wish to select (max 10).
-        + filter_by_phase_id: `5` (string, optional) - Only return deals with this phase ID
-        + segment_id: `1` (string, optional) - The ID of a segment created for deals.
-
-+ Response 200 (application/json)
-
-    + Attributes (array[Deal])
-
-### /getDealsByContactOrCompany.php [POST /getDealsByContactOrCompany.php]
-
-Get a list of all deals by contact or company
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + contact_or_company: `company` (enum[string], required) - Who is related to this deal?
-            + Members
-                + company
-                + contact
-        + contact_or_company_id: `1` (number, required) - ID of the related contact or company
-
-+ Response 200 (application/json)
-
-        [
-            {
-                "deal_id": 1,
-                "phase_id": 5
-            }
-        ]
-
-### /getDealsByProject.php [POST /getDealsByProject.php]
-
-Get a list of all deals by project
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + project_id: `1` (number, required) - ID of the project
-
-+ Response 200 (application/json)
-
-        [
-            {
-                "deal_id": 1
-            }
-        ]
-
-### /getDeal.php [POST /getDeal.php]
-
-Get deal details
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + deal_id: `1` (number, required) - ID of the deal you want
-
-+ Response 200 (application/json)
-
-    + Attributes (Deal)
-
-### /getDealPhaseChanges.php [POST /getDealPhaseChanges.php]
-
-Get a list of a deal phase changes
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + deal_id: `1` (number, required) - ID of the deal you want
-
-+ Response 200 (application/json)
-
-        [
-            {
-                "old_phase_id": "",
-                "new_phase_id": 5,
-                "change_date": 1492074106,
-                "change_date_formatted": "13/04/2017",
-                "related_user_id": ""
-            }
-        ]
-
-### /getDealPhases.php [GET /getDealPhases.php]
+### dealPhases.list [GET /dealPhases.list]
 
 Get a list of all phases a deal can go through
 
 + Response 200 (application/json)
 
-        [
-            {
-                "id": "1",
-                "name": "New"
-            },
-            {
-                "id": "2",
-                "name": "Contacted"
-            }
-        ]
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: 1 (number)
+                + name: `New` (string)
 
-### /getDealSources.php [GET /getDealSources.php]
+### dealSources.list [GET /dealSources.list]
 
 Get a list of all deal sources
 
 + Response 200 (application/json)
 
-        [
-            {
-                "id": "1",
-                "name": "Google Search"
-            },
-            {
-                "id": "2",
-                "name": "Exposition"
-            }
-        ]
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: 1 (number)
+                + name: `Google Search` (string)
 
-## Invoices [/invoices]
+## Webhooks [/webhooks]
 
-### /getInvoices.php [POST /getInvoices.php]
+### /webhooks.register [POST /webhooks.register]
 
-Search invoices
+Register a webhook.
 
 + Request (application/json)
 
     + Attributes (object)
-        + date_from: `01/01/2017` (string, required) - Format: dd/mm/yyyy
-        + date_to: `31/12/2017` (string, required) - Format: dd/mm/yyyy
-        + contact_or_company: `contact` (enum[string], optional) - Use this to filter by client
+        + url: `https://www.mywebhookurl.com` (string, required) - Your webhook url
+        + types: `["CONTACT_ADDED", "CONTACT_EDITED"]` (array[enum[string]], required) - Array of event types that should fire the webhook
             + Members
-                + contact
-                + company
-        + contact_or_company_id: `1` (number, optional) - ID of the contact or company
-        + deep_search: `1` (number, optional) Pass 1 to return not just invoices related to the requested contact, but also to invoices related to linked companies
-        + selected_customfields: `1,2` (string, optional) - comma-separated list of the IDs of the custom fields you wish to select (max 10).
+                + CONTACT_ADDED
+                + CONTACT_EDITED
+                + CONTACT_DELETED
+                + COMPANY_ADDED
+                + COMPANY_EDITED
+                + COMPANY_DELETED
+                + RELATED_CONTACTS_UPDATED
+                + SALE_ADDED
+                + SALE_QUOTATION
+                + SALE_PHASE_CHANGED
+                + SALE_ACCEPTED
+                + SALE_REFUSED
+                + SALE_DELETED
+                + MEETING_ADDED
+                + MEETING_EDITED
+                + MEETING_CANCELLED
+                + TASK_ADDED
+                + TASK_EDITED
+                + TASK_FINISHED
+                + TASK_DELETED
+                + TIMETRACKING_ADDED
+                + TIMETRACKING_EDITED
+                + TIMETRACKING_DELETED
+                + INVOICE_ADDED
+                + INVOICE_UPDATED
+                + INVOICE_SENT
+                + INVOICE_PAID
+                + INVOICE_NOT_PAID
+                + INVOICE_DELETED
+                + CREDITNOTE_ADDED
+                + CREDITNOTE_UPDATED
+                + CREDITNOTE_SENT
+                + CREDITNOTE_DELETED
+                + PRODUCT_ADDED
+                + PRODUCT_EDITED
+                + PRODUCT_DELETED
+                + PROJECT_ADDED
+                + PROJECT_EDITED
+                + PROJECT_DELETED
+                + MILESTONE_ADDED
+                + MILESTONE_EDITED
+                + MILESTONE_CLOSED
+                + MILESTONE_DELETED
+                + TICKET_ADDED
+                + TICKET_EDITED
+                + TICKET_NEW_MESSAGE
+                + TICKET_CLOSED
+                + FILE_ADDED
+                + FILE_EDITED
+                + FILE_DELETED
+                + CUSTOM_FIELD_ADDED
+                + CUSTOM_FIELD_EDITED
+                + CUSTOM_FIELD_DELETED
+                + USER_DAYS_OFF_EDITED
+                + COMPANY_CLOSING_DAYS_EDITED
 
-+ Response 200 (application/json)
-
-    + Attributes (array[Invoice])
-
-### /getCreditnotes.php [POST /getCreditnotes.php]
-
-Search creditnotes
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + `date_from`: `01/01/2017` (string, required) - Format: dd/mm/yyyy
-        + `date_to`: `31/12/2017` (string, required) - Format: dd/mm/yyyy
-        + contact_or_company: `contact` (enum[string], optional) - Use this to filter by client
-            + Members
-                + contact
-                + company
-        + contact_or_company_id: `1` (number, optional) - ID of the contact or company
-        + deep_search: `1` (number, optional) Pass 1 to return not just invoices related to the requested contact, but also to invoices related to linked companies
-
-+ Response 200 (application/json)
-
-    + Attributes (array[Creditnote])
-
-### /getInvoicesByProject.php [POST /getInvoicesByProject.php]
-
-Search invoices
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + project_id: `1` (number, required)
-        + include_draft_invoices: `1` (number, optional) -  set this parameter to 1 to include draft invoices
-            + Default: `0`
-
-+ Response 200 (application/json)
-
-    + Attributes (array[Invoice])
-
-### /getCreditnotesByProject.php [POST /getCreditnotesByProject.php]
-
-Search creditnotes
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + project_id: `1` (number, required)
-        + include_draft_invoices: `1` (number, optional) -  set this parameter to 1 to include draft invoices
-            + Default: `0`
-
-+ Response 200 (application/json)
-
-    + Attributes (array[Creditnote])
-
-## Files [/files]
-
-### /getFiles.php [GET /getFiles.php]
-
-Get a list of all files relating to an object
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + amount: `20` (number, required) - The amount of contacts returned per request, max 1 to 100
-        + pageno: `0` (number, required) - The current page, the first page is 0
-        + object_type: `contact` (enum[string], required) - The type of object
-            + Members
-                + contact
-                + company
-                + sale
-                + ticket
-                + project
-                + meeting
-        + object_id: `1` (number, required) - ID of the object
-        + folder_name: `cat_pictures` (string, optional) - the folder name of which the contents should be displayed
-
-+ Response 200 (application/json)
-
-        {
-            "status": "success",
-            "reason": "",
-            "data": [
-                {
-                    "id": 101942,
-                    "filename": "avatar.jpg",
-                    "date_last_edited": 1492673227,
-                    "filesize_bytes": 58493
-                }
-            ]
-        }
-
-### /getFileInfo.php [GET /getFileInfo.php]
-
-Get a info about a specific file
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + file_id: `20` (number, required) - The file's ID
-
-+ Response 200 (application/json)
-
-        {
-            "filename": "avatar.jpg",
-            "filesize_bytes": 58493,
-            "uploader_client_id": 40,
-            "related_object_type": "contact",
-            "related_object_id": 1178028,
-            "folder": "Business cards",
-            "date_last_edited": 1492673227,
-            "date_last_edited_formatted": "20/04/2017"
-        }
-
-### /downloadFile.php [GET /downloadFile.php]
-
-Get a signed URL where the file can be downloaded. The signed URL will remaing valid for 30 seconds.
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + file_id: `20` (number, required) - The file's ID
-
-+ Response 200 (application/json)
-
-        {
-            "status": "success",
-            "reason": "",
-            "data": {
-                "signed_download_url": "https://test-teamleader.s3-eu-west-1.amazonaws.com/TL_uploaded_files/5/contact/1178028/101942_40_1492673227_NX3FH?response-cache-control=maxage%3D1&response-content-disposition=attachment%3B%20%20filename%2A%3DUTF-8%27%27avatar.jpg&AWSAccessKeyId=AKIAJW7R5Z6B2I3N4RPA&Expires=1492677109&Signature=K5aSuyWOIZ26sVeGx%2BizY1MOUTo%3D"
-            }
-        }
-
-### /uploadFile.php [GET /uploadFile.php]
-
-Get a signed URL where the file can be downloaded. The signed URL will remaing valid for 30 seconds.
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + object_type: `contact` (enum[string], required) - The type of object
-            + Members
-                + contact
-                + company
-                + sale
-                + ticket
-                + project
-                + meeting
-        + object_id: `1` (number, required) - ID of the object
-        + file_content: `TG9yZW0gSXBzdW0gaXMgc2ltcGx5IGR1bW15IHRleHQgb2YgdGhlIHByaW50aW5nIGFuZCB0eXBlc2V0dGluZyBpbmR1c3RyeS4=` (string, required) - Base64 encoded version the file
-        + file_name: `cat.bmp` (string, required) - Name of the file, including extension
-        + folder_name: `cat_pictures` (string, optional) - the folder name of which the contents should be displayed
-
-+ Response 200 (application/json)
-
-        {
-            "status": "success",
-            "reason": "",
-            "data": "123"
-        }
-
-### /deleteFile.php [GET /deleteFile.php]
-
-Delete a file
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + file_id: `20` (number, required) - The file's ID
-
-+ Response 200 (application/json)
-
-        {
-            "status": "success"
-        }
++ Response 204
 
 # Data Structures
 
-## Contact (object)
+## Address (object)
++ street: `Newell Road` (string)
++ number: `5230` (string)
++ zipcode: `94020` (string)
++ city: `Palo Alto` (string)
++ country: `US` (string)
 
-+ id: 456 (number)
-+ forename: Erlich (string)
-+ surname: Bachman (string)
-+ street: Newell Road (string)
-+ number: 5230 (string)
-+ zipcode: 94020 (string)
-+ city: Palo Alto (string)
-+ country: US (string)
-+ website: https://piedpiper.com (string)
-+ email: info@piedpiper.eu (string)
-+ gsm (string)
-+ telephone: 09 298 06 15 (string)
-+ fax (string)
-+ gender: M (enum[string])
+## Company (object)
++ id: `123` (number)
++ name: `Pied Piper` (string)
++ taxcode: `BE 0899.623.035` (string)
++ business_type: `NV` (string)
++ address (Address)
++ website: `https://piedpiper.com` (string)
++ email: `info@piedpiper.eu` (string)
++ telephone: `09 298 06 15` (string)
++ fax: `09 123 45 67` (string)
++ iban: `BE12 1234 1234 1234` (string)
++ bic: `BICBANK` (string)
++ language_code: `NL` (string)
++ language_name: `Nederlands` (string)
++ date_added: `2016-02-04T16:44:33+00:00` (string)
++ date_edited: `2016-02-05T16:44:33+00:00` (string)
++ status (string)
++ vat_liability: `vat_liable` (string)
++ payment_term: `30 days` (string)
++ deleted: `false` (boolean)
+
+## CompanyDetail (object)
++ id: `123` (number)
++ name: `Pied Piper` (string)
++ address (Address)
++ taxcode: `BE 0899.623.035` (string)
++ kvk_nummer: `12345678` (string)
++ local_business_number: `01234` (string)
++ email: `info@piedpiper.eu` (string)
++ website: `https://piedpiper.com` (string)
++ telephone: `09 298 06 15` (string)
++ fax: `09 123 45 67` (string)
++ iban: `BE12 1234 1234 1234` (string)
++ bic: `BICBANK` (string)
++ pricelist_id: `9` (number)
++ account_manager_id: `5` (number)
++ date_added: `2016-02-04T16:44:33+00:00` (string)
++ tags: `[tag1,tag2]` (array[string])
++ language_code: `NL` (string)
++ business_type: `NV` (string)
++ vat_liability: `vat_liable` (string)
++ sector_name: `finance` (string)
++ invoice_email_address: `invoice@piedpiper.com` (string)
++ payment_term: `30 days` (string)
++ extra_addresses (array[string])
++ background_info_html (string)
++ related_companies (string)
++ deleted: `false` (boolean)
++ custom_fields (array)
++ external_customer_id (string)
+
+## CompanyType (object)
++ name: `BVBA` (string)
+
+## Contact (object)
++ id: `456` (number)
++ first_name: `Erlich` (string)
++ last_name: `Bachman` (string)
++ salutation: `Mr` (string)
++ address (Address)
++ website: `https://piedpiper.com` (string)
++ email: `info@piedpiper.eu` (string)
++ gsm: `0412 12 12 12` (string)
++ telephone: `09 298 06 15` (string)
++ fax: `09 123 45 67` (string)
++ gender: `M` (enum[string])
     + Members
         + M
         + F
         + U
-+ birthdate: 1491480887 (number)
-+ iban (string)
-+ bic (string)
-+ tags: [tag1,tag2] (array[string])
-+ language_code: EN (string)
-+ date_added: 1491480887 (number)
++ birthdate: `1987-04-25T11:00:00+00:00` (string)
++ iban: `BE12 1234 1234 1234` (string)
++ bic: `BICBANK` (string)
++ tags: `[tag1,tag2]` (array[string])
++ language_code: `EN` (string)
++ date_added: `2016-02-04T16:44:33+00:00` (string)
++ date_edited: `2016-02-05T16:44:33+00:00` (string)
++ deleted: `false` (boolean)
++ status (string)
+
+## ContactDetail (object)
++ id: `456` (number)
++ first_name: `Erlich` (string)
++ last_name: `Bachman` (string)
++ salutation: `Mr` (string)
++ address (Address)
++ website: `https://piedpiper.com` (string)
++ email: `info@piedpiper.eu` (string)
++ gsm: `0412 12 12 12` (string)
++ telephone: `09 298 06 15` (string)
++ fax: `09 123 45 67` (string)
++ gender: `M` (enum[string])
++ birthdate: `1987-04-25T11:00:00+00:00` (string)
++ iban: `BE12 1234 1234 1234` (string)
++ bic: `BICBANK` (string)
++ tags: `[tag1,tag2]` (array[string])
++ language_code: `EN` (string)
++ date_added: `2016-02-04T16:44:33+00:00` (string)
 + extra_addresses (array[string])
-+ deleted: 0 (number)
-+ custom_fields (object)
++ deleted: `false` (boolean)
++ custom_fields (array)
 + linked_company_ids (string)
 + linked_company_names (array[string])
 + linked_company_functions (string)
 + background_info_html (string)
 + external_customer_id (string)
 
-## Company (object)
-
-+ id: 123 (number)
-+ name: Pied Piper (string)
-+ street: Newell Road (string)
-+ number: 5230 (string)
-+ zipcode: 94020 (string)
-+ city: Palo Alto (string)
-+ country: US (string)
-+ taxcode: BE 0899.623.035 (string)
-+ kvk_nummer (string)
-+ local_business_number (string)
-+ email: info@piedpiper.eu (string)
-+ website: https://piedpiper.com (string)
-+ telephone: 09 298 06 15 (string)
-+ fax (string)
-+ iban (string)
-+ bic (string)
-+ pricelist_id: 9 (number)
-+ account_manager_id (number)
-+ date_added: 1456388372 (number)
-+ tags: [tag1,tag2] (array[string])
-+ language_code: NL (string)
-+ business_type: NV (string)
-+ vat_liability: vat_liable (string)
-+ sector_name (string)
-+ invoice_email_address (string)
-+ payment_term (string)
-+ extra_addresses (array[string])
-+ background_info_html (string)
-+ related_companies (string)
-+ deleted: 0 (number)
-+ custom_fields (object)
-+ external_customer_id (string)
-
-## Invoice (object)
-+ id: 173111 (number)
-+ invoice_nr: 5 (number)
-+ invoice_nr_detailed: `2017 / 5 (MAIN)` (string)
-+ date: 1491343199 (number)
-+ date_formatted: "04/04/2017" (string)
-+ due_date: 1493157599 (number)
-+ due_date_formatted: "25/04/2017" (string)
-+ date_paid: `-1` (number)
-+ paid: 0 (number)
-+ total_price_excl_vat: "123.00" (string)
-+ total_price_incl_vat: "130.38" (string)
-+ name: "De Rode Duivles" (string)
-+ for_attention_of: "Radja Nainggolan" (string)
-+ incasso_recall_costs: "0.00" (string)
-+ incasso_interest_amount: "0.00" (string)
-+ structured_communication: "+++000/1731/11048+++" (string)
-+ contact_or_company: "company" (string)
-+ contact_or_company_id: 485906 (number)
-
-## Creditnote (object)
-+ id: 173111 (number)
-+ creditnote_nr: 5 (number)
+## CreditNote (object)
++ id: `173111` (number)
++ creditnote_nr: `5` (number)
 + creditnote_nr_detailed: `2017 / 5 (MAIN)` (string)
-+ date: 1491343199 (number)
-+ date_formatted: "04/04/2017" (string)
-+ date_paid: `-1` (number)
-+ paid: 0 (number)
-+ total_price_excl_vat: "123.00" (string)
-+ total_price_incl_vat: "130.38" (string)
-+ name: "De Rode Duivles" (string)
-+ contact_or_company: "company" (string)
-+ contact_or_company_id: 485906 (number)
-+ related_invoice_id: 173111 (number)
++ date: `2016-02-04T16:44:33+00:00` (string)
++ date_paid: `2016-02-04T16:44:33+00:00` (string)
++ paid: `true` (boolean)
++ total_price_excl_vat: `123.00` (number)
++ total_price_incl_vat: `130.38` (number)
++ name: `De Rode Duivels` (string)
++ contact_or_company: `company` (string)
++ contact_or_company_id: `485906` (number)
++ related_invoice_id: `173111` (number)
 
 ## Deal (object)
-+ id: 164938 (number)
++ id: `164938` (number)
 + title: `Interesting deal` (string)
-+ for: contact (string)
-+ for_id: 1176793 (number)
++ for: `contact` (string)
++ for_id: `1176793` (number)
 + customer_name: `John`,
-+ quotation_nr: 21 (number)
-+ total_price_excl_vat: `0.00` (string)
-+ probability: 5 (number)
-+ phase_id: 5 (number)
++ probability: `5` (number)
++ phase_id: `5` (number)
 + responsible_user_id: `-1` (number)
-+ entry_date: 1487250618 (number)
-+ entry_date_formatted: 16/02/2017 (string)
-+ latest_activity_date: 1487250618 (number)
-+ latest_activity_date_formatted: 16/02/2017 (string)
-+ close_date: 1487250618 (number)
-+ close_date_formatted: 16/02/2017 (string)
-+ date_lost: 1487250618 (number)
-+ date_lost_formatted: 16/02/2017 (string)
++ entry_date: `2017-05-09T11:25:11+00:00` (number)
++ latest_activity_date: `2017-05-09T11:30:58+00:00` (number)
++ close_date: `2017-05-09T11:31:15+00:00` (number)
++ date_lost: `2017-05-09T11:31:30+00:00` (number)
 + reason_refused: `No interest` (string)
 + source_id: `8799` (number)
+
+## DealDetail (object)
++ id: `164938` (number)
++ title: `Interesting deal` (string)
++ for: `contact` (string)
++ for_id: `1176793` (number)
++ customer_name: `John`,
++ quotation_nr: `21` (number)
++ total_price_excl_vat: `0.00` (number)
++ probability: `5` (number)
++ phase_id: `5` (number)
++ responsible_user_id: `-1` (number)
++ entry_date: `2017-05-09T11:25:11+00:00` (string)
++ latest_activity_date: `2017-05-09T11:30:58+00:00` (string)
++ close_date: `2017-05-09T11:31:15+00:00` (string)
++ date_lost: `2017-05-09T11:31:30+00:00` (string)
++ reason_refused: `No interest` (string)
++ source_id: `8799` (number)
++ quotation (Quotation)
++ phase_changes (array[PhaseChange])
+
+## DealPhase (object)
++ deal_id: `1` (number)
++ phase_id: `5` (number)
+
+## Department (object)
+id: `1` (number)
+name: `Sales` (string)
+
+## Invoice (object)
++ id: `173111` (number)
++ invoice_nr: `5` (number)
++ invoice_nr_detailed: `2017 / 5 (MAIN)` (string)
++ date: `2016-02-04T16:44:33+00:00` (string)
++ due_date: `2016-02-04T16:44:33+00:00` (string)
++ date_paid: `2016-02-04T16:44:33+00:00` (string)
++ paid: `true` (boolean)
++ total_price_excl_vat: `123.00` (number)
++ total_price_incl_vat: `130.38` (number)
++ name: `De Rode Duivels` (string)
++ for_attention_of: `Radja Nainggolan` (string)
++ incasso_recall_costs: `0.00` (number)
++ incasso_interest_amount: `0.00` (number)
++ structured_communication: `+++000/1731/11048+++` (string)
++ contact_or_company: `company` (string)
++ contact_or_company_id: 485906 (number)
+
+## PhaseChange (object)
++ old_phase_id: `1` (int)
++ new_phase_id: `2` (int)
++ change_date: `2017-05-01 12:00:00` (string)
++ changed_by: `5` (int)
+
+## Quotation (object)
++ quotation_nr: `21` (number)
++ total_price_excl_vat: `0.00` (number)
++ items (array[QuotationItem])
+
+## QuotationItem (object)
++ price: `5` (number)
++ amount: `1` (number)
++ vat: `21` (string) - The vat tariff for this line
++ product_id: `1` (number) - ID of the product
++ account: `1` (number) - ID of the bookkeeping account
++ subtitle: `Enable search` (string)
+
+## Tag (object)
+id: `1` (number)
+name: `A Tag` (string)
+
+## User (object)
+id: `1` (number)
+name: `John Smith` (string)
+email: `john@teamleader.eu` (string)
+gsm: `+32412654321` (string)
+telephone: `+3291239843` (string)
+team_id: `1` (number)
+title: `Sales` (string)
+active: `true` (boolean)

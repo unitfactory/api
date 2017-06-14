@@ -1,25 +1,28 @@
 ## Companies [/companies]
 
-### /getCompanies.php [POST /getCompanies.php]
+### companies.list [GET /companies.list]
 
 Search companies
 
 + Request (application/json)
 
     + Attributes (object)
-        + amount: `20` (number, required) - The amount of contacts returned per request, max 1 to 100
-        + pageno: `0` (number, required) - The current page, the first page is 0
-        + searchby: `teamleader` (string, optional) - A search string. Teamleader will try to match each part of the string to the forename, surname, company name and email address.
-        + modifiedsince: `1454604273` (number, optional) - Unix timestamp. Teamleader will only return contacts that have been added or modified since that timestamp.
-        + filter_by_tag: `upsell` (string, optional) - Company tag. Teamleader will only return companies that have the tag.
-        + segment_id: `4` (number, optional) - The ID of a segment created for contacts. Teamleader will only return contacts that have been filtered out by the segment settings.
-        + selected_customfields: `` (string, optional) - Comma-separated list of the IDs of the custom fields you wish to select (max 10).
+        + filter (object, optional)
+            + tag: `upsell` (string, optional) - Company tag. Teamleader will only return companies that have the tag.
+            + modified_since: `2017-04-26T10:01:49+00:00` (string, optional) - ISO 8601 date. Teamleader will only return contacts that have been added or modified since that date.
+            + term: `teamleader` (string, optional) - A search string. Teamleader will try to match each part of the string to the first name, last name, company name and email address.
+        + page (object, optional)
+            + size: `20` (number, optional) - The amount of contacts returned per request, max 1 to 100
+                + Default: `20`
+            + number: `1` (number, optional) - The current page, the first page is 1
+                + Default: `1`
 
 + Response 200 (application/json)
 
-    + Attributes (array[Company])
+    + Attributes (object)
+        + data (array[Company])
 
-### /getCompany.php [POST /getCompany.php]
+### companies.info [GET /companies.info]
 
 Get company info
 
@@ -30,9 +33,10 @@ Get company info
 
 + Response 200 (application/json)
 
-    + Attributes (Company)
+    + Attributes (object)
+        + data (CompanyDetail)
 
-### /addCompany.php [POST /addCompany.php]
+### companies.add [POST /companies.create]
 
 Add a Teamleader company
 
@@ -43,26 +47,13 @@ Add a Teamleader company
         + email: `john@example.com` (string, required) - The email address of the new contact
         + vat_code: `Mr` (string, optional)
         + telephone: `1234567` (string, optional)
-        + country: `7654321` (string, optional)
-        + zipcode: `90201` (string, optional)
-        + city: `Cityville` (string, optional)
-        + street: `Central Ave` (string, optional)
-        + number: `1` (string, optional)
+        + address (Address, optional)
         + address_name_delivery: `Delivery` (string, optional)
-        + zipcode_delivery: `90202` (string, optional)
-        + city_delivery: `Citytown` (string, optional)
-        + street_delivery: `Central Sq` (string, optional)
-        + number_delivery: `1` (string, optional)
+        + address_delivery (Address, optional)
         + address_name_visiting: `Visiting` (string, optional)
-        + zipcode_visiting: `90203` (string, optional)
-        + city_visiting: `VilleCity` (string, optional)
-        + street_visiting: `Central Str` (string, optional)
-        + number_visiting: `1` (string, optional)
+        + address_visiting (Address, optional)
         + address_name_invoicing: `Invoicing` (string, optional)
-        + zipcode_invoicing: `90204` (string, optional)
-        + city_invoicing: `TownCity` (string, optional)
-        + street_invoicing: `Central Rd` (string, optional)
-        + number_invoicing: `1` (string, optional)
+        + address_invoicing (Address, optional)
         + invoice_email_address: `invoicing@example.com` (string, optional)
         + website: `http://example.com` (string, optional)
         + description: `Met at expo` (string, optional) - Background information on the contact
@@ -72,7 +63,7 @@ Add a Teamleader company
         + language: `EN` (string, optional) - Language code according to ISO 639-1. For Dutch: "NL"
         + add_tag_by_string: `expo upsell` (string, optional) - Pass one or more tags, comma-separated. Existing tags will be reused, other tags will be automatically created for you.
         + automerge_by_name: `true` (boolean, optional)
-            If this flag is set to 1, Teamleader will merge this info into an existing contact with the same forename and surname, if it finds any.
+            If this flag is set to 1, Teamleader will merge this info into an existing contact with the same first and last name, if it finds any.
             + Default: `false`
         + automerge_by_email: `true` (boolean, optional)
             If this flag is set to 1, Teamleader will merge this info into an existing contact with the same email address, if it finds any.
@@ -81,11 +72,11 @@ Add a Teamleader company
 
 + Response 201 (application/json)
 
-        {
-            "id":"1"
-        }
+    + Attributes
+        + data (object)
+            + id: `1` (number)
 
-### /updateCompany.php [POST /updateCompany.php]
+### companies.update [POST /companies.update]
 
 Update a Teamleader company
 
@@ -99,11 +90,7 @@ Update a Teamleader company
         + vat_code: `Mr` (string, optional)
         + telephone: `1234567` (string, optional)
         + fax: `7654321` (string, optional)
-        + country: `7654321` (string, optional)
-        + zipcode: `90201` (string, optional)
-        + city: `Cityville` (string, optional)
-        + street: `Central Ave` (string, optional)
-        + number: `1` (string, optional)
+        + address (Address, optional)
         + invoice_email_address: `invoicing@example.com` (string, optional)
         + website: `http://example.com` (string, optional)
         + description: `Met at expo` (string, optional) - Background information on the contact
@@ -115,13 +102,9 @@ Update a Teamleader company
         + remove_tag_by_string: `upsell` (string, optional) - Pass one or more tags, comma-separated. These tags will be removed from the contact.
         + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
 
-+ Response 200 (application/json)
++ Response 204
 
-        {
-            "status":"OK"
-        }
-
-### /deleteCompany.php [POST /deleteCompany.php]
+### companies.delete [POST /companies.delete]
 
 Delete a company from Teamleader
 
@@ -130,28 +113,18 @@ Delete a company from Teamleader
     + Attributes (object)
         + company_id: `1` (number, required) - The account ID of the company you wish to delete
 
-+ Response 200 (application/json)
++ Response 204
 
-        {
-            "status": "success"
-        }
-
-### /getBusinessTypes.php [POST /getBusinessTypes.php]
+### companyTypes.list [GET /companyTypes.list]
 
 Get the names of business types (legal structures) a company can have within a certain country.
 
 + Request (application/json)
 
     + Attributes (object)
-        + country: BE (string) -  country code according to ISO 3166-1 alpha-2. For Belgium: "BE"
+        + country: `BE` (string) -  country code according to ISO 3166-1 alpha-2. For Belgium: "BE"
 
 + Response 200 (application/json)
 
-        [
-            {
-                "name": "AG"
-            },
-            {
-                "name": "BVBA"
-            }
-        ]
+    + Attributes (object)
+        + data (array[CompanyType])

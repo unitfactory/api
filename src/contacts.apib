@@ -1,21 +1,28 @@
 ## Contacts [/contacts]
 
-### /getContacts.php [GET /getContacts.php{?amount,pageno}]
+### contacts.list [GET /contacts.list]
 
 Get a paginated list of contacts
 
-+ Parameters
++ Request (application/json)
 
-    + amount: `20` (number, required) - Amount of contacts you want returned, 1 to 100.
-    + pageno: `0` (number, required) - The numerated page you want, starts at 0.
+    + Attributes (object)
+        + filter (object, optional)
+            + company_id: `1` (number, optional) - Filter contacts by a certain company.
+        + page (object, optional)
+            + size: `20` (number, optional) - Amount of contacts you want returned, 1 to 100.
+                + Default: `20`
+            + number: `1` (number, optional) - The numerated page you want, starts at 1.
+                + Default: `1`
 
 + Response 200 (application/json)
 
-    + Attributes (array[Contact])
+    + Attributes (object)
+        + data (array[Contact])
 
-### /getContact.php [POST /getContact.php]
+### contacts.info [GET /contacts.info]
 
-Get a paginated list of contacts
+Get the details for a single contact
 
 + Request (application/json)
 
@@ -24,55 +31,30 @@ Get a paginated list of contacts
 
 + Response 200 (application/json)
 
-    + Attributes (Contact)
-
-### /getContactsByCompany.php [POST /getContactsByCompany.php]
-
-Get a paginated list of contacts
-
-+ Request (application/json)
-
     + Attributes (object)
-        + `company_id`: `1` (number, required)
+        + data (ContactDetail)
 
-+ Response 200 (application/json)
-
-    + Attributes (array[Contact])
-
-### /addContact.php [POST /addContact.php]
+### contacts.add [POST /contacts.create]
 
 Add a contact to Teamleader
 
 + Request (application/json)
 
     + Attributes (object)
-        + forename: `John` (string, required) - The given name of the new contact
-        + surname: `Smith` (string, required) - The surname of the new contact
+        + first_name: `John` (string, required) - The given name of the new contact
+        + last_name: `Smith` (string, required) - The last_name of the new contact
         + email: `john@example.com` (string, required) - The email address of the new contact
         + salutation: `Mr` (string, optional)
         + telephone: `1234567` (string, optional)
         + gsm: `7654321` (string, optional)
         + website: `http://example.com` (string, optional)
-        + country: `BE` (string, optional) - Country code according to ISO 3166-1 alpha-2. For Belgium: "BE"
-        + zipcode: `90201` (string, optional)
-        + city: `Cityville` (string, optional)
-        + street: `Central Ave` (string, optional)
-        + number: `1` (string, optional)
+        + address (Address, optional)
         + address_name_delivery: `Delivery` (string, optional)
-        + zipcode_delivery: `90202` (string, optional)
-        + city_delivery: `Citytown` (string, optional)
-        + street_delivery: `Central Sq` (string, optional)
-        + number_delivery: `1` (string, optional)
+        + address_delivery (Address, optional)
         + address_name_visiting: `Visiting` (string, optional)
-        + zipcode_visiting: `90203` (string, optional)
-        + city_visiting: `VilleCity` (string, optional)
-        + street_visiting: `Central Str` (string, optional)
-        + number_visiting: `1` (string, optional)
+        + address_visiting (Address, optional)
         + address_name_invoicing: `Invoicing` (string, optional)
-        + zipcode_invoicing: `90204` (string, optional)
-        + city_invoicing: `TownCity` (string, optional)
-        + street_invoicing: `Central Rd` (string, optional)
-        + number_invoicing: `1` (string, optional)
+        + address_invoicing (Address, optional)
         + invoice_email_address: `invoicing@example.com` (string, optional)
         + language: `EN` (string, optional) - Language code according to ISO 639-1. For Dutch: "NL"
         + gender: `M` (enum[string], optional)
@@ -80,12 +62,12 @@ Add a contact to Teamleader
                 + M
                 + F
                 + U
-        + dob: `1454604273` (number, optional) - Unix timestamp
+        + birthdate: `1454604273` (number, optional) - Unix timestamp
         + description: `Met at expo` (string, optional) - Background information on the contact
         + newsletter: `true` (boolean, optional)
         + add_tag_by_string: `expo upsell` (string, optional) - Pass one or more tags, comma-separated. Existing tags will be reused, other tags will be automatically created for you.
         + automerge_by_name: `true` (boolean, optional)
-            If this flag is set to 1, Teamleader will merge this info into an existing contact with the same forename and surname, if it finds any.
+            If this flag is set to 1, Teamleader will merge this info into an existing contact with the same first and last name, if it finds any.
             + Default: `false`
         + automerge_by_email: `true` (boolean, optional)
             If this flag is set to 1, Teamleader will merge this info into an existing contact with the same email address, if it finds any.
@@ -96,11 +78,11 @@ Add a contact to Teamleader
 
 + Response 201 (application/json)
 
-        {
-            "id": 1163240
-        }
+    + Attributes
+        + data (object)
+            + id: `1` (number)
 
-### /updateContact.php [POST /updateContact.php]
+### contacts.update [POST /contacts.update]
 
 Update a Teamleader contact
 
@@ -109,38 +91,30 @@ Update a Teamleader contact
     + Attributes (object)
         + contact_id: `1` (number, required) - The ID of the contact you want to update
         + track_changes: `1` (number, required) - If set to 1, all changes are logged and visible to users in the web-interface
-        + forename: `John` (string) - The given name of the new contact
-        + surname: `Smith` (string) - The surname of the new contact
+        + first_name: `John` (string) - The given name of the new contact
+        + last_name: `Smith` (string) - The last name of the new contact
         + email: `john@example.com` (string, required) - The email address of the new contact
         + telephone: `1234567` (string, optional)
         + gsm: `7654321` (string, optional)
         + fax: `7654321` (string, optional)
         + website: `http://example.com` (string, optional)
-        + country: `BE` (string, optional) - Country code according to ISO 3166-1 alpha-2. For Belgium: "BE"
-        + zipcode: `90201` (string, optional)
-        + city: `Cityville` (string, optional)
-        + street: `Central Ave` (string, optional)
-        + number: `1` (string, optional)
+        + address (Address, optional)
         + language: `EN` (string, optional) - Language code according to ISO 639-1. For Dutch: "NL"
         + gender: `M` (enum[string], optional)
             + Members
                 + M
                 + F
                 + U
-        + dob: `1454604273` (number, optional) - Unix timestamp
+        + birthdate: `1454604273` (number, optional) - Unix timestamp
         + description: `Met at expo` (string, optional) - Background information on the contact
         + linked_company_ids: `1,2` (string, optional) - Comma-separated list of company IDs that should be linked to this contact. (overwrites existing links)
         + add_tag_by_string: `expo upsell` (string, optional) - Pass one or more tags, comma-separated. Existing tags will be reused, other tags will be automatically created for you.
         + remove_tag_by_string: `upsell` (string, optional) - Pass one or more tags, comma-separated. These tags will be removed from the contact.
         + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
 
-+ Response 200 (application/json)
++ Response 204
 
-        {
-            "status":"OK"
-        }
-
-### /deleteContact.php [POST /deleteContact.php]
+### contacts.delete [POST /contacts.delete]
 
 Delete a contact from Teamleader
 
@@ -149,13 +123,9 @@ Delete a contact from Teamleader
     + Attributes (object)
         + contact_ID: `1` (number, required) - The account ID of the contact you wish to delete
 
-+ Response 200 (application/json)
++ Response 204
 
-        {
-            "status": "success"
-        }
-
-### /linkContactToCompany.php [POST /linkContactToCompany.php]
+### contacts.linkToCompany [POST /contacts.linkToCompany]
 
 Linking a contact to a company
 
@@ -164,13 +134,17 @@ Linking a contact to a company
     + Attributes (object)
         + contact_id: `123` (number, required) - The ID of a contact
         + company_id: `5` (number, required) - The ID of a company
-        + mode: `link` (enum[string], required) - Wether you want to link or unlink a contact.
-            + Members
-                + link
-                + unlink
 
-+ Response 200 (application/json)
++ Response 204
 
-        {
-            "status": "success"
-        }
+### contacts.unlinkFromCompany [POST /contacts.unlinkFromCompany]
+
+Unlinking a contact from a company
+
++ Request (application/json)
+
+    + Attributes (object)
+        + contact_id: `123` (number, required) - The ID of a contact
+        + company_id: `5` (number, required) - The ID of a company
+
++ Response 204
