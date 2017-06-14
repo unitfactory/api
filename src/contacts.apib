@@ -9,6 +9,7 @@ Get a paginated list of contacts
     + Attributes (object)
         + filter (object, optional)
             + company_id: `1` (number, optional) - Filter contacts by a certain company.
+            + updated_since: `2017-04-26T10:01:49+00:00` (string, optional) - ISO 8601 date. Teamleader will only return contacts that have been added or modified since that time (inclusive).
         + page (object, optional)
             + size: `20` (number, optional) - Amount of contacts you want returned, 1 to 100.
                 + Default: `20`
@@ -45,36 +46,25 @@ Add a contact to Teamleader
         + last_name: `Smith` (string, required) - The last name of the new contact
         + email: `john@example.com` (string, required) - The email address of the new contact
         + salutation: `Mr` (string, optional)
-        + telephone: `1234567` (string, optional)
-        + gsm: `7654321` (string, optional)
+        + email: `john@example.com` (string, required) - The email address of the new contact
+        + invoice_email: `invoicing@example.com` (string, optional)
+        + phone: `1234567` (string, optional)
+        + mobile: `7654321` (string, optional)
+        + fax: `7654321` (string, optional)
         + website: `http://example.com` (string, optional)
         + address (Address, optional)
-        + address_name_delivery: `Delivery` (string, optional)
-        + address_delivery (Address, optional)
-        + address_name_visiting: `Visiting` (string, optional)
-        + address_visiting (Address, optional)
-        + address_name_invoicing: `Invoicing` (string, optional)
-        + address_invoicing (Address, optional)
-        + invoice_email_address: `invoicing@example.com` (string, optional)
+        + delivery_address (Addressee, optional)
+        + visiting_address (Addressee, optional)
+        + invoice_address (Addressee, optional)
         + language: `EN` (string, optional) - Language code according to ISO 639-1. For Dutch: "NL"
         + gender: `M` (enum[string], optional)
             + Members
                 + M
                 + F
                 + U
-        + birthdate: `1454604273` (number, optional) - Unix timestamp
-        + description: `Met at expo` (string, optional) - Background information on the contact
-        + newsletter: `true` (boolean, optional)
-        + add_tag_by_string: `expo upsell` (string, optional) - Pass one or more tags, comma-separated. Existing tags will be reused, other tags will be automatically created for you.
-        + automerge_by_name: `true` (boolean, optional)
-            If this flag is set to 1, Teamleader will merge this info into an existing contact with the same first and last name, if it finds any.
-            + Default: `false`
-        + automerge_by_email: `true` (boolean, optional)
-            If this flag is set to 1, Teamleader will merge this info into an existing contact with the same email address, if it finds any.
-            + Default: `false`
-        + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
-        + tracking string: `foo` (string, optional) - Title of the activity
-        + tracking_long: `foobar` (string, optional) - Description of the activity
+        + birthdate: `1989-08-19` (string, optional)
+        + remarks: `Met at expo` (string, optional) - Background information on the contact
+        + tags: expo, upsell (array[string], optional) - Pass one or more tags. Existing tags will be reused, other tags will be automatically created for you.
 
 + Response 201 (application/json)
 
@@ -90,27 +80,28 @@ Update a Teamleader contact
 
     + Attributes (object)
         + contact_id: `1` (number, required) - The ID of the contact you want to update
-        + track_changes: `1` (number, required) - If set to 1, all changes are logged and visible to users in the web-interface
         + first_name: `John` (string) - The given name of the new contact
         + last_name: `Smith` (string) - The last name of the new contact
+        + salutation: `Mr` (string, optional)
         + email: `john@example.com` (string, required) - The email address of the new contact
-        + telephone: `1234567` (string, optional)
-        + gsm: `7654321` (string, optional)
+        + invoice_email: `invoicing@example.com` (string, optional)
+        + phone: `1234567` (string, optional)
+        + mobile: `7654321` (string, optional)
         + fax: `7654321` (string, optional)
         + website: `http://example.com` (string, optional)
         + address (Address, optional)
+        + delivery_address (Addressee, optional)
+        + visiting_address (Addressee, optional)
+        + invoice_address (Addressee, optional)
         + language: `EN` (string, optional) - Language code according to ISO 639-1. For Dutch: "NL"
         + gender: `M` (enum[string], optional)
             + Members
                 + M
                 + F
                 + U
-        + birthdate: `1454604273` (number, optional) - Unix timestamp
-        + description: `Met at expo` (string, optional) - Background information on the contact
-        + linked_company_ids: `1,2` (string, optional) - Comma-separated list of company IDs that should be linked to this contact. (overwrites existing links)
-        + add_tag_by_string: `expo upsell` (string, optional) - Pass one or more tags, comma-separated. Existing tags will be reused, other tags will be automatically created for you.
-        + remove_tag_by_string: `upsell` (string, optional) - Pass one or more tags, comma-separated. These tags will be removed from the contact.
-        + custom_field_ID: `bar` (string, optional) - Replace ID by the ID of your custom field. (eg custom_field_310)
+        + birthdate: `1989-08-19` (string, optional)
+        + remarks: `Met at expo` (string, optional) - Background information on the contact
+        + tags: expo, upsell (array[string], optional) - Pass one or more tags. Existing tags will be reused, other tags will be automatically created for you.
 
 + Response 204
 
@@ -121,7 +112,31 @@ Delete a contact from Teamleader
 + Request (application/json)
 
     + Attributes (object)
-        + contact_ID: `1` (number, required) - The account ID of the contact you wish to delete
+        + contact_id: `1` (number, required) - The account ID of the contact you wish to delete
+
++ Response 204
+
+### contacts.tag [POST /contacts.tag]
+
+Add a tag to a contact
+
++ Request (application/json)
+
+    + Attributes (object)
+        + contact_id: `123` (number, required) - The ID of a contact
+        + tags: prospect, expo (array[string], required) - A list of tags to add
+
++ Response 204
+
+### contacts.untag [POST /contacts.untag]
+
+Remove a tag from a contact
+
++ Request (application/json)
+
+    + Attributes (object)
+        + contact_id: `123` (number, required) - The ID of a contact
+        + tags: prospect, expo (array[string], required) - A list of tags to remove
 
 + Response 204
 
