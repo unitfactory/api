@@ -155,8 +155,8 @@ Add a contact to Teamleader
 + Request (application/json)
 
     + Attributes (object)
-        + first_name: `John` (string, required) - The given name of the new contact
-        + last_name: `Smith` (string, required) - The last_name of the new contact
+        + first_name: `John` (string, required) - The first name of the new contact
+        + last_name: `Smith` (string, required) - The last name of the new contact
         + email: `john@example.com` (string, required) - The email address of the new contact
         + salutation: `Mr` (string, optional)
         + telephone: `1234567` (string, optional)
@@ -503,19 +503,20 @@ Add a quotation to a deal
     + Attributes (object)
         + deal_id: `1` (number, required) - Who is related to this deal?
         + items (array[object])
-            + description: `Search module` (string, required)
-            + price: `5` (number, required)
-            + amount: `1` (number, required)
-            + vat: `21` (string, required) - The vat tariff for this line
-            + product_id: `1` (number, optional) - ID of the product
-            + account: `1` (number, optional) - ID of the bookkeeping account
-            + subtitle: `Enable search` (string, optional)
+            + (object)
+                + description: `Search module` (string, required)
+                + price: `5` (number, required)
+                + amount: `1` (number, required)
+                + vat: `21` (string, required) - The vat tariff for this line
+                + product_id: `1` (number, optional) - ID of the product
+                + account: `1` (number, optional) - ID of the bookkeeping account
+                + subtitle: `Enable search` (string, optional)
 
 + Response 204
 
 + Response 400
 
-A quotation can only be added once
+        A quotation can only be added once
 
 ### deals.quotations.update [POST /deals.quotations.update]
 
@@ -526,13 +527,14 @@ Update a deal quotation's items
     + Attributes (object)
         + deal_id: `1` (number, required) - Who is related to this deal?
         + items (array[object]) - Replaces a deals previous items
-            + description: `Search module` (string, required)
-            + price: `5` (number, required)
-            + amount: `1` (number, required)
-            + vat: `21` (string, required) - The vat tariff for this line
-            + product_id: `1` (number, optional) - ID of the product
-            + account: `1` (number, optional) - ID of the bookkeeping account
-            + subtitle: `Enable search` (string, optional)
+            + (object)
+                + description: `Search module` (string, required)
+                + price: `5` (number, required)
+                + amount: `1` (number, required)
+                + vat: `21` (string, required) - The vat tariff for this line
+                + product_id: `1` (number, optional) - ID of the product
+                + account: `1` (number, optional) - ID of the bookkeeping account
+                + subtitle: `Enable search` (string, optional)
 
 + Response 204
 
@@ -797,10 +799,10 @@ Register a webhook.
 + probability: `5` (number)
 + phase_id: `5` (number)
 + responsible_user_id: `-1` (number)
-+ entry_date: `2017-05-09T11:25:11+00:00` (number)
-+ latest_activity_date: `2017-05-09T11:30:58+00:00` (number)
-+ close_date: `2017-05-09T11:31:15+00:00` (number)
-+ date_lost: `2017-05-09T11:31:30+00:00` (number)
++ entry_date: `2017-05-09T11:25:11+00:00` (string)
++ latest_activity_date: `2017-05-09T11:30:58+00:00` (string)
++ close_date: `2017-05-09T11:31:15+00:00` (string)
++ date_lost: `2017-05-09T11:31:30+00:00` (string)
 + reason_refused: `No interest` (string)
 + source_id: `8799` (number)
 
@@ -851,10 +853,10 @@ name: `Sales` (string)
 + contact_or_company_id: 485906 (number)
 
 ## PhaseChange (object)
-+ old_phase_id: `1` (int)
-+ new_phase_id: `2` (int)
++ old_phase_id: `1` (number)
++ new_phase_id: `2` (number)
 + change_date: `2017-05-01 12:00:00` (string)
-+ changed_by: `5` (int)
++ changed_by: `5` (number)
 
 ## Quotation (object)
 + quotation_nr: `21` (number)

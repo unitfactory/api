@@ -107,19 +107,20 @@ Add a quotation to a deal
     + Attributes (object)
         + deal_id: `1` (number, required) - Who is related to this deal?
         + items (array[object])
-            + description: `Search module` (string, required)
-            + price: `5` (number, required)
-            + amount: `1` (number, required)
-            + vat: `21` (string, required) - The vat tariff for this line
-            + product_id: `1` (number, optional) - ID of the product
-            + account: `1` (number, optional) - ID of the bookkeeping account
-            + subtitle: `Enable search` (string, optional)
+            + (object)
+                + description: `Search module` (string, required)
+                + price: `5` (number, required)
+                + amount: `1` (number, required)
+                + vat: `21` (string, required) - The vat tariff for this line
+                + product_id: `1` (number, optional) - ID of the product
+                + account: `1` (number, optional) - ID of the bookkeeping account
+                + subtitle: `Enable search` (string, optional)
 
 + Response 204
 
 + Response 400
 
-A quotation can only be added once
+        A quotation can only be added once
 
 ### deals.quotations.update [POST /deals.quotations.update]
 
@@ -130,13 +131,14 @@ Update a deal quotation's items
     + Attributes (object)
         + deal_id: `1` (number, required) - Who is related to this deal?
         + items (array[object]) - Replaces a deals previous items
-            + description: `Search module` (string, required)
-            + price: `5` (number, required)
-            + amount: `1` (number, required)
-            + vat: `21` (string, required) - The vat tariff for this line
-            + product_id: `1` (number, optional) - ID of the product
-            + account: `1` (number, optional) - ID of the bookkeeping account
-            + subtitle: `Enable search` (string, optional)
+            + (object)
+                + description: `Search module` (string, required)
+                + price: `5` (number, required)
+                + amount: `1` (number, required)
+                + vat: `21` (string, required) - The vat tariff for this line
+                + product_id: `1` (number, optional) - ID of the product
+                + account: `1` (number, optional) - ID of the bookkeeping account
+                + subtitle: `Enable search` (string, optional)
 
 + Response 204
 
