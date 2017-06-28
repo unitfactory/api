@@ -605,6 +605,19 @@ Get a list of all deal sources
                 + id: 1 (number)
                 + name: `Google Search` (string)
 
+## Meetings [/meetings]
+
+### meetings.delete [POST /meetings.delete]
+
+Delete a meeting from Teamleader
+
++ Request (application/json)
+
+    + Attributes (object)
+        + meeting_id: `1` (number, required) - The ID of the meeting you wish to delete
+
++ Response 204
+
 ## Webhooks [/webhooks]
 
 ### /webhooks.register [POST /webhooks.register]
