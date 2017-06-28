@@ -67,3 +67,8 @@ Then lint the file
 ```bash
 $ apib-lint apiary.apib
 ```
+
+## FAQ/rules
+
+- Use application/json for both requests and responses
+- Use `number` type wherever it's *logical* to use a `number` (id's, prices, amounts, ...)
