@@ -4,7 +4,8 @@
   "description": "Teamleader API",
   "main": "gulpfile.js",
   "scripts": {
-    "build": "docker run -v $PWD:/code apiaryio/client preview --path=/code/apiary.apib --output=/code/apiary.html"
+    "build": "docker run -v $PWD:/code apiaryio/client preview --path=/code/apiary.apib --output=/code/apiary.html",
+    "lint": "apib-lint apiary.apib"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/teamleadercrm/api#readme",
   "devDependencies": {
+    "apib-lint": "^0.2.0",
     "gulp": "^3.9.1",
     "gulp-run": "^1.7.1",
     "gulp-watch": "^4.3.11",

@@ -50,16 +50,8 @@ The `pre-commit` hook file is placed in the `.git/hooks` folder.
 
 ## Verifying docs
 
-You can lint the apib file to make sure it's valid.
+You can lint the apib file to make sure it's valid:
 
-First install `apib-lint`
-
-```bash
-$ npm install -g apib-lint
-```
-
-Then lint the file
-
-```bash
-$ apib-lint apiary.apib
+```shell
+npm run lint
 ```
