@@ -112,11 +112,11 @@ Get a list of all tags
     + Attributes (object)
         + data: expo, upsell (array[string])
 
-## Calendar items [/calendar-items]
+## Calendar entries [/calendar-entries]
 
-### calendarItems.list [GET /calendarItems.list]
+### calendarEntries.list [GET /calendarEntries.list]
 
-Search calendar items
+Search calendar entries
 
 + Request (application/json)
 
@@ -132,7 +132,7 @@ Search calendar items
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array[CalendarItem])
+        + data (array[CalendarEntry])
 
 ## Contacts [/contacts]
 
@@ -725,7 +725,7 @@ Register a webhook.
 + city: `Palo Alto` (string)
 + country: `US` (string)
 
-## CalendarItem (object)
+## CalendarEntry (object)
 + id: `123` (number)
 + name: `Erlich Bachman's birthday` (string)
 + type: `full-day` (enum[string])
