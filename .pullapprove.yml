@@ -1,0 +1,12 @@
+version: 2
+group_defaults:
+    reset_on_push:
+        enabled: true
+    github_reviews:
+        enabled: true
+    author_approval:
+        ignored: true
+groups:
+    developers:
+        required: 2
+        users: all
