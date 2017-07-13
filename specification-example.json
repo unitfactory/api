@@ -103,7 +103,7 @@
 	"removeItem" : "http://api.teamleader.eu/invoices.removeItem?id=9&item={id}&quantity={quantity}",
 	"remove" : "http://api.teamleader.eu/invoices.remove?id=9",
 	"book" : "http://api.teamleader.eu/invoices.book?id=9"
-    }
+    },
     "_meta": {},
     "_embedded": {
         "customer" : {
