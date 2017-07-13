@@ -1,14 +1,14 @@
 {
     "_items": [
         {
-            "type": "invoice",
+            "_type": "invoice",
             "id": "1",
             "total": {
                 "amount": "100.000.000,00",
                 "currency": "EUR"
             },
             "buyer": {
-                "type": "customer", 
+                "_type": "customer",
                 "id": "9",
 		"name": "John",
                 "_links": {
@@ -18,7 +18,7 @@
             "invoice_items": {
                 "_items": [
                     { 
-                        "type": "invoiceItem", 
+                        "_type": "invoiceItem", 
                         "id": "5",
                         "_links": {},
                         "_actions": {
@@ -55,7 +55,7 @@
     "_embedded": {
         "customer" : {
             "9" : {
-                "type": "customer",
+                "_type": "customer",
                 "id": 9,
                 "name": "John"
             }
@@ -66,14 +66,14 @@
 ---
 
 {
-    "type": "invoice",
+    "_type": "invoice",
     "id": "1",
     "total": {
 	"amount": "100.000.000,00",
 	"currency": "EUR"
     },
     "buyer": {
-	"type": "customer", 
+	"_type": "customer", 
 	"id": "9",
 	"name": "John",
 	"_links": {
@@ -83,7 +83,7 @@
     "invoice_items": {
 	"_items": [
 	    { 
-		"type": "invoiceItem", 
+		"_type": "invoiceItem", 
 		"id": "5",
 		"_links": {},
 		"_actions": {
@@ -108,7 +108,7 @@
     "_embedded": {
         "customer" : {
             "9" : {
-                "type": "customer",
+                "_type": "customer",
                 "id": 9,
                 "name": "John"
             }
