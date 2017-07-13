@@ -122,9 +122,6 @@ Search calendar entries
 
     + Attributes (object)
         + filter (object, required)
-            + type: `full-day` (enum[string], required) - Use this to filter by type
-                + Members
-                    + full-day
             + employee_id: `1` (number, required) - Use this to filter by employee
             + start_date: `2017-01-01` (string, required) - Format ISO 8601: yyyy-mm-dd
             + end_date: `2017-01-01` (string, required) - Format ISO 8601: yyyy-mm-dd
@@ -728,9 +725,6 @@ Register a webhook.
 ## CalendarEntry (object)
 + id: `123` (number)
 + name: `Erlich Bachman's birthday` (string)
-+ type: `full-day` (enum[string])
-    + Members
-        + full-day
 + date: `2017-05-16` (string)
 
 ## Company (object)
