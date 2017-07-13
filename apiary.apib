@@ -112,28 +112,6 @@ Get a list of all tags
     + Attributes (object)
         + data: expo, upsell (array[string])
 
-## Agenda items [/agenda-items]
-
-### agendaItems.list [GET /agendaItems.list]
-
-Search agenda items
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + filter (object, required)
-            + type: `full-day` (enum[string], required) - Use this to filter by type
-                + Members
-                    + full-day
-            + employee_id: `1` (number, required) - Use this to filter by employee
-            + start_date: `2017-01-01` (string, required) - Format ISO 8601: yyyy-mm-dd
-            + end_date: `2017-01-01` (string, required) - Format ISO 8601: yyyy-mm-dd
-
-+ Response 200 (application/json)
-
-    + Attributes (object)
-        + data (array[AgendaItem])
-
 ## Contacts [/contacts]
 
 ### contacts.list [GET /contacts.list]
@@ -638,6 +616,25 @@ Delete a meeting from Teamleader
 
 + Response 204
 
+## Milestones [/milestones]
+
+### milestones.list [GET /milestones.list]
+
+Search the milestones (cross projects)
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object, required)
+             + responsible_employee_id: `1` (number, required) - Use this to filter by responsible employee
+             + start_date: `2017-01-01` (string, required) - Format ISO 8601: yyyy-mm-dd
+             + end_date: `2017-01-01` (string, required) - Format ISO 8601: yyyy-mm-dd
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (array[Milestone])
+
 ## Webhooks [/webhooks]
 
 ### /webhooks.register [POST /webhooks.register]
@@ -906,6 +903,13 @@ name: `Sales` (string)
 + structured_communication: `+++000/1731/11048+++` (string)
 + contact_or_company: `company` (string)
 + contact_or_company_id: 485906 (number)
+
+## Milestone
++ id: `247` (number)
++ project_id: `20` (number)
++ name: `Optimize the middle-out compression` (string)
++ due_date: `2017-01-15` (string)
++ done: `false` (boolean)
 
 ## PhaseChange (object)
 + old_phase_id: `1` (number)
