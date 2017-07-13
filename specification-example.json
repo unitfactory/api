@@ -8,7 +8,7 @@
 		},
     "buyer": {
         "type": "customer", 
-				"id": "9"
+				"id": "9",
 				"_links": {
 					"self" : "http://api.teamleader.eu/customers.info?id=9"
 				}
@@ -17,17 +17,17 @@
 			"_items": [
 				{ 
 					"type": "invoiceItem", 
-					"id": "5" 
+					"id": "5",
 					"_links": {},
 					"_actions": {
 						"add" : "http://api.teamleader.eu/invoices.addItem?id=9&item=5&quantity=1",
 						"remove" : "http://api.teamleader.eu/invoices.removeItem?id=9&item=5&quantity=1"
 					}
-				},
-			]
+				}
+			],
 			"_links": {},
-			"_actions": {},
-		}
+			"_actions": {}
+		},
     "_links": {
       "self": "http://api.teamleader.eu/invoices.info?id=1"
     },
@@ -35,7 +35,7 @@
 			"addItem" : "http://api.teamleader.eu/invoices.addItem?id=9&item={id}&quantity={quantity}",
 			"removeItem" : "http://api.teamleader.eu/invoices.removeItem?id=9&item={id}&quantity={quantity}",
 			"remove" : "http://api.teamleader.eu/invoices.remove?id=9",
-			"book" : "http://api.teamleader.eu/invoices.book?id=9",
+			"book" : "http://api.teamleader.eu/invoices.book?id=9"
 		}
   }],
 	"_links": {
