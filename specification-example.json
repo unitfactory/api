@@ -1,61 +1,63 @@
 {
-    "_items": [{
-    "type": "invoice",
-    "id": "1",
-		"total": {
-			"amount": "100.000.000,00",
-			"currency": "EUR"
-		},
-    "buyer": {
-        "type": "customer", 
-				"id": "9",
-				"_links": {
-					"self" : "http://api.teamleader.eu/customers.info?id=9"
+    "_items": [
+        {
+            "type": "invoice",
+            "id": "1",
+            "total": {
+                "amount": "100.000.000,00",
+                "currency": "EUR"
+            },
+            "buyer": {
+                "type": "customer", 
+                "id": "9",
+                "_links": {
+                    "self" : "http://api.teamleader.eu/customers.info?id=9"
 				}
-    },
-	 	"invoice_items": {
-			"_items": [
-				{ 
-					"type": "invoiceItem", 
-					"id": "5",
-					"_links": {},
-					"_actions": {
-						"add" : "http://api.teamleader.eu/invoices.addItem?id=9&item=5&quantity=1",
-						"remove" : "http://api.teamleader.eu/invoices.removeItem?id=9&item=5&quantity=1"
-					}
-				}
-			],
-			"_links": {},
-			"_actions": {}
-		},
+            },
+            "invoice_items": {
+                "_items": [
+                    { 
+                        "type": "invoiceItem", 
+                        "id": "5",
+                        "_links": {},
+                        "_actions": {
+                            "add" : "http://api.teamleader.eu/invoices.addItem?id=9&item=5&quantity=1",
+                            "remove" : "http://api.teamleader.eu/invoices.removeItem?id=9&item=5&quantity=1"
+                        }
+                    }
+                ],
+                "_links": {},
+                "_actions": {}
+            },
+            "_links": {
+                "self": "http://api.teamleader.eu/invoices.info?id=1"
+            },
+            "_actions": {
+                "addItem" : "http://api.teamleader.eu/invoices.addItem?id=9&item={id}&quantity={quantity}",
+                "removeItem" : "http://api.teamleader.eu/invoices.removeItem?id=9&item={id}&quantity={quantity}",
+                "remove" : "http://api.teamleader.eu/invoices.remove?id=9",
+                "book" : "http://api.teamleader.eu/invoices.book?id=9"
+            }
+        }
+    ],
     "_links": {
-      "self": "http://api.teamleader.eu/invoices.info?id=1"
+        "self": "http://api.teamleader.eu/invoices.list",
+        "next": "http://api.teamleader.eu/invoices.list?page[offset]=2",
+        "last": "http://api.teamleader.eu/invoices.list?page[offset]=10"
     },
-		"_actions": {
-			"addItem" : "http://api.teamleader.eu/invoices.addItem?id=9&item={id}&quantity={quantity}",
-			"removeItem" : "http://api.teamleader.eu/invoices.removeItem?id=9&item={id}&quantity={quantity}",
-			"remove" : "http://api.teamleader.eu/invoices.remove?id=9",
-			"book" : "http://api.teamleader.eu/invoices.book?id=9"
-		}
-  }],
-	"_links": {
-    "self": "http://api.teamleader.eu/invoices.list",
-    "next": "http://api.teamleader.eu/invoices.list?page[offset]=2",
-    "last": "http://api.teamleader.eu/invoices.list?page[offset]=10"
-  },
-	"_meta": {
-		"page": {
-			"count": 10,
-			"current": 1
-		}
-	},
-  "_embedded": {
-		"customer" : {
-			"9" : {
-				"type": "customer",
-				"id": 9,
-				"name": "John"
-			}
-		}
-	}
+    "_meta": {
+        "page": {
+            "count": 10,
+            "current": 1
+        }
+    },
+    "_embedded": {
+        "customer" : {
+            "9" : {
+                "type": "customer",
+                "id": 9,
+                "name": "John"
+            }
+        }
+    }
 }
