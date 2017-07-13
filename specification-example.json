@@ -3,9 +3,9 @@
     "type": "invoice",
     "id": "1",
 		"total": {
-			amount: "100.000.000,00",
-			currency: "EUR"
-		}
+			"amount": "100.000.000,00",
+			"currency": "EUR"
+		},
     "buyer": {
         "type": "customer", 
 				"id": "9"
