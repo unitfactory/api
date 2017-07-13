@@ -10,6 +10,7 @@
             "buyer": {
                 "type": "customer", 
                 "id": "9",
+		"name": "John",
                 "_links": {
                     "self" : "http://api.teamleader.eu/customers.info?id=9"
 				}
