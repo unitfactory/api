@@ -106,7 +106,7 @@
 {
     "_type": "invoice",
     "id": "1",
-    "status": "booked,
+    "status": "booked",
     "total": {
         "amount": "100.000.000,00",
         "currency": "EUR"
@@ -154,7 +154,7 @@
         "credit" : {
             "url": "http://api.teamleader.eu/invoices.credit",
             "message": {
-                "id": "9",
+                "id": "9"
             }
         }
     },
