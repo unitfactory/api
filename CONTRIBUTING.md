@@ -45,33 +45,5 @@ For casing, we agreed the following
 
 ### Response structue
 
-We are using [jsonapi](http://jsonapi.org/) as an inspiration sometimes, but don't follow it 100% (for now?). 
-So far we decided to follow these guidelines:
-
-#### Wrap data in a data property
-    
-```json
-{
-  "data":{
-     //one item
-  }
-}
-```
-
-or
-    
-```json
-{
-   "data":[
-     {
-        //one item
-     },
-     {
-        //another item
-     }
-   ]
-}
-```
-
-Currently, we are still discussing how to cope with embedded collections.
-    
+We wrote our own specification for the format of the response.  
+You can read it [here](./specification.md) and look at some examples [here](./examples)
