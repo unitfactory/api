@@ -94,15 +94,6 @@ Get a list of all users
     + Attributes (object)
         + data (array[User])
 
-### departments.list [GET /departments.list]
-
-Get a list of all departments
-
-+ Response 200 (application/json)
-
-    + Attributes (object)
-        + data (array[Department])
-
 ### tags.list [GET /tags.list]
 
 Get a list of all tags
@@ -604,6 +595,26 @@ Get a list of all deal sources
                 + name: `Google Search` (string)
 
 ## Departments [/departments]
+
+### departments.list [GET /departments.list]
+
+Get a list of all departments
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + company_id: `1` (number, optional) - Filter departments by a certain company.
+        + page (object, optional)
+            + size: `20` (number, optional) - Amount of departments you want returned, 1 to 100.
+                + Default: `20`
+            + number: `1` (number, optional) - The numerated page you want, starts at 1.
+                + Default: `1`
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (array[Department])
 
 ## Meetings [/meetings]
 
