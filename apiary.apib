@@ -603,12 +603,12 @@ Get a list of all departments
 + Request (application/json)
 
     + Attributes (object)
-        + filter (object, optional)
-            + company_id: `1` (number, optional) - Filter departments by a certain company.
-        + page (object, optional)
-            + size: `20` (number, optional) - Amount of departments you want returned, 1 to 100.
+        + filter (object)
+            + company_id: `1` (number) - Filter departments by a certain company.
+        + page (object)
+            + size: `20` (number) - Amount of departments you want returned, 1 to 100.
                 + Default: `20`
-            + number: `1` (number, optional) - The numerated page you want, starts at 1.
+            + number: `1` (number) - The numerated page you want, starts at 1.
                 + Default: `1`
 
 + Response 200 (application/json)
@@ -624,22 +624,22 @@ Create a department
 
     + Attributes (object)
         + name: `Human Resources` (string, required)
-        + name_short: `HR` (string, optional)
+        + name_short: `HR` (string)
         + email: `hr@example.com` (string, required)
-        + invoicing_email: `invoicing@example.com` (string, optional) - Automatic invoice reminders are sent from this e-mail address
-        + website: `http://example.com` (string, optional)
-        + phone: `1234567` (string, optional)
-        + fax: `7654321` (string, optional)
+        + invoicing_email: `invoicing@example.com` (string) - Automatic invoice reminders are sent from this e-mail address
+        + website: `http://example.com` (string)
+        + phone: `1234567` (string)
+        + fax: `7654321` (string)
         + address (Address, required)
-        + vat_number: `BE0899623035` (string, optional)
-        + local_business_number: `63326426` (string, optional) - Local business number (KVK in the Netherlands)
-        + bank_name: `Bank of Switzerland` (string, optional)
-        + iban: `BE12 1234 1234 1234` (string, optional)
-        + bic: `BICBANK` (string, optional)
-        + interest_rate: `12` (number, optional) - Interest rate (percentage)
-        + late_fee: `12` (number, optional) - Late fee (percentage)
-        + minimum_late_fee: `12` (number, optional) - Minimum late fee
-        + registration_number: `12` (number, optional)
+        + vat_number: `BE0899623035` (string)
+        + local_business_number: `63326426` (string) - Local business number (KVK in the Netherlands)
+        + bank_name: `Bank of Switzerland` (string)
+        + iban: `BE12 1234 1234 1234` (string)
+        + bic: `BICBANK` (string)
+        + interest_rate: `12` (number) - Interest rate (percentage)
+        + late_fee: `12` (number) - Late fee (percentage)
+        + minimum_late_fee: `12` (number) - Minimum late fee
+        + registration_number: `12` (number)
 
 + Response 201 (application/json)
 
@@ -655,22 +655,22 @@ Update a department
 
     + Attributes (object)
         + name: `Human Resources` (string, required)
-        + name_short: `HR` (string, optional)
+        + name_short: `HR` (string)
         + email: `hr@example.com` (string, required)
-        + invoicing_email: `invoicing@example.com` (string, optional) - Automatic invoice reminders are sent from this e-mail address
-        + website: `http://example.com` (string, optional)
-        + phone: `1234567` (string, optional)
-        + fax: `7654321` (string, optional)
+        + invoicing_email: `invoicing@example.com` (string) - Automatic invoice reminders are sent from this e-mail address
+        + website: `http://example.com` (string)
+        + phone: `1234567` (string)
+        + fax: `7654321` (string)
         + address (Address, required)
-        + vat_number: `BE0899623035` (string, optional)
-        + local_business_number: `63326426` (string, optional) - Local business number (KVK in the Netherlands)
-        + bank_name: `Bank of Switzerland` (string, optional)
-        + iban: `BE12 1234 1234 1234` (string, optional)
-        + bic: `BICBANK` (string, optional)
-        + interest_rate: `12` (number, optional) - Interest rate (percentage)
-        + late_fee: `12` (number, optional) - Late fee (percentage)
-        + minimum_late_fee: `12` (number, optional) - Minimum late fee
-        + registration_number: `12` (number, optional)
+        + vat_number: `BE0899623035` (string)
+        + local_business_number: `63326426` (string) - Local business number (KVK in the Netherlands)
+        + bank_name: `Bank of Switzerland` (string)
+        + iban: `BE12 1234 1234 1234` (string)
+        + bic: `BICBANK` (string)
+        + interest_rate: `12` (number) - Interest rate (percentage)
+        + late_fee: `12` (number) - Late fee (percentage)
+        + minimum_late_fee: `12` (number) - Minimum late fee
+        + registration_number: `12` (number)
 
 + Response 204
 
