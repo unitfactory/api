@@ -616,6 +616,37 @@ Get a list of all departments
     + Attributes (object)
         + data (array[Department])
 
+### departments.create [POST /departments.create]
+
+Create a department
+
++ Request (application/json)
+
+    + Attributes (object)
+        + name: `Human Resources` (string, required)
+        + name_short: `HR` (string, optional)
+        + email: `hr@example.com` (string, required)
+        + invoicing_email: `invoicing@example.com` (string, optional) - Automatic invoice reminders are sent from this e-mail address
+        + website: `http://example.com` (string, optional)
+        + phone: `1234567` (string, optional)
+        + fax: `7654321` (string, optional)
+        + address (Address, required)
+        + vat_number: `BE0899623035` (string, optional)
+        + local_business_number: `63326426` (string, optional) - Local business number (KVK in the Netherlands)
+        + bank_name: `Bank of Switzerland` (string, optional)
+        + iban: `BE12 1234 1234 1234` (string, optional)
+        + bic: `BICBANK` (string, optional)
+        + interest_rate: `12` (number, optional) - Interest rate (percentage)
+        + late_fee: `12` (number, optional) - Late fee (percentage)
+        + minimum_late_fee: `12` (number, optional) - Minimum late fee
+        + registration_number: `12` (number, optional)
+
++ Response 201 (application/json)
+
+    + Attributes
+        + data (object)
+            + id: `1` (number)
+
 ## Meetings [/meetings]
 
 ### meetings.delete [POST /meetings.delete]
