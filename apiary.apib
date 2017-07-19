@@ -585,7 +585,12 @@ Get deal details
         + reason_refused: `No interest` (string)
         + source_id: `8799` (number)
         + quotation (Quotation)
-        + phase_changes (array[PhaseChange])
+        + phase_changes (array)
+            + PhaseChange (object)
+                + old_phase_id: `1` (number)
+                + new_phase_id: `2` (number)
+                + change_date: `2017-05-01 12:00:00` (string)
+                + changed_by: `5` (number)
 
 ### deals.create [POST /deals.create]
 
@@ -834,12 +839,6 @@ Register a webhook.
     + Members
         + full-day
 + date: `2017-05-16` (string)
-
-## PhaseChange (object)
-+ old_phase_id: `1` (number)
-+ new_phase_id: `2` (number)
-+ change_date: `2017-05-01 12:00:00` (string)
-+ changed_by: `5` (number)
 
 ## Quotation (object)
 + quotation_nr: `21` (number)
