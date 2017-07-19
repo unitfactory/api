@@ -1,9 +1,93 @@
 FORMAT: 1A
 HOST: https://api.teamleader.eu
 
-# Teamleader API v2
+# Teamleader API
 
-This is the Teamleader API v2 documentation.
+#### WARNING - This is still a BETA version.
+
+This documentation is already published, but it is still under BETA.
+Most of the endpoints might already work, but we do NOT guarantee they will not change before our final release.
+
+
+## AP-What?
+
+An API is a Application **Programming** Interface.
+
+It is used by **programmers**, **developers** or **engineers** to programmaticaly interact with Teamleader,
+to integrate it with other software tools or to customize Teamleader in a certain way.
+If you are not a programmer, developer or engineer, this might be hard for you.
+
+If you have the needs to integrate Teamleader with other tools, or to customize its behavior,
+someone else might already made and published it on our **[marketplace](https://marketplace.teamleader.eu)**.
+If you still want to do something custom, we advise you to look for a programmer to help you out or to contact someone in our [partner](https://www.teamleader.eu) network.
+
+
+
+## General principles
+
+### RPC
+
+We provide an RPC-API, with which you can do actions related to a domain concept.
+
+```
+POST https://api.teamleader.eu/someConcept.someAction?some_parameter=some_value HTTP/1.1
+
+```
+
+_In this example we perform the `someAction` action on `someConcept` with the parameter `some_parameter` that has a value of `some_value`._
+
+We chose this approach over the more popular REST, because it enables us to name our actions better, like `invoices.book`, `timetracking.start`, `timetracking.stop`.
+We honestly think that for more complex subdomains this really enriches our API, while for some simpler subdomains it is only a subtle difference.
+
+
+### GET vs. POST
+
+When retrieving data through HTTP, you normally use the GET method.
+To make changes to data, you often use the POST method.
+
+We tend to follow that principle, but we're giving you the opportunity to POST your GETs,
+to make it a little simpler to construct more advanced queries.
+For us following examples are equally:
+
+```
+GET https://api.teamleader.eu/invoices.find?filter[department_id]=1&page[number]=3&page[size]=50&company_id=1234
+```
+
+```
+POST https://api.teamleader.eu/invoices.find
+
+{
+    "filter" : {
+        "department_id" : 1
+    },
+    "page" :  {
+        "size" : 50,
+        "number" : 3
+    },
+    "company_id" : 1234
+}
+```
+
+### Collections and metadata
+
+We plan to add more meta data to responses over time.
+To be able to do that on collections too, we wrap every collection in an object with the items in an array called `_items`.
+
+```json
+{
+    "_items" : [
+        { "foo" : "bar" },
+        { "foo" : "baz" },
+        { "foo" : "boo" },
+    ],
+    "_some_future_meta_data" : {
+        "meta" : "data"
+    }
+}
+```
+
+Yes, it feels weird in the beginning, but you'll get used to it very soon!
+We think that ensuring backward compatibility in the future, will help you more in the end.
 
 ## OAuth 2
 
