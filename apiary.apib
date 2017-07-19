@@ -456,7 +456,9 @@ Get the names of business types (legal structures) a company can have within a c
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array[CompanyType])
+        + _items (array)
+            + CompanyType (object)
+                + name: `BVBA` (string)
 
 ## Deals [/deals]
 
@@ -748,9 +750,6 @@ Register a webhook.
     + Members
         + full-day
 + date: `2017-05-16` (string)
-
-## CompanyType (object)
-+ name: `BVBA` (string)
 
 ## Contact (object)
 + id: `456` (number)
