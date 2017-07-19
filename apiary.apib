@@ -92,7 +92,16 @@ Get a list of all users
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array[User])
+        + _items (array)
+            + User (object)
+                + id: `1` (number)
+                + name: `John Smith` (string)
+                + email: `john@teamleader.eu` (string)
+                + gsm: `+32412654321` (string)
+                + phone: `+3291239843` (string)
+                + team_id: `1` (number)
+                + title: `Sales` (string)
+                + active: `true` (boolean)
 
 ### departments.list [GET /departments.list]
 
@@ -113,7 +122,7 @@ Get a list of all tags
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data: expo, upsell (array[string])
+        + _items : expo, upsell (array[string])
 
 ## Contacts [/contacts]
 
@@ -233,9 +242,8 @@ Add a contact to Teamleader
 
 + Response 201 (application/json)
 
-    + Attributes
-        + data (object)
-            + id: `1` (number)
+    + Attributes (object)
+        + id: `1` (number)
 
 ### contacts.update [POST /contacts.update]
 
@@ -432,9 +440,8 @@ Add a Teamleader company
 
 + Response 201 (application/json)
 
-    + Attributes
-        + data (object)
-            + id: `1` (number)
+    + Attributes (object)
+        + id: `1` (number)
 
 ### companies.update [POST /companies.update]
 
@@ -627,9 +634,8 @@ Create a deal for a contact or company.
 
 + Response 201 (application/json)
 
-    + Attributes
-        + data (object)
-            + id: `1` (number)
+    + Attributes (object)
+        + id: `1` (number)
 
 ### deals.update [POST /deals.update]
 
@@ -725,7 +731,7 @@ Get a list of all phases a deal can go through
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array)
+        + _items (array)
             + (object)
                 + id: 1 (number)
                 + name: `New` (string)
@@ -737,7 +743,7 @@ Get a list of all deal sources
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array)
+        + _items (array)
             + (object)
                 + id: 1 (number)
                 + name: `Google Search` (string)
@@ -841,21 +847,3 @@ Register a webhook.
 + zipcode: `94020` (string)
 + city: `Palo Alto` (string)
 + country: `US` (string)
-
-## AgendaItem (object)
-+ id: `123` (number)
-+ name: `Erlich Bachman's birthday` (string)
-+ type: `full-day` (enum[string])
-    + Members
-        + full-day
-+ date: `2017-05-16` (string)
-
-## User (object)
-id: `1` (number)
-name: `John Smith` (string)
-email: `john@teamleader.eu` (string)
-gsm: `+32412654321` (string)
-phone: `+3291239843` (string)
-team_id: `1` (number)
-title: `Sales` (string)
-active: `true` (boolean)

@@ -113,9 +113,8 @@ Create a deal for a contact or company.
 
 + Response 201 (application/json)
 
-    + Attributes
-        + data (object)
-            + id: `1` (number)
+    + Attributes (object)
+        + id: `1` (number)
 
 ### deals.update [POST /deals.update]
 
@@ -211,7 +210,7 @@ Get a list of all phases a deal can go through
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array)
+        + _items (array)
             + (object)
                 + id: 1 (number)
                 + name: `New` (string)
@@ -223,7 +222,7 @@ Get a list of all deal sources
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array)
+        + _items (array)
             + (object)
                 + id: 1 (number)
                 + name: `Google Search` (string)
