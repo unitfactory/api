@@ -584,7 +584,10 @@ Get deal details
         + date_lost: `2017-05-09T11:31:30+00:00` (string)
         + reason_refused: `No interest` (string)
         + source_id: `8799` (number)
-        + quotation (Quotation)
+        + quotation (object)
+            + quotation_nr: `21` (number)
+            + total_price_excl_vat: `0.00` (number)
+            + items (array[QuotationItem])
         + phase_changes (array)
             + PhaseChange (object)
                 + old_phase_id: `1` (number)
@@ -839,11 +842,6 @@ Register a webhook.
     + Members
         + full-day
 + date: `2017-05-16` (string)
-
-## Quotation (object)
-+ quotation_nr: `21` (number)
-+ total_price_excl_vat: `0.00` (number)
-+ items (array[QuotationItem])
 
 ## QuotationItem (object)
 + price: `5` (number)
