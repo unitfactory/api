@@ -648,7 +648,7 @@ List credit notes
             + date_to: `2016-01-01` (string, optional) - yyyy-mm-dd
             + department_id: `1` (number, optional) - The ID of the department you wish to filter on.
             + project_id: `1` (number, optional) - The ID of the project you wish to filter on.
-            + invoice_id: `1` (number, optional) - The ID of the invoice you wish to filter on.
+            + invoice_id: `1` (number, optional) - The ID of the invoice you wih to filter on.
         + page (object, optional)
             + size: `20` (number, optional) - Amount of credit notes you want returned, 1 to 100.
                 + Default: `20`
@@ -925,21 +925,23 @@ name: `Sales` (string)
 
 ## Invoice (object)
 + id: `173111` (number)
-+ invoice_nr: `5` (number)
-+ invoice_nr_detailed: `2017 / 5 (MAIN)` (string)
++ department_id: `1` (number)
++ invoice_number: `5` (number)
++ invoice_number_detailed: `2017 / 5 (MAIN)` (string)
++ invoice_status: `booked` (enum[string])
+    + Members
+        + booked
+        + drafted
 + date: `2016-02-04T16:44:33+00:00` (string)
 + due_date: `2016-02-04T16:44:33+00:00` (string)
-+ date_paid: `2016-02-04T16:44:33+00:00` (string)
 + paid: `true` (boolean)
-+ total_price_excl_vat: `123.00` (number)
-+ total_price_incl_vat: `130.38` (number)
-+ name: `De Rode Duivels` (string)
++ paid_on: `2016-02-04T16:44:33+00:00` (string)
++ total_excluding_vat: `123.00` (number)
++ total_including_vat: `130.38` (number)
++ payable_amount: `130.38` (number)
++ customer_id: `company-485906` (string) - Can also start with 'contact-'
++ customer_name: `De Rode Duivels` (string)
 + for_attention_of: `Radja Nainggolan` (string)
-+ incasso_recall_costs: `0.00` (number)
-+ incasso_interest_amount: `0.00` (number)
-+ structured_communication: `+++000/1731/11048+++` (string)
-+ contact_or_company: `company` (string)
-+ contact_or_company_id: 485906 (number)
 
 ## PhaseChange (object)
 + old_phase_id: `1` (number)
