@@ -73,7 +73,14 @@ Get deal details
         + quotation (object)
             + quotation_nr: `21` (number)
             + total_price_excl_vat: `0.00` (number)
-            + items (array[QuotationItem])
+            + items (array)
+                + QuotationItem (object)
+                    + price: `5` (number)
+                    + amount: `1` (number)
+                    + vat: `21` (string) - The vat tariff for this line
+                    + product_id: `1` (number) - ID of the product
+                    + account: `1` (number) - ID of the bookkeeping account
+                    + subtitle: `Enable search` (string)
         + phase_changes (array)
             + PhaseChange (object)
                 + old_phase_id: `1` (number)
