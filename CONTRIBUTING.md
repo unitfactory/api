@@ -62,13 +62,5 @@ For casing, we agreed the following:
 
 ### Format specifications
 
-Use [jsonapi](http://jsonapi.org/) as example/inspiration where possible.
-
-Currenly we follow these specifications:
-
- - Top Level - http://jsonapi.org/format/#document-top-level
- - Pagination - http://jsonapi.org/format/#fetching-pagination
- - Filtering - http://jsonapi.org/format/#fetching-filtering
- - Errors - http://jsonapi.org/format/#errors
-
-Currently, we are still discussing how to cope with embedded collections.
+We wrote our own specification for the format of the response.  
+You can read it [here](./specification.md) and look at some examples [here](./examples)
