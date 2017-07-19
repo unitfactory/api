@@ -54,7 +54,24 @@ Get deal details
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (DealDetail)
+        + id: `164938` (number)
+        + title: `Interesting deal` (string)
+        + for: `contact` (string)
+        + for_id: `1176793` (number)
+        + customer_name: `John`,
+        + quotation_nr: `21` (number)
+        + total_price_excl_vat: `0.00` (number)
+        + probability: `5` (number)
+        + phase_id: `5` (number)
+        + responsible_user_id: `-1` (number)
+        + entry_date: `2017-05-09T11:25:11+00:00` (string)
+        + latest_activity_date: `2017-05-09T11:30:58+00:00` (string)
+        + close_date: `2017-05-09T11:31:15+00:00` (string)
+        + date_lost: `2017-05-09T11:31:30+00:00` (string)
+        + reason_refused: `No interest` (string)
+        + source_id: `8799` (number)
+        + quotation (Quotation)
+        + phase_changes (array[PhaseChange])
 
 ### deals.create [POST /deals.create]
 
