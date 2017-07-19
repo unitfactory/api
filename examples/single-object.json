@@ -1,0 +1,66 @@
+{
+    "_type": "invoice",
+    "id": "1",
+    "status": "booked",
+    "total": {
+        "amount": "100.000.000,00",
+        "currency": "EUR"
+    },
+    "buyer": {
+        "_type": "customer", 
+        "id": "9",
+        "name": "John",
+        "_links": {
+            "self" : "http://api.teamleader.eu/customers.info?id=9"
+        }
+    },
+    "invoice_items": {
+        "_items": [
+            { 
+                "linenumber": "1",
+                "_links": {},
+                "_actions": {
+                    "increment" : {
+                        "url": "http://api.teamleader.eu/invoices.addItem",
+                        "message": {
+                            "id": 9,
+                            "linenumber": 1,
+                            "quantity": 1
+                        }
+                    },
+                    "remove" : {
+                        "url": "http://api.teamleader.eu/invoices.removeItem",
+                        "message": {
+                            "id": 9,
+                            "linenumber": 1,
+                            "quantity": 1
+                        }
+                    }
+                }
+	        }
+	    ],
+        "_links": {},
+        "_actions": {}
+    },
+    "_links": {
+	    "self": "http://api.teamleader.eu/invoices.info?id=1"
+    },
+    "_actions": {
+        "credit" : {
+            "url": "http://api.teamleader.eu/invoices.credit",
+            "message": {
+                "id": "9"
+            }
+        }
+    },
+    "_meta": {},
+    "_embedded": {
+        "customer" : {
+            "9" : {
+                "_type": "customer",
+                "id": 9,
+                "name": "John"
+            }
+        }
+    }
+}
