@@ -7,7 +7,16 @@ Get a list of all users
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array[User])
+        + _items (array)
+            + User (object)
+                + id: `1` (number)
+                + name: `John Smith` (string)
+                + email: `john@teamleader.eu` (string)
+                + gsm: `+32412654321` (string)
+                + phone: `+3291239843` (string)
+                + team_id: `1` (number)
+                + title: `Sales` (string)
+                + active: `true` (boolean)
 
 ### departments.list [GET /departments.list]
 
