@@ -101,7 +101,10 @@ Get a list of all departments
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array[Department])
+        + _items (array)
+            + Department (object)
+                + id: `1` (number)
+                + name: `Sales` (string)
 
 ### tags.list [GET /tags.list]
 
@@ -831,14 +834,6 @@ Register a webhook.
     + Members
         + full-day
 + date: `2017-05-16` (string)
-
-## DealPhase (object)
-+ deal_id: `1` (number)
-+ phase_id: `5` (number)
-
-## Department (object)
-id: `1` (number)
-name: `Sales` (string)
 
 ## Invoice (object)
 + id: `173111` (number)
