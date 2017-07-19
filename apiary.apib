@@ -133,7 +133,30 @@ Get a paginated list of contacts
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array[Contact])
+        + _items (array)
+            + Contact (object)
+                + id: `456` (number)
+                + first_name: `Erlich` (string)
+                + last_name: `Bachman` (string)
+                + salutation: `Mr` (string)
+                + email: `info@piedpiper.eu` (string)
+                + phone: `092980615` (string)
+                + mobile: `0412121212` (string)
+                + fax: `091234567` (string)
+                + website: `https://piedpiper.com` (string)
+                + address (Address)
+                + gender: `M` (enum[string])
+                    + Members
+                        + M
+                        + F
+                        + U
+                + birthdate: `1987-04-25` (string)
+                + iban: `BE12123412341234` (string)
+                + bic: `BICBANK` (string)
+                + tags: tag1, tag2 (array[string])
+                + language: `EN` (string)
+                + added_at: `2016-02-04T16:44:33+00:00` (string)
+                + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
 ### contacts.info [GET /contacts.info]
 
@@ -750,30 +773,6 @@ Register a webhook.
     + Members
         + full-day
 + date: `2017-05-16` (string)
-
-## Contact (object)
-+ id: `456` (number)
-+ first_name: `Erlich` (string)
-+ last_name: `Bachman` (string)
-+ salutation: `Mr` (string)
-+ email: `info@piedpiper.eu` (string)
-+ phone: `092980615` (string)
-+ mobile: `0412121212` (string)
-+ fax: `091234567` (string)
-+ website: `https://piedpiper.com` (string)
-+ address (Address)
-+ gender: `M` (enum[string])
-    + Members
-        + M
-        + F
-        + U
-+ birthdate: `1987-04-25` (string)
-+ iban: `BE12123412341234` (string)
-+ bic: `BICBANK` (string)
-+ tags: tag1, tag2 (array[string])
-+ language: `EN` (string)
-+ added_at: `2016-02-04T16:44:33+00:00` (string)
-+ updated_at: `2016-02-05T16:44:33+00:00` (string)
 
 ## ContactDetail (object)
 + id: `456` (number)
