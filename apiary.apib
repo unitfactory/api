@@ -93,13 +93,13 @@ Get a list of all users
 
     + Attributes (object)
         + _items (array)
-            + User (object)
+            + (object)
                 + id: `1` (number)
                 + name: `John Smith` (string)
                 + email: `john@teamleader.eu` (string)
                 + gsm: `+32412654321` (string)
                 + phone: `+3291239843` (string)
-                + team: (object)
+                + team (object)
                     + id: 1 (number)
                 + title: `Sales` (string)
                 + active: `true` (boolean)
@@ -112,7 +112,7 @@ Get a list of all departments
 
     + Attributes (object)
         + _items (array)
-            + Department (object)
+            + (object)
                 + id: `1` (number)
                 + name: `Sales` (string)
 
@@ -147,7 +147,7 @@ Get a paginated list of contacts
 
     + Attributes (object)
         + _items (array)
-            + Contact (object)
+            + (object)
                 + id: `456` (number)
                 + first_name: `Erlich` (string)
                 + last_name: `Bachman` (string)
@@ -362,7 +362,7 @@ Search companies
 
     + Attributes (object)
         + `_items` (array)
-            + Company (object)
+            + (object)
                 + id: `123` (number)
                 + name: `Pied Piper` (string)
                 + business_type: `NV` (string)
@@ -521,7 +521,7 @@ Get the names of business types (legal structures) a company can have within a c
 
     + Attributes (object)
         + _items (array)
-            + CompanyType (object)
+            + (object)
                 + name: `BVBA` (string)
 
 ## Deals [/deals]
@@ -549,11 +549,11 @@ Get a list of all deals
 
     + Attributes (object)
         + _items (array)
-            + Deal (object)
+            + (object)
                 + id: `164938` (number)
                 + title: `Interesting deal` (string)
                 + customer (object)
-                    + id: `contact-1` (number)
+                    + id: `contact-1` (string)
                     + name: John Smith (string)
                 + probability: `5` (number)
                 + phase_id: `5` (number)
@@ -585,7 +585,7 @@ Get deal details
         + title: `Interesting deal` (string)
         + quotation_nr: `21` (number)
         + customer (object)
-            + id: `contact-1` (number)
+            + id: `contact-1` (string)
             + name: John Smith (string)
         + total_price_excl_vat: `0.00` (number)
         + probability: `5` (number)
@@ -605,23 +605,23 @@ Get deal details
             + total_price_excl_vat: `0.00` (number)
             + items (object)
                 + _items(array)
-                    + QuotationItem (object)
+                    + (object)
                         + price: `5` (number)
                         + amount: `1` (number)
                         + vat: `21` (string) - The vat tariff for this line
-                        + product: (object)
+                        + product (object)
                             + id: `1` (number) - ID of the product
                         + account: `1` (number) - ID of the bookkeeping account
                         + subtitle: `Enable search` (string)
         + phase_changes (object)
             + _items (array)
-                + PhaseChange (object)
+                + (object)
                     + old_phase (object)
                         + id: `1` (number)
                     + new_phase (object)
                         + id: `2` (number)
                     + change_date: `2017-05-01 12:00:00` (string)
-                    + changed_by: (object)
+                    + changed_by (object)
                         + id: `5` (number)
 
 ### deals.create [POST /deals.create]
