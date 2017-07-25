@@ -196,6 +196,30 @@ Get a list of all tags
     + Attributes (object)
         + data: expo, upsell (array[string])
 
+## Calendar entries [/calendar-entries]
+
+### calendarEntries.list [GET /calendarEntries.list]
+
+Search calendar entries
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object, required)
+            + employee_id: `1` (number, required) - Use this to filter by employee
+            + start_date: `2017-01-01` (string, required) - Format ISO 8601: yyyy-mm-dd
+            + end_date: `2017-01-01` (string, required) - Format ISO 8601: yyyy-mm-dd
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + _items (array)
+            + (object)
+                + id: `123` (number)
+                + name: `Erlich Bachman's birthday` (string)
+                + date: `2017-05-16` (string)
+                + duration: `140` (number)
+
 ## Contacts [/contacts]
 
 ### contacts.list [GET /contacts.list]
@@ -786,14 +810,6 @@ Register a webhook.
 + zipcode: `94020` (string)
 + city: `Palo Alto` (string)
 + country: `US` (string)
-
-## AgendaItem (object)
-+ id: `123` (number)
-+ name: `Erlich Bachman's birthday` (string)
-+ type: `full-day` (enum[string])
-    + Members
-        + full-day
-+ date: `2017-05-16` (string)
 
 ## Company (object)
 + id: `123` (number)
