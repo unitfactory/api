@@ -129,7 +129,12 @@ Search calendar entries
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array[CalendarEntry])
+        + data (array)
+            + (object)
+                + id: `123` (number)
+                + name: `Erlich Bachman's birthday` (string)
+                + date: `2017-05-16` (string)
+                + duration: `140` (number)
 
 ## Contacts [/contacts]
 
@@ -721,12 +726,6 @@ Register a webhook.
 + zipcode: `94020` (string)
 + city: `Palo Alto` (string)
 + country: `US` (string)
-
-## CalendarEntry (object)
-+ id: `123` (number)
-+ name: `Erlich Bachman's birthday` (string)
-+ date: `2017-05-16` (string)
-+ duration: `140` (number)
 
 ## Company (object)
 + id: `123` (number)
