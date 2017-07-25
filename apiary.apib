@@ -633,14 +633,15 @@ Search the milestones (cross projects)
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array)
+        + _items (array)
             + (object)
                 + id: `247` (number)
                 + name: `Optimize the middle-out compression` (string)
-                + project_id: `20` (number)
-                + project_name: `PiperChat` (string)
                 + due_date: `2017-01-15` (string)
                 + done: `false` (boolean)
+                + project: (object)
+                    + id: `20` (number)
+                    + name: `PiperChat` (string)
 
 ## Webhooks [/webhooks]
 
