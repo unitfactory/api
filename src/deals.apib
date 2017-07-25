@@ -22,16 +22,32 @@ Get a list of all deals
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array[Deal])
+        + _items (array)
+            + (object)
+                + id: `164938` (number)
+                + title: `Interesting deal` (string)
+                + customer (object)
+                    + id: `contact-1` (string)
+                    + name: John Smith (string)
+                + probability: `5` (number)
+                + phase_id: `5` (number)
+                + responsible_user (object)
+                    + id: 17
+                + entry_date: `2017-05-09T11:25:11+00:00` (string)
+                + latest_activity_date: `2017-05-09T11:30:58+00:00` (string)
+                + close_date: `2017-05-09T11:31:15+00:00` (string)
+                + date_lost: `2017-05-09T11:31:30+00:00` (string)
+                + reason_refused: `No interest` (string)
+                + source_id: `8799` (number)
 
-### deals.info [GET /deals.info{?include}]
+### deals.info [GET /deals.info{?embed}]
 
 Get deal details
 
 + Request (application/json)
 
     + Parameters
-        + include: `quotation,phaseChanges` (string, optional) - Comma separated string with additional data you wish to include
+        + embed: `quotation,phase_changes` (string, optional) - Comma separated string with additional data you wish to include
 
     + Attributes (object)
         + deal_id: `1` (number, required) - ID of the deal you want
@@ -39,7 +55,48 @@ Get deal details
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (DealDetail)
+        + id: `164938` (number)
+        + title: `Interesting deal` (string)
+        + quotation_nr: `21` (number)
+        + customer (object)
+            + id: `contact-1` (string)
+            + name: John Smith (string)
+        + total_price_excl_vat: `0.00` (number)
+        + probability: `5` (number)
+        + phase (object)
+            + id: `5` (number)
+        + responsible_user (object)
+            + id: 17
+        + entry_date: `2017-05-09T11:25:11+00:00` (string)
+        + latest_activity_date: `2017-05-09T11:30:58+00:00` (string)
+        + close_date: `2017-05-09T11:31:15+00:00` (string)
+        + date_lost: `2017-05-09T11:31:30+00:00` (string)
+        + reason_refused: `No interest` (string)
+        + source (object)
+            + id : `8799` (number)
+        + quotation (object)
+            + quotation_nr: `21` (number)
+            + total_price_excl_vat: `0.00` (number)
+            + items (object)
+                + _items(array)
+                    + (object)
+                        + price: `5` (number)
+                        + amount: `1` (number)
+                        + vat: `21` (string) - The vat tariff for this line
+                        + product (object)
+                            + id: `1` (number) - ID of the product
+                        + account: `1` (number) - ID of the bookkeeping account
+                        + subtitle: `Enable search` (string)
+        + phase_changes (object)
+            + _items (array)
+                + (object)
+                    + old_phase (object)
+                        + id: `1` (number)
+                    + new_phase (object)
+                        + id: `2` (number)
+                    + change_date: `2017-05-01 12:00:00` (string)
+                    + changed_by (object)
+                        + id: `5` (number)
 
 ### deals.create [POST /deals.create]
 
@@ -66,9 +123,8 @@ Create a deal for a contact or company.
 
 + Response 201 (application/json)
 
-    + Attributes
-        + data (object)
-            + id: `1` (number)
+    + Attributes (object)
+        + id: `1` (number)
 
 ### deals.update [POST /deals.update]
 
@@ -164,7 +220,7 @@ Get a list of all phases a deal can go through
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array)
+        + _items (array)
             + (object)
                 + id: 1 (number)
                 + name: `New` (string)
@@ -176,7 +232,7 @@ Get a list of all deal sources
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array)
+        + _items (array)
             + (object)
                 + id: 1 (number)
                 + name: `Google Search` (string)
