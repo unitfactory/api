@@ -633,7 +633,14 @@ Search the milestones (cross projects)
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array[Milestone])
+        + data (array)
+            + (object)
+                + id: `247` (number)
+                + name: `Optimize the middle-out compression` (string)
+                + project_id: `20` (number)
+                + project_name: `PiperChat` (string)
+                + due_date: `2017-01-15` (string)
+                + done: `false` (boolean)
 
 ## Webhooks [/webhooks]
 
@@ -903,14 +910,6 @@ name: `Sales` (string)
 + structured_communication: `+++000/1731/11048+++` (string)
 + contact_or_company: `company` (string)
 + contact_or_company_id: 485906 (number)
-
-## Milestone
-+ id: `247` (number)
-+ name: `Optimize the middle-out compression` (string)
-+ project_id: `20` (number)
-+ project_name: `PiperChat` (string)
-+ due_date: `2017-01-15` (string)
-+ done: `false` (boolean)
 
 ## PhaseChange (object)
 + old_phase_id: `1` (number)
