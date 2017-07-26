@@ -8,7 +8,8 @@ List invoices
 
     + Attributes (object)
         + filter (object, optional)
-            + customer_id (string, optional) - Format: "type-int" (e.g. contact-1234 or company-4321)
+            + contact_id: 123 (number, optional) - The ID of the contact you wish to filter on. You can't provide a company ID.
+            + company_id: 123 (number, optional) - The ID of the company you wish to filter on. You can't provide a contact ID.
             + date_from: `2016-01-01` (string, optional) - Format: yyyy-mm-dd
             + date_to: `2016-01-01` (string, optional) - yyyy-mm-dd
             + deal_id: `1` (number, optional) - The ID of the deal you wish to filter on.
@@ -28,24 +29,31 @@ List invoices
 + Response 200 (application/json)
 
     + Attributes (object)
-        + _items (array)
-            + Invoice (object)
+        + _items (array[object])
+            + (object)
                 + id: `173111` (number)
-                + invoice_nr: `5` (number)
-                + invoice_nr_detailed: `2017 / 5 (MAIN)` (string)
+                + department_id: `1` (number)
+                + invoice_number: `5` (number)
+                + invoice_number_detailed: `2017 / 5 (MAIN)` (string)
+                + invoice_status: `booked` (enum[string])
+                    + Members
+                        + booked
+                        + draft
                 + date: `2016-02-04T16:44:33+00:00` (string)
                 + due_date: `2016-02-04T16:44:33+00:00` (string)
-                + date_paid: `2016-02-04T16:44:33+00:00` (string)
                 + paid: `true` (boolean)
-                + total_price_excl_vat: `123.00` (number)
-                + total_price_incl_vat: `130.38` (number)
-                + name: `De Rode Duivels` (string)
-                + for_attention_of: `Radja Nainggolan` (string)
-                + incasso_recall_costs: `0.00` (number)
-                + incasso_interest_amount: `0.00` (number)
-                + structured_communication: `+++000/1731/11048+++` (string)
-                + contact_or_company: `company` (string)
-                + contact_or_company_id: 485906 (number)
+                + paid_on: `2016-02-04T16:44:33+00:00` (string)
+                + total_excluding_vat: `123.00` (number)
+                + total_including_vat: `130.38` (number)
+                + payable_amount: `130.38` (number)
+                + invoicee (object)
+                        + name: `De Rode Duivels` (string)
+                        + for_attention_of: `Radja Nainggolan` (string)
+                        + address: (Address)
+                        + vat_number: `BE0899623035` (string)
+                        + customer (object)
+                            + _type: `contact` (string)
+                            + id: `123` (number)
 
 ### creditNotes.list [GET /creditNotes.list]
 
@@ -55,7 +63,8 @@ List credit notes
 
     + Attributes (object)
         + filter (object, optional)
-            + customer_id (string, optional) - Format: "type-int" (e.g. contact-1234 or company-4321)
+            + contact_id: 123 (number, optional) - The ID of the contact you wish to filter on. You can't provide a company ID.
+            + company_id: 123 (number, optional) - The ID of the company you wish to filter on. You can't provide a contact ID.
             + date_from: `2016-01-01` (string, optional) - Format: yyyy-mm-dd
             + date_to: `2016-01-01` (string, optional) - yyyy-mm-dd
             + department_id: `1` (number, optional) - The ID of the department you wish to filter on.
@@ -70,17 +79,23 @@ List credit notes
 + Response 200 (application/json)
 
     + Attributes (object)
-        + _items (array[CreditNote])
-            + CreditNote (object)
+        + _items (array[object])
+            + (object)
                 + id: `173111` (number)
-                + creditnote_nr: `5` (number)
-                + creditnote_nr_detailed: `2017 / 5 (MAIN)` (string)
+                + department_id: `1` (number)
+                + invoice_id: `173111` (number)
+                + credit_note_number: `5` (number)
+                + credit_note_number_detailed: `2017 / 5 (MAIN)` (string)
                 + date: `2016-02-04T16:44:33+00:00` (string)
-                + date_paid: `2016-02-04T16:44:33+00:00` (string)
                 + paid: `true` (boolean)
-                + total_price_excl_vat: `123.00` (number)
-                + total_price_incl_vat: `130.38` (number)
-                + name: `De Rode Duivels` (string)
-                + contact_or_company: `company` (string)
-                + contact_or_company_id: `485906` (number)
-                + related_invoice_id: `173111` (number)
+                + paid_on: `2016-02-04T16:44:33+00:00` (string)
+                + total_excluding_vat: `123.00` (number)
+                + total_including_vat: `130.38` (number)
+                + invoicee (object)
+                    + name: `De Rode Duivels` (string)
+                    + for_attention_of: `Radja Nainggolan` (string)
+                    + address (Address)
+                    + vat_number: `BE0899623035` (string)
+                    + customer (object)
+                        + _type: `contact` (string)
+                        + id: `123` (number)
