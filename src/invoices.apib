@@ -72,6 +72,63 @@ List invoices
                             + taxable (Money)
                             + tax (Money)
 
+### invoices.draft [POST /invoices.draft]
+
+Draft a new invoice
+
++ Request (application/json)
+
+    + Attributes (object)
+        + customer (object, optional) - Who is the invoice for?
+            + type (enum[string])
+                + Members
+                    + contact
+                    + company
+            + id (string)
+        + for_attention_of (object, optional)
+            + name (string, optional)
+            + contact_id (string, optional)
+        + department_id (string) - Id of the department the invoice will be added to
+        + payment_term (object, optional)
+            + type (enum[string])
+                + Members
+                    + cash - Direct payment, often cash
+                    + end_of_month - End of the month of Xth day after the invoice date
+                    + after_invoice_date - X days after invoice date
+            + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
+        + layout_id (string, optional) - Id of the layout you wish to use for this invoice
+        + purchase_order_number (string, optional) - The external order number. Overrides possible PO number coming from project.
+        + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
+        + line_items (array[object])
+            + (object)
+                + product_id: `1` (string, optional) - Id of the product
+                + quantity: `3` (number)
+                + name: `An awesome product` (string, optional)
+                + description: `Additional information` (string, optional)
+                + unit_price (object, optional)
+                    + amount: `100.0000` (number)
+                    + currency: `EUR` (string)
+                + tax_code: (string, optional) - e.g. '00', '06', 'EX' ...
+                + ledger_id: `1` (string, optional) - Id of the bookkeeping ledger account
+                + section: `Header` (string, optional) - All items under this section will be grouped
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + id: `1` (string) - ID of the invoice that was created
+
+### invoices.addLineItem [POST /invoices.addLineItem]
+
+### invoices.update [POST /invoices.update]
+
+### invoices.book [POST /invoices.book]
+
+### invoices.send [POST /invoices.send]
+
+### invoices.declare [POST /invoices.declare]
+
+
+
 ### creditNotes.list [GET /creditNotes.list]
 
 List credit notes
