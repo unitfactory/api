@@ -54,7 +54,7 @@
         }
     },
     "_meta": {},
-    "_embedded": {
+    "_included": {
         "customer" : {
             "9" : {
                 "_type": "customer",

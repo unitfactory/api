@@ -1,4 +1,4 @@
-# Teamleader API format
+# Teamleader API Response format specification
 
 In order to build consistent endpoints, we developed our own response specification (after looking into more popular specifications, which were unfortunately not adoptable by RPC APIs).  
 
