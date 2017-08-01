@@ -8,7 +8,8 @@ List invoices
 
     + Attributes (object)
         + filter (object, optional)
-            + customer_id (string, optional) - Format: "type-int" (e.g. contact-1234 or company-4321)
+            + contact_id: `123` (number, optional) - The ID of the contact you wish to filter on. You can't provide a company ID.
+            + company_id: 123` (number, optional) - The ID of the company you wish to filter on. You can't provide a contact ID.
             + date_from: `2016-01-01` (string, optional) - Format: yyyy-mm-dd
             + date_to: `2016-01-01` (string, optional) - yyyy-mm-dd
             + deal_id: `1` (number, optional) - The ID of the deal you wish to filter on.
@@ -24,11 +25,35 @@ List invoices
                 + Default: `20`
             + number: `1` (number, optional) - The numerated page you want, starts at 1.
                 + Default: `1`
-                
+
 + Response 200 (application/json)
 
     + Attributes (object)
-        data (array[Invoice])
+        + _items (array[object])
+            + (object)
+                + id: `173111` (number)
+                + department_id: `1` (number)
+                + invoice_number: `5` (number)
+                + invoice_number_detailed: `2017 / 5 (MAIN)` (string)
+                + invoice_status: `booked` (enum[string])
+                    + Members
+                        + booked
+                        + draft
+                + date: `2016-02-04T16:44:33+00:00` (string)
+                + due_date: `2016-02-04T16:44:33+00:00` (string)
+                + paid: `true` (boolean)
+                + paid_on: `2016-02-04T16:44:33+00:00` (string)
+                + total_excluding_vat: `123.00` (number)
+                + total_including_vat: `130.38` (number)
+                + payable_amount: `130.38` (number)
+                + invoicee (object)
+                        + name: `De Rode Duivels` (string)
+                        + for_attention_of: `Radja Nainggolan` (string)
+                        + address: (Address)
+                        + vat_number: `BE0899623035` (string)
+                        + customer (object)
+                            + _type: `contact` (string)
+                            + id: `123` (number)
 
 ### creditNotes.list [GET /creditNotes.list]
 
@@ -38,7 +63,8 @@ List credit notes
 
     + Attributes (object)
         + filter (object, optional)
-            + customer_id (string, optional) - Format: "type-int" (e.g. contact-1234 or company-4321)
+            + contact_id: `123` (number, optional) - The ID of the contact you wish to filter on. You can't provide a company ID.
+            + company_id: `123` (number, optional) - The ID of the company you wish to filter on. You can't provide a contact ID.
             + date_from: `2016-01-01` (string, optional) - Format: yyyy-mm-dd
             + date_to: `2016-01-01` (string, optional) - yyyy-mm-dd
             + department_id: `1` (number, optional) - The ID of the department you wish to filter on.
@@ -49,7 +75,27 @@ List credit notes
                 + Default: `20`
             + number: `1` (number, optional) - The numerated page you want, starts at 1.
                 + Default: `1`
-                
+
 + Response 200 (application/json)
 
-    + Attributes (array[CreditNote])
+    + Attributes (object)
+        + _items (array[object])
+            + (object)
+                + id: `173111` (number)
+                + department_id: `1` (number)
+                + invoice_id: `173111` (number)
+                + credit_note_number: `5` (number)
+                + credit_note_number_detailed: `2017 / 5 (MAIN)` (string)
+                + date: `2016-02-04T16:44:33+00:00` (string)
+                + paid: `true` (boolean)
+                + paid_on: `2016-02-04T16:44:33+00:00` (string)
+                + total_excluding_vat: `123.00` (number)
+                + total_including_vat: `130.38` (number)
+                + invoicee (object)
+                    + name: `De Rode Duivels` (string)
+                    + for_attention_of: `Radja Nainggolan` (string)
+                    + address (Address)
+                    + vat_number: `BE0899623035` (string)
+                    + customer (object)
+                        + _type: `contact` (string)
+                        + id: `123` (number)

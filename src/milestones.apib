@@ -1,0 +1,26 @@
+## Milestones [/milestones]
+
+### milestones.list [GET /milestones.list]
+
+Search the milestones (cross projects)
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object, required)
+             + responsible_employee_id: `1` (number, required) - Use this to filter by responsible employee
+             + start_date: `2017-01-01` (string, required) - Format ISO 8601: yyyy-mm-dd
+             + end_date: `2017-01-01` (string, required) - Format ISO 8601: yyyy-mm-dd
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + _items (array)
+            + (object)
+                + id: `247` (number)
+                + name: `Optimize the middle-out compression` (string)
+                + due_date: `2017-01-15` (string)
+                + done: `false` (boolean)
+                + project (object)
+                    + id: `20` (number)
+                    + name: `PiperChat` (string)

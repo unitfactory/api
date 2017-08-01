@@ -20,7 +20,26 @@ Search companies
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array[Company])
+        + `_items` (array)
+            + (object)
+                + id: `123` (number)
+                + name: `Pied Piper` (string)
+                + business_type: `NV` (string)
+                + vat_number: `BE0899623035` (string)
+                + local_business_number: `63326426` (string)
+                + email: `info@piedpiper.eu` (string)
+                + invoice_email: `invoicing@example.com` (string, optional)
+                + phone: `092980615` (string)
+                + fax: `091234567` (string)
+                + website: `https://piedpiper.com` (string)
+                + address (Address)
+                + iban: `BE12123412341234` (string)
+                + bic: `BICBANK` (string)
+                + language: `NL` (string)
+                + tags (object)
+                    + _items : tag1, tag2 (array[string])
+                + added_at: `2016-02-04T16:44:33+00:00` (string)
+                + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
 ### companies.info [GET /companies.info]
 
@@ -34,7 +53,28 @@ Get company info
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (CompanyDetail)
+        + id: `123` (number)
+        + name: `Pied Piper` (string)
+        + business_type: `NV` (string)
+        + vat_number: `BE0899623035` (string)
+        + local_business_number: `63326426` (string)
+        + email: `info@piedpiper.eu` (string)
+        + invoice_email: `invoicing@example.com` (string, optional)
+        + phone: `092980615` (string)
+        + fax: `091234567` (string)
+        + website: `https://piedpiper.com` (string)
+        + address (Address)
+        + delivery_address (Addressee)
+        + visiting_address (Addressee)
+        + invoice_address (Addressee)
+        + iban: `BE12123412341234` (string)
+        + bic: `BICBANK` (string)
+        + language: `NL` (string)
+        + tags (object)
+            + _items : tag1, tag2 (array[string])
+        + remarks: `First contact at expo` (string)
+        + added_at: `2016-02-04T16:44:33+00:00` (string)
+        + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
 ### companies.add [POST /companies.create]
 
@@ -64,9 +104,8 @@ Add a Teamleader company
 
 + Response 201 (application/json)
 
-    + Attributes
-        + data (object)
-            + id: `1` (number)
+    + Attributes (object)
+        + id: `1` (number)
 
 ### companies.update [POST /companies.update]
 
@@ -140,4 +179,6 @@ Get the names of business types (legal structures) a company can have within a c
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array[CompanyType])
+        + _items (array)
+            + (object)
+                + name: `BVBA` (string)
