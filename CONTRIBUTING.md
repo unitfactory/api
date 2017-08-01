@@ -1,66 +1,33 @@
-# Contributing to the API
+# Contributing to the API Definition
 
-The `master` branch is automatically published on Apiary if there are no syntax errors. The `v1` branch serves as an api-blueprint formatted copy of the legacy documentation.
+#### IMPORTANT: Do not edit `/apiary.apib`
 
-
-## Adding missing functionality from old API to v2
-
-1. Create branch off `v1` (e.g. `v1-time-tracking`). Document old API with api blueprint. PR to `v1` branch.
-2. Create integration branch off `master` (e.g. `v2-time-tracking`)
-3. Make small PRs with improvements to integration branch (e.g. `transform-addTimeTracking`)
-4. Once all smaller PRs are approved, send PR of integration branch to `master` to publish.
+API Blueprint expects one API definition file. For maintainability purposes, we splitted up the file in parts, located in the `src` directory.  
+See the [building](./docs/building.md) documentation for more information about how to build (locally). 
 
 
-## API Design Guidelines
+## Installing dependencies
 
-
-### RPC
-
-We are creating an *RPC*-style API, similar to the [Slack API](https://api.slack.com/methods).
-
-These are common actions we use. *Note*:
-
- - **resource.list** - Get a list objects
- - **resource.info** - Information about a single object
- - **resource.create** - Create a new object
- - **resource.add** - Adding existing objects to a collection
- - **resource.update** - Update an existing object
- - **resource.delete** - Delete an existing object
-
-Usually there will be other actions available for your resource. We need to make sure we make these as explicit and clear as possible.
-
-### GET vs. POST
-
-For actions, we require people to `POST` with a `json` body.
-For retrieving data, we suggest to `GET` with query parameters.
-For sake of simplicity, we also allow you to `POST` with your query as a json body.
-
-```json
-POST deals.list
-{
-  "page": {
-    "size": 10,
-    "number": 1
-  },
-  "filter": {
-    "company_id": 123
-  }
-}
+```bash
+docker pull apiaryio/client
+npm install -g gulp-cli
+npm install
 ```
 
-### Casing
+## Linting
 
-For casing, we agreed the following:
+You can lint the apib file to make sure it's valid:
 
-- The objects are camelcased
-- The actions are camelcased
-- The parameters or object properties are snakecased
-
-```
-/someObject.someAction?some_parameter=value
+```bash
+npm run lint
 ```
 
-### Response format specification
+## Follow our guidelines
 
-We wrote our own specification for the format of the response.  
-You can read it [here](./docs/spec/specification.md) and look at some examples [here](./docs/spec/examples)
+We are documenting our [API Design Guidelines](./docs/guidelines.md).  
+Please follow our recommendations when making a pull request.
+
+
+## Making a pull request
+
+We follow `github flow` and make pull requests to master.  
