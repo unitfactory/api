@@ -26,7 +26,7 @@ Get a list of all files relating to an object
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array)
+        + _items (array)
             + (object)
                 + id: `101` (number)
                 + filename: `cat.bmp` (string)
@@ -45,14 +45,13 @@ Get a info about a specific file
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (object)
-            + filename: `cat.bmp` (string)
-            + filesize_bytes: `256` (number)
-            + uploader_client_id: `1` (number)
-            + related_object_type: `contact` (string)
-            + related_object_id: `1` (number)
-            + folder: `pics` (string)
-            + date_last_edited: `2017-04-20T07:27:07+00:00` (string)
+        + filename: `cat.bmp` (string)
+        + filesize_bytes: `256` (number)
+        + uploader_client_id: `1` (number)
+        + related_object_type: `contact` (string)
+        + related_object_id: `1` (number)
+        + folder: `pics` (string)
+        + date_last_edited: `2017-04-20T07:27:07+00:00` (string)
 
 ### files.download [GET /files.download]
 
@@ -66,8 +65,7 @@ Get a signed URL where the file can be downloaded. The signed URL will remaing v
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (object)
-            + signed_download_url: `http://example.com/cat.bmp` (string)
+        + signed_download_url: `http://example.com/cat.bmp` (string)
 
 ### files.upload [POST /files.upload]
 
@@ -92,8 +90,7 @@ Get a signed URL where the file can be downloaded. The signed URL will remaing v
 + Response 201 (application/json)
 
     + Attributes (object)
-        + data (object)
-            + id: `123` (number)
+        + id: `123` (number)
 
 ### files.delete [POST /files.delete]
 

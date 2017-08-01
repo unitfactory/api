@@ -1,9 +1,93 @@
 FORMAT: 1A
 HOST: https://api.teamleader.eu
 
-# Teamleader API v2
+# Teamleader API
 
-This is the Teamleader API v2 documentation.
+#### WARNING - This is still a BETA version.
+
+This documentation is already published, but it is still under BETA.
+Most of the endpoints might already work, but we do NOT guarantee they will not change before our final release.
+
+
+## AP-What?
+
+An API is a Application **Programming** Interface.
+
+It is used by **programmers**, **developers** or **engineers** to programmaticaly interact with Teamleader,
+to integrate it with other software tools or to customize Teamleader in a certain way.
+If you are not a programmer, developer or engineer, this might be hard for you.
+
+If you have the needs to integrate Teamleader with other tools, or to customize its behavior,
+someone else might already made and published it on our **[marketplace](https://marketplace.teamleader.eu)**.
+If you still want to do something custom, we advise you to look for a programmer to help you out or to contact someone in our [partner](https://www.teamleader.eu) network.
+
+
+
+## General principles
+
+### RPC
+
+We provide an RPC-API, with which you can do actions related to a domain concept.
+
+```
+POST https://api.teamleader.eu/someConcept.someAction?some_parameter=some_value HTTP/1.1
+
+```
+
+_In this example we perform the `someAction` action on `someConcept` with the parameter `some_parameter` that has a value of `some_value`._
+
+We chose this approach over the more popular REST, because it enables us to name our actions better, like `invoices.book`, `timetracking.start`, `timetracking.stop`.
+We honestly think that for more complex subdomains this really enriches our API, while for some simpler subdomains it is only a subtle difference.
+
+
+### GET vs. POST
+
+When retrieving data through HTTP, you normally use the GET method.
+To make changes to data, you often use the POST method.
+
+We tend to follow that principle, but we're giving you the opportunity to POST your GETs,
+to make it a little simpler to construct more advanced queries.
+For us following examples are equally:
+
+```
+GET https://api.teamleader.eu/invoices.find?filter[department_id]=1&page[number]=3&page[size]=50&company_id=1234
+```
+
+```
+POST https://api.teamleader.eu/invoices.find
+
+{
+    "filter" : {
+        "department_id" : 1
+    },
+    "page" :  {
+        "size" : 50,
+        "number" : 3
+    },
+    "company_id" : 1234
+}
+```
+
+### Collections and metadata
+
+We plan to add more meta data to responses over time.
+To be able to do that on collections too, we wrap every collection in an object with the items in an array called `_items`.
+
+```json
+{
+    "_items" : [
+        { "foo" : "bar" },
+        { "foo" : "baz" },
+        { "foo" : "boo" },
+    ],
+    "_some_future_meta_data" : {
+        "meta" : "data"
+    }
+}
+```
+
+Yes, it feels weird in the beginning, but you'll get used to it very soon!
+We think that ensuring backward compatibility in the future, will help you more in the end.
 
 ## OAuth 2
 
@@ -92,16 +176,17 @@ Get a list of all users
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array[User])
-
-### departments.list [GET /departments.list]
-
-Get a list of all departments
-
-+ Response 200 (application/json)
-
-    + Attributes (object)
-        + data (array[Department])
+        + _items (array)
+            + (object)
+                + id: `1` (number)
+                + name: `John Smith` (string)
+                + email: `john@teamleader.eu` (string)
+                + gsm: `+32412654321` (string)
+                + phone: `+3291239843` (string)
+                + team (object)
+                    + id: 1 (number)
+                + title: `Sales` (string)
+                + active: `true` (boolean)
 
 ### tags.list [GET /tags.list]
 
@@ -110,7 +195,31 @@ Get a list of all tags
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data: expo, upsell (array[string])
+        + _items : expo, upsell (array[string])
+
+## Calendar entries [/calendar-entries]
+
+### calendarEntries.list [GET /calendarEntries.list]
+
+Search calendar entries
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object, required)
+            + employee_id: `1` (number, required) - Use this to filter by employee
+            + start_date: `2017-01-01` (string, required) - Format ISO 8601: yyyy-mm-dd
+            + end_date: `2017-01-01` (string, required) - Format ISO 8601: yyyy-mm-dd
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + _items (array)
+            + (object)
+                + id: `123` (number)
+                + name: `Erlich Bachman's birthday` (string)
+                + date: `2017-05-16` (string)
+                + duration: `140` (number)
 
 ## Contacts [/contacts]
 
@@ -133,7 +242,31 @@ Get a paginated list of contacts
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array[Contact])
+        + _items (array)
+            + (object)
+                + id: `456` (number)
+                + first_name: `Erlich` (string)
+                + last_name: `Bachman` (string)
+                + salutation: `Mr` (string)
+                + email: `info@piedpiper.eu` (string)
+                + phone: `092980615` (string)
+                + mobile: `0412121212` (string)
+                + fax: `091234567` (string)
+                + website: `https://piedpiper.com` (string)
+                + address (Address)
+                + gender: `M` (enum[string])
+                    + Members
+                        + M
+                        + F
+                        + U
+                + birthdate: `1987-04-25` (string)
+                + iban: `BE12123412341234` (string)
+                + bic: `BICBANK` (string)
+                + tags (object)
+                    + _items : tag1, tag2 (array[string])
+                + language: `EN` (string)
+                + added_at: `2016-02-04T16:44:33+00:00` (string)
+                + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
 ### contacts.info [GET /contacts.info]
 
@@ -147,7 +280,34 @@ Get the details for a single contact
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (ContactDetail)
+        + id: `456` (number)
+        + first_name: `Erlich` (string)
+        + last_name: `Bachman` (string)
+        + salutation: `Mr` (string)
+        + email: `info@piedpiper.eu` (string)
+        + invoice_email: `invoicing@example.com` (string)
+        + phone: `092980615` (string)
+        + mobile: `0412121212` (string)
+        + fax: `091234567` (string)
+        + website: `https://piedpiper.com` (string)
+        + address (Address)
+        + delivery_address (Addressee)
+        + visiting_address (Addressee)
+        + invoice_address (Addressee)
+        + gender: `M` (enum[string])
+            + Members
+                + M
+                + F
+                + U
+        + birthdate: `1987-04-25` (string)
+        + iban: `BE12123412341234` (string)
+        + bic: `BICBANK` (string)
+        + tags (object)
+            + _items : tag1, tag2 (array[string])
+        + language: `EN` (string)
+        + remarks: `First contact at expo` (string)
+        + added_at: `2016-02-04T16:44:33+00:00` (string)
+        + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
 ### contacts.add [POST /contacts.create]
 
@@ -181,9 +341,8 @@ Add a contact to Teamleader
 
 + Response 201 (application/json)
 
-    + Attributes
-        + data (object)
-            + id: `1` (number)
+    + Attributes (object)
+        + id: `1` (number)
 
 ### contacts.update [POST /contacts.update]
 
@@ -298,7 +457,26 @@ Search companies
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array[Company])
+        + `_items` (array)
+            + (object)
+                + id: `123` (number)
+                + name: `Pied Piper` (string)
+                + business_type: `NV` (string)
+                + vat_number: `BE0899623035` (string)
+                + local_business_number: `63326426` (string)
+                + email: `info@piedpiper.eu` (string)
+                + invoice_email: `invoicing@example.com` (string, optional)
+                + phone: `092980615` (string)
+                + fax: `091234567` (string)
+                + website: `https://piedpiper.com` (string)
+                + address (Address)
+                + iban: `BE12123412341234` (string)
+                + bic: `BICBANK` (string)
+                + language: `NL` (string)
+                + tags (object)
+                    + _items : tag1, tag2 (array[string])
+                + added_at: `2016-02-04T16:44:33+00:00` (string)
+                + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
 ### companies.info [GET /companies.info]
 
@@ -312,7 +490,28 @@ Get company info
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (CompanyDetail)
+        + id: `123` (number)
+        + name: `Pied Piper` (string)
+        + business_type: `NV` (string)
+        + vat_number: `BE0899623035` (string)
+        + local_business_number: `63326426` (string)
+        + email: `info@piedpiper.eu` (string)
+        + invoice_email: `invoicing@example.com` (string, optional)
+        + phone: `092980615` (string)
+        + fax: `091234567` (string)
+        + website: `https://piedpiper.com` (string)
+        + address (Address)
+        + delivery_address (Addressee)
+        + visiting_address (Addressee)
+        + invoice_address (Addressee)
+        + iban: `BE12123412341234` (string)
+        + bic: `BICBANK` (string)
+        + language: `NL` (string)
+        + tags (object)
+            + _items : tag1, tag2 (array[string])
+        + remarks: `First contact at expo` (string)
+        + added_at: `2016-02-04T16:44:33+00:00` (string)
+        + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
 ### companies.add [POST /companies.create]
 
@@ -342,9 +541,8 @@ Add a Teamleader company
 
 + Response 201 (application/json)
 
-    + Attributes
-        + data (object)
-            + id: `1` (number)
+    + Attributes (object)
+        + id: `1` (number)
 
 ### companies.update [POST /companies.update]
 
@@ -418,7 +616,9 @@ Get the names of business types (legal structures) a company can have within a c
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array[CompanyType])
+        + _items (array)
+            + (object)
+                + name: `BVBA` (string)
 
 ## Deals [/deals]
 
@@ -444,16 +644,32 @@ Get a list of all deals
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array[Deal])
+        + _items (array)
+            + (object)
+                + id: `164938` (number)
+                + title: `Interesting deal` (string)
+                + customer (object)
+                    + id: `contact-1` (string)
+                    + name: John Smith (string)
+                + probability: `5` (number)
+                + phase_id: `5` (number)
+                + responsible_user (object)
+                    + id: 17
+                + entry_date: `2017-05-09T11:25:11+00:00` (string)
+                + latest_activity_date: `2017-05-09T11:30:58+00:00` (string)
+                + close_date: `2017-05-09T11:31:15+00:00` (string)
+                + date_lost: `2017-05-09T11:31:30+00:00` (string)
+                + reason_refused: `No interest` (string)
+                + source_id: `8799` (number)
 
-### deals.info [GET /deals.info{?include}]
+### deals.info [GET /deals.info{?embed}]
 
 Get deal details
 
 + Request (application/json)
 
     + Parameters
-        + include: `quotation,phaseChanges` (string, optional) - Comma separated string with additional data you wish to include
+        + embed: `quotation,phase_changes` (string, optional) - Comma separated string with additional data you wish to include
 
     + Attributes (object)
         + deal_id: `1` (number, required) - ID of the deal you want
@@ -461,7 +677,48 @@ Get deal details
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (DealDetail)
+        + id: `164938` (number)
+        + title: `Interesting deal` (string)
+        + quotation_nr: `21` (number)
+        + customer (object)
+            + id: `contact-1` (string)
+            + name: John Smith (string)
+        + total_price_excl_vat: `0.00` (number)
+        + probability: `5` (number)
+        + phase (object)
+            + id: `5` (number)
+        + responsible_user (object)
+            + id: 17
+        + entry_date: `2017-05-09T11:25:11+00:00` (string)
+        + latest_activity_date: `2017-05-09T11:30:58+00:00` (string)
+        + close_date: `2017-05-09T11:31:15+00:00` (string)
+        + date_lost: `2017-05-09T11:31:30+00:00` (string)
+        + reason_refused: `No interest` (string)
+        + source (object)
+            + id : `8799` (number)
+        + quotation (object)
+            + quotation_nr: `21` (number)
+            + total_price_excl_vat: `0.00` (number)
+            + items (object)
+                + _items(array)
+                    + (object)
+                        + price: `5` (number)
+                        + amount: `1` (number)
+                        + vat: `21` (string) - The vat tariff for this line
+                        + product (object)
+                            + id: `1` (number) - ID of the product
+                        + account: `1` (number) - ID of the bookkeeping account
+                        + subtitle: `Enable search` (string)
+        + phase_changes (object)
+            + _items (array)
+                + (object)
+                    + old_phase (object)
+                        + id: `1` (number)
+                    + new_phase (object)
+                        + id: `2` (number)
+                    + change_date: `2017-05-01 12:00:00` (string)
+                    + changed_by (object)
+                        + id: `5` (number)
 
 ### deals.create [POST /deals.create]
 
@@ -488,9 +745,8 @@ Create a deal for a contact or company.
 
 + Response 201 (application/json)
 
-    + Attributes
-        + data (object)
-            + id: `1` (number)
+    + Attributes (object)
+        + id: `1` (number)
 
 ### deals.update [POST /deals.update]
 
@@ -586,7 +842,7 @@ Get a list of all phases a deal can go through
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array)
+        + _items (array)
             + (object)
                 + id: 1 (number)
                 + name: `New` (string)
@@ -598,10 +854,100 @@ Get a list of all deal sources
 + Response 200 (application/json)
 
     + Attributes (object)
-        + data (array)
+        + _items (array)
             + (object)
                 + id: 1 (number)
                 + name: `Google Search` (string)
+
+## Departments [/departments]
+
+### departments.list [GET /departments.list]
+
+Get a list of all departments
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + _items (array)
+            + (object)
+                + _type: `department` (string)
+                + id: `42` (number)
+                + name: `Human Resources` (string)
+                + name_short: `HR` (string)
+                + email: `hr@example.com` (string)
+                + invoicing_email: `invoicing@example.com` (string)
+                + website: `http://example.com` (string)
+                + phone: `1234567` (string)
+                + fax: `7654321` (string)
+                + address (Address)
+                + vat_number: `BE0899623035` (string)
+                + local_business_number: `63326426` (string)
+                + bank_name: `Bank of Switzerland` (string)
+                + iban: `BE12 1234 1234 1234` (string)
+                + bic: `BICBANK` (string)
+                + interest_rate: `12` (number)
+                + late_fee: `12` (number)
+                + minimum_late_fee: `12` (number)
+                + registration_number: `12` (number)
+
+### departments.add [POST /departments.add]
+
+Add a department
+
++ Request (application/json)
+
+    + Attributes (object)
+        + name: `Human Resources` (string, required)
+        + name_short: `HR` (string)
+        + email: `hr@example.com` (string, required)
+        + invoicing_email: `invoicing@example.com` (string) - Automatic invoice reminders are sent from this e-mail address
+        + website: `http://example.com` (string)
+        + phone: `1234567` (string)
+        + fax: `7654321` (string)
+        + address (Address, required)
+        + vat_number: `BE0899623035` (string)
+        + local_business_number: `63326426` (string) - Local business number (KVK in the Netherlands)
+        + bank_name: `Bank of Switzerland` (string)
+        + iban: `BE12 1234 1234 1234` (string)
+        + bic: `BICBANK` (string)
+        + interest_rate: `12` (number) - Interest rate (percentage)
+        + late_fee: `12` (number) - Late fee (percentage)
+        + minimum_late_fee: `12` (number) - Minimum late fee
+        + registration_number: `12` (number)
+
++ Response 201 (application/json)
+
+    + Attributes
+        + data (object)
+            + id: `1` (number)
+
+### departments.update [POST /departments.update]
+
+Update a department
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `42` (number, required)
+        + name: `Human Resources` (string)
+        + name_short: `HR` (string)
+        + email: `hr@example.com` (string)
+        + invoicing_email: `invoicing@example.com` (string) - Automatic invoice reminders are sent from this e-mail address
+        + website: `http://example.com` (string)
+        + phone: `1234567` (string)
+        + fax: `7654321` (string)
+        + address (Address)
+        + vat_number: `BE0899623035` (string)
+        + local_business_number: `63326426` (string) - Local business number (KVK in the Netherlands)
+        + bank_name: `Bank of Switzerland` (string)
+        + iban: `BE12 1234 1234 1234` (string)
+        + bic: `BICBANK` (string)
+        + interest_rate: `12` (number) - Interest rate (percentage)
+        + late_fee: `12` (number) - Late fee (percentage)
+        + minimum_late_fee: `12` (number) - Minimum late fee
+        + registration_number: `12` (number)
+
++ Response 204
 
 ## Invoices [/invoices]
 
@@ -613,7 +959,8 @@ List invoices
 
     + Attributes (object)
         + filter (object, optional)
-            + customer_id (string, optional) - Format: "type-int" (e.g. contact-1234 or company-4321)
+            + contact_id: `123` (number, optional) - The ID of the contact you wish to filter on. You can't provide a company ID.
+            + company_id: 123` (number, optional) - The ID of the company you wish to filter on. You can't provide a contact ID.
             + date_from: `2016-01-01` (string, optional) - Format: yyyy-mm-dd
             + date_to: `2016-01-01` (string, optional) - yyyy-mm-dd
             + deal_id: `1` (number, optional) - The ID of the deal you wish to filter on.
@@ -629,11 +976,35 @@ List invoices
                 + Default: `20`
             + number: `1` (number, optional) - The numerated page you want, starts at 1.
                 + Default: `1`
-                
+
 + Response 200 (application/json)
 
     + Attributes (object)
-        data (array[Invoice])
+        + _items (array[object])
+            + (object)
+                + id: `173111` (number)
+                + department_id: `1` (number)
+                + invoice_number: `5` (number)
+                + invoice_number_detailed: `2017 / 5 (MAIN)` (string)
+                + invoice_status: `booked` (enum[string])
+                    + Members
+                        + booked
+                        + draft
+                + date: `2016-02-04T16:44:33+00:00` (string)
+                + due_date: `2016-02-04T16:44:33+00:00` (string)
+                + paid: `true` (boolean)
+                + paid_on: `2016-02-04T16:44:33+00:00` (string)
+                + total_excluding_vat: `123.00` (number)
+                + total_including_vat: `130.38` (number)
+                + payable_amount: `130.38` (number)
+                + invoicee (object)
+                        + name: `De Rode Duivels` (string)
+                        + for_attention_of: `Radja Nainggolan` (string)
+                        + address: (Address)
+                        + vat_number: `BE0899623035` (string)
+                        + customer (object)
+                            + _type: `contact` (string)
+                            + id: `123` (number)
 
 ### creditNotes.list [GET /creditNotes.list]
 
@@ -643,7 +1014,8 @@ List credit notes
 
     + Attributes (object)
         + filter (object, optional)
-            + customer_id (string, optional) - Format: "type-int" (e.g. contact-1234 or company-4321)
+            + contact_id: `123` (number, optional) - The ID of the contact you wish to filter on. You can't provide a company ID.
+            + company_id: `123` (number, optional) - The ID of the company you wish to filter on. You can't provide a contact ID.
             + date_from: `2016-01-01` (string, optional) - Format: yyyy-mm-dd
             + date_to: `2016-01-01` (string, optional) - yyyy-mm-dd
             + department_id: `1` (number, optional) - The ID of the department you wish to filter on.
@@ -654,10 +1026,30 @@ List credit notes
                 + Default: `20`
             + number: `1` (number, optional) - The numerated page you want, starts at 1.
                 + Default: `1`
-                
+
 + Response 200 (application/json)
 
-    + Attributes (array[CreditNote])
+    + Attributes (object)
+        + _items (array[object])
+            + (object)
+                + id: `173111` (number)
+                + department_id: `1` (number)
+                + invoice_id: `173111` (number)
+                + credit_note_number: `5` (number)
+                + credit_note_number_detailed: `2017 / 5 (MAIN)` (string)
+                + date: `2016-02-04T16:44:33+00:00` (string)
+                + paid: `true` (boolean)
+                + paid_on: `2016-02-04T16:44:33+00:00` (string)
+                + total_excluding_vat: `123.00` (number)
+                + total_including_vat: `130.38` (number)
+                + invoicee (object)
+                    + name: `De Rode Duivels` (string)
+                    + for_attention_of: `Radja Nainggolan` (string)
+                    + address (Address)
+                    + vat_number: `BE0899623035` (string)
+                    + customer (object)
+                        + _type: `contact` (string)
+                        + id: `123` (number)
 
 ## Meetings [/meetings]
 
@@ -672,6 +1064,135 @@ Delete a meeting from Teamleader
 
 + Response 204
 
+## Milestones [/milestones]
+
+### milestones.list [GET /milestones.list]
+
+Search the milestones (cross projects)
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object, required)
+             + responsible_employee_id: `1` (number, required) - Use this to filter by responsible employee
+             + start_date: `2017-01-01` (string, required) - Format ISO 8601: yyyy-mm-dd
+             + end_date: `2017-01-01` (string, required) - Format ISO 8601: yyyy-mm-dd
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + _items (array)
+            + (object)
+                + id: `247` (number)
+                + name: `Optimize the middle-out compression` (string)
+                + due_date: `2017-01-15` (string)
+                + done: `false` (boolean)
+                + project (object)
+                    + id: `20` (number)
+                    + name: `PiperChat` (string)
+
+## Invoices [/invoices]
+
+### invoices.list [GET /invoices.list]
+
+List invoices
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + contact_id: `123` (number, optional) - The ID of the contact you wish to filter on. You can't provide a company ID.
+            + company_id: 123` (number, optional) - The ID of the company you wish to filter on. You can't provide a contact ID.
+            + date_from: `2016-01-01` (string, optional) - Format: yyyy-mm-dd
+            + date_to: `2016-01-01` (string, optional) - yyyy-mm-dd
+            + deal_id: `1` (number, optional) - The ID of the deal you wish to filter on.
+            + department_id: `1` (number, optional) - The ID of the department you wish to filter on.
+            + project_id: `1` (number, optional) - The ID of the project you wish to filter on.
+            + subscription_id: `1` (number, optional) - The ID of the subscription you wish to filter on.
+            + status: `booked`  (enum[string], optional) - Only return booked or draft invoices. Leave blank to return everything
+                + Members
+                    + booked
+                    + draft
+        + page (object, optional)
+            + size: `20` (number, optional) - Amount of invoices you want returned, 1 to 100.
+                + Default: `20`
+            + number: `1` (number, optional) - The numerated page you want, starts at 1.
+                + Default: `1`
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + _items (array[object])
+            + (object)
+                + id: `173111` (number)
+                + department_id: `1` (number)
+                + invoice_number: `5` (number)
+                + invoice_number_detailed: `2017 / 5 (MAIN)` (string)
+                + invoice_status: `booked` (enum[string])
+                    + Members
+                        + booked
+                        + draft
+                + date: `2016-02-04T16:44:33+00:00` (string)
+                + due_date: `2016-02-04T16:44:33+00:00` (string)
+                + paid: `true` (boolean)
+                + paid_on: `2016-02-04T16:44:33+00:00` (string)
+                + total_excluding_vat: `123.00` (number)
+                + total_including_vat: `130.38` (number)
+                + payable_amount: `130.38` (number)
+                + invoicee (object)
+                        + name: `De Rode Duivels` (string)
+                        + for_attention_of: `Radja Nainggolan` (string)
+                        + address: (Address)
+                        + vat_number: `BE0899623035` (string)
+                        + customer (object)
+                            + _type: `contact` (string)
+                            + id: `123` (number)
+
+### creditNotes.list [GET /creditNotes.list]
+
+List credit notes
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + contact_id: `123` (number, optional) - The ID of the contact you wish to filter on. You can't provide a company ID.
+            + company_id: `123` (number, optional) - The ID of the company you wish to filter on. You can't provide a contact ID.
+            + date_from: `2016-01-01` (string, optional) - Format: yyyy-mm-dd
+            + date_to: `2016-01-01` (string, optional) - yyyy-mm-dd
+            + department_id: `1` (number, optional) - The ID of the department you wish to filter on.
+            + project_id: `1` (number, optional) - The ID of the project you wish to filter on.
+            + invoice_id: `1` (number, optional) - The ID of the invoice you wih to filter on.
+        + page (object, optional)
+            + size: `20` (number, optional) - Amount of credit notes you want returned, 1 to 100.
+                + Default: `20`
+            + number: `1` (number, optional) - The numerated page you want, starts at 1.
+                + Default: `1`
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + _items (array[object])
+            + (object)
+                + id: `173111` (number)
+                + department_id: `1` (number)
+                + invoice_id: `173111` (number)
+                + credit_note_number: `5` (number)
+                + credit_note_number_detailed: `2017 / 5 (MAIN)` (string)
+                + date: `2016-02-04T16:44:33+00:00` (string)
+                + paid: `true` (boolean)
+                + paid_on: `2016-02-04T16:44:33+00:00` (string)
+                + total_excluding_vat: `123.00` (number)
+                + total_including_vat: `130.38` (number)
+                + invoicee (object)
+                    + name: `De Rode Duivels` (string)
+                    + for_attention_of: `Radja Nainggolan` (string)
+                    + address (Address)
+                    + vat_number: `BE0899623035` (string)
+                    + customer (object)
+                        + _type: `contact` (string)
+                        + id: `123` (number)
+
 ## Webhooks [/webhooks]
 
 ### /webhooks.register [POST /webhooks.register]
@@ -682,7 +1203,7 @@ Register a webhook.
 
     + Attributes (object)
         + url: `https://www.mywebhookurl.com` (string, required) - Your webhook url
-        + types: `["CONTACT_ADDED", "CONTACT_EDITED"]` (array[enum[string]], required) - Array of event types that should fire the webhook
+        + types (array[enum[string]], required) - Array of event types that should fire the webhook
             + Members
                 + CONTACT_ADDED
                 + CONTACT_EDITED
@@ -758,216 +1279,3 @@ Register a webhook.
 + zipcode: `94020` (string)
 + city: `Palo Alto` (string)
 + country: `US` (string)
-
-## AgendaItem (object)
-+ id: `123` (number)
-+ name: `Erlich Bachman's birthday` (string)
-+ type: `full-day` (enum[string])
-    + Members
-        + full-day
-+ date: `2017-05-16` (string)
-
-## Company (object)
-+ id: `123` (number)
-+ name: `Pied Piper` (string)
-+ business_type: `NV` (string)
-+ vat_number: `BE0899623035` (string)
-+ local_business_number: `63326426` (string)
-+ email: `info@piedpiper.eu` (string)
-+ invoice_email: `invoicing@example.com` (string, optional)
-+ phone: `092980615` (string)
-+ fax: `091234567` (string)
-+ website: `https://piedpiper.com` (string)
-+ address (Address)
-+ iban: `BE12123412341234` (string)
-+ bic: `BICBANK` (string)
-+ language: `NL` (string)
-+ tags: tag1, tag2 (array[string])
-+ added_at: `2016-02-04T16:44:33+00:00` (string)
-+ updated_at: `2016-02-05T16:44:33+00:00` (string)
-
-## CompanyDetail (object)
-+ id: `123` (number)
-+ name: `Pied Piper` (string)
-+ business_type: `NV` (string)
-+ vat_number: `BE0899623035` (string)
-+ local_business_number: `63326426` (string)
-+ email: `info@piedpiper.eu` (string)
-+ invoice_email: `invoicing@example.com` (string, optional)
-+ phone: `092980615` (string)
-+ fax: `091234567` (string)
-+ website: `https://piedpiper.com` (string)
-+ address (Address)
-+ delivery_address (Addressee)
-+ visiting_address (Addressee)
-+ invoice_address (Addressee)
-+ iban: `BE12123412341234` (string)
-+ bic: `BICBANK` (string)
-+ language: `NL` (string)
-+ tags: tag1, tag2 (array[string])
-+ remarks: `First contact at expo` (string)
-+ added_at: `2016-02-04T16:44:33+00:00` (string)
-+ updated_at: `2016-02-05T16:44:33+00:00` (string)
-
-## CompanyType (object)
-+ name: `BVBA` (string)
-
-## Contact (object)
-+ id: `456` (number)
-+ first_name: `Erlich` (string)
-+ last_name: `Bachman` (string)
-+ salutation: `Mr` (string)
-+ email: `info@piedpiper.eu` (string)
-+ phone: `092980615` (string)
-+ mobile: `0412121212` (string)
-+ fax: `091234567` (string)
-+ website: `https://piedpiper.com` (string)
-+ address (Address)
-+ gender: `M` (enum[string])
-    + Members
-        + M
-        + F
-        + U
-+ birthdate: `1987-04-25` (string)
-+ iban: `BE12123412341234` (string)
-+ bic: `BICBANK` (string)
-+ tags: tag1, tag2 (array[string])
-+ language: `EN` (string)
-+ added_at: `2016-02-04T16:44:33+00:00` (string)
-+ updated_at: `2016-02-05T16:44:33+00:00` (string)
-
-## ContactDetail (object)
-+ id: `456` (number)
-+ first_name: `Erlich` (string)
-+ last_name: `Bachman` (string)
-+ salutation: `Mr` (string)
-+ email: `info@piedpiper.eu` (string)
-+ invoice_email: `invoicing@example.com` (string)
-+ phone: `092980615` (string)
-+ mobile: `0412121212` (string)
-+ fax: `091234567` (string)
-+ website: `https://piedpiper.com` (string)
-+ address (Address)
-+ delivery_address (Addressee)
-+ visiting_address (Addressee)
-+ invoice_address (Addressee)
-+ gender: `M` (enum[string])
-    + Members
-        + M
-        + F
-        + U
-+ birthdate: `1987-04-25` (string)
-+ iban: `BE12123412341234` (string)
-+ bic: `BICBANK` (string)
-+ tags: tag1, tag2 (array[string])
-+ language: `EN` (string)
-+ remarks: `First contact at expo` (string)
-+ added_at: `2016-02-04T16:44:33+00:00` (string)
-+ updated_at: `2016-02-05T16:44:33+00:00` (string)
-
-## CreditNote (object)
-+ id: `173111` (number)
-+ department_id: `1` (number)
-+ invoice_id: `173111` (number)
-+ credit_note_number: `5` (number)
-+ credit_note_number_detailed: `2017 / 5 (MAIN)` (string)
-+ date: `2016-02-04T16:44:33+00:00` (string)
-+ paid: `true` (boolean)
-+ paid_on: `2016-02-04T16:44:33+00:00` (string)
-+ total_excluding_vat: `123.00` (number)
-+ total_including_vat: `130.38` (number)
-+ customer_id: `company-485906` (string) - Can also start with 'contact-'
-+ customer_name: `De Rode Duivels` (string)
-
-## Deal (object)
-+ id: `164938` (number)
-+ title: `Interesting deal` (string)
-+ for: `contact` (string)
-+ for_id: `1176793` (number)
-+ customer_name: `John`,
-+ probability: `5` (number)
-+ phase_id: `5` (number)
-+ responsible_user_id: `-1` (number)
-+ entry_date: `2017-05-09T11:25:11+00:00` (string)
-+ latest_activity_date: `2017-05-09T11:30:58+00:00` (string)
-+ close_date: `2017-05-09T11:31:15+00:00` (string)
-+ date_lost: `2017-05-09T11:31:30+00:00` (string)
-+ reason_refused: `No interest` (string)
-+ source_id: `8799` (number)
-
-## DealDetail (object)
-+ id: `164938` (number)
-+ title: `Interesting deal` (string)
-+ for: `contact` (string)
-+ for_id: `1176793` (number)
-+ customer_name: `John`,
-+ quotation_nr: `21` (number)
-+ total_price_excl_vat: `0.00` (number)
-+ probability: `5` (number)
-+ phase_id: `5` (number)
-+ responsible_user_id: `-1` (number)
-+ entry_date: `2017-05-09T11:25:11+00:00` (string)
-+ latest_activity_date: `2017-05-09T11:30:58+00:00` (string)
-+ close_date: `2017-05-09T11:31:15+00:00` (string)
-+ date_lost: `2017-05-09T11:31:30+00:00` (string)
-+ reason_refused: `No interest` (string)
-+ source_id: `8799` (number)
-+ quotation (Quotation)
-+ phase_changes (array[PhaseChange])
-
-## DealPhase (object)
-+ deal_id: `1` (number)
-+ phase_id: `5` (number)
-
-## Department (object)
-id: `1` (number)
-name: `Sales` (string)
-
-## Invoice (object)
-+ id: `173111` (number)
-+ department_id: `1` (number)
-+ invoice_number: `5` (number)
-+ invoice_number_detailed: `2017 / 5 (MAIN)` (string)
-+ invoice_status: `booked` (enum[string])
-    + Members
-        + booked
-        + drafted
-+ date: `2016-02-04T16:44:33+00:00` (string)
-+ due_date: `2016-02-04T16:44:33+00:00` (string)
-+ paid: `true` (boolean)
-+ paid_on: `2016-02-04T16:44:33+00:00` (string)
-+ total_excluding_vat: `123.00` (number)
-+ total_including_vat: `130.38` (number)
-+ payable_amount: `130.38` (number)
-+ customer_id: `company-485906` (string) - Can also start with 'contact-'
-+ customer_name: `De Rode Duivels` (string)
-+ for_attention_of: `Radja Nainggolan` (string)
-
-## PhaseChange (object)
-+ old_phase_id: `1` (number)
-+ new_phase_id: `2` (number)
-+ change_date: `2017-05-01 12:00:00` (string)
-+ changed_by: `5` (number)
-
-## Quotation (object)
-+ quotation_nr: `21` (number)
-+ total_price_excl_vat: `0.00` (number)
-+ items (array[QuotationItem])
-
-## QuotationItem (object)
-+ price: `5` (number)
-+ amount: `1` (number)
-+ vat: `21` (string) - The vat tariff for this line
-+ product_id: `1` (number) - ID of the product
-+ account: `1` (number) - ID of the bookkeeping account
-+ subtitle: `Enable search` (string)
-
-## User (object)
-id: `1` (number)
-name: `John Smith` (string)
-email: `john@teamleader.eu` (string)
-gsm: `+32412654321` (string)
-phone: `+3291239843` (string)
-team_id: `1` (number)
-title: `Sales` (string)
-active: `true` (boolean)
