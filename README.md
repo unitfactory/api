@@ -1,4 +1,4 @@
-# teamleader/api documentation
+# Teamleader API
 
 #### IMPORTANT: Do not edit `/apiary.apib`
 

@@ -60,7 +60,7 @@ For casing, we agreed the following:
 /someObject.someAction?some_parameter=value
 ```
 
-### Format specifications
+### Response format specification
 
 We wrote our own specification for the format of the response.  
-You can read it [here](./specification.md) and look at some examples [here](./examples)
+You can read it [here](./docs/spec/specification.md) and look at some examples [here](./docs/spec/examples)
