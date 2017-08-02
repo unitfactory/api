@@ -1,5 +1,10 @@
 # Teamleader API Design Guidelines
 
+#### REMARK : GUIDELINES ARE RECOMMENDATIONS, NOT LAWS  
+
+If for some reason these doesn't fit your case, this can always be discussed.  
+But it should at least force you to think about the preferred way first.
+
 ## General guidelines
 
 ### RPC
@@ -79,7 +84,7 @@ We try to interpret HTTP Status codes the right way:
 - `401 Unauthorized` - Used when you don't provide a valid Oauth-token
 - `403 Forbidden` - Used when you can't access the requested data, because of missing scopes or insufficient rights
 - `404 Not found` - Used when requesting something by id, but the id doesn't exist (in your account)
-- `500 Intenal Server Error` -  Used when there are uncatched exceptions
+- `500 Intenal Server Error` -  Used when there are uncaught exceptions
 
 
 ### Content-Type & Accept
@@ -96,9 +101,18 @@ You can read it [here](./spec/specification.md) and look at some examples [here]
 
 ## Designing endpoints
 
+### Adding endpoints
+
+- is allowed, because is doesn't break backwards compatibility
+
+### Editing, renaming or deleting endpoints
+
+- as long as we don't have a versioning system, this is **NOT** allowed
+
+
 ### Queries
 
-If you write **read** endpoints, you might consider the following this:
+If you write **read** endpoints, you might consider the following:
 
 - do I need to add filters on the request (might be relevant for `list` endpoints)
 
@@ -114,21 +128,34 @@ Except when we generated a new `id`, then we return it.
 }
 ```
 
-If you write **command** or **writing** endpoints, you might consider the following things:
+If you write **command** or **writing** endpoints, you might consider the following:
 
-- consider turning as much as possible into arrays to enable bulk actions later on  
-(this is applicable on ids, but on other properties of the command as well...)
+- if your command can accept multiple values at the same time, allow that  
 
 ```json
 POST contacts.tag
 {
-  "ids": [1,2,17],
+  "id": "e8e4510d-87f7-49be-8d88-d13dd03e23b4",
   "tags": ['foo', 'bar', 'baz']
 }
 ```
 
+**note** : currently we don't want this for ids, as we don't know how to cope with transactionality yet.
+
 
 ## Designing properties
+
+## Adding properties
+
+- is allowed, because is doesn't break backwards compatibility
+- think about :
+    - do we also need to add this in similar calls
+    - do we need to add this as a filter
+    - can this be embedded in other calls
+    
+## Editing, renaming or deleting properties
+    
+- as long as we don't have a versioning system, this is **NOT** allowed
 
 
 ### Ids
@@ -139,12 +166,12 @@ We will always represent ids as string, because we might move to uuid in the fut
 ### Date and time
 
 For dates, also timezones might be relevant, so whenever this doesn't add to much confusion, using datetimes **with timezone information** is preferred.  
-There might be a difference between reads and writes (where we can assume you are sending us your default timezone).
+In writes we might allow sending only a date in that case, but time `00:00:00` is assumed, as well as the default timezone of the account.
 
 We always use a `string` for dates in `YYYY-MM-DD` format and a `string` for datetime is the `ISO8601` format (`->format('c')` in `php`).
 
-We call fields that represent dates `...._on`.  
-We call fields that represent times `...._at`.
+We should call fields that represent dates `...._on`.  
+We should call fields that represent times `...._at`.
 
 
 ### Money
