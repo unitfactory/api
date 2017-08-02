@@ -136,7 +136,7 @@ If you write **command** or **writing** endpoints, you might consider the follow
 POST contacts.tag
 {
   "id": "e8e4510d-87f7-49be-8d88-d13dd03e23b4",
-  "tags": ['foo', 'bar', 'baz']
+  "tags": ["foo", "bar", "baz"]
 }
 ```
 
