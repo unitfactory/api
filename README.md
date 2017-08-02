@@ -20,9 +20,3 @@ We also maintain a `v1` branch, that is not published, for historical purposes.
 ## How to contribute
 
 See [CONTRIBUTING](CONTRIBUTING.md)
-
-
-## FAQ/rules
-
-- Use application/json for both requests and responses
-- Use `number` type wherever it's *logical* to use a `number` (id's, prices, amounts, ...)
