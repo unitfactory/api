@@ -145,7 +145,7 @@ POST contacts.tag
 
 ## Designing properties
 
-## Adding properties
+### Adding properties
 
 - is allowed, because is doesn't break backwards compatibility
 - think about :
@@ -153,7 +153,7 @@ POST contacts.tag
     - do we need to add this as a filter
     - can this be embedded in other calls
     
-## Editing, renaming or deleting properties
+### Editing, renaming or deleting properties
     
 - as long as we don't have a versioning system, this is **NOT** allowed
 
