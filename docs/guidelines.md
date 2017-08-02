@@ -160,7 +160,8 @@ POST contacts.tag
 
 ### Ids
 
-We will always represent ids as string, because we might move to uuid in the future (or obfuscate the existing ids).
+Ids that are visibile in the API should always be uuids.  
+For that case, they need to be represented as a string.
 
 
 ### Date and time
