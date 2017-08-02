@@ -40,7 +40,7 @@ For casing, we agreed the following:
 
 We avoid abbreviations, for clarity.
 
-There are expeceptions however:
+There are exceptions however:
 
 - `id`
 - abbreviations common in the **domain**
