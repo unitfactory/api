@@ -130,6 +130,12 @@ POST contacts.tag
 
 ## Designing properties
 
+
+### Ids
+
+We will always represent ids as string, because we might move to uuid in the future (or obfuscate the existing ids).
+
+
 ### Date and time
 
 For dates, also timezones might be relevant, so whenever this doesn't add to much confusion, using datetimes **with timezone information** is preferred.  
