@@ -960,7 +960,7 @@ List invoices
     + Attributes (object)
         + filter (object, optional)
             + contact_id: `123` (number, optional) - The ID of the contact you wish to filter on. You can't provide a company ID.
-            + company_id: 123` (number, optional) - The ID of the company you wish to filter on. You can't provide a contact ID.
+            + company_id: `123` (number, optional) - The ID of the company you wish to filter on. You can't provide a contact ID.
             + date_from: `2016-01-01` (string, optional) - Format: yyyy-mm-dd
             + date_to: `2016-01-01` (string, optional) - yyyy-mm-dd
             + deal_id: `1` (number, optional) - The ID of the deal you wish to filter on.
@@ -997,14 +997,14 @@ List invoices
                 + paid_at: `2016-02-04T16:44:33+00:00` (string)
                 + invoicee (object)
                     + name: `De Rode Duivels` (string)
-                    + address: (Address)
+                    + address (Address)
                     + vat_number: `BE0899623035` (string)
                     + customer (object)
                         + _type: `contact` (string)
                         + id: `123` (string)
                     + for_attention_of (object)
                         + name: `Radja Nainggolan` (string)
-                        + contact: (object)
+                        + contact (object)
                             + _type: `contact` (string)
                             + id : `456` (string)
                 + total (object)
@@ -1077,14 +1077,14 @@ List credit notes
                             + tax (Money)
                 + invoicee (object)
                     + name: `De Rode Duivels` (string)
-                    + address: (Address)
+                    + address (Address)
                     + vat_number: `BE0899623035` (string)
                     + customer (object)
                         + _type: `contact` (string)
                         + id: `123` (string)
                     + for_attention_of (object)
                         + name: `Radja Nainggolan` (string)
-                        + contact: (object)
+                        + contact (object)
                             + _type: `contact` (string)
                             + id : `456` (string)
 
