@@ -8,7 +8,9 @@ Get a paginated list of contacts
 
     + Attributes (object)
         + filter (object, optional)
-            + company_id: `1` (number, optional) - Filter contacts by a certain company.
+            + ids (array[string], optional)
+            + company_id: `1` (string, optional) - Filter contacts by a certain company.
+            + term: `teamleader` (string, optional)
             + updated_since: `2017-04-26T10:01:49+00:00` (string, optional) - ISO 8601 date. Teamleader will only return contacts that have been added or modified since that time (inclusive).
         + page (object, optional)
             + size: `20` (number, optional) - Amount of contacts you want returned, 1 to 100.
@@ -21,7 +23,7 @@ Get a paginated list of contacts
     + Attributes (object)
         + _items (array)
             + (object)
-                + id: `456` (number)
+                + id: `456` (string)
                 + first_name: `Erlich` (string)
                 + last_name: `Bachman` (string)
                 + salutation: `Mr` (string)
@@ -30,6 +32,7 @@ Get a paginated list of contacts
                 + mobile: `0412121212` (string)
                 + fax: `091234567` (string)
                 + website: `https://piedpiper.com` (string)
+                + avatar_url (string)
                 + address (Address)
                 + gender: `M` (enum[string])
                     + Members
@@ -41,9 +44,25 @@ Get a paginated list of contacts
                 + bic: `BICBANK` (string)
                 + tags (object)
                     + _items : tag1, tag2 (array[string])
-                + language: `EN` (string)
-                + added_at: `2016-02-04T16:44:33+00:00` (string)
-                + updated_at: `2016-02-05T16:44:33+00:00` (string)
+                + custom_fields (object)
+                    + _items (array)
+                        + (object)
+                            + field (object)
+                                + _type: `customField` (string)
+                                + id: 123 (string)
+                            + value: `092980616`
+                + companies (object)
+                    + _items (array)
+                        + (object)
+                            + position: `CEO` (string)
+                            + decision_maker: true (boolean)
+                            + company (object)
+                                + _type: `company` (string)
+                                + id: 123 (string)
+                + language: `en` (string)
+                + _meta: (object)
+                    + added_at: `2016-02-04T16:44:33+00:00` (string)
+                    + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
 ### contacts.info [GET /contacts.info]
 
@@ -52,12 +71,12 @@ Get the details for a single contact
 + Request (application/json)
 
     + Attributes (object)
-        + `contact_id`: `1` (number, required)
+        + `contact_id`: `1` (string, required)
 
 + Response 200 (application/json)
 
     + Attributes (object)
-        + id: `456` (number)
+        + id: `456` (string)
         + first_name: `Erlich` (string)
         + last_name: `Bachman` (string)
         + salutation: `Mr` (string)
@@ -67,6 +86,7 @@ Get the details for a single contact
         + mobile: `0412121212` (string)
         + fax: `091234567` (string)
         + website: `https://piedpiper.com` (string)
+        + avatar_url (string)
         + address (Address)
         + delivery_address (Addressee)
         + visiting_address (Addressee)
@@ -80,13 +100,29 @@ Get the details for a single contact
         + iban: `BE12123412341234` (string)
         + bic: `BICBANK` (string)
         + tags (object)
-            + _items : tag1, tag2 (array[string])
-        + language: `EN` (string)
+            + _items: tag1, tag2 (array[string])
+        + custom_fields (object)
+            + _items (array)
+                + (object)
+                    + field (object)
+                        + _type: `customField` (string)
+                        + id: 123 (string)
+                    + value: `092980616`
+        + companies (object)
+            + _items (array)
+                + (object)
+                    + position: `CEO` (string)
+                    + decision_maker: true (boolean)
+                    + company (object)
+                        + _type: `company` (string)
+                        + id: 123 (string)
+        + language: `en` (string)
         + remarks: `First contact at expo` (string)
-        + added_at: `2016-02-04T16:44:33+00:00` (string)
-        + updated_at: `2016-02-05T16:44:33+00:00` (string)
+        + _meta: (object)
+            + added_at: `2016-02-04T16:44:33+00:00` (string)
+            + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
-### contacts.add [POST /contacts.create]
+### contacts.add [POST /contacts.add]
 
 Add a contact to Teamleader
 
@@ -106,7 +142,7 @@ Add a contact to Teamleader
         + delivery_address (Addressee, optional)
         + visiting_address (Addressee, optional)
         + invoice_address (Addressee, optional)
-        + language: `EN` (string, optional) - Language code according to ISO 639-1. For Dutch: "NL"
+        + language: `en` (string, optional) - Language code according to ISO 639-1. For Dutch: "nl"
         + gender: `M` (enum[string], optional)
             + Members
                 + M
@@ -115,11 +151,15 @@ Add a contact to Teamleader
         + birthdate: `1989-08-19` (string, optional)
         + remarks: `Met at expo` (string, optional) - Background information on the contact
         + tags: expo, upsell (array[string], optional) - Pass one or more tags. Existing tags will be reused, other tags will be automatically created for you.
+        + custom_fields (array)
+            + (object)
+                + custom_field_id: 123 (string)
+                + value
 
 + Response 201 (application/json)
 
     + Attributes (object)
-        + id: `1` (number)
+        + id: `1` (string)
 
 ### contacts.update [POST /contacts.update]
 
@@ -128,7 +168,7 @@ Update a Teamleader contact
 + Request (application/json)
 
     + Attributes (object)
-        + contact_id: `1` (number, required) - The ID of the contact you want to update
+        + contact_id: `1` (string, required) - The ID of the contact you want to update
         + first_name: `John` (string) - The given name of the new contact
         + last_name: `Smith` (string) - The last name of the new contact
         + salutation: `Mr` (string, optional)
@@ -141,15 +181,19 @@ Update a Teamleader contact
         + delivery_address (Addressee, optional)
         + visiting_address (Addressee, optional)
         + invoice_address (Addressee, optional)
-        + language: `EN` (string, optional) - Language code according to ISO 639-1. For Dutch: "NL"
+        + language: `en` (string, optional) - Language code according to ISO 639-1. For Dutch: "nl"
         + gender: `M` (enum[string], optional)
             + Members
                 + M
                 + F
                 + U
         + birthdate: `1989-08-19` (string, optional)
-        + remarks: `Met at expo` (string, optional) - Background information on the contact
+        + remarks: `Met at expo` (string, optional) - Background information on the contact.
         + tags: expo, upsell (array[string], optional) - Pass one or more tags. Existing tags will be reused, other tags will be automatically created for you.
+        + custom_fields (array)
+            + (object)
+                + custom_field_id: 123 (string)
+                + value
 
 + Response 204
 
@@ -160,7 +204,7 @@ Delete a contact from Teamleader
 + Request (application/json)
 
     + Attributes (object)
-        + contact_id: `1` (number, required) - The account ID of the contact you wish to delete
+        + contact_id: `1` (string, required) - The account ID of the contact you wish to delete
 
 + Response 204
 
@@ -171,7 +215,7 @@ Add a tag to a contact
 + Request (application/json)
 
     + Attributes (object)
-        + contact_id: `123` (number, required) - The ID of a contact
+        + contact_id: `123` (string, required) - The ID of a contact
         + tags: prospect, expo (array[string], required) - A list of tags to add
 
 + Response 204
@@ -183,7 +227,7 @@ Remove a tag from a contact
 + Request (application/json)
 
     + Attributes (object)
-        + contact_id: `123` (number, required) - The ID of a contact
+        + contact_id: `123` (string, required) - The ID of a contact
         + tags: prospect, expo (array[string], required) - A list of tags to remove
 
 + Response 204
@@ -195,8 +239,10 @@ Linking a contact to a company
 + Request (application/json)
 
     + Attributes (object)
-        + contact_id: `123` (number, required) - The ID of a contact
-        + company_id: `5` (number, required) - The ID of a company
+        + contact_id: `123` (string, required) - The ID of a contact
+        + company_id: `5` (string, required) - The ID of a company
+        + position: `CEO` (string)
+        + decision_maker: true (boolean)
 
 + Response 204
 
@@ -207,7 +253,7 @@ Unlinking a contact from a company
 + Request (application/json)
 
     + Attributes (object)
-        + contact_id: `123` (number, required) - The ID of a contact
-        + company_id: `5` (number, required) - The ID of a company
+        + contact_id: `123` (string, required) - The ID of a contact
+        + company_id: `5` (string, required) - The ID of a company
 
 + Response 204

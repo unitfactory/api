@@ -8,9 +8,10 @@ Search companies
 
     + Attributes (object)
         + filter (object, optional)
+            + ids (array[string], optional)
             + tag: `upsell` (string, optional) - Company tag. Teamleader will only return companies that have the tag.
             + updated_since: `2017-04-26T10:01:49+00:00` (string, optional) - ISO 8601 date. Teamleader will only return contacts that have been added or modified since that time (inclusive).
-            + term: `teamleader` (string, optional) - A search string. Teamleader will try to match each part of the string to the first name, last name, company name and email address.
+            + term: `teamleader` (string, optional)
         + page (object, optional)
             + size: `20` (number, optional) - The amount of contacts returned per request, max 1 to 100
                 + Default: `20`
@@ -22,7 +23,7 @@ Search companies
     + Attributes (object)
         + `_items` (array)
             + (object)
-                + id: `123` (number)
+                + id: `123` (string)
                 + name: `Pied Piper` (string)
                 + business_type: `NV` (string)
                 + vat_number: `BE0899623035` (string)
@@ -32,14 +33,23 @@ Search companies
                 + phone: `092980615` (string)
                 + fax: `091234567` (string)
                 + website: `https://piedpiper.com` (string)
+                + avatar_url (string)
                 + address (Address)
                 + iban: `BE12123412341234` (string)
                 + bic: `BICBANK` (string)
-                + language: `NL` (string)
+                + language: `nl` (string)
                 + tags (object)
                     + _items : tag1, tag2 (array[string])
-                + added_at: `2016-02-04T16:44:33+00:00` (string)
-                + updated_at: `2016-02-05T16:44:33+00:00` (string)
+                + custom_fields (object)
+                    + _items (array)
+                        + (object)
+                            + field (object)
+                                + _type: `customField`
+                                + id: 123 (string)
+                            + value: `092980616`
+                + _meta: (object)
+                    + added_at: `2016-02-04T16:44:33+00:00` (string)
+                    + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
 ### companies.info [GET /companies.info]
 
@@ -48,12 +58,12 @@ Get company info
 + Request (application/json)
 
     + Attributes (object)
-        + company_id: 123 (number)
+        + company_id: 123 (string)
 
 + Response 200 (application/json)
 
     + Attributes (object)
-        + id: `123` (number)
+        + id: `123` (string)
         + name: `Pied Piper` (string)
         + business_type: `NV` (string)
         + vat_number: `BE0899623035` (string)
@@ -63,18 +73,27 @@ Get company info
         + phone: `092980615` (string)
         + fax: `091234567` (string)
         + website: `https://piedpiper.com` (string)
+        + avatar_url (string)
         + address (Address)
         + delivery_address (Addressee)
         + visiting_address (Addressee)
         + invoice_address (Addressee)
         + iban: `BE12123412341234` (string)
         + bic: `BICBANK` (string)
-        + language: `NL` (string)
+        + language: `nl` (string)
         + tags (object)
             + _items : tag1, tag2 (array[string])
+        + custom_fields (object)
+            + _items (array)
+                + (object)
+                    + field (object)
+                        + _type: `customField`
+                        + id: 123 (string)
+                    + value: `092980616`
         + remarks: `First contact at expo` (string)
-        + added_at: `2016-02-04T16:44:33+00:00` (string)
-        + updated_at: `2016-02-05T16:44:33+00:00` (string)
+        + _meta: (object)
+            + added_at: `2016-02-04T16:44:33+00:00` (string)
+            + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
 ### companies.add [POST /companies.create]
 
@@ -98,14 +117,18 @@ Add a Teamleader company
         + invoice_address (Addressee, optional)
         + iban: `BE12 1234 1234 1234` (string)
         + bic: `BICBANK` (string)
-        + language: `EN` (string, optional) - Language code according to ISO 639-1. For Dutch: "NL"
+        + language: `en` (string, optional) - Language code according to ISO 639-1. For Dutch: "nl"
         + remarks: `Met at expo` (string, optional) - Background information on the contact
         + tags: expo, upsell (array[string], optional) - Pass one or more tags. Existing tags will be reused, new tags will be automatically created for you.
+        + custom_fields (array)
+            + (object)
+                + custom_field_id: 123 (string)
+                + value
 
 + Response 201 (application/json)
 
     + Attributes (object)
-        + id: `1` (number)
+        + id: `1` (string)
 
 ### companies.update [POST /companies.update]
 
@@ -114,7 +137,7 @@ Update a Teamleader company
 + Request (application/json)
 
     + Attributes (object)
-        + company_id: `1` (number, required) - The ID of the contact you want to update
+        + company_id: `1` (string, required) - The ID of the contact you want to update
         + name: `1` (string, required)
         + email: `john@example.com` (string, required) - The email address of the new contact
         + vat_number: `BE0899623035` (string, optional)
@@ -124,11 +147,15 @@ Update a Teamleader company
         + invoice_email: `invoicing@example.com` (string, optional)
         + website: `http://example.com` (string, optional)
         + remarks: `Met at expo` (string, optional) - Background information on the contact
-        + account_manager_id: `1` (number, optional)
+        + account_manager_id: `1` (string, optional)
         + local_business_number: `63326426` (string, optional) - the local business number (KVK in the Netherlands)
         + business_type: `NV` (string, optional) - containing the company type (eg NV, BVBA,..)
-        + language: `EN` (string, optional) - Language code according to ISO 639-1. For Dutch: "NL"
+        + language: `en` (string, optional) - Language code according to ISO 639-1. For Dutch: "nl"
         + tags: expo, upsell (array[string], optional) - Pass one or more tags. Existing tags will be reused, new tags will be automatically created for you.
+        + custom_fields (array)
+            + (object)
+                + custom_field_id: 123 (string)
+                + value
 
 + Response 204
 
@@ -139,7 +166,7 @@ Delete a company from Teamleader
 + Request (application/json)
 
     + Attributes (object)
-        + company_id: `1` (number, required) - The account ID of the company you wish to delete
+        + company_id: `1` (string, required) - The account ID of the company you wish to delete
 
 + Response 204
 
@@ -150,7 +177,7 @@ Add a tag to a company
 + Request (application/json)
 
     + Attributes (object)
-        + company_id: `123` (number, required) - The ID of a company
+        + company_id: `123` (string, required) - The ID of a company
         + tags: prospect, expo (array[string], required) - A list of tags to add
 
 + Response 204
@@ -162,7 +189,7 @@ Remove a tag from a company
 + Request (application/json)
 
     + Attributes (object)
-        + company_id: `123` (number, required) - The ID of a company
+        + company_id: `123` (string, required) - The ID of a company
         + tags: prospect, expo (array[string], required) - A list of tags to remove
 
 + Response 204
