@@ -8,15 +8,15 @@ List invoices
 
     + Attributes (object)
         + filter (object, optional)
-            + contact_id: `123` (number, optional) - The ID of the contact you wish to filter on. You can't provide a company ID.
-            + company_id: `123` (number, optional) - The ID of the company you wish to filter on. You can't provide a contact ID.
+            + contact_id: `123` (string, optional) - The ID of the contact you wish to filter on. You can't provide a company ID.
+            + company_id: `123` (string, optional) - The ID of the company you wish to filter on. You can't provide a contact ID.
             + date_from: `2016-01-01` (string, optional) - Format: yyyy-mm-dd
             + date_to: `2016-01-01` (string, optional) - yyyy-mm-dd
-            + deal_id: `1` (number, optional) - The ID of the deal you wish to filter on.
-            + department_id: `1` (number, optional) - The ID of the department you wish to filter on.
-            + project_id: `1` (number, optional) - The ID of the project you wish to filter on.
-            + subscription_id: `1` (number, optional) - The ID of the subscription you wish to filter on.
-            + status: `booked`  (enum[string], optional) - Only return booked or draft invoices. Leave blank to return everything
+            + deal_id: `1` (string, optional) - The ID of the deal you wish to filter on.
+            + department_id: `1` (string, optional) - The ID of the department you wish to filter on.
+            + project_id: `1` (string, optional) - The ID of the project you wish to filter on.
+            + subscription_id: `1` (string, optional) - The ID of the subscription you wish to filter on.
+            + status: `booked` (enum[string], optional) - Only return booked or draft invoices. Leave blank to return everything
                 + Members
                     + draft
                     + booked
@@ -31,17 +31,17 @@ List invoices
     + Attributes (object)
         + _items (array)
             + (object)
-                + id: `173111` (number)
+                + id: `173111` (string)
                 + department (object)
                     + _type: `department` (string)
-                    + id : `1` (string)
+                    + id: `1` (string)
                 + invoice_number: `2017/5` (string)
+                + invoice_date: `2016-02-04` (string)
                 + status: `booked` (enum[string])
                     + Members
                         + booked
                         + draft
-                + booked_at: `2016-02-04T16:44:33+00:00` (string)
-                + due_date: `2016-03-03T16:44:33+00:00` (string)
+                + due_on: `2016-03-03` (string)
                 + paid: `true` (boolean)
                 + paid_at: `2016-02-04T16:44:33+00:00` (string)
                 + invoicee (object)
@@ -55,22 +55,81 @@ List invoices
                         + name: `Radja Nainggolan` (string)
                         + contact (object)
                             + _type: `contact` (string)
-                            + id : `456` (string)
+                            + id: `456` (string)
                 + total (object)
                     + tax_exclusive (Money)
                     + tax_inclusive (Money)
                     + payable (Money)
                     + taxes (array)
                         + (object)
-                            + rate : `0.21` (number)
+                            + rate: `0.21` (number)
                             + taxable (Money)
                             + tax (Money)
                     + withheld_taxes (array)
                         + (object)
-                            + type : `Trabajo`
-                            + rate : `0.21` (number)
+                            + type: `Trabajo`
+                            + rate: `0.21` (number)
                             + taxable (Money)
                             + tax (Money)
+
+### invoices.info [GET /invoices.info]
+
+Get a single invoice.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (string)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + id: `173111` (string)
+        + department (object)
+            + _type: `department` (string)
+            + id: `1` (string)
+        + invoice_number: `2017/5` (string)
+        + invoice_date: `2016-02-04` (string)
+        + status: `booked` (enum[string])
+            + Members
+                + booked
+                + draft
+        + due_on: `2016-03-03` (string)
+        + paid: true (boolean)
+        + paid_at: `2016-02-04T16:44:33+00:00` (string)
+        + invoicee (object)
+            + name: `De Rode Duivels` (string)
+            + address (Address)
+            + vat_number: `BE0899623035` (string)
+            + customer (object)
+                + _type: `contact` (string)
+                + id: `123` (string)
+            + for_attention_of (object)
+                + name: `Radja Nainggolan` (string)
+                + contact (object)
+                    + _type: `contact` (string)
+                    + id: `456` (string)
+        + xxx (array[InvoiceLineItem], optional)
+        + payments (array)
+            + (object)
+                + payment_id (string)
+                + amount (Money)
+                + paid_at (string)
+        + total (object)
+            + tax_exclusive (Money)
+            + tax_inclusive (Money)
+            + payable (Money)
+            + taxes (array)
+                + (object)
+                    + rate: `0.21` (number)
+                    + taxable (Money)
+                    + tax (Money)
+            + withheld_taxes (array)
+                + (object)
+                    + type: `Trabajo`
+                    + rate: `0.21` (number)
+                    + taxable (Money)
+                    + tax (Money)
 
 ### invoices.draft [POST /invoices.draft]
 
@@ -99,35 +158,155 @@ Draft a new invoice
         + layout_id (string, optional) - Id of the layout you wish to use for this invoice
         + purchase_order_number (string, optional) - The external order number. Overrides possible PO number coming from project.
         + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
-        + line_items (array[object])
-            + (object)
-                + product_id: `1` (string, optional) - Id of the product
-                + quantity: `3` (number)
-                + name: `An awesome product` (string, optional)
-                + description: `Additional information` (string, optional)
-                + unit_price (object, optional)
-                    + amount: `100.0000` (number)
-                    + currency: `EUR` (string)
-                + tax_code: (string, optional) - e.g. '00', '06', 'EX' ...
-                + ledger_id: `1` (string, optional) - Id of the bookkeeping ledger account
-                + section: `Header` (string, optional) - All items under this section will be grouped
+        + xxx (array[InvoiceLineItem], optional)
 
 + Response 201 (application/json)
 
     + Attributes (object)
         + id: `1` (string) - ID of the invoice that was created
 
-### invoices.addLineItem [POST /invoices.addLineItem]
-
 ### invoices.update [POST /invoices.update]
+
+Update an existing invoice. Not possible for declared invoices.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `123` (string)
+        + customer (object, optional) - Who is the invoice for?
+            + type (enum[string])
+                + Members
+                    + contact
+                    + company
+            + id (string)
+        + for_attention_of (object, optional)
+            + name (string, optional)
+            + contact_id (string, optional)
+        + department_id (string) - Id of the department the invoice will be added to
+        + payment_term (object, optional)
+            + type (enum[string])
+                + Members
+                    + cash - Direct payment, often cash
+                    + end_of_month - End of the month of Xth day after the invoice date
+                    + after_invoice_date - X days after invoice date
+            + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
+        + layout_id (string, optional) - Id of the layout you wish to use for this invoice
+        + purchase_order_number (string, optional) - The external order number. Overrides possible PO number coming from project.
+        + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
+        + xxx (array[InvoiceLineItem], optional)
+
++ Response 204
+
+### invoices.delete [POST /invoices.delete]
+
+Delete an existing invoice. Only possible for draft invoices or the last booked invoice.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (string, required)
+
++ Response 204
 
 ### invoices.book [POST /invoices.book]
 
-### invoices.send [POST /invoices.send]
+Book a draft invoice.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (string, required)
+        + invoice_date: `2016-02-04` (string, optional)
+
++ Response 204
+
+### invoices.download [POST /invoices.download]
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (string, required)
+        + format: `pdf` (enum[string], required)
+            + Members
+                + pdf
 
 ### invoices.declare [POST /invoices.declare]
 
+Declare a booked invoice, locking the invoice for future changes.
 
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (string, required)
+
++ Response 204
+
+### invoices.registerPayment [POST /invoices.registerPayment]
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (string, required)
+        + amount (Money, optional)
+        + paid_at: `2016-02-04T16:44:33+00:00` (string, optional)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + id: `2` (string) - ID of the payment that was created
+
+### invoices.removePayment [POST /invoices.removePayment]
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (string, required)
+        + payment_id: `2` (string, required)
+
+### invoices.credit [POST /invoices.credit]
+
+Create a credit note from an invoice. Only possible for booked and declared invoices.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id: `1` (string, required)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + _type: `creditNote` (string)
+        + id: `1` (string) - ID of the credit note that was created
+
+### creditNotes.draft [POST /creditNotes.draft]
+
+Create a draft credit note.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + invoice_id (string, optional)
+        + customer (object, optional)
+            + type (enum[string])
+                + Members
+                    + contact
+                    + company
+            + id (string)
+        + for_attention_of (object, optional)
+            + name (string, optional)
+            + contact_id (string, optional)
+        + department_id (string)
+        + payment_term (object, optional)
+            + type (enum[string])
+                + Members
+                    + cash - Direct payment, often cash
+                    + end_of_month - End of the month of Xth day after the invoice date
+                    + after_invoice_date - X days after invoice date
+            + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
+        + layout_id (string, optional) - Id of the layout you wish to use for this invoice
+        + purchase_order_number (string, optional) - The external order number. Overrides possible PO number coming from project.
+        + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
+        + xxx (array[InvoiceLineItem], optional)
 
 ### creditNotes.list [GET /creditNotes.list]
 
@@ -137,13 +316,13 @@ List credit notes
 
     + Attributes (object)
         + filter (object, optional)
-            + contact_id: `123` (number, optional) - The ID of the contact you wish to filter on. You can't provide a company ID.
-            + company_id: `123` (number, optional) - The ID of the company you wish to filter on. You can't provide a contact ID.
+            + contact_id: `123` (string, optional) - The ID of the contact you wish to filter on. You can't provide a company ID.
+            + company_id: `123` (string, optional) - The ID of the company you wish to filter on. You can't provide a contact ID.
             + date_from: `2016-01-01` (string, optional) - Format: yyyy-mm-dd
             + date_to: `2016-01-01` (string, optional) - yyyy-mm-dd
-            + department_id: `1` (number, optional) - The ID of the department you wish to filter on.
-            + project_id: `1` (number, optional) - The ID of the project you wish to filter on.
-            + invoice_id: `1` (number, optional) - The ID of the invoice you wih to filter on.
+            + department_id: `1` (string, optional) - The ID of the department you wish to filter on.
+            + project_id: `1` (string, optional) - The ID of the project you wish to filter on.
+            + invoice_id: `1` (string, optional) - The ID of the invoice you wih to filter on.
         + page (object, optional)
             + size: `20` (number, optional) - Amount of credit notes you want returned, 1 to 100.
                 + Default: `20`
@@ -155,30 +334,29 @@ List credit notes
     + Attributes (object)
         + _items (array[object])
             + (object)
-                + id: `173111` (number)
+                + id: `173111` (string)
                 + department (object)
                     + _type: `department` (string)
-                    + id : `1` (string)
+                    + id: `1` (string)
                 + invoice (object)
-                    + _type: `department` (string)
-                    + id : `1` (string)
+                    + _type: `invoice` (string)
+                    + id: `1` (string)
                 + credit_note_number: `2017/5` (string)
-                + booked_at: `2016-02-04T16:44:33+00:00` (string)
                 + paid: `true` (boolean)
-                + paid_on: `2016-03-03T16:44:33+00:00` (string)
+                + paid_at: `2016-03-03T16:44:33+00:00` (string)
                 + total (object)
                     + tax_exclusive (Money)
                     + tax_inclusive (Money)
                     + payable (Money)
                     + taxes (array)
                         + (object)
-                            + rate : `0.21` (number)
+                            + rate: `0.21` (number)
                             + taxable (Money)
                             + tax (Money)
                     + withheld_taxes (array)
                         + (object)
-                            + type : `Trabajo`
-                            + rate : `0.21` (number)
+                            + type: `Trabajo`
+                            + rate: `0.21` (number)
                             + taxable (Money)
                             + tax (Money)
                 + invoicee (object)
@@ -192,4 +370,10 @@ List credit notes
                         + name: `Radja Nainggolan` (string)
                         + contact (object)
                             + _type: `contact` (string)
-                            + id : `456` (string)
+                            + id: `456` (string)
+
+### creditNotes.update [POST /creditNotes.update]
+
+### creditNotes.book [POST /creditNotes.book]
+
+### taxRates.list [GET /taxRates.list]

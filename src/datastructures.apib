@@ -15,9 +15,9 @@
 + city: `Palo Alto` (string)
 + country: `US` (string)
 
-## Money (object)
-+ amount: `123.30` (number)
-+ currency: `EUR` (enum[string])
+## Price (object)
++ amount: `123.30` (number, required)
++ currency: `EUR` (enum[string], required)
     + Members
         + BAM
         + CAD
@@ -42,3 +42,52 @@
         + TRY
         + USD
         + ZAR
++ tax_id: `1` (string, required)
++ tax_inclusive: false (boolean, optional)
+
+## Money (object)
++ amount: `123.30` (number, required)
++ currency: `EUR` (enum[string], required)
+    + Members
+        + BAM
+        + CAD
+        + CHF
+        + CLP
+        + CNY
+        + COP
+        + CZK
+        + DKK
+        + EUR
+        + GBP
+        + INR
+        + ISK
+        + JPY
+        + MAD
+        + MXN
+        + NOK
+        + PEN
+        + PLN
+        + RON
+        + SEK
+        + TRY
+        + USD
+        + ZAR
+
+## InvoiceLineItem
++ section (object, optional)
+    + title (string, required)
++ xxx (array, required)
+    + (object)
+        + product_id: `1` (string, optional)
+        + quantity: `3` (number, required)
+        + name: `An awesome product` (string, optional)
+        + description: `Additional information` (string, optional)
+        + unit_price (Price, optional)
+        + ledger_id: `1` (string, optional)
+        + source (object, optional)
+            + type (enum[string], required)
+                + project
+                + deal
+                + timetracking
+                + subscription
+            + id (string, required)

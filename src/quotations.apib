@@ -8,16 +8,7 @@ Add a quotation to a deal
 
     + Attributes (object)
         + deal_id: `1` (string, required)
-        + items (array[object], required)
-            + (object)
-                + product_id: `1` (string, optional)
-                + quantity: `3` (number, required)
-                + name: `An awesome product` (string, optional)
-                + description: `Additional information` (string, optional)
-                + unit_price (Money, optional)
-                + tax_id: `123` (string, optional)
-                + ledger_id: `1` (string, optional) - Id of the bookkeeping ledger account
-                + section: `Header` (string, optional) - All items under this section will be grouped
+        + xxx (array[InvoiceLineItem], required)
 
 + Response 204
 
@@ -30,16 +21,7 @@ Update a deal quotation's items
     + Attributes (object)
         + quotation_id: `1` (string, required)
         + deal_id: `1` (string, optional)
-        + items (array[object], optional)
-            + (object)
-                + product_id: `1` (string, optional)
-                + quantity: `3` (number, required)
-                + name: `An awesome product` (string, optional)
-                + description: `Additional information` (string, optional)
-                + unit_price (Money, optional)
-                + tax_id: `123` (string, optional)
-                + ledger_id: `1` (string, optional) - Id of the bookkeeping ledger account
-                + section: `Header` (string, optional) - All items under this section will be grouped
+        + xxx (array[InvoiceLineItem], optional)
 
 + Response 204
 
@@ -57,18 +39,7 @@ Get a quotation
     + Attributes (object)
         + quotation_id: `1` (string)
         + deal_id: `1` (string)
-        + items (array[object])
-            + (object)
-                + product (object)
-                    + _type: 'product'
-                    + id: 123 (string)
-                + quantity: `3` (number)
-                + name: `An awesome product` (string)
-                + description: `Additional information` (string)
-                + unit_price (Money)
-                + tax
-                + ledger_id: `1` (string) - Id of the bookkeeping ledger account
-                + section: `Header` (string) - All items under this section will be grouped
+        + xxx (array[InvoiceLineItem])
 
 ### quotations.send [POST /quotations.send]
 
