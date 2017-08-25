@@ -70,7 +70,9 @@ POST deals.list
   }
 }
 ```
+#### Paging
 
+Paging is 1-based. This means that `page.number: 1` equals the first page.
 
 ### Status codes
 
