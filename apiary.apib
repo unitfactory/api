@@ -116,7 +116,7 @@ If the user denies your request, we will redirect back to the `redirect_uri` wit
 
 `https://YOUR_REDIRECT_URI?error=access_denied`
 
-With the authorization code that was sent back to your `redirect_uri`, your can request an access token to make API calls. Note that authorization codes can only be exchanged for an access token once and expire 10 minutes after issuance.
+With the authorization code that was sent back to your `redirect_uri`, you can request an access token to make API calls. Note that authorization codes can only be exchanged for an access token once and expire 10 minutes after issuance.
 
 `https://app.teamleader.eu/oauth2/access_token`
 
@@ -164,7 +164,7 @@ Refresh tokens will continue functioning until the user uninstalls your integrat
 
 ### Client side authentication (implicit grant)
 
-Your client secret must remain private and can not be embedded within client side applications such as browser plugins. For these types of applications we an alternative authentication method called [implicit grant](https://tools.ietf.org/html/rfc6749#section-1.3.2). The implicit grant is a simplified authorization code flow optimized for clients implemented in a browser using a scripting language such as JavaScript. In the implicit flow, instead of issuing the client an authorization code, the client is issued an access token directly.
+Your client secret must remain private and can not be embedded within client side applications such as browser plugins. For these types of applications we have an alternative authentication method called [implicit grant](https://tools.ietf.org/html/rfc6749#section-1.3.2). The implicit grant is a simplified authorization code flow optimized for clients implemented in a browser using a scripting language such as JavaScript. In the implicit flow, instead of issuing the client an authorization code, the client is issued an access token directly.
 
 Similar to the regular authentication flow, users are redirected to the Teamleader authorization page, but with different query parameters:
 
@@ -187,6 +187,8 @@ If the user approves the client, they will be redirected back to the authorizati
 Example url:
 
 `https://YOUR_REDIRECT_URI#token_type=Bearer&expires_in=900&access_token=TOKEN&state=STATE`
+
+Note that this implicit grant does not return refresh tokens, and that our access tokens have a short TTL value. If you opt for this authentication method, you will have to go through the authorization flow every time you want to make API calls on behalf of the user. Keep this in mind while developing client side applications.
 
 ### User Identity
 
