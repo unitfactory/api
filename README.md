@@ -6,7 +6,7 @@ We follow an [API-first]('./docs/api-first.md) development approach, so our impl
 
 ## Published documentation
 
-We publish a web version of this documentation on [http://apidocs.teamleader.eu/v2]() through Apiary.
+We publish a web version of this documentation on [apidocs.teamleader.eu/v2](http://apidocs.teamleader.eu/v2) through Apiary.
 
 
 ## Branches
