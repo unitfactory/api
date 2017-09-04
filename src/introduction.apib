@@ -1,85 +1,104 @@
 #### WARNING - This is still a BETA version.
 
-This documentation is already published, but it is still under BETA.
-Most of the endpoints might already work, but we do NOT guarantee they will not change before our final release.
-
+Our documentation is already published to gather feedback, but the endpoints are not working yet. This documentation is not final and will change before our final release.
 
 ## AP-What?
 
-An API is a Application **Programming** Interface.
+An API is a Application Programming Interface. It is used to programmaticaly interact with Teamleader, to integrate with other software tools or to add custom functionality to Teamleader.
 
-It is used by **programmers**, **developers** or **engineers** to programmaticaly interact with Teamleader,
-to integrate it with other software tools or to customize Teamleader in a certain way.
-If you are not a programmer, developer or engineer, this might be hard for you.
-
-If you have the needs to integrate Teamleader with other tools, or to customize its behavior,
-someone else might already made and published it on our **[marketplace](https://marketplace.teamleader.eu)**.
-If you still want to do something custom, we advise you to look for a programmer to help you out or to contact someone in our [partner](https://www.teamleader.eu) network.
-
-
+Before creating a new integration, be sure to check out our **[Marketplace](https://marketplace.teamleader.eu)** for existing integrations built by the community. We also have a trusted [partner network](https://www.teamleader.eu) if you are looking for help building a custom integration.
 
 ## General principles
 
 ### RPC
 
-We provide an RPC-API, with which you can do actions related to a domain concept.
+Our API consists of HTTP RPC-style methods, in the form of `https://api.teamleader.eu/resource.action`.
+
+We chose this RPC-style approach over the more popular REST, because it enables us to have domain related actions on resources such as `invoices.book`, `timetracking.start` and `timetracking.stop`.
+
+### Requests
+
+All methods must be called using HTTPS. Data can be passed as JSON data in a POST request or as GET query parameters.
+
+For more complex actions we recommend using POST requests with JSON:
 
 ```
-POST https://api.teamleader.eu/someConcept.someAction?some_parameter=some_value HTTP/1.1
-
-```
-
-_In this example we perform the `someAction` action on `someConcept` with the parameter `some_parameter` that has a value of `some_value`._
-
-We chose this approach over the more popular REST, because it enables us to name our actions better, like `invoices.book`, `timetracking.start`, `timetracking.stop`.
-We honestly think that for more complex subdomains this really enriches our API, while for some simpler subdomains it is only a subtle difference.
-
-
-### GET vs. POST
-
-When retrieving data through HTTP, you normally use the GET method.
-To make changes to data, you often use the POST method.
-
-We tend to follow that principle, but we're giving you the opportunity to POST your GETs,
-to make it a little simpler to construct more advanced queries.
-For us following examples are equally:
-
-```
-GET https://api.teamleader.eu/invoices.find?filter[department_id]=1&page[number]=3&page[size]=50&company_id=1234
-```
-
-```
-POST https://api.teamleader.eu/invoices.find
+POST https://api.teamleader.eu/invoices.list
 
 {
-    "filter" : {
-        "department_id" : 1
+    "filter": {
+        "department_id": 1
     },
-    "page" :  {
-        "size" : 50,
-        "number" : 3
+    "page": {
+        "size": 50,
+        "number": 3
     },
-    "company_id" : 1234
+    "company_id": 1234
 }
 ```
 
-### Collections and metadata
+The GET equivalent:
 
-We plan to add more meta data to responses over time.
-To be able to do that on collections too, we wrap every collection in an object with the items in an array called `_items`.
+```
+GET https://api.teamleader.eu/invoices.list?filter[department_id]=1&page[number]=3&page[size]=50&company_id=1234
+```
 
-```json
+### Responses
+
+All data is returned as JSON objects:
+
+```
 {
-    "_items" : [
-        { "foo" : "bar" },
-        { "foo" : "baz" },
-        { "foo" : "boo" },
+    "id": 456,
+    "first_name": "Erlich",
+    "last_name": "Bachman",
+    "salutation": "Mr",
+    "email": "info@piedpiper.eu"
+}
+```
+
+### Collections
+
+When a collection of objects are returned, they are nested in an `_items` property. This allows us to add additional meta data to the collection for pagination etc.
+
+```
+{
+    "_items": [
+        { "foo": "bar" },
+        { "foo": "baz" },
+        { "foo": "boo" },
     ],
-    "_some_future_meta_data" : {
-        "meta" : "data"
+    "_meta": {
+        "total": 3
     }
 }
 ```
 
-Yes, it feels weird in the beginning, but you'll get used to it very soon!
-We think that ensuring backward compatibility in the future, will help you more in the end.
+### Errors
+
+Errors are always returned as an array of error objects under an `errors` top level property.
+
+```
+{
+    "errors": [
+        {
+            "status": 400,
+            "title": "Bad request"
+        }
+    ]
+}
+```
+
+### Status codes
+
+When objects are created, we return a `201` response containing the id of the resource. When objects are updated or actions are performated, we othen return an empty response with a `204` status code.
+
+Common used status codes:
+
+ - `200` - OK
+ - `201` - Created, when resources are created
+ - `204` - No Content, on resource updates or actions
+ - `400` - Bad Request, if the request contains invalid data
+ - `401` - Unauthorized, invalid or missing access token
+ - `404` - Not Found, resource not found
+ - `500` - Internal Server Error, something went wrong on our end
