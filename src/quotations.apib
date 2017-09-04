@@ -1,0 +1,86 @@
+## Quotations [/quotations]
+
+### quotations.add [POST /quotations.add]
+
+Add a quotation to a deal
+
++ Request (application/json)
+
+    + Attributes (object)
+        + deal_id: `1` (string, required)
+        + items (array[object], required)
+            + (object)
+                + product_id: `1` (string, optional)
+                + quantity: `3` (number, required)
+                + name: `An awesome product` (string, optional)
+                + description: `Additional information` (string, optional)
+                + unit_price (Money, optional)
+                + tax_id: `123` (string, optional)
+                + ledger_id: `1` (string, optional) - Id of the bookkeeping ledger account
+                + section: `Header` (string, optional) - All items under this section will be grouped
+
++ Response 204
+
+### quotations.update [POST /quotations.update]
+
+Update a deal quotation's items
+
++ Request (application/json)
+
+    + Attributes (object)
+        + quotation_id: `1` (string, required)
+        + deal_id: `1` (string, optional)
+        + items (array[object], optional)
+            + (object)
+                + product_id: `1` (string, optional)
+                + quantity: `3` (number, required)
+                + name: `An awesome product` (string, optional)
+                + description: `Additional information` (string, optional)
+                + unit_price (Money, optional)
+                + tax_id: `123` (string, optional)
+                + ledger_id: `1` (string, optional) - Id of the bookkeeping ledger account
+                + section: `Header` (string, optional) - All items under this section will be grouped
+
++ Response 204
+
+### quotations.info [POST /quotations.info]
+
+Get a quotation
+
++ Request (application/json)
+
+    + Attributes (object)
+        + quotation_id: `1` (string, required)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + quotation_id: `1` (string)
+        + deal_id: `1` (string)
+        + items (array[object])
+            + (object)
+                + product (object)
+                    + _type: 'product'
+                    + id: 123 (string)
+                + quantity: `3` (number)
+                + name: `An awesome product` (string)
+                + description: `Additional information` (string)
+                + unit_price (Money)
+                + tax
+                + ledger_id: `1` (string) - Id of the bookkeeping ledger account
+                + section: `Header` (string) - All items under this section will be grouped
+
+### quotations.send [POST /quotations.send]
+
+Send a deal's quotation via email to a client
+
++ Request (application/json)
+
+    + Attributes (object)
+        + quotation_id: `1` (string, required)
+        + email: `john@example.com` (string, required) - The email recipient
+        + subject: Your quotation` (string, required) - The email subject
+        + message: `1` (string, required) - The email body
+        + template_id: `1` (string, optional)
+
++ Response 204
