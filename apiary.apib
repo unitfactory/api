@@ -287,6 +287,7 @@ Get a paginated list of contacts
             + ids (array[string], optional)
             + company_id: `1` (string, optional)
             + term: `teamleader` (string, optional)
+            + telephone: `092980615` (string, optional)
             + updated_after: `2017-04-26T10:01:49+00:00` (string, optional)
         + page (object, optional)
             + size: `20` (number, optional) - Amount of contacts you want returned, 1 to 100.
@@ -304,9 +305,7 @@ Get a paginated list of contacts
                 + last_name: `Bachman` (string)
                 + salutation: `Mr` (string)
                 + email: `info@piedpiper.eu` (string)
-                + phone: `092980615` (string)
-                + mobile: `0412121212` (string)
-                + fax: `091234567` (string)
+                + telephone (array[Telephone])
                 + website: `https://piedpiper.com` (string)
                 + avatar (string)
                 + address (Address)
@@ -358,9 +357,7 @@ Get the details for a single contact
         + salutation: `Mr` (string)
         + email: `info@piedpiper.eu` (string)
         + invoice_email: `invoicing@example.com` (string)
-        + phone: `092980615` (string)
-        + mobile: `0412121212` (string)
-        + fax: `091234567` (string)
+        + telephone (array[Telephone])
         + website: `https://piedpiper.com` (string)
         + avatar (string)
         + address (Address)
@@ -410,9 +407,7 @@ Add a contact to Teamleader
         + email: `john@example.com` (string, required)
         + salutation: `Mr` (string, optional)
         + email: `john@example.com` (string, required)
-        + phone: `1234567` (string, optional)
-        + mobile: `7654321` (string, optional)
-        + fax: `7654321` (string, optional)
+        + telephone (array[Telephone])
         + website: `http://example.com` (string, optional)
         + address (Address, optional)
         + delivery_address (Addressee, optional)
@@ -449,9 +444,7 @@ Update a Teamleader contact
         + last_name: `Smith` (string)
         + salutation: `Mr` (string, optional)
         + email: `john@example.com` (string, required)
-        + phone: `1234567` (string, optional)
-        + mobile: `7654321` (string, optional)
-        + fax: `7654321` (string, optional)
+        + telephone (array[Telephone])
         + website: `http://example.com` (string, optional)
         + address (Address, optional)
         + delivery_address (Addressee, optional)
@@ -549,6 +542,7 @@ Search companies
             + tag: `upsell` (string, optional)
             + updated_after: `2017-04-26T10:01:49+00:00` (string, optional)
             + term: `teamleader` (string, optional)
+            + telephone: `092980615` (string, optional)
         + page (object, optional)
             + size: `20` (number, optional) - The amount of contacts returned per request, max 1 to 100
                 + Default: `20`
@@ -567,8 +561,7 @@ Search companies
                 + local_business_number: `63326426` (string)
                 + email: `info@piedpiper.eu` (string)
                 + invoice_email: `invoicing@example.com` (string, optional)
-                + phone: `092980615` (string)
-                + fax: `091234567` (string)
+                + telephone (array[Telephone])
                 + website: `https://piedpiper.com` (string)
                 + avatar (string)
                 + address (Address)
@@ -610,8 +603,7 @@ Get company info
         + local_business_number: `63326426` (string)
         + email: `info@piedpiper.eu` (string)
         + invoice_email: `invoicing@example.com` (string, optional)
-        + phone: `092980615` (string)
-        + fax: `091234567` (string)
+        + telephone (array[Telephone])
         + website: `https://piedpiper.com` (string)
         + avatar (string)
         + address (Address)
@@ -651,8 +643,7 @@ Add a Teamleader company
         + local_business_number: `63326426` (string, optional)
         + email: `john@example.com` (string, required)
         + invoice_email: `invoicing@example.com` (string, optional)
-        + phone: `1234567` (string, optional)
-        + fax: `7654321` (string, optional)
+        + telephone (array[Telephone])
         + website: `http://example.com` (string, optional)
         + address (Address, optional)
         + delivery_address (Addressee, optional)
@@ -689,8 +680,7 @@ Update a Teamleader company
         + local_business_number: `63326426` (string, optional) - the local business number (KVK in the Netherlands)
         + email: `john@example.com` (string, required) - The email address of the new contact
         + invoice_email: `invoicing@example.com` (string, optional)
-        + phone: `1234567` (string, optional)
-        + fax: `7654321` (string, optional)
+        + telephone (array[Telephone])
         + website: `http://example.com` (string, optional)
         + address (Address, optional)
         + delivery_address (Addressee, optional)
@@ -1702,6 +1692,15 @@ Register a webhook.
 + Response 204
 
 # Data Structures
+
+## Telephone (object)
++ type: `phone` (enum[string], required)
+    + Members
+        + phone
+        + mobile
+        + fax
++ number: `092980615` (string, required)
++ label: `Reception` (string, optional)
 
 ## Address (object)
 + street: `Newell Road` (string)
