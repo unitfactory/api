@@ -285,9 +285,9 @@ Get a paginated list of contacts
     + Attributes (object)
         + filter (object, optional)
             + ids (array[string], optional)
-            + company_id: `1` (string, optional) - Filter contacts by a certain company.
+            + company_id: `1` (string, optional)
             + term: `teamleader` (string, optional)
-            + updated_since: `2017-04-26T10:01:49+00:00` (string, optional) - ISO 8601 date. Teamleader will only return contacts that have been added or modified since that time (inclusive).
+            + updated_after: `2017-04-26T10:01:49+00:00` (string, optional)
         + page (object, optional)
             + size: `20` (number, optional) - Amount of contacts you want returned, 1 to 100.
                 + Default: `20`
@@ -347,7 +347,7 @@ Get the details for a single contact
 + Request (application/json)
 
     + Attributes (object)
-        + `contact_id`: `1` (string, required)
+        + id: `1` (string, required)
 
 + Response 200 (application/json)
 
@@ -405,11 +405,11 @@ Add a contact to Teamleader
 + Request (application/json)
 
     + Attributes (object)
-        + first_name: `John` (string, required) - The first name of the new contact
-        + last_name: `Smith` (string, required) - The last name of the new contact
-        + email: `john@example.com` (string, required) - The email address of the new contact
+        + first_name: `John` (string, required)
+        + last_name: `Smith` (string, required)
+        + email: `john@example.com` (string, required)
         + salutation: `Mr` (string, optional)
-        + email: `john@example.com` (string, required) - The email address of the new contact
+        + email: `john@example.com` (string, required)
         + phone: `1234567` (string, optional)
         + mobile: `7654321` (string, optional)
         + fax: `7654321` (string, optional)
@@ -418,15 +418,15 @@ Add a contact to Teamleader
         + delivery_address (Addressee, optional)
         + visiting_address (Addressee, optional)
         + invoice_address (Addressee, optional)
-        + language: `en` (string, optional) - Language code according to ISO 639-1. For Dutch: "nl"
+        + language: `en` (string, optional)
         + gender: `M` (enum[string], optional)
             + Members
                 + M
                 + F
                 + U
         + birthdate: `1989-08-19` (string, optional)
-        + remarks: `Met at expo` (string, optional) - Background information on the contact
-        + tags: expo, upsell (array[string], optional) - Pass one or more tags. Existing tags will be reused, other tags will be automatically created for you.
+        + remarks: `Met at expo` (string, optional)
+        + tags: expo, upsell (array[string], optional)
         + custom_fields (array)
             + (object)
                 + custom_field_id: 123 (string)
@@ -444,11 +444,11 @@ Update a Teamleader contact
 + Request (application/json)
 
     + Attributes (object)
-        + contact_id: `1` (string, required) - The ID of the contact you want to update
-        + first_name: `John` (string) - The given name of the new contact
-        + last_name: `Smith` (string) - The last name of the new contact
+        + id: `1` (string, required)
+        + first_name: `John` (string)
+        + last_name: `Smith` (string)
         + salutation: `Mr` (string, optional)
-        + email: `john@example.com` (string, required) - The email address of the new contact
+        + email: `john@example.com` (string, required)
         + phone: `1234567` (string, optional)
         + mobile: `7654321` (string, optional)
         + fax: `7654321` (string, optional)
@@ -457,19 +457,20 @@ Update a Teamleader contact
         + delivery_address (Addressee, optional)
         + visiting_address (Addressee, optional)
         + invoice_address (Addressee, optional)
-        + language: `en` (string, optional) - Language code according to ISO 639-1. For Dutch: "nl"
+        + language: `en` (string, optional)
         + gender: `M` (enum[string], optional)
             + Members
                 + M
                 + F
                 + U
         + birthdate: `1989-08-19` (string, optional)
-        + remarks: `Met at expo` (string, optional) - Background information on the contact.
-        + tags: expo, upsell (array[string], optional) - Pass one or more tags. Existing tags will be reused, other tags will be automatically created for you.
-        + custom_fields (array)
-            + (object)
-                + custom_field_id: 123 (string)
-                + value
+        + remarks: `Met at expo` (string, optional)
+        + tags: expo, upsell (array[string], optional)
+       + custom_fields (object)
+            + _items (array)
+                + (object)
+                    + custom_field_id: 123 (string)
+                    + value
 
 + Response 204
 
@@ -480,7 +481,7 @@ Delete a contact from Teamleader
 + Request (application/json)
 
     + Attributes (object)
-        + contact_id: `1` (string, required) - The account ID of the contact you wish to delete
+        + id: `1` (string, required)
 
 + Response 204
 
@@ -491,8 +492,8 @@ Add a tag to a contact
 + Request (application/json)
 
     + Attributes (object)
-        + contact_id: `123` (string, required) - The ID of a contact
-        + tags: prospect, expo (array[string], required) - A list of tags to add
+        + id: `123` (string, required)
+        + tags: prospect, expo (array[string], required)
 
 + Response 204
 
@@ -503,8 +504,8 @@ Remove a tag from a contact
 + Request (application/json)
 
     + Attributes (object)
-        + contact_id: `123` (string, required) - The ID of a contact
-        + tags: prospect, expo (array[string], required) - A list of tags to remove
+        + id: `123` (string, required)
+        + tags: prospect, expo (array[string], required)
 
 + Response 204
 
@@ -515,8 +516,8 @@ Linking a contact to a company
 + Request (application/json)
 
     + Attributes (object)
-        + contact_id: `123` (string, required) - The ID of a contact
-        + company_id: `5` (string, required) - The ID of a company
+        + id: `123` (string, required)
+        + company_id: `5` (string, required)
         + position: `CEO` (string)
         + decision_maker: true (boolean)
 
@@ -529,8 +530,8 @@ Unlinking a contact from a company
 + Request (application/json)
 
     + Attributes (object)
-        + contact_id: `123` (string, required) - The ID of a contact
-        + company_id: `5` (string, required) - The ID of a company
+        + id: `123` (string, required)
+        + company_id: `5` (string, required)
 
 + Response 204
 
@@ -545,8 +546,8 @@ Search companies
     + Attributes (object)
         + filter (object, optional)
             + ids (array[string], optional)
-            + tag: `upsell` (string, optional) - Company tag. Teamleader will only return companies that have the tag.
-            + updated_since: `2017-04-26T10:01:49+00:00` (string, optional) - ISO 8601 date. Teamleader will only return contacts that have been added or modified since that time (inclusive).
+            + tag: `upsell` (string, optional)
+            + updated_after: `2017-04-26T10:01:49+00:00` (string, optional)
             + term: `teamleader` (string, optional)
         + page (object, optional)
             + size: `20` (number, optional) - The amount of contacts returned per request, max 1 to 100
@@ -574,6 +575,9 @@ Search companies
                 + iban: `BE12123412341234` (string)
                 + bic: `BICBANK` (string)
                 + language: `nl` (string)
+                + responsible_user (object)
+                    + _type: `user`
+                    + id: 1 (string)
                 + tags (object)
                     + _items: tag1, tag2 (array[string])
                 + custom_fields (object)
@@ -594,7 +598,7 @@ Get company info
 + Request (application/json)
 
     + Attributes (object)
-        + company_id: 123 (string)
+        + id: 123 (string)
 
 + Response 200 (application/json)
 
@@ -617,6 +621,10 @@ Get company info
         + iban: `BE12123412341234` (string)
         + bic: `BICBANK` (string)
         + language: `nl` (string)
+        + responsible_user (object)
+            + _type: `user`
+            + id: 1 (string)
+        + remarks: `First contact at expo` (string)
         + tags (object)
             + _items: tag1, tag2 (array[string])
         + custom_fields (object)
@@ -626,7 +634,6 @@ Get company info
                         + _type: `customField`
                         + id: 123 (string)
                     + value: `092980616`
-        + remarks: `First contact at expo` (string)
         + _meta (object)
             + added_at: `2016-02-04T16:44:33+00:00` (string)
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
@@ -639,6 +646,44 @@ Add a Teamleader company
 
     + Attributes (object)
         + name: `Pied Piper` (string, required)
+        + business_type: `NV` (string, optional)
+        + vat_number: `BE0899623035` (string, optional)
+        + local_business_number: `63326426` (string, optional)
+        + email: `john@example.com` (string, required)
+        + invoice_email: `invoicing@example.com` (string, optional)
+        + phone: `1234567` (string, optional)
+        + fax: `7654321` (string, optional)
+        + website: `http://example.com` (string, optional)
+        + address (Address, optional)
+        + delivery_address (Addressee, optional)
+        + visiting_address (Addressee, optional)
+        + invoice_address (Addressee, optional)
+        + iban: `BE12 1234 1234 1234` (string)
+        + bic: `BICBANK` (string)
+        + language: `en` (string, optional)
+        + responsible_user_id (string, optional)
+        + remarks: `Met at expo` (string, optional)
+        + tags: expo, upsell (array[string], optional)
+        + custom_fields (object)
+            + _items (array)
+                + (object)
+                    + custom_field_id: 123 (string)
+                    + value
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + id: `1` (string)
+
+### companies.update [POST /companies.update]
+
+Update a Teamleader company
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `1` (string, required) - The ID of the contact you want to update
+        + name: `1` (string, required)
         + business_type: `NV` (string, optional) - containing the company type (eg NV, BVBA,..)
         + vat_number: `BE0899623035` (string, optional)
         + local_business_number: `63326426` (string, optional) - the local business number (KVK in the Netherlands)
@@ -653,45 +698,15 @@ Add a Teamleader company
         + invoice_address (Addressee, optional)
         + iban: `BE12 1234 1234 1234` (string)
         + bic: `BICBANK` (string)
-        + language: `en` (string, optional) - Language code according to ISO 639-1. For Dutch: "nl"
-        + remarks: `Met at expo` (string, optional) - Background information on the contact
-        + tags: expo, upsell (array[string], optional) - Pass one or more tags. Existing tags will be reused, new tags will be automatically created for you.
-        + custom_fields (array)
-            + (object)
-                + custom_field_id: 123 (string)
-                + value
-
-+ Response 201 (application/json)
-
-    + Attributes (object)
-        + id: `1` (string)
-
-### companies.update [POST /companies.update]
-
-Update a Teamleader company
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + company_id: `1` (string, required) - The ID of the contact you want to update
-        + name: `1` (string, required)
-        + email: `john@example.com` (string, required) - The email address of the new contact
-        + vat_number: `BE0899623035` (string, optional)
-        + phone: `1234567` (string, optional)
-        + fax: `7654321` (string, optional)
-        + address (Address, optional)
-        + invoice_email: `invoicing@example.com` (string, optional)
-        + website: `http://example.com` (string, optional)
-        + remarks: `Met at expo` (string, optional) - Background information on the contact
-        + account_manager_id: `1` (string, optional)
-        + local_business_number: `63326426` (string, optional) - the local business number (KVK in the Netherlands)
-        + business_type: `NV` (string, optional) - containing the company type (eg NV, BVBA,..)
-        + language: `en` (string, optional) - Language code according to ISO 639-1. For Dutch: "nl"
-        + tags: expo, upsell (array[string], optional) - Pass one or more tags. Existing tags will be reused, new tags will be automatically created for you.
-        + custom_fields (array)
-            + (object)
-                + custom_field_id: 123 (string)
-                + value
+        + language: `en` (string, optional)
+        + responsible_user_id (string, optional)
+        + remarks: `Met at expo` (string, optional)
+        + tags: expo, upsell (array[string], optional)
+        + custom_fields (object)
+            + _items (array)
+                + (object)
+                    + custom_field_id: 123 (string)
+                    + value
 
 + Response 204
 
@@ -702,7 +717,7 @@ Delete a company from Teamleader
 + Request (application/json)
 
     + Attributes (object)
-        + company_id: `1` (string, required) - The account ID of the company you wish to delete
+        + id: `1` (string, required)
 
 + Response 204
 
@@ -713,8 +728,8 @@ Add a tag to a company
 + Request (application/json)
 
     + Attributes (object)
-        + company_id: `123` (string, required) - The ID of a company
-        + tags: prospect, expo (array[string], required) - A list of tags to add
+        + id: `123` (string, required)
+        + tags: prospect, expo (array[string], required)
 
 + Response 204
 
@@ -725,8 +740,8 @@ Remove a tag from a company
 + Request (application/json)
 
     + Attributes (object)
-        + company_id: `123` (string, required) - The ID of a company
-        + tags: prospect, expo (array[string], required) - A list of tags to remove
+        + id: `123` (string, required)
+        + tags: prospect, expo (array[string], required)
 
 + Response 204
 
@@ -737,7 +752,7 @@ Get the names of business types (legal structures) a company can have within a c
 + Request (application/json)
 
     + Attributes (object)
-        + country: `BE` (string) -  country code according to ISO 3166-1 alpha-2. For Belgium: "BE"
+        + country: `BE` (string)
 
 + Response 200 (application/json)
 
@@ -1145,6 +1160,21 @@ Search calendar events
             + starts_before: `2017-01-01T00:00:00+00:00` (string, optional)
             + ends_after: `2018-01-01T00:00:00+00:00` (string, optional)
             + ends_before: `2018-01-01T00:00:00+00:00` (string, optional)
+        + page (object, optional)
+            + size: `20` (number, optional)
+                + Default: `20`
+            + number: `1` (number, optional)
+                + Default: `1`
+        + sort (array, optional)
+            + (object)
+                + field: `starts_at` (enum[string], required)
+                    + Members
+                        + starts_at
+                        + ends_at
+                + order: `asc` (enum[string], optional)
+                    + Members
+                        + asc
+                        + desc
 
 + Response 200 (application/json)
 
@@ -1152,7 +1182,7 @@ Search calendar events
         + _items (array)
             + (object)
                 + id: `123` (string)
-                + user (object)
+                + owner (object)
                     + _type: `user` (string)
                     + id: 1 (string)
                 + todo (object)
@@ -1168,24 +1198,26 @@ Search calendar events
                 + description (string)
                 + starts_at: `2016-02-04T16:00:00+00:00` (string)
                 + ends_at: `2016-02-04T18:00:00+00:00` (string)
-                + location (Address)
-                + attendees (array)
-                    + (object)
-                        + _type (enum[string])
-                            + Members
-                                + user
-                                + contact
-                        + id (string)
-                + links (array)
-                    + (object)
-                        + _type (enum[string])
-                            + Members
-                                + deal
-                                + company
-                                + project
-                                + milestone
-                                + ticket
-                        + id (string)
+                + location (string)
+                + attendees (object)
+                    + _items (array)
+                        + (object)
+                            + _type (enum[string])
+                                + Members
+                                    + user
+                                    + contact
+                            + id (string)
+                + links (object)
+                    + _items (array)
+                        + (object)
+                            + _type (enum[string])
+                                + Members
+                                    + deal
+                                    + company
+                                    + project
+                                    + milestone
+                                    + ticket
+                            + id (string)
 
 ### events.link [POST /events.link]
 
@@ -1331,9 +1363,9 @@ Update a calendar event.
 
 + Response 204
 
-### events.delete [POST /events.delete]
+### events.cancel [POST /events.cancel]
 
-Delete a calendar event.
+Cancel a calendar event (for all attendees).
 
 + Request (application/json)
 
@@ -1713,3 +1745,4 @@ Register a webhook.
         + TRY
         + USD
         + ZAR
+

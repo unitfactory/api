@@ -17,6 +17,21 @@ Search calendar events
             + starts_before: `2017-01-01T00:00:00+00:00` (string, optional)
             + ends_after: `2018-01-01T00:00:00+00:00` (string, optional)
             + ends_before: `2018-01-01T00:00:00+00:00` (string, optional)
+        + page (object, optional)
+            + size: `20` (number, optional)
+                + Default: `20`
+            + number: `1` (number, optional)
+                + Default: `1`
+        + sort (array, optional)
+            + (object)
+                + field: `starts_at` (enum[string], required)
+                    + Members
+                        + starts_at
+                        + ends_at
+                + order: `asc` (enum[string], optional)
+                    + Members
+                        + asc
+                        + desc
 
 + Response 200 (application/json)
 
@@ -24,7 +39,7 @@ Search calendar events
         + _items (array)
             + (object)
                 + id: `123` (string)
-                + user (object)
+                + owner (object)
                     + _type: `user` (string)
                     + id: 1 (string)
                 + todo (object)
@@ -40,24 +55,26 @@ Search calendar events
                 + description (string)
                 + starts_at: `2016-02-04T16:00:00+00:00` (string)
                 + ends_at: `2016-02-04T18:00:00+00:00` (string)
-                + location (Address)
-                + attendees (array)
-                    + (object)
-                        + _type (enum[string])
-                            + Members
-                                + user
-                                + contact
-                        + id (string)
-                + links (array)
-                    + (object)
-                        + _type (enum[string])
-                            + Members
-                                + deal
-                                + company
-                                + project
-                                + milestone
-                                + ticket
-                        + id (string)
+                + location (string)
+                + attendees (object)
+                    + _items (array)
+                        + (object)
+                            + _type (enum[string])
+                                + Members
+                                    + user
+                                    + contact
+                            + id (string)
+                + links (object)
+                    + _items (array)
+                        + (object)
+                            + _type (enum[string])
+                                + Members
+                                    + deal
+                                    + company
+                                    + project
+                                    + milestone
+                                    + ticket
+                            + id (string)
 
 ### events.link [POST /events.link]
 
@@ -203,9 +220,9 @@ Update a calendar event.
 
 + Response 204
 
-### events.delete [POST /events.delete]
+### events.cancel [POST /events.cancel]
 
-Delete a calendar event.
+Cancel a calendar event (for all attendees).
 
 + Request (application/json)
 
