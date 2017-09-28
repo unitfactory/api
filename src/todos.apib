@@ -1,5 +1,54 @@
 ## Todos [/todos]
 
+### todos.list [GET /todos.list]
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object, required)
+            + ids (array[string], optional)
+            + creator_id (string, optional)
+            + activity_type_id (string, optional)
+            + topic_id (string, optional)
+            + project_id (string, optional)
+            + due_after: `2017-01-01T00:00:00+00:00` (string, optional)
+            + due_before: `2017-01-01T00:00:00+00:00` (string, optional)
+        + page (Page, optional)
+
++ Response 200 (application/json)
+
+    + Attributes (array)
+        + (object)
+            + id: 1 (string)
+            + title: `Meeting with stakeholders` (string)
+            + description (string)
+            + activity_type (object)
+                + _type: `activityType` (string)
+                + id: 2 (string)
+            + creator (object)
+                + _type: `user` (string)
+                + id: 1 (string)
+            + due_at: `2016-02-04T16:44:33+00:00` (string)
+            + estimated_duration: 60 (number)
+            + links (array)
+                + (object)
+                    + _type (enum[string])
+                        + Members
+                            + deal
+                            + company
+                            + project
+                            + milestone
+                            + ticket
+                    + id (string)
+            + location (Address)
+            + attendees (array)
+                + (object)
+                    + _type (enum[string])
+                        + Members
+                            + user
+                            + contact
+                    + id (string)
+
 ### todos.create [POST /todos.create]
 
 Create a new todo.
@@ -8,7 +57,7 @@ Create a new todo.
 
     + Attributes (object)
         + creator_id (string, optional)
-        + activity_id (string, optional)
+        + activity_type_id (string, optional)
         + topic_id (string, optional)
         + title: `Meeting with stakeholders` (string, required)
         + description (string, optional)
@@ -73,7 +122,7 @@ Update a todo.
     + Attributes (object)
         + id (string, required)
         + creator_id (string, optional)
-        + activity_id (string, optional)
+        + activity_type_id (string, optional)
         + topic_id (string, optional)
         + title: `Meeting with stakeholders` (string, optional)
         + description (string, optional)
@@ -109,14 +158,14 @@ Get information about a todo.
     + Attributes (object)
         + id (string, required)
 
-+ Response 201 (application/json)
++ Response 200 (application/json)
 
     + Attributes (object)
         + id: 1 (string)
         + title: `Meeting with stakeholders` (string)
         + description (string)
-        + activity (object)
-            + _type: activity (string)
+        + activity_type (object)
+            + _type: activityType (string)
             + id: 2 (string)
         + creator (object)
             + _type: `user` (string)

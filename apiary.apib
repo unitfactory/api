@@ -221,6 +221,11 @@ To retrieve information about the user who authorized your application (the reso
 
 Get a list of all users
 
++ Request (application/json)
+
+    + Attributes (object)
+        + page (Page, optional)
+
 + Response 200 (application/json)
 
     + Attributes (object)
@@ -239,6 +244,11 @@ Get a list of all users
 ### tags.list [GET /tags.list]
 
 Get a list of all tags
+
++ Request (application/json)
+
+    + Attributes (object)
+        + page (Page, optional)
 
 + Response 200 (application/json)
 
@@ -289,11 +299,7 @@ Get a paginated list of contacts
             + term: `teamleader` (string, optional)
             + telephone: `092980615` (string, optional)
             + updated_after: `2017-04-26T10:01:49+00:00` (string, optional)
-        + page (object, optional)
-            + size: `20` (number, optional) - Amount of contacts you want returned, 1 to 100.
-                + Default: `20`
-            + number: `1` (number, optional) - The numerated page you want, starts at 1.
-                + Default: `1`
+        + page (Page, optional)
 
 + Response 200 (application/json)
 
@@ -543,11 +549,7 @@ Search companies
             + updated_after: `2017-04-26T10:01:49+00:00` (string, optional)
             + term: `teamleader` (string, optional)
             + telephone: `092980615` (string, optional)
-        + page (object, optional)
-            + size: `20` (number, optional) - The amount of contacts returned per request, max 1 to 100
-                + Default: `20`
-            + number: `1` (number, optional) - The current page, the first page is 1
-                + Default: `1`
+        + page (Page, optional)
 
 + Response 200 (application/json)
 
@@ -760,11 +762,7 @@ Get a list of all deals
 + Request (application/json)
 
     + Attributes (object)
-        + page (object, optional)
-            + size: `10` (number, optional) - Amount of results you want
-                + Default: `20`
-            + number: `1` (number, optional) - Page of results you want
-                + Default: `1`
+        + page (Page, optional)
         + filter (object, optional)
             + term: `Teamleader` (string, optional) - A search string. Teamleader will try to search deals matching this string.
             + phase_id: `5` (string, optional) - Only return deals with this phase ID
@@ -978,6 +976,55 @@ Get a list of all deal sources
 
 ## Todos [/todos]
 
+### todos.list [GET /todos.list]
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object, required)
+            + ids (array[string], optional)
+            + creator_id (string, optional)
+            + activity_type_id (string, optional)
+            + topic_id (string, optional)
+            + project_id (string, optional)
+            + due_after: `2017-01-01T00:00:00+00:00` (string, optional)
+            + due_before: `2017-01-01T00:00:00+00:00` (string, optional)
+        + page (Page, optional)
+
++ Response 200 (application/json)
+
+    + Attributes (array)
+        + (object)
+            + id: 1 (string)
+            + title: `Meeting with stakeholders` (string)
+            + description (string)
+            + activity_type (object)
+                + _type: `activityType` (string)
+                + id: 2 (string)
+            + creator (object)
+                + _type: `user` (string)
+                + id: 1 (string)
+            + due_at: `2016-02-04T16:44:33+00:00` (string)
+            + estimated_duration: 60 (number)
+            + links (array)
+                + (object)
+                    + _type (enum[string])
+                        + Members
+                            + deal
+                            + company
+                            + project
+                            + milestone
+                            + ticket
+                    + id (string)
+            + location (Address)
+            + attendees (array)
+                + (object)
+                    + _type (enum[string])
+                        + Members
+                            + user
+                            + contact
+                    + id (string)
+
 ### todos.create [POST /todos.create]
 
 Create a new todo.
@@ -986,7 +1033,7 @@ Create a new todo.
 
     + Attributes (object)
         + creator_id (string, optional)
-        + activity_id (string, optional)
+        + activity_type_id (string, optional)
         + topic_id (string, optional)
         + title: `Meeting with stakeholders` (string, required)
         + description (string, optional)
@@ -1051,7 +1098,7 @@ Update a todo.
     + Attributes (object)
         + id (string, required)
         + creator_id (string, optional)
-        + activity_id (string, optional)
+        + activity_type_id (string, optional)
         + topic_id (string, optional)
         + title: `Meeting with stakeholders` (string, optional)
         + description (string, optional)
@@ -1087,14 +1134,14 @@ Get information about a todo.
     + Attributes (object)
         + id (string, required)
 
-+ Response 201 (application/json)
++ Response 200 (application/json)
 
     + Attributes (object)
         + id: 1 (string)
         + title: `Meeting with stakeholders` (string)
         + description (string)
-        + activity (object)
-            + _type: activity (string)
+        + activity_type (object)
+            + _type: activityType (string)
             + id: 2 (string)
         + creator (object)
             + _type: `user` (string)
@@ -1150,11 +1197,7 @@ Search calendar events
             + starts_before: `2017-01-01T00:00:00+00:00` (string, optional)
             + ends_after: `2018-01-01T00:00:00+00:00` (string, optional)
             + ends_before: `2018-01-01T00:00:00+00:00` (string, optional)
-        + page (object, optional)
-            + size: `20` (number, optional)
-                + Default: `20`
-            + number: `1` (number, optional)
-                + Default: `1`
+        + page (Page, optional)
         + sort (array, optional)
             + (object)
                 + field: `starts_at` (enum[string], required)
@@ -1476,11 +1519,7 @@ List invoices
                 + Members
                     + draft
                     + booked
-        + page (object, optional)
-            + size: `20` (number, optional) - Amount of invoices you want returned, 1 to 100.
-                + Default: `20`
-            + number: `1` (number, optional) - The numerated page you want, starts at 1.
-                + Default: `1`
+        + page (Page, optional)
 
 + Response 200 (application/json)
 
@@ -1543,11 +1582,7 @@ List credit notes
             + department_id: `1` (number, optional) - The ID of the department you wish to filter on.
             + project_id: `1` (number, optional) - The ID of the project you wish to filter on.
             + invoice_id: `1` (number, optional) - The ID of the invoice you wih to filter on.
-        + page (object, optional)
-            + size: `20` (number, optional) - Amount of credit notes you want returned, 1 to 100.
-                + Default: `20`
-            + number: `1` (number, optional) - The numerated page you want, starts at 1.
-                + Default: `1`
+        + page (Page, optional)
 
 + Response 200 (application/json)
 
@@ -1603,9 +1638,10 @@ Search the milestones (cross projects)
 
     + Attributes (object)
         + filter (object, required)
-             + responsible_employee_id: `1` (number, required) - Use this to filter by responsible employee
-             + start_date: `2017-01-01` (string, required) - Format ISO 8601: yyyy-mm-dd
-             + end_date: `2017-01-01` (string, required) - Format ISO 8601: yyyy-mm-dd
+            + responsible_employee_id: `1` (number, required) - Use this to filter by responsible employee
+            + start_date: `2017-01-01` (string, required) - Format ISO 8601: yyyy-mm-dd
+            + end_date: `2017-01-01` (string, required) - Format ISO 8601: yyyy-mm-dd
+        + page (Page, optional)
 
 + Response 200 (application/json)
 
@@ -1745,3 +1781,8 @@ Register a webhook.
         + USD
         + ZAR
 
+## Page
++ size: `20` (number, optional)
+    + Default: `20`
++ number: `1` (number, optional)
+    + Default: `1`
