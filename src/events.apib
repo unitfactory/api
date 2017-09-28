@@ -2,7 +2,7 @@
 
 ### events.list [GET /events.list]
 
-Search calendar events
+Get a list of calendar events.
 
 + Request (application/json)
 
@@ -72,29 +72,9 @@ Search calendar events
                                     + ticket
                             + id (string)
 
-### events.link [POST /events.link]
-
-Link a calendar event to something.
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + id (string)
-        + link (object)
-            + type (enum[string])
-                + Members
-                    + deal
-                    + company
-                    + project
-                    + milestone
-                    + ticket
-            + id (string)
-
-+ Response 204
-
 ### events.info [GET /events.info]
 
-Get calender event information.
+Get details for a single calendar event.
 
 + Request (application/json)
 
@@ -139,6 +119,26 @@ Get calender event information.
                         + milestone
                         + ticket
                 + id (string)
+
+### events.link [POST /events.link]
+
+Link a calendar event to something.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id (string)
+        + link (object)
+            + type (enum[string])
+                + Members
+                    + deal
+                    + company
+                    + project
+                    + milestone
+                    + ticket
+            + id (string)
+
++ Response 204
 
 ### events.create [POST /events.create]
 

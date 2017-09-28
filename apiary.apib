@@ -219,7 +219,7 @@ To retrieve information about the user who authorized your application (the reso
 
 ### users.list [GET /users.list]
 
-Get a list of all users
+Get a list of all users.
 
 + Request (application/json)
 
@@ -243,7 +243,7 @@ Get a list of all users
 
 ### tags.list [GET /tags.list]
 
-Get a list of all tags
+Get a list of all tags.
 
 + Request (application/json)
 
@@ -288,7 +288,7 @@ Get a list of all topics.
 
 ### contacts.list [GET /contacts.list]
 
-Get a paginated list of contacts
+Get a list of contacts.
 
 + Request (application/json)
 
@@ -347,7 +347,7 @@ Get a paginated list of contacts
 
 ### contacts.info [GET /contacts.info]
 
-Get the details for a single contact
+Get details for a single contact.
 
 + Request (application/json)
 
@@ -403,7 +403,7 @@ Get the details for a single contact
 
 ### contacts.add [POST /contacts.add]
 
-Add a contact to Teamleader
+Add a new contact.
 
 + Request (application/json)
 
@@ -440,7 +440,7 @@ Add a contact to Teamleader
 
 ### contacts.update [POST /contacts.update]
 
-Update a Teamleader contact
+Update a contact.
 
 + Request (application/json)
 
@@ -475,7 +475,7 @@ Update a Teamleader contact
 
 ### contacts.delete [POST /contacts.delete]
 
-Delete a contact from Teamleader
+Delete a contact.
 
 + Request (application/json)
 
@@ -486,7 +486,7 @@ Delete a contact from Teamleader
 
 ### contacts.tag [POST /contacts.tag]
 
-Add a tag to a contact
+Add a new or existing tag to a contact.
 
 + Request (application/json)
 
@@ -498,7 +498,7 @@ Add a tag to a contact
 
 ### contacts.untag [POST /contacts.untag]
 
-Remove a tag from a contact
+Remove a tag from a contact.
 
 + Request (application/json)
 
@@ -510,7 +510,7 @@ Remove a tag from a contact
 
 ### contacts.linkToCompany [POST /contacts.linkToCompany]
 
-Linking a contact to a company
+Link a contact to a company.
 
 + Request (application/json)
 
@@ -524,7 +524,7 @@ Linking a contact to a company
 
 ### contacts.unlinkFromCompany [POST /contacts.unlinkFromCompany]
 
-Unlinking a contact from a company
+Unlink a contact from a company.
 
 + Request (application/json)
 
@@ -538,7 +538,7 @@ Unlinking a contact from a company
 
 ### companies.list [GET /companies.list]
 
-Search companies
+Get a list of companies.
 
 + Request (application/json)
 
@@ -588,7 +588,7 @@ Search companies
 
 ### companies.info [GET /companies.info]
 
-Get company info
+Get details for a single company.
 
 + Request (application/json)
 
@@ -634,7 +634,7 @@ Get company info
 
 ### companies.add [POST /companies.create]
 
-Add a Teamleader company
+Add a new company.
 
 + Request (application/json)
 
@@ -670,7 +670,7 @@ Add a Teamleader company
 
 ### companies.update [POST /companies.update]
 
-Update a Teamleader company
+Update a company.
 
 + Request (application/json)
 
@@ -704,7 +704,7 @@ Update a Teamleader company
 
 ### companies.delete [POST /companies.delete]
 
-Delete a company from Teamleader
+Delete a company.
 
 + Request (application/json)
 
@@ -715,7 +715,7 @@ Delete a company from Teamleader
 
 ### companies.tag [POST /companies.tag]
 
-Add a tag to a company
+Add a new or existing tag to a company.
 
 + Request (application/json)
 
@@ -727,7 +727,7 @@ Add a tag to a company
 
 ### companies.untag [POST /companies.untag]
 
-Remove a tag from a company
+Remove a tag from a company.
 
 + Request (application/json)
 
@@ -757,7 +757,7 @@ Get the names of business types (legal structures) a company can have within a c
 
 ### deals.list [GET /deals.list]
 
-Get a list of all deals
+Get a list of deals.
 
 + Request (application/json)
 
@@ -822,7 +822,7 @@ Get a list of all deals
 
 ### deals.info [GET /deals.info]
 
-Get deal details
+Get details for a single deal.
 
 + Request (application/json)
 
@@ -892,7 +892,7 @@ Get deal details
 
 ### deals.create [POST /deals.create]
 
-Create a deal for a contact or company.
+Create a new deal for a customer.
 
 + Request (application/json)
 
@@ -943,7 +943,7 @@ Update a deal.
 
 ### deals.changePhase [POST /deals.changePhase]
 
-Move a deal to a new phase.
+Change the phase of a deal.
 
 + Request (application/json)
 
@@ -955,7 +955,7 @@ Move a deal to a new phase.
 
 ### dealPhases.list [GET /dealPhases.list]
 
-Get a list of all phases a deal can go through
+Get a list of all phases a deal can go through.
 
 + Response 200 (application/json)
 
@@ -967,7 +967,7 @@ Get a list of all phases a deal can go through
 
 ### dealSources.list [GET /dealSources.list]
 
-Get a list of all deal sources
+Get a list of all deal sources.
 
 + Response 200 (application/json)
 
@@ -977,6 +977,8 @@ Get a list of all deal sources
 ## Todos [/todos]
 
 ### todos.list [GET /todos.list]
+
+Get a list of todos.
 
 + Request (application/json)
 
@@ -1182,7 +1184,7 @@ Delete a todo.
 
 ### events.list [GET /events.list]
 
-Search calendar events
+Get a list of calendar events.
 
 + Request (application/json)
 
@@ -1252,29 +1254,9 @@ Search calendar events
                                     + ticket
                             + id (string)
 
-### events.link [POST /events.link]
-
-Link a calendar event to something.
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + id (string)
-        + link (object)
-            + type (enum[string])
-                + Members
-                    + deal
-                    + company
-                    + project
-                    + milestone
-                    + ticket
-            + id (string)
-
-+ Response 204
-
 ### events.info [GET /events.info]
 
-Get calender event information.
+Get details for a single calendar event.
 
 + Request (application/json)
 
@@ -1319,6 +1301,26 @@ Get calender event information.
                         + milestone
                         + ticket
                 + id (string)
+
+### events.link [POST /events.link]
+
+Link a calendar event to something.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id (string)
+        + link (object)
+            + type (enum[string])
+                + Members
+                    + deal
+                    + company
+                    + project
+                    + milestone
+                    + ticket
+            + id (string)
+
++ Response 204
 
 ### events.create [POST /events.create]
 
@@ -1411,7 +1413,7 @@ Cancel a calendar event (for all attendees).
 
 ### departments.list [GET /departments.list]
 
-Get a list of all departments
+Get a list of all departments.
 
 + Response 200 (application/json)
 
@@ -1419,7 +1421,7 @@ Get a list of all departments
         + _items (array)
             + (object)
                 + _type: `department` (string)
-                + id: `42` (number)
+                + id: `42` (string)
                 + name: `Human Resources` (string)
                 + name_short: `HR` (string)
                 + email: `hr@example.com` (string)
@@ -1440,7 +1442,7 @@ Get a list of all departments
 
 ### departments.add [POST /departments.add]
 
-Add a department
+Add a new department.
 
 + Request (application/json)
 
@@ -1467,16 +1469,16 @@ Add a department
 
     + Attributes
         + data (object)
-            + id: `1` (number)
+            + id: `1` (string)
 
 ### departments.update [POST /departments.update]
 
-Update a department
+Update a department.
 
 + Request (application/json)
 
     + Attributes (object)
-        + id: `42` (number, required)
+        + id: `42` (string, required)
         + name: `Human Resources` (string)
         + name_short: `HR` (string)
         + email: `hr@example.com` (string)
@@ -1501,7 +1503,7 @@ Update a department
 
 ### invoices.list [GET /invoices.list]
 
-List invoices
+Get a list of invoices.
 
 + Request (application/json)
 
@@ -1569,7 +1571,7 @@ List invoices
 
 ### creditNotes.list [GET /creditNotes.list]
 
-List credit notes
+Get a list of credit notes.
 
 + Request (application/json)
 
@@ -1632,7 +1634,7 @@ List credit notes
 
 ### milestones.list [GET /milestones.list]
 
-Search the milestones (cross projects)
+Get a list of project milestones.
 
 + Request (application/json)
 
@@ -1660,7 +1662,7 @@ Search the milestones (cross projects)
 
 ### /webhooks.register [POST /webhooks.register]
 
-Register a webhook.
+Register a new webhook.
 
 + Request (application/json)
 
