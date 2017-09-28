@@ -7,7 +7,7 @@ Create a new todo.
 + Request (application/json)
 
     + Attributes (object)
-        + user_id (string, optional)
+        + creator_id (string, optional)
         + activity_id (string, optional)
         + topic_id (string, optional)
         + title: `Meeting with stakeholders` (string, required)
@@ -72,7 +72,7 @@ Update a todo.
 
     + Attributes (object)
         + id (string, required)
-        + user_id (string, optional)
+        + creator_id (string, optional)
         + activity_id (string, optional)
         + topic_id (string, optional)
         + title: `Meeting with stakeholders` (string, optional)
@@ -118,7 +118,7 @@ Get information about a todo.
         + activity (object)
             + _type: activity (string)
             + id: 2 (string)
-        + user (object)
+        + creator (object)
             + _type: `user` (string)
             + id: 1 (string)
         + due_at: `2016-02-04T16:44:33+00:00` (string)
