@@ -1,0 +1,228 @@
+## Calendar events [/events]
+
+### events.list [GET /events.list]
+
+Get a list of calendar events.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object, required)
+            + ids (array[string], optional)
+            + creator_id (string, optional)
+            + activity_type_id (string, optional)
+            + topic_id (string, optional)
+            + project_id (string, optional)
+            + starts_after: `2017-01-01T00:00:00+00:00` (string, optional)
+            + starts_before: `2017-01-01T00:00:00+00:00` (string, optional)
+            + ends_after: `2018-01-01T00:00:00+00:00` (string, optional)
+            + ends_before: `2018-01-01T00:00:00+00:00` (string, optional)
+        + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field: `starts_at` (enum[string], required)
+                    + Members
+                        + starts_at
+                        + ends_at
+                + order: `asc` (enum[string], optional)
+                    + Members
+                        + asc
+                        + desc
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + _items (array)
+            + (object)
+                + id: `123` (string)
+                + creator (object)
+                    + _type: `user` (string)
+                    + id: 1 (string)
+                + todo (object)
+                    + _type: `todo` (string)
+                    + id: 1 (string)
+                + activity_type (object)
+                    + _type: `activityType` (string)
+                    + id: 1 (string)
+                + topic (object)
+                    + _type: `topic` (string)
+                    + id: 1 (string)
+                + title: `Erlich Bachman's birthday` (string)
+                + description (string)
+                + starts_at: `2016-02-04T16:00:00+00:00` (string)
+                + ends_at: `2016-02-04T18:00:00+00:00` (string)
+                + location (string)
+                + attendees (object)
+                    + _items (array)
+                        + (object)
+                            + _type (enum[string])
+                                + Members
+                                    + user
+                                    + contact
+                            + id (string)
+                + links (object)
+                    + _items (array)
+                        + (object)
+                            + _type (enum[string])
+                                + Members
+                                    + deal
+                                    + company
+                                    + project
+                                    + milestone
+                                    + ticket
+                            + id (string)
+
+### events.info [GET /events.info]
+
+Get details for a single calendar event.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id (string)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + id: 1 (string)
+        + title: `Meeting with stakeholders` (string)
+        + description (string)
+        + creator (object)
+            + _type: `user` (string)
+            + id: 1 (string)
+        + todo (object)
+            + _type: `todo` (string)
+            + id: 1 (string)
+        + activity_type (object)
+            + _type: `activityType` (string)
+            + id: 1 (string)
+        + topic (object)
+            + _type: `topic` (string)
+            + id: 1 (string)
+        + starts_at: `2016-02-04T16:00:00+00:00` (string)
+        + ends_at: `2016-02-04T18:00:00+00:00` (string)
+        + location (Address)
+        + attendees (array)
+            + (object)
+                + _type: `contact` (enum[string])
+                    + Members
+                        + user
+                        + contact
+                + id: `123` (string)
+        + links (array)
+            + (object)
+                + _type (enum[string])
+                    + Members
+                        + deal
+                        + company
+                        + project
+                        + milestone
+                        + ticket
+                + id (string)
+
+### events.link [POST /events.link]
+
+Link a calendar event to something.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id (string)
+        + link (object)
+            + type (enum[string])
+                + Members
+                    + deal
+                    + company
+                    + project
+                    + milestone
+                    + ticket
+            + id (string)
+
++ Response 204
+
+### events.create [POST /events.create]
+
+Create a new calendar event.
+
++ Request (application/json)
+
+    + Attributes
+        + title: `Meeting with stakeholders` (string, optional)
+        + description (string, optional)
+        + creator_id: 1 (string, optional)
+        + todo_id: 1 (string, optional)
+        + activity_type_id: 1 (string, required)
+        + topic_id: 1 (string, optional)
+        + starts_at: `2016-02-04T16:00:00+00:00` (string, required)
+        + ends_at: `2016-02-04T18:00:00+00:00` (string, required)
+        + location (Address, optional)
+        + attendees (array, optional)
+            + (object)
+                + type: `contact` (enum[string], required)
+                    + Members
+                        + user
+                        + contact
+                + id: `123` (string, required)
+        + links (array, optional)
+            + (object)
+                + type (enum[string], required)
+                    + Members
+                        + deal
+                        + company
+                        + project
+                        + milestone
+                        + ticket
+                + id (string, required)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + id: `1` (string)
+
+### events.update [POST /events.update]
+
+Update a calendar event.
+
++ Request (application/json)
+
+    + Attributes
+        + id: 1 (string, required)
+        + title: `Meeting with stakeholders` (string, optional)
+        + description (string, optional)
+        + creator_id: 1 (string, optional)
+        + todo_id: 1 (string, optional)
+        + activity_type_id: 1 (string, optional)
+        + topic_id: 1 (string, optional)
+        + starts_at: `2016-02-04T16:00:00+00:00` (string, optional)
+        + ends_at: `2016-02-04T18:00:00+00:00` (string, optional)
+        + location (Address, optional)
+        + attendees (array, optional)
+            + (object)
+                + type: `contact` (enum[string], required)
+                    + Members
+                        + user
+                        + contact
+                + id: `123` (string, required)
+        + links (array, optional)
+            + (object)
+                + type (enum[string], required)
+                    + Members
+                        + deal
+                        + company
+                        + project
+                        + milestone
+                        + ticket
+                + id (string, required)
+
++ Response 204
+
+### events.cancel [POST /events.cancel]
+
+Cancel a calendar event (for all attendees).
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `1` (string)
+
++ Response 204

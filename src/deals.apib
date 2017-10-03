@@ -2,16 +2,12 @@
 
 ### deals.list [GET /deals.list]
 
-Get a list of all deals
+Get a list of deals.
 
 + Request (application/json)
 
     + Attributes (object)
-        + page (object, optional)
-            + size: `10` (number, optional) - Amount of results you want
-                + Default: `20`
-            + number: `1` (number, optional) - Page of results you want
-                + Default: `1`
+        + page (Page, optional)
         + filter (object, optional)
             + term: `Teamleader` (string, optional) - A search string. Teamleader will try to search deals matching this string.
             + phase_id: `5` (string, optional) - Only return deals with this phase ID
@@ -71,7 +67,7 @@ Get a list of all deals
 
 ### deals.info [GET /deals.info]
 
-Get deal details
+Get details for a single deal.
 
 + Request (application/json)
 
@@ -141,7 +137,7 @@ Get deal details
 
 ### deals.create [POST /deals.create]
 
-Create a deal for a contact or company.
+Create a new deal for a customer.
 
 + Request (application/json)
 
@@ -192,7 +188,7 @@ Update a deal.
 
 ### deals.changePhase [POST /deals.changePhase]
 
-Move a deal to a new phase.
+Change the phase of a deal.
 
 + Request (application/json)
 
@@ -204,7 +200,7 @@ Move a deal to a new phase.
 
 ### dealPhases.list [GET /dealPhases.list]
 
-Get a list of all phases a deal can go through
+Get a list of all phases a deal can go through.
 
 + Response 200 (application/json)
 
@@ -216,7 +212,7 @@ Get a list of all phases a deal can go through
 
 ### dealSources.list [GET /dealSources.list]
 
-Get a list of all deal sources
+Get a list of all deal sources.
 
 + Response 200 (application/json)
 

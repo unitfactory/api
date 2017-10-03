@@ -2,21 +2,18 @@
 
 ### contacts.list [GET /contacts.list]
 
-Get a paginated list of contacts
+Get a list of contacts.
 
 + Request (application/json)
 
     + Attributes (object)
         + filter (object, optional)
             + ids (array[string], optional)
-            + company_id: `1` (string, optional) - Filter contacts by a certain company.
+            + company_id: `1` (string, optional)
             + term: `teamleader` (string, optional)
-            + updated_since: `2017-04-26T10:01:49+00:00` (string, optional) - ISO 8601 date. Teamleader will only return contacts that have been added or modified since that time (inclusive).
-        + page (object, optional)
-            + size: `20` (number, optional) - Amount of contacts you want returned, 1 to 100.
-                + Default: `20`
-            + number: `1` (number, optional) - The numerated page you want, starts at 1.
-                + Default: `1`
+            + telephone: `092980615` (string, optional)
+            + updated_after: `2017-04-26T10:01:49+00:00` (string, optional)
+        + page (Page, optional)
 
 + Response 200 (application/json)
 
@@ -28,9 +25,7 @@ Get a paginated list of contacts
                 + last_name: `Bachman` (string)
                 + salutation: `Mr` (string)
                 + email: `info@piedpiper.eu` (string)
-                + phone: `092980615` (string)
-                + mobile: `0412121212` (string)
-                + fax: `091234567` (string)
+                + telephone (array[Telephone])
                 + website: `https://piedpiper.com` (string)
                 + avatar (string)
                 + address (Address)
@@ -66,12 +61,12 @@ Get a paginated list of contacts
 
 ### contacts.info [GET /contacts.info]
 
-Get the details for a single contact
+Get details for a single contact.
 
 + Request (application/json)
 
     + Attributes (object)
-        + `contact_id`: `1` (string, required)
+        + id: `1` (string, required)
 
 + Response 200 (application/json)
 
@@ -82,9 +77,7 @@ Get the details for a single contact
         + salutation: `Mr` (string)
         + email: `info@piedpiper.eu` (string)
         + invoice_email: `invoicing@example.com` (string)
-        + phone: `092980615` (string)
-        + mobile: `0412121212` (string)
-        + fax: `091234567` (string)
+        + telephone (array[Telephone])
         + website: `https://piedpiper.com` (string)
         + avatar (string)
         + address (Address)
@@ -124,33 +117,31 @@ Get the details for a single contact
 
 ### contacts.add [POST /contacts.add]
 
-Add a contact to Teamleader
+Add a new contact.
 
 + Request (application/json)
 
     + Attributes (object)
-        + first_name: `John` (string, required) - The first name of the new contact
-        + last_name: `Smith` (string, required) - The last name of the new contact
-        + email: `john@example.com` (string, required) - The email address of the new contact
+        + first_name: `John` (string, required)
+        + last_name: `Smith` (string, required)
+        + email: `john@example.com` (string, required)
         + salutation: `Mr` (string, optional)
-        + email: `john@example.com` (string, required) - The email address of the new contact
-        + phone: `1234567` (string, optional)
-        + mobile: `7654321` (string, optional)
-        + fax: `7654321` (string, optional)
+        + email: `john@example.com` (string, required)
+        + telephone (array[Telephone])
         + website: `http://example.com` (string, optional)
         + address (Address, optional)
         + delivery_address (Addressee, optional)
         + visiting_address (Addressee, optional)
         + invoice_address (Addressee, optional)
-        + language: `en` (string, optional) - Language code according to ISO 639-1. For Dutch: "nl"
+        + language: `en` (string, optional)
         + gender: `M` (enum[string], optional)
             + Members
                 + M
                 + F
                 + U
         + birthdate: `1989-08-19` (string, optional)
-        + remarks: `Met at expo` (string, optional) - Background information on the contact
-        + tags: expo, upsell (array[string], optional) - Pass one or more tags. Existing tags will be reused, other tags will be automatically created for you.
+        + remarks: `Met at expo` (string, optional)
+        + tags: expo, upsell (array[string], optional)
         + custom_fields (array)
             + (object)
                 + custom_field_id: 123 (string)
@@ -163,84 +154,83 @@ Add a contact to Teamleader
 
 ### contacts.update [POST /contacts.update]
 
-Update a Teamleader contact
+Update a contact.
 
 + Request (application/json)
 
     + Attributes (object)
-        + contact_id: `1` (string, required) - The ID of the contact you want to update
-        + first_name: `John` (string) - The given name of the new contact
-        + last_name: `Smith` (string) - The last name of the new contact
+        + id: `1` (string, required)
+        + first_name: `John` (string)
+        + last_name: `Smith` (string)
         + salutation: `Mr` (string, optional)
-        + email: `john@example.com` (string, required) - The email address of the new contact
-        + phone: `1234567` (string, optional)
-        + mobile: `7654321` (string, optional)
-        + fax: `7654321` (string, optional)
+        + email: `john@example.com` (string, required)
+        + telephone (array[Telephone])
         + website: `http://example.com` (string, optional)
         + address (Address, optional)
         + delivery_address (Addressee, optional)
         + visiting_address (Addressee, optional)
         + invoice_address (Addressee, optional)
-        + language: `en` (string, optional) - Language code according to ISO 639-1. For Dutch: "nl"
+        + language: `en` (string, optional)
         + gender: `M` (enum[string], optional)
             + Members
                 + M
                 + F
                 + U
         + birthdate: `1989-08-19` (string, optional)
-        + remarks: `Met at expo` (string, optional) - Background information on the contact.
-        + tags: expo, upsell (array[string], optional) - Pass one or more tags. Existing tags will be reused, other tags will be automatically created for you.
-        + custom_fields (array)
-            + (object)
-                + custom_field_id: 123 (string)
-                + value
+        + remarks: `Met at expo` (string, optional)
+        + tags: expo, upsell (array[string], optional)
+       + custom_fields (object)
+            + _items (array)
+                + (object)
+                    + custom_field_id: 123 (string)
+                    + value
 
 + Response 204
 
 ### contacts.delete [POST /contacts.delete]
 
-Delete a contact from Teamleader
+Delete a contact.
 
 + Request (application/json)
 
     + Attributes (object)
-        + contact_id: `1` (string, required) - The account ID of the contact you wish to delete
+        + id: `1` (string, required)
 
 + Response 204
 
 ### contacts.tag [POST /contacts.tag]
 
-Add a tag to a contact
+Add a new or existing tag to a contact.
 
 + Request (application/json)
 
     + Attributes (object)
-        + contact_id: `123` (string, required) - The ID of a contact
-        + tags: prospect, expo (array[string], required) - A list of tags to add
+        + id: `123` (string, required)
+        + tags: prospect, expo (array[string], required)
 
 + Response 204
 
 ### contacts.untag [POST /contacts.untag]
 
-Remove a tag from a contact
+Remove a tag from a contact.
 
 + Request (application/json)
 
     + Attributes (object)
-        + contact_id: `123` (string, required) - The ID of a contact
-        + tags: prospect, expo (array[string], required) - A list of tags to remove
+        + id: `123` (string, required)
+        + tags: prospect, expo (array[string], required)
 
 + Response 204
 
 ### contacts.linkToCompany [POST /contacts.linkToCompany]
 
-Linking a contact to a company
+Link a contact to a company.
 
 + Request (application/json)
 
     + Attributes (object)
-        + contact_id: `123` (string, required) - The ID of a contact
-        + company_id: `5` (string, required) - The ID of a company
+        + id: `123` (string, required)
+        + company_id: `5` (string, required)
         + position: `CEO` (string)
         + decision_maker: true (boolean)
 
@@ -248,12 +238,12 @@ Linking a contact to a company
 
 ### contacts.unlinkFromCompany [POST /contacts.unlinkFromCompany]
 
-Unlinking a contact from a company
+Unlink a contact from a company.
 
 + Request (application/json)
 
     + Attributes (object)
-        + contact_id: `123` (string, required) - The ID of a contact
-        + company_id: `5` (string, required) - The ID of a company
+        + id: `123` (string, required)
+        + company_id: `5` (string, required)
 
 + Response 204

@@ -4,8 +4,10 @@
   "description": "Teamleader API",
   "main": "gulpfile.js",
   "scripts": {
-    "build": "docker run -v $PWD:/code apiaryio/client preview --path=/code/apiary.apib --output=/code/apiary.html",
-    "lint": "apib-lint apiary.apib"
+    "preview": "docker run -v $PWD:/code apiaryio/client preview --path=/code/apiary.apib --output=/code/apiary.html",
+    "lint": "apib-lint apiary.apib",
+    "build": "hercule src/apiary.apib -o apiary.apib && apib-lint apiary.apib",
+    "watch": "gulp watch"
   },
   "repository": {
     "type": "git",

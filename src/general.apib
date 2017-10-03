@@ -2,7 +2,12 @@
 
 ### users.list [GET /users.list]
 
-Get a list of all users
+Get a list of all users.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + page (Page, optional)
 
 + Response 200 (application/json)
 
@@ -21,9 +26,43 @@ Get a list of all users
 
 ### tags.list [GET /tags.list]
 
-Get a list of all tags
+Get a list of all tags.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + page (Page, optional)
 
 + Response 200 (application/json)
 
     + Attributes (object)
         + _items : expo, upsell (array[string])
+
+### activityTypes.list [GET /activityTypes.list]
+
+Get a list of all activity types.
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + _items (array[object])
+            + (object)
+                + id (string)
+                + name (string)
+                + color (string)
+                + icon (string)
+
+### topics.list [GET /topics.list]
+
+Get a list of all topics.
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + _items (array[object])
+            + (object)
+                + id (string)
+                + name (string)
+                + hourly_rate (number)
+                + ledger_account (string)
+                + billable (boolean)

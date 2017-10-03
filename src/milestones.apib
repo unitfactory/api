@@ -2,15 +2,16 @@
 
 ### milestones.list [GET /milestones.list]
 
-Search the milestones (cross projects)
+Get a list of project milestones.
 
 + Request (application/json)
 
     + Attributes (object)
         + filter (object, required)
-             + responsible_employee_id: `1` (number, required) - Use this to filter by responsible employee
-             + start_date: `2017-01-01` (string, required) - Format ISO 8601: yyyy-mm-dd
-             + end_date: `2017-01-01` (string, required) - Format ISO 8601: yyyy-mm-dd
+            + responsible_employee_id: `1` (number, required) - Use this to filter by responsible employee
+            + start_date: `2017-01-01` (string, required) - Format ISO 8601: yyyy-mm-dd
+            + end_date: `2017-01-01` (string, required) - Format ISO 8601: yyyy-mm-dd
+        + page (Page, optional)
 
 + Response 200 (application/json)
 

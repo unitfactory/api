@@ -2,7 +2,7 @@
 
 ### departments.list [GET /departments.list]
 
-Get a list of all departments
+Get a list of all departments.
 
 + Response 200 (application/json)
 
@@ -10,7 +10,7 @@ Get a list of all departments
         + _items (array)
             + (object)
                 + _type: `department` (string)
-                + id: `42` (number)
+                + id: `42` (string)
                 + name: `Human Resources` (string)
                 + name_short: `HR` (string)
                 + email: `hr@example.com` (string)
@@ -31,7 +31,7 @@ Get a list of all departments
 
 ### departments.add [POST /departments.add]
 
-Add a department
+Add a new department.
 
 + Request (application/json)
 
@@ -58,16 +58,16 @@ Add a department
 
     + Attributes
         + data (object)
-            + id: `1` (number)
+            + id: `1` (string)
 
 ### departments.update [POST /departments.update]
 
-Update a department
+Update a department.
 
 + Request (application/json)
 
     + Attributes (object)
-        + id: `42` (number, required)
+        + id: `42` (string, required)
         + name: `Human Resources` (string)
         + name_short: `HR` (string)
         + email: `hr@example.com` (string)
