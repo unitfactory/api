@@ -4,7 +4,7 @@
 
 Get a list of companies.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + filter (object, optional)
@@ -15,7 +15,7 @@ Get a list of companies.
             + telephone: `092980615` (string, optional)
         + page (Page, optional)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + `_items` (array)
@@ -54,12 +54,12 @@ Get a list of companies.
 
 Get details for a single company.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: 123 (string)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `123` (string)
@@ -100,7 +100,7 @@ Get details for a single company.
 
 Add a new company.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + name: `Pied Piper` (string, required)
@@ -127,7 +127,7 @@ Add a new company.
                     + custom_field_id: 123 (string)
                     + value
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string)
@@ -136,7 +136,7 @@ Add a new company.
 
 Update a company.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string, required) - The ID of the contact you want to update
@@ -170,7 +170,7 @@ Update a company.
 
 Delete a company.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string, required)
@@ -181,7 +181,7 @@ Delete a company.
 
 Add a new or existing tag to a company.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `123` (string, required)
@@ -193,7 +193,7 @@ Add a new or existing tag to a company.
 
 Remove a tag from a company.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `123` (string, required)
@@ -205,12 +205,12 @@ Remove a tag from a company.
 
 Get the names of business types (legal structures) a company can have within a certain country.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + country: `BE` (string)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array)

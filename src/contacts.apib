@@ -4,7 +4,7 @@
 
 Get a list of contacts.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + filter (object, optional)
@@ -15,7 +15,7 @@ Get a list of contacts.
             + updated_after: `2017-04-26T10:01:49+00:00` (string, optional)
         + page (Page, optional)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array)
@@ -63,12 +63,12 @@ Get a list of contacts.
 
 Get details for a single contact.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string, required)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `456` (string)
@@ -119,7 +119,7 @@ Get details for a single contact.
 
 Add a new contact.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + first_name: `John` (string, required)
@@ -147,7 +147,7 @@ Add a new contact.
                 + custom_field_id: 123 (string)
                 + value
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string)
@@ -156,7 +156,7 @@ Add a new contact.
 
 Update a contact.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string, required)
@@ -191,7 +191,7 @@ Update a contact.
 
 Delete a contact.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string, required)
@@ -202,7 +202,7 @@ Delete a contact.
 
 Add a new or existing tag to a contact.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `123` (string, required)
@@ -214,7 +214,7 @@ Add a new or existing tag to a contact.
 
 Remove a tag from a contact.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `123` (string, required)
@@ -226,7 +226,7 @@ Remove a tag from a contact.
 
 Link a contact to a company.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `123` (string, required)
@@ -240,7 +240,7 @@ Link a contact to a company.
 
 Unlink a contact from a company.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `123` (string, required)

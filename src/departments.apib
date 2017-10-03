@@ -4,7 +4,7 @@
 
 Get a list of all departments.
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array)
@@ -33,7 +33,7 @@ Get a list of all departments.
 
 Add a new department.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + name: `Human Resources` (string, required)
@@ -54,7 +54,7 @@ Add a new department.
         + minimum_late_fee: `12` (number) - Minimum late fee
         + registration_number: `12` (number)
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes
         + data (object)
@@ -64,7 +64,7 @@ Add a new department.
 
 Update a department.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `42` (string, required)

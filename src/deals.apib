@@ -4,7 +4,7 @@
 
 Get a list of deals.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + page (Page, optional)
@@ -15,7 +15,7 @@ Get a list of deals.
             + contact_id: `456` (string, optional) - Only return deals for this contact
             + project_id: `789` (string, optional) - Only return deals for this project
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array)
@@ -50,12 +50,12 @@ Get a list of deals.
 
 Get details for a single deal.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + deal_id: `1` (string, required)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `164938` (string)
@@ -103,7 +103,7 @@ Get details for a single deal.
 
 Create a new deal for a customer.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + customer (object)
@@ -124,7 +124,7 @@ Create a new deal for a customer.
                 + field_id: 123 (string)
                 + value
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string)
@@ -133,7 +133,7 @@ Create a new deal for a customer.
 
 Update a deal.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + deal_id: `1` (string, required)
@@ -154,7 +154,7 @@ Update a deal.
 
 Change the phase of a deal.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + deal_id: `1` (string, required)
@@ -166,7 +166,7 @@ Change the phase of a deal.
 
 Get a list of all phases a deal can go through.
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array)
@@ -178,7 +178,7 @@ Get a list of all phases a deal can go through.
 
 Get a list of all deal sources.
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items: Facebook, Twitter (array[string])
