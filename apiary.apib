@@ -163,7 +163,7 @@ Use this access token to make API calls on behalf of the user using the `Authori
 ```
 GET https://api.teamleader.eu/contacts.list HTTP/1.1
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciO...
-Accept: application/json
+Accept: application/json;charset=utf-8
 ```
 
 ### Refresh tokens
@@ -221,12 +221,12 @@ To retrieve information about the user who authorized your application (the reso
 
 Get a list of all users.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + page (Page, optional)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array)
@@ -245,12 +245,12 @@ Get a list of all users.
 
 Get a list of all tags.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + page (Page, optional)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items : expo, upsell (array[string])
@@ -259,7 +259,7 @@ Get a list of all tags.
 
 Get a list of all activity types.
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array[object])
@@ -273,7 +273,7 @@ Get a list of all activity types.
 
 Get a list of all topics.
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array[object])
@@ -290,7 +290,7 @@ Get a list of all topics.
 
 Get a list of contacts.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + filter (object, optional)
@@ -301,7 +301,7 @@ Get a list of contacts.
             + updated_after: `2017-04-26T10:01:49+00:00` (string, optional)
         + page (Page, optional)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array)
@@ -349,12 +349,12 @@ Get a list of contacts.
 
 Get details for a single contact.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string, required)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `456` (string)
@@ -405,7 +405,7 @@ Get details for a single contact.
 
 Add a new contact.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + first_name: `John` (string, required)
@@ -433,7 +433,7 @@ Add a new contact.
                 + custom_field_id: 123 (string)
                 + value
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string)
@@ -442,7 +442,7 @@ Add a new contact.
 
 Update a contact.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string, required)
@@ -477,7 +477,7 @@ Update a contact.
 
 Delete a contact.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string, required)
@@ -488,7 +488,7 @@ Delete a contact.
 
 Add a new or existing tag to a contact.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `123` (string, required)
@@ -500,7 +500,7 @@ Add a new or existing tag to a contact.
 
 Remove a tag from a contact.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `123` (string, required)
@@ -512,7 +512,7 @@ Remove a tag from a contact.
 
 Link a contact to a company.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `123` (string, required)
@@ -526,7 +526,7 @@ Link a contact to a company.
 
 Unlink a contact from a company.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `123` (string, required)
@@ -540,7 +540,7 @@ Unlink a contact from a company.
 
 Get a list of companies.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + filter (object, optional)
@@ -551,7 +551,7 @@ Get a list of companies.
             + telephone: `092980615` (string, optional)
         + page (Page, optional)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + `_items` (array)
@@ -590,12 +590,12 @@ Get a list of companies.
 
 Get details for a single company.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: 123 (string)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `123` (string)
@@ -636,7 +636,7 @@ Get details for a single company.
 
 Add a new company.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + name: `Pied Piper` (string, required)
@@ -663,7 +663,7 @@ Add a new company.
                     + custom_field_id: 123 (string)
                     + value
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string)
@@ -672,7 +672,7 @@ Add a new company.
 
 Update a company.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string, required) - The ID of the contact you want to update
@@ -706,7 +706,7 @@ Update a company.
 
 Delete a company.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string, required)
@@ -717,7 +717,7 @@ Delete a company.
 
 Add a new or existing tag to a company.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `123` (string, required)
@@ -729,7 +729,7 @@ Add a new or existing tag to a company.
 
 Remove a tag from a company.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `123` (string, required)
@@ -741,12 +741,12 @@ Remove a tag from a company.
 
 Get the names of business types (legal structures) a company can have within a certain country.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + country: `BE` (string)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array)
@@ -759,7 +759,7 @@ Get the names of business types (legal structures) a company can have within a c
 
 Get a list of deals.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + page (Page, optional)
@@ -770,7 +770,7 @@ Get a list of deals.
             + contact_id: `456` (string, optional) - Only return deals for this contact
             + project_id: `789` (string, optional) - Only return deals for this project
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array)
@@ -805,12 +805,12 @@ Get a list of deals.
 
 Get details for a single deal.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + deal_id: `1` (string, required)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `164938` (string)
@@ -858,7 +858,7 @@ Get details for a single deal.
 
 Create a new deal for a customer.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + customer (object)
@@ -879,7 +879,7 @@ Create a new deal for a customer.
                 + field_id: 123 (string)
                 + value
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string)
@@ -888,7 +888,7 @@ Create a new deal for a customer.
 
 Update a deal.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + deal_id: `1` (string, required)
@@ -909,7 +909,7 @@ Update a deal.
 
 Change the phase of a deal.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + deal_id: `1` (string, required)
@@ -921,7 +921,7 @@ Change the phase of a deal.
 
 Get a list of all phases a deal can go through.
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array)
@@ -933,7 +933,7 @@ Get a list of all phases a deal can go through.
 
 Get a list of all deal sources.
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items: Facebook, Twitter (array[string])
@@ -944,7 +944,7 @@ Get a list of all deal sources.
 
 Get a list of todos.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + filter (object, required)
@@ -957,7 +957,7 @@ Get a list of todos.
             + due_before: `2017-01-01T00:00:00+00:00` (string, optional)
         + page (Page, optional)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (array)
         + (object)
@@ -995,7 +995,7 @@ Get a list of todos.
 
 Create a new todo.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + creator_id (string, optional)
@@ -1024,7 +1024,7 @@ Create a new todo.
                         + ticket
                 + id (string, required)
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `456` (string)
@@ -1033,7 +1033,7 @@ Create a new todo.
 
 Schedule a todo in your calendar.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id (string, required)
@@ -1049,7 +1049,7 @@ Schedule a todo in your calendar.
                         + contact
                 + id (string, required)
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _type: `event` (string)
@@ -1059,7 +1059,7 @@ Schedule a todo in your calendar.
 
 Update a todo.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id (string, required)
@@ -1095,12 +1095,12 @@ Update a todo.
 
 Get information about a todo.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id (string, required)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: 1 (string)
@@ -1137,7 +1137,7 @@ Get information about a todo.
 
 Delete a todo.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string)
@@ -1150,7 +1150,7 @@ Delete a todo.
 
 Get a list of calendar events.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + filter (object, required)
@@ -1175,7 +1175,7 @@ Get a list of calendar events.
                         + asc
                         + desc
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array)
@@ -1222,12 +1222,12 @@ Get a list of calendar events.
 
 Get details for a single calendar event.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id (string)
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: 1 (string)
@@ -1270,7 +1270,7 @@ Get details for a single calendar event.
 
 Link a calendar event to something.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id (string)
@@ -1290,7 +1290,7 @@ Link a calendar event to something.
 
 Create a new calendar event.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes
         + title: `Meeting with stakeholders` (string, optional)
@@ -1320,7 +1320,7 @@ Create a new calendar event.
                         + ticket
                 + id (string, required)
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string)
@@ -1329,7 +1329,7 @@ Create a new calendar event.
 
 Update a calendar event.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes
         + id: 1 (string, required)
@@ -1366,7 +1366,7 @@ Update a calendar event.
 
 Cancel a calendar event (for all attendees).
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string)
@@ -1379,7 +1379,7 @@ Cancel a calendar event (for all attendees).
 
 Get a list of all departments.
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array)
@@ -1408,7 +1408,7 @@ Get a list of all departments.
 
 Add a new department.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + name: `Human Resources` (string, required)
@@ -1429,7 +1429,7 @@ Add a new department.
         + minimum_late_fee: `12` (number) - Minimum late fee
         + registration_number: `12` (number)
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes
         + data (object)
@@ -1439,7 +1439,7 @@ Add a new department.
 
 Update a department.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `42` (string, required)
@@ -1469,7 +1469,7 @@ Update a department.
 
 Get a list of invoices.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + filter (object, optional)
@@ -1487,7 +1487,7 @@ Get a list of invoices.
                     + booked
         + page (Page, optional)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array)
@@ -1537,7 +1537,7 @@ Get a list of invoices.
 
 Get a list of credit notes.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + filter (object, optional)
@@ -1550,7 +1550,7 @@ Get a list of credit notes.
             + invoice_id: `1` (number, optional) - The ID of the invoice you wih to filter on.
         + page (Page, optional)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array[object])
@@ -1600,7 +1600,7 @@ Get a list of credit notes.
 
 Get a list of project milestones.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + filter (object, required)
@@ -1609,7 +1609,7 @@ Get a list of project milestones.
             + end_date: `2017-01-01` (string, required) - Format ISO 8601: yyyy-mm-dd
         + page (Page, optional)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array)
@@ -1628,7 +1628,7 @@ Get a list of project milestones.
 
 Register a new webhook.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + url: `https://www.mywebhookurl.com` (string, required) - Your webhook url

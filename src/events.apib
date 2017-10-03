@@ -4,7 +4,7 @@
 
 Get a list of calendar events.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + filter (object, required)
@@ -29,7 +29,7 @@ Get a list of calendar events.
                         + asc
                         + desc
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array)
@@ -76,12 +76,12 @@ Get a list of calendar events.
 
 Get details for a single calendar event.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id (string)
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: 1 (string)
@@ -124,7 +124,7 @@ Get details for a single calendar event.
 
 Link a calendar event to something.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id (string)
@@ -144,7 +144,7 @@ Link a calendar event to something.
 
 Create a new calendar event.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes
         + title: `Meeting with stakeholders` (string, optional)
@@ -174,7 +174,7 @@ Create a new calendar event.
                         + ticket
                 + id (string, required)
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string)
@@ -183,7 +183,7 @@ Create a new calendar event.
 
 Update a calendar event.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes
         + id: 1 (string, required)
@@ -220,7 +220,7 @@ Update a calendar event.
 
 Cancel a calendar event (for all attendees).
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string)

@@ -4,7 +4,7 @@
 
 Get a list of invoices.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + filter (object, optional)
@@ -22,7 +22,7 @@ Get a list of invoices.
                     + booked
         + page (Page, optional)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array)
@@ -72,7 +72,7 @@ Get a list of invoices.
 
 Get a list of credit notes.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + filter (object, optional)
@@ -85,7 +85,7 @@ Get a list of credit notes.
             + invoice_id: `1` (number, optional) - The ID of the invoice you wih to filter on.
         + page (Page, optional)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array[object])

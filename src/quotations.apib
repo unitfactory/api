@@ -4,7 +4,7 @@
 
 Add a quotation to a deal
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + deal_id: `1` (string, required)
@@ -25,7 +25,7 @@ Add a quotation to a deal
 
 Update a deal quotation's items
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + quotation_id: `1` (string, required)
@@ -47,12 +47,12 @@ Update a deal quotation's items
 
 Get a quotation
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + quotation_id: `1` (string, required)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + quotation_id: `1` (string)
@@ -74,7 +74,7 @@ Get a quotation
 
 Send a deal's quotation to a client via email.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + quotation_id: `1` (string, required)
