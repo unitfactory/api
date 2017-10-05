@@ -1569,8 +1569,8 @@ List invoices
         + filter (object, optional)
             + contact_id: `123` (string, optional) - The ID of the contact you wish to filter on. You can't provide a company ID.
             + company_id: `123` (string, optional) - The ID of the company you wish to filter on. You can't provide a contact ID.
-            + date_from: `2016-01-01` (string, optional) - Format: yyyy-mm-dd
-            + date_to: `2016-01-01` (string, optional) - yyyy-mm-dd
+            + invoice_date_from: `2016-01-01` (string, optional) - Format: yyyy-mm-dd
+            + invoice_date_to: `2016-01-01` (string, optional) - Format: yyyy-mm-dd
             + deal_id: `1` (string, optional) - The ID of the deal you wish to filter on.
             + department_id: `1` (string, optional) - The ID of the department you wish to filter on.
             + project_id: `1` (string, optional) - The ID of the project you wish to filter on.
@@ -1664,10 +1664,11 @@ Get a single invoice.
                 + contact (object)
                     + _type: `contact` (string)
                     + id: `456` (string)
-        + grouped_lines (array[InvoiceLineItem], optional)
+        + grouped_lines (array[InvoiceLineItemGroup], optional)
         + payments (array)
             + (object)
-                + payment_id (string)
+                + _type `payment` (string)
+                + id (string)
                 + amount (Money)
                 + paid_at (string)
         + total (object)
@@ -1713,7 +1714,7 @@ Draft a new invoice
         + layout_id (string, optional) - Id of the layout you wish to use for this invoice
         + purchase_order_number (string, optional) - The external order number. Overrides possible PO number coming from project.
         + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
-        + grouped_lines (array[InvoiceLineItem], optional)
+        + grouped_lines (array[InvoiceLineItemGroup], optional)
 
 + Response 201 (application/json)
 
@@ -1748,7 +1749,7 @@ Update an existing invoice. Not possible for declared invoices.
         + layout_id (string, optional) - Id of the layout you wish to use for this invoice
         + purchase_order_number (string, optional) - The external order number. Overrides possible PO number coming from project.
         + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
-        + grouped_lines (array[InvoiceLineItem], optional)
+        + grouped_lines (array[InvoiceLineItemGroup], optional)
 
 + Response 204
 
@@ -1861,7 +1862,7 @@ Create a draft credit note.
         + layout_id (string, optional) - Id of the layout you wish to use for this invoice
         + purchase_order_number (string, optional) - The external order number. Overrides possible PO number coming from project.
         + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
-        + grouped_lines (array[InvoiceLineItem], optional)
+        + grouped_lines (array[InvoiceLineItemGroup], optional)
 
 ### creditNotes.list [GET /creditNotes.list]
 
