@@ -1967,6 +1967,25 @@ Book a draft creditNote.
 
 + Response 204
 
+### taxRates.list [GET /taxRates.list]
+
+List tax rates
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + department_id: `1` (string, optional) - The ID of the department you wish to filter on.
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + _items (array)
+            + (object)
+                + id: `173111` (string)
+                + description: `2017/5` (string)
+                + rate: `0.21` (number)
+
 ## Milestones [/milestones]
 
 ### milestones.list [GET /milestones.list]
