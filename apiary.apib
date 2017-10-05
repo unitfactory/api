@@ -1717,7 +1717,7 @@ Draft a new invoice
 
 ### invoices.update [POST /invoices.update]
 
-Update an existing invoice. Not possible for declared invoices.
+Update an existing invoice.
 
 + Request (application/json)
 
@@ -1780,17 +1780,6 @@ Book a draft invoice.
             + Members
                 + pdf
 
-### invoices.declare [POST /invoices.declare]
-
-Declare a booked invoice, locking the invoice for future changes.
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + invoice_id: `1` (string, required)
-
-+ Response 204
-
 ### invoices.registerPayment [POST /invoices.registerPayment]
 
 + Request (application/json)
@@ -1815,7 +1804,7 @@ Declare a booked invoice, locking the invoice for future changes.
 
 ### invoices.credit [POST /invoices.credit]
 
-Create a credit note from an invoice. Only possible for booked and declared invoices.
+Create a credit note from an invoice.
 
 + Request (application/json)
 
