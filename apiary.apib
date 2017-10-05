@@ -1784,6 +1784,11 @@ Book a draft invoice.
             + Members
                 + pdf
 
++ Response 200
+
+    + Attributes (object)
+        + WHAT_WILL_THIS_CONTAIN - ?????
+
 ### invoices.registerPayment [POST /invoices.registerPayment]
 
 + Request (application/json)
@@ -1805,6 +1810,8 @@ Book a draft invoice.
     + Attributes (object)
         + invoice_id: `1` (string, required)
         + payment_id: `2` (string, required)
+
++ Response 204
 
 ### invoices.credit [POST /invoices.credit]
 
@@ -1828,7 +1835,7 @@ Create a draft credit note.
 + Request (application/json)
 
     + Attributes (object)
-        + invoice_id (string, optional)
+        + id (string, optional)
         + customer (object, optional)
             + type (enum[string])
                 + Members
@@ -1850,6 +1857,12 @@ Create a draft credit note.
         + purchase_order_number (string, optional) - The external order number. Overrides possible PO number coming from project.
         + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
         + grouped_lines (array[WriteLineItemGroup], optional)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + _type: `creditNote` (string)
+        + id: `1` (string)
 
 ### creditNotes.list [GET /creditNotes.list]
 
@@ -1914,9 +1927,45 @@ List credit notes
 
 ### creditNotes.update [POST /creditNotes.update]
 
++ Request (application/json)
+
+    + Attributes (object)
+        + id (string, required)
+        + customer (object, optional)
+            + type (enum[string])
+                + Members
+                    + contact
+                    + company
+            + id (string)
+        + for_attention_of (object, optional)
+            + name (string, optional)
+            + contact_id (string, optional)
+        + department_id (string)
+        + payment_term (object, optional)
+            + type (enum[string])
+                + Members
+                    + cash - Direct payment, often cash
+                    + end_of_month - End of the month of Xth day after the invoice date
+                    + after_invoice_date - X days after invoice date
+            + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
+        + layout_id (string, optional) - Id of the layout you wish to use for this invoice
+        + purchase_order_number (string, optional) - The external order number. Overrides possible PO number coming from project.
+        + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
+        + grouped_lines (array[WriteLineItemGroup], optional)
+
++ Response 204
+
 ### creditNotes.book [POST /creditNotes.book]
 
-### taxRates.list [GET /taxRates.list]
+Book a draft creditNote.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `1` (string, required)
+        + on: `2016-02-04` (string, optional) - If not provided, today will be used
+
++ Response 204
 
 ## Milestones [/milestones]
 
