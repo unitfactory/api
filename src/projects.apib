@@ -1,0 +1,146 @@
+## Projects [/projects]
+
+### projects.list [GET /projects.list]
+
+Search projects
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, required)
+            + status: `active` (enum[string], optional)
+                + Members
+                    + active
+                    + on_hold
+                    + done
+                    + canceled
+            + starts_before: `2017-01-01` (string, optional) - Format ISO 8601: yyyy-mm-dd
+            + starts_after: `2016-01-01` (string, optional) - Format ISO 8601: yyyy-mm-dd
+            + due_before: `2017-01-01` (string, optional) - Format ISO 8601: yyyy-mm-dd
+            + due_after: `2016-01-01` (string, optional) - Format ISO 8601: yyyy-mm-dd
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + _items (array)
+            + (object)
+                + id: `1` (string)
+                + reference: `PRO-2` (string)
+                + title: `New company website` (string)
+                + description (string)
+                + status: `active` (string)
+                    + Members
+                        + active
+                        + on_hold
+                        + done
+                        + canceled
+                + customer (object)
+                    + _type: `contact` (string)
+                    + id: `123` (string)
+                + starts_on: `2016-02-04` (string)
+                + due_on: `2016-10-14` (string)
+                + source (object)
+                    + _type: `deal` (string)
+                    + id: `456` (string)
+
+### project.info [GET /project.info]
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `1` (string)
+        + project_number: `PRO-1` (string)
+        + title: `New company website` (string)
+        + description (string)
+        + status: `active` (string)
+            + Members
+                + active
+                + on_hold
+                + done
+                + canceled
+        + customer (object)
+            + _type: `contact` (enum[string])
+                + Members
+                    + contact
+                    + company
+            + id: `123` (string)
+        + starts_on: `2016-02-04` (string)
+        + due_on: `2016-02-04` (string)
+        + source (object)
+            + _type: `deal` (string)
+            + id: `456` (string)
+        + milestones (object)
+            + _items (array)
+                + (object)
+                    + _type: `milestone` (string)
+                    + id (string)
+
+### project.create [POST /project.create]
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + title: `New company website` (string, required)
+        + description (string, optional)
+        + customer (object, optional)
+            + type: `contact` (enum[string], required)
+                + Members
+                    + contact
+                    + company
+            + id: `123` (string, required)
+        + starts_on: `2016-02-04` (string, required)
+        + source (object, optional)
+            + type: `deal` (enum[string], required)
+                + Members
+                    + deal
+            + id: `456` (string, required)
+
++ Response 201 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `1` (string)
+
+### project.update [POST /project.update]
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `1` (string, required)
+        + title: `New company website` (string, optional)
+        + description (string, optional)
+        + status: `active` (string, optional)
+            + Members
+                + active
+                + on_hold
+                + done
+                + canceled
+        + customer (object, optional)
+            + type: `contact` (enum[string], required)
+                + Members
+                    + contact
+                    + company
+            + id: `123` (string, required)
+        + starts_on: `2016-02-04` (string, optional)
+        + source (object, optional)
+            + type: `deal` (enum[string], required)
+                + Members
+                    + deal
+            + id: `456` (string, required)
+
++ Response 204 (application/json;charset=utf-8)
+
+### project.delete [POST /project.delete]
+
+Delete a project.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `1` (string, required)
+
++ Response 204 (application/json;charset=utf-8)
