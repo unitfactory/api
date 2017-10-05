@@ -955,6 +955,11 @@ Get a list of todos.
             + project_id (string, optional)
             + due_after: `2017-01-01T00:00:00+00:00` (string, optional)
             + due_before: `2017-01-01T00:00:00+00:00` (string, optional)
+            + status: `open` (enum[string])
+                + Members
+                    + open
+                    + completed
+                    + overdue
         + page (Page, optional)
 
 + Response 200 (application/json;charset=utf-8)
@@ -967,6 +972,8 @@ Get a list of todos.
             + activity_type (object)
                 + _type: `activityType` (string)
                 + id: 2 (string)
+            + completed: false (boolean)
+            + completed_at: `2016-02-04T16:44:33+00:00` (string)
             + creator (object)
                 + _type: `user` (string)
                 + id: 1 (string)
@@ -1109,6 +1116,8 @@ Get information about a todo.
         + activity_type (object)
             + _type: activityType (string)
             + id: 2 (string)
+        + completed: false (boolean)
+        + completed_at: `2016-02-04T16:44:33+00:00` (string)
         + creator (object)
             + _type: `user` (string)
             + id: 1 (string)
@@ -1132,6 +1141,18 @@ Get information about a todo.
                         + user
                         + contact
                 + id (string)
+
+### todos.complete [POST /todos.complete]
+
+Mark a todo as completed.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `1` (string)
+        + completed_at: `2016-02-04T16:44:33+00:00` (string)
+
++ Response 204
 
 ### todos.delete [POST /todos.delete]
 
