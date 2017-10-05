@@ -1664,7 +1664,7 @@ Get a single invoice.
                 + contact (object)
                     + _type: `contact` (string)
                     + id: `456` (string)
-        + grouped_lines (array[InvoiceLineItemGroup], optional)
+        + grouped_lines (array[ReadLineItemGroup], optional)
         + payments (array)
             + (object)
                 + _type `payment` (string)
@@ -1714,7 +1714,7 @@ Draft a new invoice
         + layout_id (string, optional) - Id of the layout you wish to use for this invoice
         + purchase_order_number (string, optional) - The external order number. Overrides possible PO number coming from project.
         + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
-        + grouped_lines (array[InvoiceLineItemGroup], optional)
+        + grouped_lines (array[WriteLineItemGroup], optional)
 
 + Response 201 (application/json)
 
@@ -1749,7 +1749,7 @@ Update an existing invoice. Not possible for declared invoices.
         + layout_id (string, optional) - Id of the layout you wish to use for this invoice
         + purchase_order_number (string, optional) - The external order number. Overrides possible PO number coming from project.
         + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
-        + grouped_lines (array[InvoiceLineItemGroup], optional)
+        + grouped_lines (array[WriteLineItemGroup], optional)
 
 + Response 204
 
@@ -1862,7 +1862,7 @@ Create a draft credit note.
         + layout_id (string, optional) - Id of the layout you wish to use for this invoice
         + purchase_order_number (string, optional) - The external order number. Overrides possible PO number coming from project.
         + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
-        + grouped_lines (array[InvoiceLineItemGroup], optional)
+        + grouped_lines (array[WriteLineItemGroup], optional)
 
 ### creditNotes.list [GET /creditNotes.list]
 
@@ -1929,3 +1929,342 @@ List credit notes
 
 ### creditNotes.book [POST /creditNotes.book]
 
+### taxRates.list [GET /taxRates.list]
+
+## Milestones [/milestones]
+
+### milestones.list [GET /milestones.list]
+
+Get a list of project milestones.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object, required)
+            + responsible_employee_id: `1` (number, required) - Use this to filter by responsible employee
+            + start_date: `2017-01-01` (string, required) - Format ISO 8601: yyyy-mm-dd
+            + end_date: `2017-01-01` (string, required) - Format ISO 8601: yyyy-mm-dd
+        + page (Page, optional)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + _items (array)
+            + (object)
+                + id: `247` (number)
+                + name: `Optimize the middle-out compression` (string)
+                + due_date: `2017-01-15` (string)
+                + done: `false` (boolean)
+                + project (object)
+                    + id: `20` (number)
+                    + name: `PiperChat` (string)
+
+## Products [/products]
+
+### products.list [POST /products.list]
+
++ Request (application/json)
+
+    + Attributes (object)
+        + ids: 1,2 (array[string], optional)
+        + page (object, optional)
+            + size: `20` (number, optional) - The amount of contacts returned per request, max 1 to 100
+                + Default: `20`
+            + number: `1` (number, optional) - The current page, the first page is 1
+                + Default: `1`
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + _items (array)
+            + (object)
+                + id: `1` (string)
+                + translations (object)
+                    + _items (array)
+                        + (object)
+                            + language: `EN` (string)
+                            + name: `Product name` (string)
+                            + description: `Product description` (string)
+                + default_language (string)
+                + prices (array[ReadPrice])
+                + price_lists (array)
+                    + (object)
+                        + price_list (object)
+                            + _type (string)
+                            + id (string)
+                        + price (ReadPrice)
+
+### products.info [POST /products.info]
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `1` (string, required)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + id: `1` (string)
+        + translations (object)
+            + _items (array)
+                + (object)
+                    + language: `EN` (string)
+                    + name: `Product name` (string)
+                    + description: `Product description` (string)
+        + default_language (string)
+        + prices (array[ReadPrice])
+        + price_lists (array)
+            + (object)
+                + price_list (object)
+                    + _type (string)
+                    + id (string)
+                + price (ReadPrice)
+        + custom_fields (object)
+            + _items (array)
+                + (object)
+                    + field (object)
+                        + _type: `customField`
+                        + id: 123 (string)
+                    + value: `092980616`
+
+### products.add [POST /products.add]
+
++ Request (application/json)
+
+    + Attributes (object)
+        + translations (array, required)
+            + (object)
+                + language: `EN` (string, required)
+                + name: `Product name` (string, required)
+                + description: `Product description` (string, optional)
+        + default_language (string, required)
+        + prices (array[WritePrice], required)
+        + custom_fields (array, optional)
+            + (object)
+                + custom_field_id: 123 (string, required)
+                + value: `092980616` (required)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + id: `1` (string)
+
+### products.update [POST /products.update]
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id (string, required)
+        + translations (array, optional)
+            + (object)
+                + language: `EN` (string, required)
+                + name: `Product name` (string, required)
+                + description: `Product description` (string, optional)
+        + default_language (string, optional)
+        + prices (array[WritePrice], optional)
+        + custom_fields (array, optional)
+            + (object)
+                + custom_field_id: 123 (string, required)
+                + value: `092980616` (required)
+
++ Response 204 (application/json)
+
+### products.delete [POST /products.delete]
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `1` (string, required)
+
++ Response 204 (application/json)
+
+## Webhooks [/webhooks]
+
+### /webhooks.register [POST /webhooks.register]
+
+Register a new webhook.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + url: `https://www.mywebhookurl.com` (string, required) - Your webhook url
+        + types (array[enum[string]], required) - Array of event types that should fire the webhook
+            + Members
+                + CONTACT_ADDED
+                + CONTACT_EDITED
+                + CONTACT_DELETED
+                + COMPANY_ADDED
+                + COMPANY_EDITED
+                + COMPANY_DELETED
+                + RELATED_CONTACTS_UPDATED
+                + SALE_ADDED
+                + SALE_QUOTATION
+                + SALE_PHASE_CHANGED
+                + SALE_ACCEPTED
+                + SALE_REFUSED
+                + SALE_DELETED
+                + MEETING_ADDED
+                + MEETING_EDITED
+                + MEETING_CANCELLED
+                + TASK_ADDED
+                + TASK_EDITED
+                + TASK_FINISHED
+                + TASK_DELETED
+                + TIMETRACKING_ADDED
+                + TIMETRACKING_EDITED
+                + TIMETRACKING_DELETED
+                + INVOICE_ADDED
+                + INVOICE_UPDATED
+                + INVOICE_BOOKED
+                + INVOICE_SENT
+                + INVOICE_PAID
+                + INVOICE_NOT_PAID
+                + INVOICE_DELETED
+                + CREDITNOTE_ADDED
+                + CREDITNOTE_UPDATED
+                + CREDITNOTE_SENT
+                + CREDITNOTE_DELETED
+                + PRODUCT_ADDED
+                + PRODUCT_EDITED
+                + PRODUCT_DELETED
+                + PROJECT_ADDED
+                + PROJECT_EDITED
+                + PROJECT_DELETED
+                + MILESTONE_ADDED
+                + MILESTONE_EDITED
+                + MILESTONE_CLOSED
+                + MILESTONE_DELETED
+                + TICKET_ADDED
+                + TICKET_EDITED
+                + TICKET_NEW_MESSAGE
+                + TICKET_CLOSED
+                + FILE_ADDED
+                + FILE_EDITED
+                + FILE_DELETED
+                + CUSTOM_FIELD_ADDED
+                + CUSTOM_FIELD_EDITED
+                + CUSTOM_FIELD_DELETED
+                + USER_DAYS_OFF_EDITED
+                + COMPANY_CLOSING_DAYS_EDITED
+
++ Response 204
+
+# Data Structures
+
+## Telephone (object)
++ type: `phone` (enum[string], required)
+    + Members
+        + phone
+        + mobile
+        + fax
++ number: `092980615` (string, required)
++ label: `Reception` (string, optional)
+
+## Address (object)
++ street: `Newell Road` (string)
++ number: `5230` (string)
++ zipcode: `94020` (string)
++ city: `Palo Alto` (string)
++ country: `US` (string)
+
+## Addressee (object)
++ addressee: `Pied Piper Finance Dep.` (string, optional)
++ street: `Newell Road` (string)
++ number: `5230` (string)
++ zipcode: `94020` (string)
++ city: `Palo Alto` (string)
++ country: `US` (string)
+
+## WritePrice (object)
++ price: (Money, required)
++ tax_id: `1` (string, required)
++ tax: `excluding` (enum[string], required)
+    + Members
+        + excluding
+        + including
+
+## ReadPrice (object)
++ price: (Money)
++ tax (object)
+    + _type: `Tax` (string)
+    + id: `1` (string)
++ tax: `excluding` (enum[string])
+    + Members
+        + excluding
+        + including
+
+## Money (object)
++ amount: `123.30` (number, required)
++ currency: `EUR` (enum[string], required)
+    + Members
+        + BAM
+        + CAD
+        + CHF
+        + CLP
+        + CNY
+        + COP
+        + CZK
+        + DKK
+        + EUR
+        + GBP
+        + INR
+        + ISK
+        + JPY
+        + MAD
+        + MXN
+        + NOK
+        + PEN
+        + PLN
+        + RON
+        + SEK
+        + TRY
+        + USD
+        + ZAR
+
+## Page
++ size: `20` (number, optional)
+    + Default: `20`
++ number: `1` (number, optional)
+    + Default: `1`
+
+## WriteLineItemGroup
++ section (object, optional)
+    + title (string, required)
++ line_items (array, required)
+    + (object)
+        + product_id: `1` (string, optional)
+        + quantity: `3` (number, required)
+        + name: `An awesome product` (string, optional)
+        + description: `Additional information` (string, optional)
+        + unit_price (WritePrice, optional)
+        + ledger_id: `1` (string, optional)
+        + source (object, optional)
+            + type (enum[string], required)
+                + project
+                + deal
+                + timetracking
+                + subscription
+            + id (string, required)
+
+## ReadLineItemGroup
++ section (object)
+    + title (string)
++ line_items (array)
+    + (object)
+        + product (object)
+            + _type: `Product` (string)
+            + id: `1` (string)
+        + quantity: `3` (number)
+        + name: `An awesome product` (string)
+        + description: `Additional information` (string)
+        + unit_price (ReadPrice)
+        + ledger (object)
+            + _type: `Ledger` (string) - ?????
+            + id: `1` (string)
+        + source (object)
+            + _type (enum[string])
+                + project
+                + deal
+                + timetracking
+                + subscription
+            + id (string)

@@ -105,7 +105,7 @@ Get a single invoice.
                 + contact (object)
                     + _type: `contact` (string)
                     + id: `456` (string)
-        + grouped_lines (array[InvoiceLineItemGroup], optional)
+        + grouped_lines (array[ReadLineItemGroup], optional)
         + payments (array)
             + (object)
                 + _type `payment` (string)
@@ -155,7 +155,7 @@ Draft a new invoice
         + layout_id (string, optional) - Id of the layout you wish to use for this invoice
         + purchase_order_number (string, optional) - The external order number. Overrides possible PO number coming from project.
         + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
-        + grouped_lines (array[InvoiceLineItemGroup], optional)
+        + grouped_lines (array[WriteLineItemGroup], optional)
 
 + Response 201 (application/json)
 
@@ -190,7 +190,7 @@ Update an existing invoice. Not possible for declared invoices.
         + layout_id (string, optional) - Id of the layout you wish to use for this invoice
         + purchase_order_number (string, optional) - The external order number. Overrides possible PO number coming from project.
         + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
-        + grouped_lines (array[InvoiceLineItemGroup], optional)
+        + grouped_lines (array[WriteLineItemGroup], optional)
 
 + Response 204
 
@@ -303,7 +303,7 @@ Create a draft credit note.
         + layout_id (string, optional) - Id of the layout you wish to use for this invoice
         + purchase_order_number (string, optional) - The external order number. Overrides possible PO number coming from project.
         + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
-        + grouped_lines (array[InvoiceLineItemGroup], optional)
+        + grouped_lines (array[WriteLineItemGroup], optional)
 
 ### creditNotes.list [GET /creditNotes.list]
 

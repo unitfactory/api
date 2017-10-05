@@ -24,35 +24,20 @@
 + city: `Palo Alto` (string)
 + country: `US` (string)
 
-## Price (object)
-+ amount: `123.30` (number, required)
-+ currency: `EUR` (enum[string], required)
-    + Members
-        + BAM
-        + CAD
-        + CHF
-        + CLP
-        + CNY
-        + COP
-        + CZK
-        + DKK
-        + EUR
-        + GBP
-        + INR
-        + ISK
-        + JPY
-        + MAD
-        + MXN
-        + NOK
-        + PEN
-        + PLN
-        + RON
-        + SEK
-        + TRY
-        + USD
-        + ZAR
+## WritePrice (object)
++ price: (Money, required)
 + tax_id: `1` (string, required)
 + tax: `excluding` (enum[string], required)
+    + Members
+        + excluding
+        + including
+
+## ReadPrice (object)
++ price: (Money)
++ tax (object)
+    + _type: `Tax` (string)
+    + id: `1` (string)
++ tax: `excluding` (enum[string])
     + Members
         + excluding
         + including
@@ -91,7 +76,7 @@
 + number: `1` (number, optional)
     + Default: `1`
 
-## InvoiceLineItemGroup
+## WriteLineItemGroup
 + section (object, optional)
     + title (string, required)
 + line_items (array, required)
@@ -100,7 +85,7 @@
         + quantity: `3` (number, required)
         + name: `An awesome product` (string, optional)
         + description: `Additional information` (string, optional)
-        + unit_price (Price, optional)
+        + unit_price (WritePrice, optional)
         + ledger_id: `1` (string, optional)
         + source (object, optional)
             + type (enum[string], required)
@@ -109,3 +94,26 @@
                 + timetracking
                 + subscription
             + id (string, required)
+
+## ReadLineItemGroup
++ section (object)
+    + title (string)
++ line_items (array)
+    + (object)
+        + product (object)
+            + _type: `Product` (string)
+            + id: `1` (string)
+        + quantity: `3` (number)
+        + name: `An awesome product` (string)
+        + description: `Additional information` (string)
+        + unit_price (ReadPrice)
+        + ledger (object)
+            + _type: `Ledger` (string) - ?????
+            + id: `1` (string)
+        + source (object)
+            + _type (enum[string])
+                + project
+                + deal
+                + timetracking
+                + subscription
+            + id (string)
