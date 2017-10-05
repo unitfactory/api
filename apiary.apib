@@ -1509,7 +1509,7 @@ Add a quotation to a deal
 
     + Attributes (object)
         + deal_id: `1` (string, required)
-        + grouped_lines (array[InvoiceLineItem], required)
+        + grouped_lines (array[WriteLineItemGroup], required)
 
 + Response 204
 
@@ -1522,7 +1522,7 @@ Update a deal quotation's items
     + Attributes (object)
         + quotation_id: `1` (string, required)
         + deal_id: `1` (string, optional)
-        + grouped_lines (array[InvoiceLineItem], optional)
+        + grouped_lines (array[WriteLineItemGroup], optional)
 
 + Response 204
 
@@ -1540,7 +1540,7 @@ Get a quotation
     + Attributes (object)
         + quotation_id: `1` (string)
         + deal_id: `1` (string)
-        + grouped_lines (array[InvoiceLineItem])
+        + grouped_lines (array[ReadLineItemGroup])
 
 ### quotations.send [POST /quotations.send]
 
@@ -2176,7 +2176,7 @@ Register a new webhook.
 + country: `US` (string)
 
 ## WritePrice (object)
-+ price: (Money, required)
++ price (Money, required)
 + tax_id: `1` (string, required)
 + tax: `excluding` (enum[string], required)
     + Members
@@ -2184,7 +2184,7 @@ Register a new webhook.
         + including
 
 ## ReadPrice (object)
-+ price: (Money)
++ price (Money)
 + tax (object)
     + _type: `Tax` (string)
     + id: `1` (string)
