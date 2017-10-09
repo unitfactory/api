@@ -10,8 +10,8 @@ List invoices
         + filter (object, optional)
             + contact_id: `123` (string, optional) - The ID of the contact you wish to filter on. You can't provide a company ID.
             + company_id: `123` (string, optional) - The ID of the company you wish to filter on. You can't provide a contact ID.
-            + invoice_date_from: `2016-01-01` (string, optional) - Format: yyyy-mm-dd
-            + invoice_date_to: `2016-01-01` (string, optional) - Format: yyyy-mm-dd
+            + invoice_date_after: `2016-01-01` (string, optional) - Format: yyyy-mm-dd
+            + invoice_date_before: `2016-01-01` (string, optional) - Format: yyyy-mm-dd
             + department_id: `1` (string, optional) - The ID of the department you wish to filter on.
             + status: `booked` (enum[string], optional) - Only return booked or draft invoices. Leave blank to return everything
                 + Members
@@ -207,8 +207,8 @@ Book a draft invoice.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + invoice_id: `1` (string, required)
-        + invoice_date: `2016-02-04` (string, optional)
+        + id: `1` (string, required)
+        + on: `2016-02-04` (string, optional) - If not provided, today will be used
 
 + Response 204
 
@@ -312,8 +312,8 @@ List credit notes
         + filter (object, optional)
             + contact_id: `123` (string, optional) - The ID of the contact you wish to filter on. You can't provide a company ID.
             + company_id: `123` (string, optional) - The ID of the company you wish to filter on. You can't provide a contact ID.
-            + date_from: `2016-01-01` (string, optional) - Format: yyyy-mm-dd
-            + date_to: `2016-01-01` (string, optional) - yyyy-mm-dd
+            + credit_note_date_after: `2016-01-01` (string, optional) - Format: yyyy-mm-dd
+            + credit_note_date_before: `2016-01-01` (string, optional) - yyyy-mm-dd
             + department_id: `1` (string, optional) - The ID of the department you wish to filter on.
             + invoice_id: `1` (string, optional) - The ID of the invoice you wih to filter on.
         + page (Page, optional)
