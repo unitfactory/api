@@ -4,7 +4,7 @@
 
 Get a list of deals.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + page (Page, optional)
@@ -15,7 +15,7 @@ Get a list of deals.
             + contact_id: `456` (string, optional) - Only return deals for this contact
             + project_id: `789` (string, optional) - Only return deals for this project
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array)
@@ -42,39 +42,20 @@ Get a list of deals.
                     + _items (array)
                         + (object)
                             + field (object)
+                                + _type: `customField`
                                 + id: 123 (string)
-                                + name: `A custom field` (string)
-                                + type: `single_line` (enum[string])
-                                    + Members
-                                        + auto_increment
-                                        + boolean
-                                        + company
-                                        + contact
-                                        + date
-                                        + email
-                                        + enum
-                                        + integer
-                                        + money
-                                        + multi_line
-                                        + number
-                                        + phone_number
-                                        + product
-                                        + set
-                                        + single_line
-                                        + url
-                                        + user
-                            + value
+                            + value: `092980616`
 
 ### deals.info [GET /deals.info]
 
 Get details for a single deal.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + deal_id: `1` (string, required)
+        + id: `1` (string, required)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `164938` (string)
@@ -101,34 +82,17 @@ Get details for a single deal.
             + _items (array)
                 + (object)
                     + field (object)
+                        + _type: `customField`
                         + id: 123 (string)
-                        + name: `A custom field` (string)
-                        + type: `single_line` (enum[string])
-                            + Members
-                                + auto_increment
-                                + boolean
-                                + company
-                                + contact
-                                + date
-                                + email
-                                + enum
-                                + integer
-                                + money
-                                + multi_line
-                                + number
-                                + phone_number
-                                + product
-                                + set
-                                + single_line
-                                + url
-                                + user
-                    + value
+                    + value: `092980616`
         + phase_changes (object)
             + _items (array)
                 + (object)
                     + old_phase (object)
+                        + _type: dealPhase (string)
                         + id: `1` (string)
                     + new_phase (object)
+                        + _type: dealPhase (string)
                         + id: `2` (string)
                     + changed_at: `2017-05-01 12:00:00` (string)
                     + changed_by (object)
@@ -139,7 +103,7 @@ Get details for a single deal.
 
 Create a new deal for a customer.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + customer (object)
@@ -160,7 +124,7 @@ Create a new deal for a customer.
                 + field_id: 123 (string)
                 + value
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string)
@@ -169,10 +133,10 @@ Create a new deal for a customer.
 
 Update a deal.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + deal_id: `1` (string, required)
+        + id: `1` (string, required)
         + title: `Interesting business deal` (string, optional)
         + source: `Google Adwords` (string, optional)
         + department_id: `1` (string, optional)
@@ -190,10 +154,10 @@ Update a deal.
 
 Change the phase of a deal.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + deal_id: `1` (string, required)
+        + id: `1` (string, required)
         + phase_id: `1` (string, optional)
 
 + Response 204
@@ -202,7 +166,7 @@ Change the phase of a deal.
 
 Get a list of all phases a deal can go through.
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array)
@@ -214,7 +178,7 @@ Get a list of all phases a deal can go through.
 
 Get a list of all deal sources.
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items: Facebook, Twitter (array[string])

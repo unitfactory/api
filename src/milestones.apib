@@ -4,24 +4,104 @@
 
 Get a list of project milestones.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + filter (object, required)
-            + responsible_employee_id: `1` (number, required) - Use this to filter by responsible employee
-            + start_date: `2017-01-01` (string, required) - Format ISO 8601: yyyy-mm-dd
-            + end_date: `2017-01-01` (string, required) - Format ISO 8601: yyyy-mm-dd
+        + filter (object, optional)
+            + ids (array[string], optional)
+            + project_id (string, optional)
+            + status (enum[string], optional)
+                + Members
+                    + open
+                    + closed
+            + due_before: `2017-01-01` (string, optional)
+            + due_after: `2017-01-01` (string, optional)
         + page (Page, optional)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + _items (array)
-            + (object)
-                + id: `247` (number)
-                + name: `Optimize the middle-out compression` (string)
-                + due_date: `2017-01-15` (string)
-                + done: `false` (boolean)
-                + project (object)
-                    + id: `20` (number)
-                    + name: `PiperChat` (string)
+        + id: `1` (string)
+        + project (object)
+            + _type: `project` (string)
+            + id: `2` (string)
+        + due_on: `2018-01-01` (string)
+        + name: `Initial setup` (string)
+        + status: `done` (enum[string])
+            + Members
+                + open
+                + closed
+
+### milestones.info [GET /milestones.info]
+
+Get details for a single milestone.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `1` (string)
+        + project (object)
+            + _type: `project` (string)
+            + id: `2` (string)
+        + due_on: `2018-01-01` (string)
+        + name: `Initial setup` (string)
+        + status: `done` (enum[string])
+            + Members
+                + open
+                + closed
+
+### milestones.create [GET /milestones.create]
+
+Create a new milestone.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + project_id: `1` (string, required)
+        + due_on: `2018-01-01` (string, required)
+        + name: `Initial setup` (string, required)
+
++ Response 201 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `1` (string)
+
+### milestones.update [GET /milestones.update]
+
+Update a milestone.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `1` (string, required)
+        + due_on: `2018-01-01` (string, optional)
+        + name: `Initial setup` (string, optional)
+
++ Response 204 (application/json;charset=utf-8)
+
+### milestones.close [GET /milestones.close]
+
+Close a milestone.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `1` (string, required)
+
++ Response 204 (application/json;charset=utf-8)
+
+### milestones.reopen [GET /milestones.reopen]
+
+Open a closed milestone.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `1` (string, required)
+
++ Response 204 (application/json;charset=utf-8)

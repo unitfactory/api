@@ -4,7 +4,7 @@
 
 Get a list of companies.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + filter (object, optional)
@@ -15,7 +15,7 @@ Get a list of companies.
             + telephone: `092980615` (string, optional)
         + page (Page, optional)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + `_items` (array)
@@ -54,12 +54,12 @@ Get a list of companies.
 
 Get details for a single company.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: 123 (string)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `123` (string)
@@ -100,7 +100,7 @@ Get details for a single company.
 
 Add a new company.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + name: `Pied Piper` (string, required)
@@ -127,7 +127,7 @@ Add a new company.
                     + custom_field_id: 123 (string)
                     + value
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string)
@@ -136,15 +136,15 @@ Add a new company.
 
 Update a company.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string, required) - The ID of the contact you want to update
-        + name: `1` (string, required)
+        + name: `1` (string)
         + business_type: `NV` (string, optional) - containing the company type (eg NV, BVBA,..)
         + vat_number: `BE0899623035` (string, optional)
         + local_business_number: `63326426` (string, optional) - the local business number (KVK in the Netherlands)
-        + email: `john@example.com` (string, required) - The email address of the new contact
+        + email: `john@example.com` (string) - The email address of the new contact
         + invoice_email: `invoicing@example.com` (string, optional)
         + telephone (array[Telephone])
         + website: `http://example.com` (string, optional)
@@ -158,11 +158,10 @@ Update a company.
         + responsible_user_id (string, optional)
         + remarks: `Met at expo` (string, optional)
         + tags: expo, upsell (array[string], optional)
-        + custom_fields (object)
-            + _items (array)
-                + (object)
-                    + custom_field_id: 123 (string)
-                    + value
+        + custom_fields (array)
+            + (object)
+                + field_id: 123 (string)
+                + value
 
 + Response 204
 
@@ -170,7 +169,7 @@ Update a company.
 
 Delete a company.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string, required)
@@ -181,7 +180,7 @@ Delete a company.
 
 Add a new or existing tag to a company.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `123` (string, required)
@@ -193,7 +192,7 @@ Add a new or existing tag to a company.
 
 Remove a tag from a company.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `123` (string, required)
@@ -205,12 +204,12 @@ Remove a tag from a company.
 
 Get the names of business types (legal structures) a company can have within a certain country.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + country: `BE` (string)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array)

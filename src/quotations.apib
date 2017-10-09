@@ -4,7 +4,7 @@
 
 Add a quotation to a deal
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + deal_id: `1` (string, required)
@@ -16,10 +16,10 @@ Add a quotation to a deal
 
 Update a deal quotation's items
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + quotation_id: `1` (string, required)
+        + id: `1` (string, required)
         + deal_id: `1` (string, optional)
         + grouped_lines (array[WriteLineItemGroup], optional)
 
@@ -29,15 +29,15 @@ Update a deal quotation's items
 
 Get a quotation
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + quotation_id: `1` (string, required)
+        + id: `1` (string, required)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + quotation_id: `1` (string)
+        + id: `1` (string)
         + deal_id: `1` (string)
         + grouped_lines (array[ReadLineItemGroup])
 
@@ -45,10 +45,10 @@ Get a quotation
 
 Send a deal's quotation to a client via email.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + quotation_id: `1` (string, required)
+        + id: `1` (string, required)
         + email: `john@example.com` (string, required) - The email recipient
         + subject: Your quotation` (string, required) - The email subject
         + message: `1` (string, required) - The email body

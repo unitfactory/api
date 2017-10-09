@@ -4,7 +4,7 @@
 
 List invoices
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + filter (object, optional)
@@ -22,7 +22,7 @@ List invoices
                     + booked
         + page (Page, optional)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array)
@@ -309,7 +309,7 @@ Create a draft credit note.
 
 List credit notes
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + filter (object, optional)
@@ -322,8 +322,7 @@ List credit notes
             + invoice_id: `1` (string, optional) - The ID of the invoice you wih to filter on.
         + page (Page, optional)
 
-
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array[object])

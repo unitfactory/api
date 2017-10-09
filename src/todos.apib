@@ -4,7 +4,7 @@
 
 Get a list of todos.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + filter (object, required)
@@ -15,9 +15,14 @@ Get a list of todos.
             + project_id (string, optional)
             + due_after: `2017-01-01T00:00:00+00:00` (string, optional)
             + due_before: `2017-01-01T00:00:00+00:00` (string, optional)
+            + status: `open` (enum[string])
+                + Members
+                    + open
+                    + completed
+                    + overdue
         + page (Page, optional)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (array)
         + (object)
@@ -27,6 +32,8 @@ Get a list of todos.
             + activity_type (object)
                 + _type: `activityType` (string)
                 + id: 2 (string)
+            + completed: false (boolean)
+            + completed_at: `2016-02-04T16:44:33+00:00` (string)
             + creator (object)
                 + _type: `user` (string)
                 + id: 1 (string)
@@ -55,7 +62,7 @@ Get a list of todos.
 
 Create a new todo.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + creator_id (string, optional)
@@ -84,7 +91,7 @@ Create a new todo.
                         + ticket
                 + id (string, required)
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `456` (string)
@@ -93,7 +100,7 @@ Create a new todo.
 
 Schedule a todo in your calendar.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id (string, required)
@@ -109,7 +116,7 @@ Schedule a todo in your calendar.
                         + contact
                 + id (string, required)
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _type: `event` (string)
@@ -119,7 +126,7 @@ Schedule a todo in your calendar.
 
 Update a todo.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id (string, required)
@@ -155,12 +162,12 @@ Update a todo.
 
 Get information about a todo.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id (string, required)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: 1 (string)
@@ -169,6 +176,8 @@ Get information about a todo.
         + activity_type (object)
             + _type: activityType (string)
             + id: 2 (string)
+        + completed: false (boolean)
+        + completed_at: `2016-02-04T16:44:33+00:00` (string)
         + creator (object)
             + _type: `user` (string)
             + id: 1 (string)
@@ -193,11 +202,23 @@ Get information about a todo.
                         + contact
                 + id (string)
 
+### todos.complete [POST /todos.complete]
+
+Mark a todo as completed.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `1` (string)
+        + completed_at: `2016-02-04T16:44:33+00:00` (string)
+
++ Response 204
+
 ### todos.delete [POST /todos.delete]
 
 Delete a todo.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string)
