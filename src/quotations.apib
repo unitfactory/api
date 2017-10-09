@@ -28,7 +28,7 @@ Update a deal quotation's items
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + quotation_id: `1` (string, required)
+        + id: `1` (string, required)
         + deal_id: `1` (string, optional)
         + items (array[object], optional)
             + (object)
@@ -50,12 +50,12 @@ Get a quotation
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + quotation_id: `1` (string, required)
+        + id: `1` (string, required)
 
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + quotation_id: `1` (string)
+        + id: `1` (string)
         + deal_id: `1` (string)
         + items (array[object])
             + (object)
@@ -77,7 +77,7 @@ Send a deal's quotation to a client via email.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + quotation_id: `1` (string, required)
+        + id: `1` (string, required)
         + email: `john@example.com` (string, required) - The email recipient
         + subject: Your quotation` (string, required) - The email subject
         + message: `1` (string, required) - The email body

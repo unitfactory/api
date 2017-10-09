@@ -53,7 +53,7 @@ Get details for a single deal.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + deal_id: `1` (string, required)
+        + id: `1` (string, required)
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -136,7 +136,7 @@ Update a deal.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + deal_id: `1` (string, required)
+        + id: `1` (string, required)
         + title: `Interesting business deal` (string, optional)
         + source: `Google Adwords` (string, optional)
         + department_id: `1` (string, optional)
@@ -157,7 +157,7 @@ Change the phase of a deal.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + deal_id: `1` (string, required)
+        + id: `1` (string, required)
         + phase_id: `1` (string, optional)
 
 + Response 204
