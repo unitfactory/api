@@ -1488,7 +1488,7 @@ Update a department.
 
 Add a quotation to a deal
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + deal_id: `1` (string, required)
@@ -1500,10 +1500,10 @@ Add a quotation to a deal
 
 Update a deal quotation's items
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + quotation_id: `1` (string, required)
+        + id: `1` (string, required)
         + deal_id: `1` (string, optional)
         + grouped_lines (array[WriteLineItemGroup], optional)
 
@@ -1513,15 +1513,15 @@ Update a deal quotation's items
 
 Get a quotation
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + quotation_id: `1` (string, required)
+        + id: `1` (string, required)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + quotation_id: `1` (string)
+        + id: `1` (string)
         + deal_id: `1` (string)
         + grouped_lines (array[ReadLineItemGroup])
 
@@ -1529,10 +1529,10 @@ Get a quotation
 
 Send a deal's quotation to a client via email.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + quotation_id: `1` (string, required)
+        + id: `1` (string, required)
         + email: `john@example.com` (string, required) - The email recipient
         + subject: Your quotation` (string, required) - The email subject
         + message: `1` (string, required) - The email body
@@ -1614,12 +1614,12 @@ List invoices
 
 Get a single invoice.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + invoice_id: `1` (string)
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `173111` (string)
@@ -1672,7 +1672,7 @@ Get a single invoice.
 
 Draft a new invoice
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + customer (object, optional) - Who is the invoice for?
@@ -1697,7 +1697,7 @@ Draft a new invoice
         + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
         + grouped_lines (array[WriteLineItemGroup], optional)
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string) - ID of the invoice that was created
@@ -1706,7 +1706,7 @@ Draft a new invoice
 
 Update an existing invoice.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + invoice_id: `123` (string)
@@ -1738,7 +1738,7 @@ Update an existing invoice.
 
 Delete an existing invoice. Only possible for draft invoices or the last booked invoice.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + invoice_id: `1` (string, required)
@@ -1749,7 +1749,7 @@ Delete an existing invoice. Only possible for draft invoices or the last booked 
 
 Book a draft invoice.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + invoice_id: `1` (string, required)
@@ -1759,7 +1759,7 @@ Book a draft invoice.
 
 ### invoices.download [POST /invoices.download]
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + invoice_id: `1` (string, required)
@@ -1774,21 +1774,21 @@ Book a draft invoice.
 
 ### invoices.registerPayment [POST /invoices.registerPayment]
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + invoice_id: `1` (string, required)
         + amount (Money, optional)
         + paid_at: `2016-02-04T16:44:33+00:00` (string, optional)
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `2` (string) - ID of the payment that was created
 
 ### invoices.removePayment [POST /invoices.removePayment]
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + invoice_id: `1` (string, required)
@@ -1800,12 +1800,12 @@ Book a draft invoice.
 
 Create a credit note from an invoice.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + invoice_id: `1` (string, required)
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _type: `creditNote` (string)
@@ -1815,7 +1815,7 @@ Create a credit note from an invoice.
 
 Create a draft credit note.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id (string, optional)
@@ -1841,7 +1841,7 @@ Create a draft credit note.
         + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
         + grouped_lines (array[WriteLineItemGroup], optional)
 
-+ Response 201 (application/json)
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _type: `creditNote` (string)
@@ -1909,7 +1909,7 @@ List credit notes
 
 ### creditNotes.update [POST /creditNotes.update]
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id (string, required)
@@ -1941,7 +1941,7 @@ List credit notes
 
 Book a draft creditNote.
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string, required)
@@ -1953,14 +1953,14 @@ Book a draft creditNote.
 
 List tax rates
 
-+ Request (application/json)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + filter (object, optional)
             + ids (array[string], optional)
             + department_id: `1` (string, optional) - The ID of the department you wish to filter on.
 
-+ Response 200 (application/json)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + _items (array)
