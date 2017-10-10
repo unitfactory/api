@@ -25,7 +25,7 @@
 + country: `US` (string)
 
 ## WritePrice (object)
-+ price (Money, required)
++ Include Money
 + tax_id: `1` (string, required)
 + tax: `excluding` (enum[string], required)
     + Members
@@ -33,7 +33,7 @@
         + including
 
 ## ReadPrice (object)
-+ price (Money)
++ Include Money
 + tax (object)
     + _type: `Tax` (string)
     + id: `1` (string)
