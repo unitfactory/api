@@ -2290,7 +2290,7 @@ Register a new webhook.
 + country: `US` (string)
 
 ## WritePrice (object)
-+ price (Money, required)
++ Include Money
 + tax_id: `1` (string, required)
 + tax: `excluding` (enum[string], required)
     + Members
@@ -2298,8 +2298,8 @@ Register a new webhook.
         + including
 
 ## ReadPrice (object)
-+ price (Money)
-+ tax (object)
++ Include Money
++ applied_tax (object)
     + _type: `Tax` (string)
     + id: `1` (string)
 + tax: `excluding` (enum[string])
