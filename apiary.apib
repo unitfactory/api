@@ -766,7 +766,17 @@ Get a list of deals.
             + phase_id: `5` (string, optional) - Only return deals with this phase ID
             + company_id: `123` (string, optional) - Only return deals for this company
             + contact_id: `456` (string, optional) - Only return deals for this contact
-            + project_id: `789` (string, optional) - Only return deals for this project
+            + responsible_user_id: `456` (string, optional) - Only return deals for this user
+        + sort (array, optional)
+            + (object)
+                + field: `created_at` (enum[string], required)
+                    + Members
+                        + created_at
+                    + Default: `created_at`
+                + order: `desc` (enum[string], optional)
+                    + Members
+                        + desc
+                    + Default: `created_at`
 
 + Response 200 (application/json;charset=utf-8)
 
