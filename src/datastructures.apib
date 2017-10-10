@@ -24,9 +24,27 @@
 + city: `Palo Alto` (string)
 + country: `US` (string)
 
+## WritePrice (object)
++ Include Money
++ tax_id: `1` (string, required)
++ tax: `excluding` (enum[string], required)
+    + Members
+        + excluding
+        + including
+
+## ReadPrice (object)
++ Include Money
++ applied_tax (object)
+    + _type: `Tax` (string)
+    + id: `1` (string)
++ tax: `excluding` (enum[string])
+    + Members
+        + excluding
+        + including
+
 ## Money (object)
-+ amount: `123.30` (number)
-+ currency: `EUR` (enum[string])
++ amount: `123.30` (number, required)
++ currency: `EUR` (enum[string], required)
     + Members
         + BAM
         + CAD
@@ -57,3 +75,45 @@
     + Default: `20`
 + number: `1` (number, optional)
     + Default: `1`
+
+## WriteLineItemGroup
++ section (object, optional)
+    + title (string, required)
++ line_items (array, required)
+    + (object)
+        + product_id: `1` (string, optional)
+        + quantity: `3` (number, required)
+        + description: `An awesome product` (string, optional)
+        + extended_description: `Additional information` (string, optional)
+        + unit_price (WritePrice, optional)
+        + ledger_id: `1` (string, optional)
+        + source (object, optional)
+            + type (enum[string], required)
+                + project
+                + deal
+                + timetracking
+                + subscription
+            + id (string, required)
+
+## ReadLineItemGroup
++ section (object)
+    + title (string)
++ line_items (array)
+    + (object)
+        + product (object)
+            + _type: `Product` (string)
+            + id: `1` (string)
+        + quantity: `3` (number)
+        + description: `An awesome product` (string)
+        + extended_description: `Additional information` (string)
+        + unit_price (ReadPrice)
+        + ledger (object)
+            + _type: `Ledger` (string) - ?????
+            + id: `1` (string)
+        + source (object)
+            + _type (enum[string])
+                + project
+                + deal
+                + timetracking
+                + subscription
+            + id (string)
