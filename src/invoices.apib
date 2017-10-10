@@ -105,8 +105,8 @@ Get a single invoice.
         + grouped_lines (array[ReadLineItemGroup], optional)
         + payments (array)
             + (object)
-                + _type `payment` (string)
-                + id (string)
+                + amount (Money)
+                + paid_at: `2016-02-04T16:44:33+00:00` (string)
         + total (object)
             + tax_exclusive (Money)
             + tax_inclusive (Money)
@@ -233,13 +233,10 @@ Book a draft invoice.
 
     + Attributes (object)
         + invoice_id: `1` (string, required)
-        + amount (Money, optional)
+        + amount (Money, required)
         + paid_at: `2016-02-04T16:44:33+00:00` (string, optional)
 
-+ Response 201 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id: `2` (string) - ID of the payment that was created
++ Response 204 (application/json;charset=utf-8)
 
 ### invoices.removePayment [POST /invoices.removePayment]
 
@@ -247,7 +244,8 @@ Book a draft invoice.
 
     + Attributes (object)
         + invoice_id: `1` (string, required)
-        + payment_id: `2` (string, required)
+        + amount (Money, required)
+        + paid_at: `2016-02-04T16:44:33+00:00` (string, required)
 
 + Response 204
 
@@ -419,6 +417,6 @@ List tax rates
     + Attributes (object)
         + _items (array)
             + (object)
-                + id: `173111` (string)
-                + description: `2017/5` (string)
+                + id: `1` (string)
+                + description: `21%` (string)
                 + rate: `0.21` (number)
