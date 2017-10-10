@@ -13,7 +13,17 @@ Get a list of deals.
             + phase_id: `5` (string, optional) - Only return deals with this phase ID
             + company_id: `123` (string, optional) - Only return deals for this company
             + contact_id: `456` (string, optional) - Only return deals for this contact
-            + project_id: `789` (string, optional) - Only return deals for this project
+            + responsible_user_id: `456` (string, optional) - Only return deals for this user
+        + sort (array, optional)
+            + (object)
+                + field: `created_at` (enum[string], required)
+                    + Members
+                        + created_at
+                    + Default: `created_at`
+                + order: `desc` (enum[string], optional)
+                    + Members
+                        + desc
+                    + Default: `created_at`
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -25,6 +35,7 @@ Get a list of deals.
                 + customer (object)
                     + _type: `contact`
                     + id: 1 (string)
+                + value (Money)
                 + probability: `0.5` (number)
                 + phase (object)
                     + _type: `dealPhase`
@@ -70,7 +81,7 @@ Get details for a single deal.
         + responsible_user (object)
             + _type: user (string)
             + id: 17 (string)
-        + value: `10` (number)
+        + value (Money)
         + probability: `0.75` (number)
         + created_at: `2017-05-09T11:25:11+00:00` (string)
         + last_activity_at: `2017-05-09T11:30:58+00:00` (string)
@@ -117,7 +128,7 @@ Create a new deal for a customer.
         + department_id: `1` (string, optional)
         + responsible_user_id: `1` (string, optional)
         + phase_id: `1` (string, optional)
-        + value: `10` (number, optional)
+        + value (Money, optional)
         + probability: `0.75` (number, optional)
         + custom_fields (array)
             + (object)
@@ -141,7 +152,7 @@ Update a deal.
         + source: `Google Adwords` (string, optional)
         + department_id: `1` (string, optional)
         + responsible_user_id: `1` (string, optional)
-        + value: `10` (number, optional)
+        + value (Money, optional)
         + probability: `0.75` (number, optional)
         + custom_fields (array)
             + (object)
