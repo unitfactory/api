@@ -32,11 +32,17 @@ Get a list of deals.
             + (object)
                 + id: `164938` (string)
                 + title: `Interesting deal` (string)
+                + status: `won` (enum[string])
+                    + Members
+                        + open
+                        + won
+                        + lost
                 + customer (object)
                     + _type: `contact`
                     + id: 1 (string)
-                + value (Money)
-                + probability: `0.5` (number)
+                + estimated_value (Money)
+                + estimated_closing_date: `2017-05-09` (string)
+                + estimated_probability: `0.5` (number)
                 + phase (object)
                     + _type: `dealPhase`
                     + id: 1 (string)
@@ -45,8 +51,7 @@ Get a list of deals.
                     + id: 1 (string)
                 + created_at: `2017-05-09T11:25:11+00:00` (string)
                 + last_activity_at: `2017-05-09T11:30:58+00:00` (string)
-                + won_at: `2017-05-09T11:31:30+00:00` (string)
-                + lost_at: `2017-05-09T11:31:30+00:00` (string)
+                + closed_at: `2017-05-09T11:31:30+00:00` (string)
                 + reason_lost: `No interest` (string)
                 + source: `Facebook` (string)
                 + custom_fields (object)
@@ -71,22 +76,26 @@ Get details for a single deal.
     + Attributes (object)
         + id: `164938` (string)
         + title: `Interesting deal` (string)
+        + status: `won` (enum[string])
+            + Members
+                + open
+                + won
+                + lost
         + customer (object)
             + _type: `contact` (string)
             + id: 123 (string)
-        + probability: `0.5` (number)
+        + estimated_value (Money)
+        + estimated_closing_date: `2017-05-09` (string)
+        + estimated_probability: `0.5` (number)
         + phase (object)
             + _type: dealPhase (string)
             + id: `5` (string)
         + responsible_user (object)
             + _type: user (string)
             + id: 17 (string)
-        + value (Money)
-        + probability: `0.75` (number)
         + created_at: `2017-05-09T11:25:11+00:00` (string)
         + last_activity_at: `2017-05-09T11:30:58+00:00` (string)
-        + won_at: `2017-05-09T11:31:30+00:00` (string)
-        + lost_at: `2017-05-09T11:31:30+00:00` (string)
+        + closed_at: `2017-05-09T11:31:30+00:00` (string)
         + reason_lost: `No interest` (string)
         + source: `Facebook` (string)
         + custom_fields (object)
@@ -96,19 +105,17 @@ Get details for a single deal.
                         + _type: `customField`
                         + id: 123 (string)
                     + value: `092980616`
-        + phase_changes (object)
+        + phase_history/phases/history (object)
             + _items (array)
                 + (object)
-                    + old_phase (object)
+                    + phase (object)
                         + _type: dealPhase (string)
                         + id: `1` (string)
-                    + new_phase (object)
-                        + _type: dealPhase (string)
-                        + id: `2` (string)
-                    + changed_at: `2017-05-01 12:00:00` (string)
-                    + changed_by (object)
+                    + started_by (object)
                         + _type: user (string)
                         + id: `5` (string)
+                    + started_at: `2017-05-01 12:00:00` (string)
+                    + ended_at: `2017-05-01 12:00:00` (string)
 
 ### deals.create [POST /deals.create]
 
@@ -128,8 +135,9 @@ Create a new deal for a customer.
         + department_id: `1` (string, optional)
         + responsible_user_id: `1` (string, optional)
         + phase_id: `1` (string, optional)
-        + value (Money, optional)
-        + probability: `0.75` (number, optional)
+        + estimated_value (Money, optional)
+        + estimated_probability: `0.75` (number, optional)
+        + estimated_closing_date: `2017-05-09` (string, optional)
         + custom_fields (array)
             + (object)
                 + field_id: 123 (string)
@@ -152,8 +160,9 @@ Update a deal.
         + source: `Google Adwords` (string, optional)
         + department_id: `1` (string, optional)
         + responsible_user_id: `1` (string, optional)
-        + value (Money, optional)
-        + probability: `0.75` (number, optional)
+        + estimated_value (Money, optional)
+        + estimated_probability: `0.75` (number, optional)
+        + estimated_closing_date: `2017-05-09` (string, optional)
         + custom_fields (array)
             + (object)
                 + field_id: 123 (string)
@@ -170,6 +179,29 @@ Change the phase of a deal.
     + Attributes (object)
         + id: `1` (string, required)
         + phase_id: `1` (string, optional)
+
++ Response 204
+
+### deals.won [POST /deals.won]
+
+Mark a deal as won.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `1` (string, required)
+
++ Response 204
+
+### deals.lost [POST /deals.lost]
+
+Mark a deal as lost.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `1` (string, required)
+        + reason: `Bad product fit` (string, optional)
 
 + Response 204
 
