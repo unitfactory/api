@@ -217,39 +217,6 @@ To retrieve information about the user who authorized your application (the reso
 
 # Group General
 
-## Activity Types [/activityTypes]
-
-### activityTypes.list [GET /activityTypes.list]
-
-Get a list of all activity types.
-
-+ Response 200 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + _items (array[object])
-            + (object)
-                + id (string)
-                + name (string)
-                + color (string)
-                + icon (string)
-
-## Topics [/topics]
-
-### topics.list [GET /topics.list]
-
-Get a list of all topics.
-
-+ Response 200 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + _items (array[object])
-            + (object)
-                + id (string)
-                + name (string)
-                + hourly_rate (number)
-                + ledger_account (string)
-                + billable (boolean)
-
 ## Departments [/departments]
 
 ### departments.list [GET /departments.list]
@@ -1888,6 +1855,39 @@ Delete tracked time.
         + id: `1` (string, required)
 
 + Response 204
+
+## Activity Types [/activityTypes]
+
+### activityTypes.list [GET /activityTypes.list]
+
+Get a list of all activity types.
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + _items (array[object])
+            + (object)
+                + id (string)
+                + name (string)
+                + color (string)
+                + icon (string)
+
+## Topics [/topics]
+
+### topics.list [GET /topics.list]
+
+Get a list of all topics.
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + _items (array[object])
+            + (object)
+                + id (string)
+                + name (string)
+                + hourly_rate (number)
+                + ledger_account (string)
+                + billable (boolean)
 
 # Group Invoicing
 
