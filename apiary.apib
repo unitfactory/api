@@ -217,22 +217,6 @@ To retrieve information about the user who authorized your application (the reso
 
 # Group General
 
-## Tags [/tags]
-
-### tags.list [GET /tags.list]
-
-Get a list of all tags.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + page (Page, optional)
-
-+ Response 200 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + _items : expo, upsell (array[string])
-
 ## Activity Types [/activityTypes]
 
 ### activityTypes.list [GET /activityTypes.list]
@@ -1197,6 +1181,22 @@ Send a deal's quotation to a client via email.
         + template_id: `1` (string, optional)
 
 + Response 204
+
+## Tags [/tags]
+
+### tags.list [GET /tags.list]
+
+Get a list of all tags.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + page (Page, optional)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + _items : expo, upsell (array[string])
 
 # Group Activities
 
