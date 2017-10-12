@@ -215,7 +215,9 @@ To retrieve information about the user who authorized your application (the reso
 
 `https://app.teamleader.eu/api/account/me`
 
-## General [/]
+# Group General
+
+## Users [/users]
 
 ### users.list [GET /users.list]
 
@@ -241,6 +243,8 @@ Get a list of all users.
                 + title: `Sales` (string)
                 + active: `true` (boolean)
 
+## Tags [/tags]
+
 ### tags.list [GET /tags.list]
 
 Get a list of all tags.
@@ -254,6 +258,8 @@ Get a list of all tags.
 
     + Attributes (object)
         + _items : expo, upsell (array[string])
+
+## Activity Types [/activityTypes]
 
 ### activityTypes.list [GET /activityTypes.list]
 
@@ -269,6 +275,8 @@ Get a list of all activity types.
                 + color (string)
                 + icon (string)
 
+## Topics [/topics]
+
 ### topics.list [GET /topics.list]
 
 Get a list of all topics.
@@ -283,6 +291,217 @@ Get a list of all topics.
                 + hourly_rate (number)
                 + ledger_account (string)
                 + billable (boolean)
+
+## Departments [/departments]
+
+### departments.list [GET /departments.list]
+
+Get a list of all departments.
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + _items (array)
+            + (object)
+                + _type: `department` (string)
+                + id: `42` (string)
+                + name: `Human Resources` (string)
+                + name_short: `HR` (string)
+                + email: `hr@example.com` (string)
+                + invoicing_email: `invoicing@example.com` (string)
+                + website: `http://example.com` (string)
+                + phone: `1234567` (string)
+                + fax: `7654321` (string)
+                + address (Address)
+                + vat_number: `BE0899623035` (string)
+                + local_business_number: `63326426` (string)
+                + bank_name: `Bank of Switzerland` (string)
+                + iban: `BE12 1234 1234 1234` (string)
+                + bic: `BICBANK` (string)
+                + interest_rate: `12` (number)
+                + late_fee: `12` (number)
+                + minimum_late_fee: `12` (number)
+                + registration_number: `12` (number)
+
+### departments.add [POST /departments.add]
+
+Add a new department.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + name: `Human Resources` (string, required)
+        + name_short: `HR` (string)
+        + email: `hr@example.com` (string, required)
+        + invoicing_email: `invoicing@example.com` (string) - Automatic invoice reminders are sent from this e-mail address
+        + website: `http://example.com` (string)
+        + phone: `1234567` (string)
+        + fax: `7654321` (string)
+        + address (Address, required)
+        + vat_number: `BE0899623035` (string)
+        + local_business_number: `63326426` (string) - Local business number (KVK in the Netherlands)
+        + bank_name: `Bank of Switzerland` (string)
+        + iban: `BE12 1234 1234 1234` (string)
+        + bic: `BICBANK` (string)
+        + interest_rate: `12` (number) - Interest rate (percentage)
+        + late_fee: `12` (number) - Late fee (percentage)
+        + minimum_late_fee: `12` (number) - Minimum late fee
+        + registration_number: `12` (number)
+
++ Response 201 (application/json;charset=utf-8)
+
+    + Attributes
+        + data (object)
+            + id: `1` (string)
+
+### departments.update [POST /departments.update]
+
+Update a department.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `42` (string, required)
+        + name: `Human Resources` (string)
+        + name_short: `HR` (string)
+        + email: `hr@example.com` (string)
+        + invoicing_email: `invoicing@example.com` (string) - Automatic invoice reminders are sent from this e-mail address
+        + website: `http://example.com` (string)
+        + phone: `1234567` (string)
+        + fax: `7654321` (string)
+        + address (Address)
+        + vat_number: `BE0899623035` (string)
+        + local_business_number: `63326426` (string) - Local business number (KVK in the Netherlands)
+        + bank_name: `Bank of Switzerland` (string)
+        + iban: `BE12 1234 1234 1234` (string)
+        + bic: `BICBANK` (string)
+        + interest_rate: `12` (number) - Interest rate (percentage)
+        + late_fee: `12` (number) - Late fee (percentage)
+        + minimum_late_fee: `12` (number) - Minimum late fee
+        + registration_number: `12` (number)
+
++ Response 204
+
+## Products [/products]
+
+### products.list [POST /products.list]
+
++ Request (application/json)
+
+    + Attributes (object)
+        + ids: 1,2 (array[string], optional)
+        + page (object, optional)
+            + size: `20` (number, optional) - The amount of contacts returned per request, max 1 to 100
+                + Default: `20`
+            + number: `1` (number, optional) - The current page, the first page is 1
+                + Default: `1`
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + _items (array)
+            + (object)
+                + id: `1` (string)
+                + translations (object)
+                    + _items (array)
+                        + (object)
+                            + language: `EN` (string)
+                            + name: `Product name` (string)
+                            + description: `Product description` (string)
+                + default_language (string)
+                + prices (array[ReadPrice])
+                + price_lists (array)
+                    + (object)
+                        + price_list (object)
+                            + _type (string)
+                            + id (string)
+                        + price (ReadPrice)
+
+### products.info [POST /products.info]
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `1` (string, required)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + id: `1` (string)
+        + translations (object)
+            + _items (array)
+                + (object)
+                    + language: `EN` (string)
+                    + name: `Product name` (string)
+                    + description: `Product description` (string)
+        + default_language (string)
+        + prices (array[ReadPrice])
+        + price_lists (array)
+            + (object)
+                + price_list (object)
+                    + _type (string)
+                    + id (string)
+                + price (ReadPrice)
+        + custom_fields (object)
+            + _items (array)
+                + (object)
+                    + field (object)
+                        + _type: `customField`
+                        + id: 123 (string)
+                    + value: `092980616`
+
+### products.add [POST /products.add]
+
++ Request (application/json)
+
+    + Attributes (object)
+        + translations (array, required)
+            + (object)
+                + language: `EN` (string, required)
+                + name: `Product name` (string, required)
+                + description: `Product description` (string, optional)
+        + default_language (string, required)
+        + prices (array[WritePrice], required)
+        + custom_fields (array, optional)
+            + (object)
+                + custom_field_id: 123 (string, required)
+                + value: `092980616` (required)
+
++ Response 201 (application/json)
+
+    + Attributes (object)
+        + id: `1` (string)
+
+### products.update [POST /products.update]
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id (string, required)
+        + translations (array, optional)
+            + (object)
+                + language: `EN` (string, required)
+                + name: `Product name` (string, required)
+                + description: `Product description` (string, optional)
+        + default_language (string, optional)
+        + prices (array[WritePrice], optional)
+        + custom_fields (array, optional)
+            + (object)
+                + custom_field_id: 123 (string, required)
+                + value: `092980616` (required)
+
++ Response 204 (application/json)
+
+### products.delete [POST /products.delete]
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `1` (string, required)
+
++ Response 204 (application/json)
+
+# Group CRM
 
 ## Contacts [/contacts]
 
@@ -947,232 +1166,65 @@ Get a list of all deal sources.
     + Attributes (object)
         + _items: Facebook, Twitter (array[string])
 
-## Todos [/todos]
+## Quotations [/quotations]
 
-### todos.list [GET /todos.list]
+### quotations.add [POST /quotations.add]
 
-Get a list of todos.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + filter (object, required)
-            + ids (array[string], optional)
-            + creator_id (string, optional)
-            + activity_type_id (string, optional)
-            + topic_id (string, optional)
-            + project_id (string, optional)
-            + due_after: `2017-01-01T00:00:00+00:00` (string, optional)
-            + due_before: `2017-01-01T00:00:00+00:00` (string, optional)
-            + status: `open` (enum[string])
-                + Members
-                    + open
-                    + completed
-                    + overdue
-        + page (Page, optional)
-
-+ Response 200 (application/json;charset=utf-8)
-
-    + Attributes (array)
-        + (object)
-            + id: 1 (string)
-            + title: `Meeting with stakeholders` (string)
-            + description (string)
-            + activity_type (object)
-                + _type: `activityType` (string)
-                + id: 2 (string)
-            + completed: false (boolean)
-            + completed_at: `2016-02-04T16:44:33+00:00` (string)
-            + creator (object)
-                + _type: `user` (string)
-                + id: 1 (string)
-            + due_at: `2016-02-04T16:44:33+00:00` (string)
-            + estimated_duration: 60 (number)
-            + links (array)
-                + (object)
-                    + _type (enum[string])
-                        + Members
-                            + deal
-                            + company
-                            + project
-                            + milestone
-                            + ticket
-                    + id (string)
-            + location (Address)
-            + attendees (array)
-                + (object)
-                    + _type (enum[string])
-                        + Members
-                            + user
-                            + contact
-                    + id (string)
-
-### todos.create [POST /todos.create]
-
-Create a new todo.
+Add a quotation to a deal
 
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + creator_id (string, optional)
-        + activity_type_id (string, optional)
-        + topic_id (string, optional)
-        + title: `Meeting with stakeholders` (string, required)
-        + description (string, optional)
-        + due_at: `2016-02-04T16:44:33+00:00` (string, optional)
-        + estimated_duration: 60 (number, optional)
-        + location (Address, optional)
-        + attendees (array, optional)
-            + (object)
-                + type (enum[string], required)
-                    + Members
-                        + user
-                        + contact
-                + id (string, required)
-        + links (array, optional)
-            + (object)
-                + type (enum[string], required)
-                    + Members
-                        + deal
-                        + company
-                        + project
-                        + milestone
-                        + ticket
-                + id (string, required)
-
-+ Response 201 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id: `456` (string)
-
-### todos.schedule [GET /todos.schedule]
-
-Schedule a todo in your calendar.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id (string, required)
-        + title (string, optional)
-        + starts_at: `2016-02-04T16:00:00+00:00` (string, required)
-        + ends_at: `2016-02-04T18:00:00+00:00` (string, required)
-        + location (Address, optional)
-        + attendees (array, optional)
-            + (object)
-                + type (enum[string], required)
-                    + Members
-                        + user
-                        + contact
-                + id (string, required)
-
-+ Response 201 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + _type: `event` (string)
-        + id: `456` (string)
-
-### todos.update [POST /todos.update]
-
-Update a todo.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id (string, required)
-        + creator_id (string, optional)
-        + activity_type_id (string, optional)
-        + topic_id (string, optional)
-        + title: `Meeting with stakeholders` (string, optional)
-        + description (string, optional)
-        + due_at: `2016-02-04T16:44:33+00:00` (string, optional)
-        + estimated_duration: 60 (number, optional)
-        + location (Address, optional)
-        + attendees (array, optional)
-            + (object)
-                + type (enum[string], required)
-                    + Members
-                        + user
-                        + contact
-                + id (string, required)
-        + links (array, optional)
-            + (object)
-                + type (enum[string], required)
-                    + Members
-                        + deal
-                        + company
-                        + project
-                        + milestone
-                        + ticket
-                + id (string, required)
+        + deal_id: `1` (string, required)
+        + grouped_lines (array[WriteLineItemGroup], required)
 
 + Response 204
 
-### todos.info [GET /todos.info]
+### quotations.update [POST /quotations.update]
 
-Get information about a todo.
+Update a deal quotation's items
 
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id (string, required)
+        + id: `1` (string, required)
+        + deal_id: `1` (string, optional)
+        + grouped_lines (array[WriteLineItemGroup], optional)
+
++ Response 204
+
+### quotations.info [GET /quotations.info]
+
+Get a quotation
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `1` (string, required)
 
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: 1 (string)
-        + title: `Meeting with stakeholders` (string)
-        + description (string)
-        + activity_type (object)
-            + _type: activityType (string)
-            + id: 2 (string)
-        + completed: false (boolean)
-        + completed_at: `2016-02-04T16:44:33+00:00` (string)
-        + creator (object)
-            + _type: `user` (string)
-            + id: 1 (string)
-        + due_at: `2016-02-04T16:44:33+00:00` (string)
-        + estimated_duration: 60 (number)
-        + links (array)
-            + (object)
-                + _type (enum[string])
-                    + Members
-                        + deal
-                        + company
-                        + project
-                        + milestone
-                        + ticket
-                + id (string)
-        + location (Address)
-        + attendees (array)
-            + (object)
-                + _type (enum[string])
-                    + Members
-                        + user
-                        + contact
-                + id (string)
+        + id: `1` (string)
+        + deal_id: `1` (string)
+        + grouped_lines (array[ReadLineItemGroup])
 
-### todos.complete [POST /todos.complete]
+### quotations.send [POST /quotations.send]
 
-Mark a todo as completed.
+Send a deal's quotation to a client via email.
 
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `1` (string)
-        + completed_at: `2016-02-04T16:44:33+00:00` (string)
+        + id: `1` (string, required)
+        + email: `john@example.com` (string, required) - The email recipient
+        + subject: Your quotation` (string, required) - The email subject
+        + message: `1` (string, required) - The email body
+        + template_id: `1` (string, optional)
 
 + Response 204
 
-### todos.delete [POST /todos.delete]
-
-Delete a todo.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id: `1` (string)
-
-+ Response 204
+# Group Activities
 
 ## Calendar events [/events]
 
@@ -1403,153 +1455,467 @@ Cancel a calendar event (for all attendees).
 
 + Response 204
 
-## Departments [/departments]
+## Todos [/todos]
 
-### departments.list [GET /departments.list]
+### todos.list [GET /todos.list]
 
-Get a list of all departments.
-
-+ Response 200 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + _items (array)
-            + (object)
-                + _type: `department` (string)
-                + id: `42` (string)
-                + name: `Human Resources` (string)
-                + name_short: `HR` (string)
-                + email: `hr@example.com` (string)
-                + invoicing_email: `invoicing@example.com` (string)
-                + website: `http://example.com` (string)
-                + phone: `1234567` (string)
-                + fax: `7654321` (string)
-                + address (Address)
-                + vat_number: `BE0899623035` (string)
-                + local_business_number: `63326426` (string)
-                + bank_name: `Bank of Switzerland` (string)
-                + iban: `BE12 1234 1234 1234` (string)
-                + bic: `BICBANK` (string)
-                + interest_rate: `12` (number)
-                + late_fee: `12` (number)
-                + minimum_late_fee: `12` (number)
-                + registration_number: `12` (number)
-
-### departments.add [POST /departments.add]
-
-Add a new department.
+Get a list of todos.
 
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + name: `Human Resources` (string, required)
-        + name_short: `HR` (string)
-        + email: `hr@example.com` (string, required)
-        + invoicing_email: `invoicing@example.com` (string) - Automatic invoice reminders are sent from this e-mail address
-        + website: `http://example.com` (string)
-        + phone: `1234567` (string)
-        + fax: `7654321` (string)
-        + address (Address, required)
-        + vat_number: `BE0899623035` (string)
-        + local_business_number: `63326426` (string) - Local business number (KVK in the Netherlands)
-        + bank_name: `Bank of Switzerland` (string)
-        + iban: `BE12 1234 1234 1234` (string)
-        + bic: `BICBANK` (string)
-        + interest_rate: `12` (number) - Interest rate (percentage)
-        + late_fee: `12` (number) - Late fee (percentage)
-        + minimum_late_fee: `12` (number) - Minimum late fee
-        + registration_number: `12` (number)
+        + filter (object, required)
+            + ids (array[string], optional)
+            + creator_id (string, optional)
+            + activity_type_id (string, optional)
+            + topic_id (string, optional)
+            + project_id (string, optional)
+            + due_after: `2017-01-01T00:00:00+00:00` (string, optional)
+            + due_before: `2017-01-01T00:00:00+00:00` (string, optional)
+            + status: `open` (enum[string])
+                + Members
+                    + open
+                    + completed
+                    + overdue
+        + page (Page, optional)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (array)
+        + (object)
+            + id: 1 (string)
+            + title: `Meeting with stakeholders` (string)
+            + description (string)
+            + activity_type (object)
+                + _type: `activityType` (string)
+                + id: 2 (string)
+            + completed: false (boolean)
+            + completed_at: `2016-02-04T16:44:33+00:00` (string)
+            + creator (object)
+                + _type: `user` (string)
+                + id: 1 (string)
+            + due_at: `2016-02-04T16:44:33+00:00` (string)
+            + estimated_duration: 60 (number)
+            + links (array)
+                + (object)
+                    + _type (enum[string])
+                        + Members
+                            + deal
+                            + company
+                            + project
+                            + milestone
+                            + ticket
+                    + id (string)
+            + location (Address)
+            + attendees (array)
+                + (object)
+                    + _type (enum[string])
+                        + Members
+                            + user
+                            + contact
+                    + id (string)
+
+### todos.create [POST /todos.create]
+
+Create a new todo.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + creator_id (string, optional)
+        + activity_type_id (string, optional)
+        + topic_id (string, optional)
+        + title: `Meeting with stakeholders` (string, required)
+        + description (string, optional)
+        + due_at: `2016-02-04T16:44:33+00:00` (string, optional)
+        + estimated_duration: 60 (number, optional)
+        + location (Address, optional)
+        + attendees (array, optional)
+            + (object)
+                + type (enum[string], required)
+                    + Members
+                        + user
+                        + contact
+                + id (string, required)
+        + links (array, optional)
+            + (object)
+                + type (enum[string], required)
+                    + Members
+                        + deal
+                        + company
+                        + project
+                        + milestone
+                        + ticket
+                + id (string, required)
 
 + Response 201 (application/json;charset=utf-8)
 
-    + Attributes
-        + data (object)
-            + id: `1` (string)
+    + Attributes (object)
+        + id: `456` (string)
 
-### departments.update [POST /departments.update]
+### todos.schedule [GET /todos.schedule]
 
-Update a department.
+Schedule a todo in your calendar.
 
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `42` (string, required)
-        + name: `Human Resources` (string)
-        + name_short: `HR` (string)
-        + email: `hr@example.com` (string)
-        + invoicing_email: `invoicing@example.com` (string) - Automatic invoice reminders are sent from this e-mail address
-        + website: `http://example.com` (string)
-        + phone: `1234567` (string)
-        + fax: `7654321` (string)
-        + address (Address)
-        + vat_number: `BE0899623035` (string)
-        + local_business_number: `63326426` (string) - Local business number (KVK in the Netherlands)
-        + bank_name: `Bank of Switzerland` (string)
-        + iban: `BE12 1234 1234 1234` (string)
-        + bic: `BICBANK` (string)
-        + interest_rate: `12` (number) - Interest rate (percentage)
-        + late_fee: `12` (number) - Late fee (percentage)
-        + minimum_late_fee: `12` (number) - Minimum late fee
-        + registration_number: `12` (number)
+        + id (string, required)
+        + title (string, optional)
+        + starts_at: `2016-02-04T16:00:00+00:00` (string, required)
+        + ends_at: `2016-02-04T18:00:00+00:00` (string, required)
+        + location (Address, optional)
+        + attendees (array, optional)
+            + (object)
+                + type (enum[string], required)
+                    + Members
+                        + user
+                        + contact
+                + id (string, required)
+
++ Response 201 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + _type: `event` (string)
+        + id: `456` (string)
+
+### todos.update [POST /todos.update]
+
+Update a todo.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id (string, required)
+        + creator_id (string, optional)
+        + activity_type_id (string, optional)
+        + topic_id (string, optional)
+        + title: `Meeting with stakeholders` (string, optional)
+        + description (string, optional)
+        + due_at: `2016-02-04T16:44:33+00:00` (string, optional)
+        + estimated_duration: 60 (number, optional)
+        + location (Address, optional)
+        + attendees (array, optional)
+            + (object)
+                + type (enum[string], required)
+                    + Members
+                        + user
+                        + contact
+                + id (string, required)
+        + links (array, optional)
+            + (object)
+                + type (enum[string], required)
+                    + Members
+                        + deal
+                        + company
+                        + project
+                        + milestone
+                        + ticket
+                + id (string, required)
 
 + Response 204
 
-## Quotations [/quotations]
+### todos.info [GET /todos.info]
 
-### quotations.add [POST /quotations.add]
-
-Add a quotation to a deal
+Get information about a todo.
 
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + deal_id: `1` (string, required)
-        + grouped_lines (array[WriteLineItemGroup], required)
-
-+ Response 204
-
-### quotations.update [POST /quotations.update]
-
-Update a deal quotation's items
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id: `1` (string, required)
-        + deal_id: `1` (string, optional)
-        + grouped_lines (array[WriteLineItemGroup], optional)
-
-+ Response 204
-
-### quotations.info [GET /quotations.info]
-
-Get a quotation
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id: `1` (string, required)
+        + id (string, required)
 
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `1` (string)
-        + deal_id: `1` (string)
-        + grouped_lines (array[ReadLineItemGroup])
+        + id: 1 (string)
+        + title: `Meeting with stakeholders` (string)
+        + description (string)
+        + activity_type (object)
+            + _type: activityType (string)
+            + id: 2 (string)
+        + completed: false (boolean)
+        + completed_at: `2016-02-04T16:44:33+00:00` (string)
+        + creator (object)
+            + _type: `user` (string)
+            + id: 1 (string)
+        + due_at: `2016-02-04T16:44:33+00:00` (string)
+        + estimated_duration: 60 (number)
+        + links (array)
+            + (object)
+                + _type (enum[string])
+                    + Members
+                        + deal
+                        + company
+                        + project
+                        + milestone
+                        + ticket
+                + id (string)
+        + location (Address)
+        + attendees (array)
+            + (object)
+                + _type (enum[string])
+                    + Members
+                        + user
+                        + contact
+                + id (string)
 
-### quotations.send [POST /quotations.send]
+### todos.complete [POST /todos.complete]
 
-Send a deal's quotation to a client via email.
+Mark a todo as completed.
 
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `1` (string, required)
-        + email: `john@example.com` (string, required) - The email recipient
-        + subject: Your quotation` (string, required) - The email subject
-        + message: `1` (string, required) - The email body
-        + template_id: `1` (string, optional)
+        + id: `1` (string)
+        + completed_at: `2016-02-04T16:44:33+00:00` (string)
 
 + Response 204
+
+### todos.delete [POST /todos.delete]
+
+Delete a todo.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `1` (string)
+
++ Response 204
+
+## Timetracking [/timetracking]
+
+### timetracking.list [GET /timetracking.list]
+
+Get a list of tracked time.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + user_id: `1` (string, optional)
+            + topic_id: `2` (string, optional)
+            + tracked_after: `2017-04-26T10:01:49+00:00` (string, optional)
+            + tracked_before: `2017-04-26T10:01:49+00:00` (string, optional)
+
++ Response 200 (application/json)
+
+    + Attributes (array)
+        + (object)
+            + id: `1` (string)
+            + user (object)
+                + _type: `user` (string)
+                + id: `123` (string)
+            + topic (object)
+                + _type: `topic` (string)
+                + id: `456` (string)
+            + started_on: `2017-04-26` (string)
+            + started_at: `2017-04-26T10:01:49+00:00` (string, nullable)
+            + ended_at: `2017-04-26T11:01:49+00:00` (string, nullable)
+            + duration: 3600 (number) - Tracked time in seconds
+            + description: `Timer description` (string)
+            + subject (object)
+                + type: `project` (enum[string], required)
+                    + Members
+                        + company
+                        + contact
+                        + event
+                        + todo
+                        + project
+                        + milestone
+                        + ticket
+                + id: `456` (string, required)
+
+### timetracking.info [GET /timetracking.info]
+
+Get information about tracked time.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `1` (string)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + id: `1` (string)
+        + user (object)
+            + _type: `user` (string)
+            + id: `123` (string)
+        + topic (object)
+            + _type: `topic` (string)
+            + id: `456` (string)
+        + started_on: `2017-04-26` (string)
+        + started_at: `2017-04-26T10:01:49+00:00` (string, nullable)
+        + ended_at: `2017-04-26T11:01:49+00:00` (string, nullable)
+        + duration: 3600 (number) - Tracked time in seconds
+        + description: `Timer description` (string)
+        + subject (object)
+            + type: `project` (enum[string])
+                + Members
+                    + company
+                    + contact
+                    + event
+                    + todo
+                    + project
+                    + milestone
+                    + ticket
+            + id: `456` (string, required)
+
+### timetracking.start [POST /timetracking.start]
+
+Start a new timetracking timer.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + topic_id: `456` (string, optional)
+        + started_at: `2017-04-26T10:01:49+00:00` (string, optional) - If not provided, current time will be used
+        + description (string, optional)
+        + subject (object)
+            + type: `project` (enum[string], required)
+                + Members
+                    + company
+                    + contact
+                    + event
+                    + todo
+                    + project
+                    + milestone
+                    + ticket
+            + id: `456` (string, required)
+
++ Response 201
+
+    + Attributes (object)
+        + id: `1` (string)
+
+### timetracking.stop [POST /timetracking.stop]
+
+Stop the current timetracking timer.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + ended_at: `2017-04-26T10:01:49+00:00` (string, optional) - If not provided, current time will be used
+
++ Response 204 (application/json)
+
+### timetracking.current [POST /timetracking.current]
+
+Get the current timetracking timer.
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + id: `1` (string)
+        + user (object)
+            + _type: `user` (string)
+            + id: `123` (string)
+        + topic (object)
+            + _type: `topic` (string)
+            + id: `456` (string)
+        + started_at: `2017-04-26T10:01:49+00:00` (string)
+        + description: `Timer description` (string)
+        + subject (object)
+            + type: `project` (enum[string], required)
+                + Members
+                    + company
+                    + contact
+                    + event
+                    + todo
+                    + project
+                    + milestone
+                    + ticket
+            + id: `456` (string, required)
+
+### timetracking.resume [POST /timetracking.resume]
+
+Start a new timer based on previously tracked time.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `1` (string, required)
+        + started_at: `2017-04-26T10:01:49+00:00` (string, optional) - If not provided, current time will be used
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + id: `2` (string)
+
+### timetracking.add [POST /timetracking.add]
+
+Add tracked time.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + topic_id: `456` (string, optional)
+        + One Of
+            + started_on: `2017-04-26` (string, required)
+            + started_at: `2017-04-26T10:01:49+00:00` (string, required)
+        + One Of
+            + ended_at: `2017-04-26T11:01:49+00:00` (string, required)
+            + duration: 3600 (number, required)
+        + description (string, optional)
+        + subject (object)
+            + type: `project` (enum[string], required)
+                + Members
+                    + company
+                    + contact
+                    + event
+                    + todo
+                    + project
+                    + milestone
+                    + ticket
+            + id: `456` (string, required)
+
++ Response 201
+
+    + Attributes (object)
+        + id: `1` (string)
+
+### timetracking.update [POST /timetracking.update]
+
+Update tracked time.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `1` (string, required)
+        + topic_id: `456` (string, optional)
+        + One Of
+            + started_on: `2017-04-26` (string, optional)
+            + started_at: `2017-04-26T10:01:49+00:00` (string, optional)
+        + One Of
+            + ended_at: `2017-04-26T11:01:49+00:00` (string, optional)
+            + duration: 3600 (number, optional)
+        + description (string, optional)
+        + subject (object)
+            + type: `project` (enum[string], required)
+                + Members
+                    + company
+                    + contact
+                    + event
+                    + todo
+                    + project
+                    + milestone
+                    + ticket
+            + id: `456` (string, required)
+
++ Response 204
+
+### timetracking.delete [POST /timetracking.delete]
+
+Delete tracked time.
+
++ Request (application/json)
+
+    + Attributes (object)
+        + id: `1` (string, required)
+
++ Response 204
+
+# Group Invoicing
 
 ## Invoices [/invoices]
 
@@ -1974,232 +2340,70 @@ List tax rates
                 + description: `21%` (string)
                 + rate: `0.21` (number)
 
-## Milestones [/milestones]
+## Subscriptions [/subscriptions]
 
-### milestones.list [GET /milestones.list]
+### subscriptions.info [GET /subscriptions.info]
 
-Get a list of project milestones.
-
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
-        + filter (object, optional)
-            + ids (array[string], optional)
-            + project_id (string, optional)
-            + status (enum[string], optional)
+        + id: `1` (string)
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + id: `173111` (string)
+        + department (object)
+            + _type: `department` (string)
+            + id: `1` (string)
+        + starts_on (string)
+        + ends_on (string)
+        + frequency (object)
+            + every: 10 (number)
+            + period (enum[string])
                 + Members
-                    + open
-                    + closed
-            + due_before: `2017-01-01` (string, optional)
-            + due_after: `2017-01-01` (string, optional)
-        + page (Page, optional)
-
-+ Response 200 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id: `1` (string)
-        + project (object)
-            + _type: `project` (string)
-            + id: `2` (string)
-        + due_on: `2018-01-01` (string)
-        + name: `Initial setup` (string)
-        + status: `done` (enum[string])
-            + Members
-                + open
-                + closed
-
-### milestones.info [GET /milestones.info]
-
-Get details for a single milestone.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id (string, required)
-
-+ Response 200 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id: `1` (string)
-        + project (object)
-            + _type: `project` (string)
-            + id: `2` (string)
-        + due_on: `2018-01-01` (string)
-        + name: `Initial setup` (string)
-        + status: `done` (enum[string])
-            + Members
-                + open
-                + closed
-
-### milestones.create [GET /milestones.create]
-
-Create a new milestone.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + project_id: `1` (string, required)
-        + due_on: `2018-01-01` (string, required)
-        + name: `Initial setup` (string, required)
-
-+ Response 201 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id: `1` (string)
-
-### milestones.update [GET /milestones.update]
-
-Update a milestone.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id: `1` (string, required)
-        + due_on: `2018-01-01` (string, optional)
-        + name: `Initial setup` (string, optional)
-
-+ Response 204 (application/json;charset=utf-8)
-
-### milestones.close [GET /milestones.close]
-
-Close a milestone.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id: `1` (string, required)
-
-+ Response 204 (application/json;charset=utf-8)
-
-### milestones.reopen [GET /milestones.reopen]
-
-Open a closed milestone.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id: `1` (string, required)
-
-+ Response 204 (application/json;charset=utf-8)
-
-## Products [/products]
-
-### products.list [POST /products.list]
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + ids: 1,2 (array[string], optional)
-        + page (object, optional)
-            + size: `20` (number, optional) - The amount of contacts returned per request, max 1 to 100
-                + Default: `20`
-            + number: `1` (number, optional) - The current page, the first page is 1
-                + Default: `1`
-
-+ Response 200 (application/json)
-
-    + Attributes (object)
-        + _items (array)
-            + (object)
-                + id: `1` (string)
-                + translations (object)
-                    + _items (array)
-                        + (object)
-                            + language: `EN` (string)
-                            + name: `Product name` (string)
-                            + description: `Product description` (string)
-                + default_language (string)
-                + prices (array[ReadPrice])
-                + price_lists (array)
-                    + (object)
-                        + price_list (object)
-                            + _type (string)
-                            + id (string)
-                        + price (ReadPrice)
-
-### products.info [POST /products.info]
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + id: `1` (string, required)
-
-+ Response 200 (application/json)
-
-    + Attributes (object)
-        + id: `1` (string)
-        + translations (object)
-            + _items (array)
+                    + day
+                    + week
+                    + month
+                    + quarter
+                    + year
+        + payment_term (object)
+            + type (enum[string])
+                + Members
+                    + cash - Direct payment, often cash
+                    + end_of_month - End of the month of Xth day after the invoice date
+                    + after_invoice_date - X days after invoice date
+            + days (number) - Modifier "X" for the above statements. Not required when type is 'cash'.
+        + invoicee (object)
+            + name: `De Rode Duivels` (string)
+            + address (Address)
+            + vat_number: `BE0899623035` (string)
+            + customer (object)
+                + _type: `contact` (string)
+                + id: `123` (string)
+            + for_attention_of (object)
+                + name: `Radja Nainggolan` (string)
+                + contact (object)
+                    + _type: `contact` (string)
+                    + id: `456` (string)
+        + grouped_lines (array[ReadLineItemGroup])
+        + total (object)
+            + tax_exclusive (Money)
+            + tax_inclusive (Money)
+            + payable (Money)
+            + taxes (array)
                 + (object)
-                    + language: `EN` (string)
-                    + name: `Product name` (string)
-                    + description: `Product description` (string)
-        + default_language (string)
-        + prices (array[ReadPrice])
-        + price_lists (array)
-            + (object)
-                + price_list (object)
-                    + _type (string)
-                    + id (string)
-                + price (ReadPrice)
-        + custom_fields (object)
-            + _items (array)
+                    + rate: `0.21` (number)
+                    + taxable (Money)
+                    + tax (Money)
+            + withheld_taxes (array)
                 + (object)
-                    + field (object)
-                        + _type: `customField`
-                        + id: 123 (string)
-                    + value: `092980616`
+                    + type: `Trabajo`
+                    + rate: `0.21` (number)
+                    + taxable (Money)
+                    + tax (Money)
 
-### products.add [POST /products.add]
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + translations (array, required)
-            + (object)
-                + language: `EN` (string, required)
-                + name: `Product name` (string, required)
-                + description: `Product description` (string, optional)
-        + default_language (string, required)
-        + prices (array[WritePrice], required)
-        + custom_fields (array, optional)
-            + (object)
-                + custom_field_id: 123 (string, required)
-                + value: `092980616` (required)
-
-+ Response 201 (application/json)
-
-    + Attributes (object)
-        + id: `1` (string)
-
-### products.update [POST /products.update]
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + id (string, required)
-        + translations (array, optional)
-            + (object)
-                + language: `EN` (string, required)
-                + name: `Product name` (string, required)
-                + description: `Product description` (string, optional)
-        + default_language (string, optional)
-        + prices (array[WritePrice], optional)
-        + custom_fields (array, optional)
-            + (object)
-                + custom_field_id: 123 (string, required)
-                + value: `092980616` (required)
-
-+ Response 204 (application/json)
-
-### products.delete [POST /products.delete]
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + id: `1` (string, required)
-
-+ Response 204 (application/json)
+# Group Projects
 
 ## Projects [/projects]
 
@@ -2348,68 +2552,115 @@ Delete a project.
 
 + Response 204 (application/json;charset=utf-8)
 
-## Subscriptions [/subscriptions]
+## Milestones [/milestones]
 
-### subscriptions.info [GET /subscriptions.info]
+### milestones.list [GET /milestones.list]
 
-+ Request (application/json)
+Get a list of project milestones.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + ids (array[string], optional)
+            + project_id (string, optional)
+            + status (enum[string], optional)
+                + Members
+                    + open
+                    + closed
+            + due_before: `2017-01-01` (string, optional)
+            + due_after: `2017-01-01` (string, optional)
+        + page (Page, optional)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `1` (string)
+        + project (object)
+            + _type: `project` (string)
+            + id: `2` (string)
+        + due_on: `2018-01-01` (string)
+        + name: `Initial setup` (string)
+        + status: `done` (enum[string])
+            + Members
+                + open
+                + closed
+
+### milestones.info [GET /milestones.info]
+
+Get details for a single milestone.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `1` (string)
+        + project (object)
+            + _type: `project` (string)
+            + id: `2` (string)
+        + due_on: `2018-01-01` (string)
+        + name: `Initial setup` (string)
+        + status: `done` (enum[string])
+            + Members
+                + open
+                + closed
+
+### milestones.create [GET /milestones.create]
+
+Create a new milestone.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + project_id: `1` (string, required)
+        + due_on: `2018-01-01` (string, required)
+        + name: `Initial setup` (string, required)
+
++ Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
         + id: `1` (string)
 
-+ Response 200 (application/json)
+### milestones.update [GET /milestones.update]
+
+Update a milestone.
+
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `173111` (string)
-        + department (object)
-            + _type: `department` (string)
-            + id: `1` (string)
-        + starts_on (string)
-        + ends_on (string)
-        + frequency (object)
-            + every: 10 (number)
-            + period (enum[string])
-                + Members
-                    + day
-                    + week
-                    + month
-                    + quarter
-                    + year
-        + payment_term (object)
-            + type (enum[string])
-                + Members
-                    + cash - Direct payment, often cash
-                    + end_of_month - End of the month of Xth day after the invoice date
-                    + after_invoice_date - X days after invoice date
-            + days (number) - Modifier "X" for the above statements. Not required when type is 'cash'.
-        + invoicee (object)
-            + name: `De Rode Duivels` (string)
-            + address (Address)
-            + vat_number: `BE0899623035` (string)
-            + customer (object)
-                + _type: `contact` (string)
-                + id: `123` (string)
-            + for_attention_of (object)
-                + name: `Radja Nainggolan` (string)
-                + contact (object)
-                    + _type: `contact` (string)
-                    + id: `456` (string)
-        + grouped_lines (array[ReadLineItemGroup])
-        + total (object)
-            + tax_exclusive (Money)
-            + tax_inclusive (Money)
-            + payable (Money)
-            + taxes (array)
-                + (object)
-                    + rate: `0.21` (number)
-                    + taxable (Money)
-                    + tax (Money)
-            + withheld_taxes (array)
-                + (object)
-                    + type: `Trabajo`
-                    + rate: `0.21` (number)
-                    + taxable (Money)
-                    + tax (Money)
+        + id: `1` (string, required)
+        + due_on: `2018-01-01` (string, optional)
+        + name: `Initial setup` (string, optional)
+
++ Response 204 (application/json;charset=utf-8)
+
+### milestones.close [GET /milestones.close]
+
+Close a milestone.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `1` (string, required)
+
++ Response 204 (application/json;charset=utf-8)
+
+### milestones.reopen [GET /milestones.reopen]
+
+Open a closed milestone.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `1` (string, required)
+
++ Response 204 (application/json;charset=utf-8)
+
+# Group Other
 
 ## Webhooks [/webhooks]
 
@@ -2479,239 +2730,6 @@ Register a new webhook.
                 + CUSTOM_FIELD_DELETED
                 + USER_DAYS_OFF_EDITED
                 + COMPANY_CLOSING_DAYS_EDITED
-
-+ Response 204
-
-## Timetracking [/timetracking]
-
-### timetracking.list [GET /timetracking.list]
-
-Get a list of tracked time.
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + filter (object, optional)
-            + user_id: `1` (string, optional)
-            + topic_id: `2` (string, optional)
-            + tracked_after: `2017-04-26T10:01:49+00:00` (string, optional)
-            + tracked_before: `2017-04-26T10:01:49+00:00` (string, optional)
-
-+ Response 200 (application/json)
-
-    + Attributes (array)
-        + (object)
-            + id: `1` (string)
-            + user (object)
-                + _type: `user` (string)
-                + id: `123` (string)
-            + topic (object)
-                + _type: `topic` (string)
-                + id: `456` (string)
-            + started_on: `2017-04-26` (string)
-            + started_at: `2017-04-26T10:01:49+00:00` (string, nullable)
-            + ended_at: `2017-04-26T11:01:49+00:00` (string, nullable)
-            + duration: 3600 (number) - Tracked time in seconds
-            + description: `Timer description` (string)
-            + subject (object)
-                + type: `project` (enum[string], required)
-                    + Members
-                        + company
-                        + contact
-                        + event
-                        + todo
-                        + project
-                        + milestone
-                        + ticket
-                + id: `456` (string, required)
-
-### timetracking.info [GET /timetracking.info]
-
-Get information about tracked time.
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + id: `1` (string)
-
-+ Response 200 (application/json)
-
-    + Attributes (object)
-        + id: `1` (string)
-        + user (object)
-            + _type: `user` (string)
-            + id: `123` (string)
-        + topic (object)
-            + _type: `topic` (string)
-            + id: `456` (string)
-        + started_on: `2017-04-26` (string)
-        + started_at: `2017-04-26T10:01:49+00:00` (string, nullable)
-        + ended_at: `2017-04-26T11:01:49+00:00` (string, nullable)
-        + duration: 3600 (number) - Tracked time in seconds
-        + description: `Timer description` (string)
-        + subject (object)
-            + type: `project` (enum[string])
-                + Members
-                    + company
-                    + contact
-                    + event
-                    + todo
-                    + project
-                    + milestone
-                    + ticket
-            + id: `456` (string, required)
-
-### timetracking.start [POST /timetracking.start]
-
-Start a new timetracking timer.
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + topic_id: `456` (string, optional)
-        + started_at: `2017-04-26T10:01:49+00:00` (string, optional) - If not provided, current time will be used
-        + description (string, optional)
-        + subject (object)
-            + type: `project` (enum[string], required)
-                + Members
-                    + company
-                    + contact
-                    + event
-                    + todo
-                    + project
-                    + milestone
-                    + ticket
-            + id: `456` (string, required)
-
-+ Response 201
-
-    + Attributes (object)
-        + id: `1` (string)
-
-### timetracking.stop [POST /timetracking.stop]
-
-Stop the current timetracking timer.
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + ended_at: `2017-04-26T10:01:49+00:00` (string, optional) - If not provided, current time will be used
-
-+ Response 204 (application/json)
-
-### timetracking.current [POST /timetracking.current]
-
-Get the current timetracking timer.
-
-+ Response 200 (application/json)
-
-    + Attributes (object)
-        + id: `1` (string)
-        + user (object)
-            + _type: `user` (string)
-            + id: `123` (string)
-        + topic (object)
-            + _type: `topic` (string)
-            + id: `456` (string)
-        + started_at: `2017-04-26T10:01:49+00:00` (string)
-        + description: `Timer description` (string)
-        + subject (object)
-            + type: `project` (enum[string], required)
-                + Members
-                    + company
-                    + contact
-                    + event
-                    + todo
-                    + project
-                    + milestone
-                    + ticket
-            + id: `456` (string, required)
-
-### timetracking.resume [POST /timetracking.resume]
-
-Start a new timer based on previously tracked time.
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + id: `1` (string, required)
-        + started_at: `2017-04-26T10:01:49+00:00` (string, optional) - If not provided, current time will be used
-
-+ Response 200 (application/json)
-
-    + Attributes (object)
-        + id: `2` (string)
-
-### timetracking.add [POST /timetracking.add]
-
-Add tracked time.
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + topic_id: `456` (string, optional)
-        + One Of
-            + started_on: `2017-04-26` (string, required)
-            + started_at: `2017-04-26T10:01:49+00:00` (string, required)
-        + One Of
-            + ended_at: `2017-04-26T11:01:49+00:00` (string, required)
-            + duration: 3600 (number, required)
-        + description (string, optional)
-        + subject (object)
-            + type: `project` (enum[string], required)
-                + Members
-                    + company
-                    + contact
-                    + event
-                    + todo
-                    + project
-                    + milestone
-                    + ticket
-            + id: `456` (string, required)
-
-+ Response 201
-
-    + Attributes (object)
-        + id: `1` (string)
-
-### timetracking.update [POST /timetracking.update]
-
-Update tracked time.
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + id: `1` (string, required)
-        + topic_id: `456` (string, optional)
-        + One Of
-            + started_on: `2017-04-26` (string, optional)
-            + started_at: `2017-04-26T10:01:49+00:00` (string, optional)
-        + One Of
-            + ended_at: `2017-04-26T11:01:49+00:00` (string, optional)
-            + duration: 3600 (number, optional)
-        + description (string, optional)
-        + subject (object)
-            + type: `project` (enum[string], required)
-                + Members
-                    + company
-                    + contact
-                    + event
-                    + todo
-                    + project
-                    + milestone
-                    + ticket
-            + id: `456` (string, required)
-
-+ Response 204
-
-### timetracking.delete [POST /timetracking.delete]
-
-Delete tracked time.
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + id: `1` (string, required)
 
 + Response 204
 
