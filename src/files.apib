@@ -1,100 +1,163 @@
-## Files [/files]
+## Attachments [/attachments]
 
-### files.list [GET /files.list]
+### attachments.list [GET /attachments.list]
 
-Get a list of all files relating to an object
+Get a list of all attachments relating to an object
 
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
         + page (Page, optional)
-        + object_type: `contact` (enum[string], required) - The type of object
-            + Members
+        + subject (object, required)
+            + type (enum[string], required)
                 + contact
                 + company
-                + sale
+                + deal
                 + ticket
                 + project
-                + meeting
-        + object_id: `1` (number, required) - ID of the object
-        + folder_name: `cat_pictures` (string, optional) - the folder name of which the contents should be displayed
+                + event
+            + id (string, required)
 
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + _items (array)
+        + data (array)
             + (object)
                 + id: `101` (number)
-                + filename: `cat.bmp` (string)
-                + date_last_edited: `1492673227` (number)
-                + filesize_bytes: `256` (number)
+                + subject (object)
+                    + type (enum[string])
+                        + contact
+                        + company
+                        + deal
+                        + ticket
+                        + project
+                        + event
+                    + id (string)
+                + name: `logo.eps` (string)
+                + size: `256` (number) - in bytes
+                + mime_type (string)
+                + added_by (object)
+                    + type: `user` (enum[string])
+                        + Members
+                            + user
+                    + id (string)
+                + added_at: `2017-10-13T00:02:17+0200` (string)
+                + update_at: `2017-10-13T00:02:17+0200` (string)
 
-### files.info [GET /files.info]
+### attachments.info [GET /attachments.info]
 
-Get a info about a specific file
+Get a info about a specific attachment
 
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `20` (number, required) - The file's ID
+        + id: `20` (number, required)
 
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + filename: `cat.bmp` (string)
-        + filesize_bytes: `256` (number)
-        + uploader_client_id: `1` (number)
-        + related_object_type: `contact` (string)
-        + related_object_id: `1` (number)
-        + folder: `pics` (string)
-        + date_last_edited: `2017-04-20T07:27:07+00:00` (string)
+        + data (object)
+            + id: `101` (number)
+            + subject (object)
+                + type (enum[string])
+                    + contact
+                    + company
+                    + deal
+                    + ticket
+                    + project
+                    + event
+                + id (string)
+            + name: `logo.eps` (string)
+            + path: `pics` (string)
+            + size: `256` (number) - in bytes
+            + mime_type (string)
+            + added_by (object)
+                + type: `user` (enum[string])
+                    + Members
+                        + user
+                + id (string)
+            + added_at: `2017-10-13T00:02:17+0200` (string)
+            + update_at: `2017-10-13T00:02:17+0200` (string)
 
-### files.download [GET /files.download]
+### attachments.download [GET /attachments.download]
 
-Get a signed URL where the file can be downloaded. The signed URL will remaing valid for 30 seconds.
+Get a signed url where the attachment can be downloaded. The signed url will remain valid for 30 seconds.
 
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `20` (number, required) - The file's ID
+        + id: `20` (string, required)
 
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + signed_download_url: `http://example.com/cat.bmp` (string)
+        + data
+            + url: `https://someplace.teamleader.eu/c9c2051d-611f-4f87-8138-923103974218` (string)
+            + valid_until: `2017-10-13T00:02:46+0200` (string)
 
-### files.upload [POST /files.upload]
+### attachments.upload [POST /attachments.upload]
 
-Get a signed URL where the file can be downloaded. The signed URL will remaing valid for 30 seconds.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + object_type: `contact` (enum[string], required) - The type of object
-            + Members
-                + contact
-                + company
-                + sale
-                + ticket
-                + project
-                + meeting
-        + object_id: `1` (number, required) - ID of the object
-        + file_content: `TG9yZW0gSXBzdW0gaXMgc2ltcGx5IGR1bW15IHRleHQgb2YgdGhlIHByaW50aW5nIGFuZCB0eXBlc2V0dGluZyBpbmR1c3RyeS4=` (string, required) - Base64 encoded version the file
-        + file_name: `cat.bmp` (string, required) - Name of the file, including extension
-        + folder_name: `cat_pictures` (string, optional) - the folder name of which the contents should be displayed
+Get a url where the attachment can be uploaded. The signed url will remain valid for 30 seconds.
+We should set a Header with content length and send the attachment as the body...
 
 + Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `123` (number)
+        + data (object)
+            + url: `https://someplace.teamleader.eu/c9c2051d-611f-4f87-8138-923103974218` (string)
+            + valid_until: `2017-10-13T00:02:46+0200` (string)
 
-### files.delete [POST /files.delete]
-
-Delete a file
+### attachments.add [POST /attachments.add]
 
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `20` (number, required) - The file's ID
+        + url: `https://someplace.teamleader.eu/c9c2051d-611f-4f87-8138-923103974218` (string)
+        + name: `logo.jpg` (string, required)
+        + path: `design/v1.0` (string, optional)
+        + subject (object, required)
+            + type (enum[string])
+                + contact
+                + company
+                + deal
+                + ticket
+                + project
+                + event
+            + id (string)
+
++ Response 201 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + id: `123` (number)
+
+### attachments.update [POST /attachments.update]
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `20` (string, required)
+        + name: `cats.png` (string, required)
+
++ Response 204
+
+### attachments.move [POST /attachments.move]
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `20` (string, required)
+        + path: `design/v2.0` (string, required)
+
++ Response 204
+
+### attachments.delete [POST /attachments.delete]
+
+Delete an attachment
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `20` (string, required)
 
 + Response 204
