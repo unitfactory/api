@@ -1,5 +1,21 @@
 ## Quotations [/quotations]
 
+### quotations.info [GET /quotations.info]
+
+Get a quotation
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `1` (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `1` (string)
+        + deal_id: `1` (string)
+        + grouped_lines (array[ReadLineItemGroup])
+
 ### quotations.add [POST /quotations.add]
 
 Add a quotation to a deal
@@ -24,22 +40,6 @@ Update a deal quotation's items
         + grouped_lines (array[WriteLineItemGroup], optional)
 
 + Response 204
-
-### quotations.info [GET /quotations.info]
-
-Get a quotation
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id: `1` (string, required)
-
-+ Response 200 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id: `1` (string)
-        + deal_id: `1` (string)
-        + grouped_lines (array[ReadLineItemGroup])
 
 ### quotations.send [POST /quotations.send]
 
