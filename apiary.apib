@@ -2486,6 +2486,18 @@ Search projects
                 + (object)
                     + _type: `milestone` (string)
                     + id (string)
+        + participants (object)
+            + _items (array)
+                + (object)
+                    + participant (object)
+                        + _type: `user` (enum[string])
+                            + Members
+                                + user
+                        + id (string)
+                    + role (enum[string])
+                        + Members
+                            + decision_maker
+                            + member
 
 ### project.create [POST /project.create]
 
@@ -2540,6 +2552,52 @@ Search projects
             + id: `456` (string, required)
 
 + Response 204 (application/json;charset=utf-8)
+
+### project.addParticipant [POST /project.addParticipant]
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id (string, required)
+        + participant (object, required)
+            + type: `user` (string)
+            + id (string)
+        + role (enum[string], optional)
+            + Members
+                + decision_maker
+                + member
+            + Default: `member`
+
++ Response 204
+
+### project.updateParticipant [POST /project.updateParticipant]
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id (string, required)
+        + participant (object, optional)
+            + type: `user` (string)
+            + id (string)
+        + role (enum[string], optional)
+            + Members
+                + decision_maker
+                + member
+            + Default: `member`
+
++ Response 204
+
+### project.removeParticipant [POST /project.removeParticipant]
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id (string)
+        + participant (object)
+            + type: `user` (string)
+            + id (string)
+
++ Response 204
 
 ### project.delete [POST /project.delete]
 
