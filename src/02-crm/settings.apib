@@ -1,0 +1,52 @@
+## Settings [/]
+
+### tags.list [GET /tags.list]
+
+Get a list of all tags.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + page (Page, optional)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + _items : expo, upsell (array[string])
+
+### companyTypes.list [GET /companyTypes.list]
+
+Get the names of business types (legal structures) a company can have within a certain country.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + country: `BE` (string)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + _items (array)
+            + (object)
+                + name: `BVBA` (string)
+
+### dealPhases.list [GET /dealPhases.list]
+
+Get a list of all phases a deal can go through.
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + _items (array)
+            + (object)
+                + id: 1 (string)
+                + name: `New` (string)
+
+### dealSources.list [GET /dealSources.list]
+
+Get a list of all deal sources.
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + _items: Facebook, Twitter (array[string])

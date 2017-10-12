@@ -1,0 +1,21 @@
+## Settings [/invoicing]
+
+### taxRates.list [GET /taxRates.list]
+
+List tax rates
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + ids (array[string], optional)
+            + department_id: `1` (string, optional) - The ID of the department you wish to filter on.
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + _items (array)
+            + (object)
+                + id: `1` (string)
+                + description: `21%` (string)
+                + rate: `0.21` (number)
