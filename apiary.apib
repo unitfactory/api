@@ -217,81 +217,6 @@ To retrieve information about the user who authorized your application (the reso
 
 # Group General
 
-## Users [/users]
-
-### users.list [GET /users.list]
-
-Get a list of all users.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + page (Page, optional)
-
-+ Response 200 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + _items (array)
-            + (object)
-                + id: `1` (number)
-                + name: `John Smith` (string)
-                + email: `john@teamleader.eu` (string)
-                + gsm: `+32412654321` (string)
-                + phone: `+3291239843` (string)
-                + team (object)
-                    + id: 1 (number)
-                + title: `Sales` (string)
-                + active: `true` (boolean)
-
-## Tags [/tags]
-
-### tags.list [GET /tags.list]
-
-Get a list of all tags.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + page (Page, optional)
-
-+ Response 200 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + _items : expo, upsell (array[string])
-
-## Activity Types [/activityTypes]
-
-### activityTypes.list [GET /activityTypes.list]
-
-Get a list of all activity types.
-
-+ Response 200 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + _items (array[object])
-            + (object)
-                + id (string)
-                + name (string)
-                + color (string)
-                + icon (string)
-
-## Topics [/topics]
-
-### topics.list [GET /topics.list]
-
-Get a list of all topics.
-
-+ Response 200 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + _items (array[object])
-            + (object)
-                + id (string)
-                + name (string)
-                + hourly_rate (number)
-                + ledger_account (string)
-                + billable (boolean)
-
 ## Departments [/departments]
 
 ### departments.list [GET /departments.list]
@@ -384,7 +309,7 @@ Update a department.
 
 ## Products [/products]
 
-### products.list [POST /products.list]
+### products.list [GET /products.list]
 
 + Request (application/json)
 
@@ -417,7 +342,7 @@ Update a department.
                             + id (string)
                         + price (ReadPrice)
 
-### products.info [POST /products.info]
+### products.info [GET /products.info]
 
 + Request (application/json)
 
@@ -954,22 +879,6 @@ Remove a tag from a company.
 
 + Response 204
 
-### companyTypes.list [GET /companyTypes.list]
-
-Get the names of business types (legal structures) a company can have within a certain country.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + country: `BE` (string)
-
-+ Response 200 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + _items (array)
-            + (object)
-                + name: `BVBA` (string)
-
 ## Deals [/deals]
 
 ### deals.list [GET /deals.list]
@@ -1145,28 +1054,23 @@ Change the phase of a deal.
 
 + Response 204
 
-### dealPhases.list [GET /dealPhases.list]
-
-Get a list of all phases a deal can go through.
-
-+ Response 200 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + _items (array)
-            + (object)
-                + id: 1 (string)
-                + name: `New` (string)
-
-### dealSources.list [GET /dealSources.list]
-
-Get a list of all deal sources.
-
-+ Response 200 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + _items: Facebook, Twitter (array[string])
-
 ## Quotations [/quotations]
+
+### quotations.info [GET /quotations.info]
+
+Get a quotation
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `1` (string, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `1` (string)
+        + deal_id: `1` (string)
+        + grouped_lines (array[ReadLineItemGroup])
 
 ### quotations.add [POST /quotations.add]
 
@@ -1193,22 +1097,6 @@ Update a deal quotation's items
 
 + Response 204
 
-### quotations.info [GET /quotations.info]
-
-Get a quotation
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id: `1` (string, required)
-
-+ Response 200 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id: `1` (string)
-        + deal_id: `1` (string)
-        + grouped_lines (array[ReadLineItemGroup])
-
 ### quotations.send [POST /quotations.send]
 
 Send a deal's quotation to a client via email.
@@ -1223,6 +1111,59 @@ Send a deal's quotation to a client via email.
         + template_id: `1` (string, optional)
 
 + Response 204
+
+## Settings [/]
+
+### tags.list [GET /tags.list]
+
+Get a list of all tags.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + page (Page, optional)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + _items : expo, upsell (array[string])
+
+### companyTypes.list [GET /companyTypes.list]
+
+Get the names of business types (legal structures) a company can have within a certain country.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + country: `BE` (string)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + _items (array)
+            + (object)
+                + name: `BVBA` (string)
+
+### dealPhases.list [GET /dealPhases.list]
+
+Get a list of all phases a deal can go through.
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + _items (array)
+            + (object)
+                + id: 1 (string)
+                + name: `New` (string)
+
+### dealSources.list [GET /dealSources.list]
+
+Get a list of all deal sources.
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + _items: Facebook, Twitter (array[string])
 
 # Group Activities
 
@@ -1348,26 +1289,6 @@ Get details for a single calendar event.
                         + ticket
                 + id (string)
 
-### events.link [POST /events.link]
-
-Link a calendar event to something.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id (string)
-        + link (object)
-            + type (enum[string])
-                + Members
-                    + deal
-                    + company
-                    + project
-                    + milestone
-                    + ticket
-            + id (string)
-
-+ Response 204
-
 ### events.create [POST /events.create]
 
 Create a new calendar event.
@@ -1444,6 +1365,26 @@ Update a calendar event.
 
 + Response 204
 
+### events.link [POST /events.link]
+
+Link a calendar event to something.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id (string)
+        + link (object)
+            + type (enum[string])
+                + Members
+                    + deal
+                    + company
+                    + project
+                    + milestone
+                    + ticket
+            + id (string)
+
++ Response 204
+
 ### events.cancel [POST /events.cancel]
 
 Cancel a calendar event (for all attendees).
@@ -1515,106 +1456,6 @@ Get a list of todos.
                             + contact
                     + id (string)
 
-### todos.create [POST /todos.create]
-
-Create a new todo.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + creator_id (string, optional)
-        + activity_type_id (string, optional)
-        + topic_id (string, optional)
-        + title: `Meeting with stakeholders` (string, required)
-        + description (string, optional)
-        + due_at: `2016-02-04T16:44:33+00:00` (string, optional)
-        + estimated_duration: 60 (number, optional)
-        + location (Address, optional)
-        + attendees (array, optional)
-            + (object)
-                + type (enum[string], required)
-                    + Members
-                        + user
-                        + contact
-                + id (string, required)
-        + links (array, optional)
-            + (object)
-                + type (enum[string], required)
-                    + Members
-                        + deal
-                        + company
-                        + project
-                        + milestone
-                        + ticket
-                + id (string, required)
-
-+ Response 201 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id: `456` (string)
-
-### todos.schedule [GET /todos.schedule]
-
-Schedule a todo in your calendar.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id (string, required)
-        + title (string, optional)
-        + starts_at: `2016-02-04T16:00:00+00:00` (string, required)
-        + ends_at: `2016-02-04T18:00:00+00:00` (string, required)
-        + location (Address, optional)
-        + attendees (array, optional)
-            + (object)
-                + type (enum[string], required)
-                    + Members
-                        + user
-                        + contact
-                + id (string, required)
-
-+ Response 201 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + _type: `event` (string)
-        + id: `456` (string)
-
-### todos.update [POST /todos.update]
-
-Update a todo.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id (string, required)
-        + creator_id (string, optional)
-        + activity_type_id (string, optional)
-        + topic_id (string, optional)
-        + title: `Meeting with stakeholders` (string, optional)
-        + description (string, optional)
-        + due_at: `2016-02-04T16:44:33+00:00` (string, optional)
-        + estimated_duration: 60 (number, optional)
-        + location (Address, optional)
-        + attendees (array, optional)
-            + (object)
-                + type (enum[string], required)
-                    + Members
-                        + user
-                        + contact
-                + id (string, required)
-        + links (array, optional)
-            + (object)
-                + type (enum[string], required)
-                    + Members
-                        + deal
-                        + company
-                        + project
-                        + milestone
-                        + ticket
-                + id (string, required)
-
-+ Response 204
-
 ### todos.info [GET /todos.info]
 
 Get information about a todo.
@@ -1658,6 +1499,106 @@ Get information about a todo.
                         + user
                         + contact
                 + id (string)
+
+### todos.create [POST /todos.create]
+
+Create a new todo.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + creator_id (string, optional)
+        + activity_type_id (string, optional)
+        + topic_id (string, optional)
+        + title: `Meeting with stakeholders` (string, required)
+        + description (string, optional)
+        + due_at: `2016-02-04T16:44:33+00:00` (string, optional)
+        + estimated_duration: 60 (number, optional)
+        + location (Address, optional)
+        + attendees (array, optional)
+            + (object)
+                + type (enum[string], required)
+                    + Members
+                        + user
+                        + contact
+                + id (string, required)
+        + links (array, optional)
+            + (object)
+                + type (enum[string], required)
+                    + Members
+                        + deal
+                        + company
+                        + project
+                        + milestone
+                        + ticket
+                + id (string, required)
+
++ Response 201 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `456` (string)
+
+### todos.update [POST /todos.update]
+
+Update a todo.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id (string, required)
+        + creator_id (string, optional)
+        + activity_type_id (string, optional)
+        + topic_id (string, optional)
+        + title: `Meeting with stakeholders` (string, optional)
+        + description (string, optional)
+        + due_at: `2016-02-04T16:44:33+00:00` (string, optional)
+        + estimated_duration: 60 (number, optional)
+        + location (Address, optional)
+        + attendees (array, optional)
+            + (object)
+                + type (enum[string], required)
+                    + Members
+                        + user
+                        + contact
+                + id (string, required)
+        + links (array, optional)
+            + (object)
+                + type (enum[string], required)
+                    + Members
+                        + deal
+                        + company
+                        + project
+                        + milestone
+                        + ticket
+                + id (string, required)
+
++ Response 204
+
+### todos.schedule [POST /todos.schedule]
+
+Schedule a todo in your calendar.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id (string, required)
+        + title (string, optional)
+        + starts_at: `2016-02-04T16:00:00+00:00` (string, required)
+        + ends_at: `2016-02-04T18:00:00+00:00` (string, required)
+        + location (Address, optional)
+        + attendees (array, optional)
+            + (object)
+                + type (enum[string], required)
+                    + Members
+                        + user
+                        + contact
+                + id (string, required)
+
++ Response 201 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + _type: `event` (string)
+        + id: `456` (string)
 
 ### todos.complete [POST /todos.complete]
 
@@ -1761,6 +1702,34 @@ Get information about tracked time.
                     + ticket
             + id: `456` (string, required)
 
+### timetracking.current [GET /timetracking.current]
+
+Get the current timetracking timer.
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + id: `1` (string)
+        + user (object)
+            + _type: `user` (string)
+            + id: `123` (string)
+        + topic (object)
+            + _type: `topic` (string)
+            + id: `456` (string)
+        + started_at: `2017-04-26T10:01:49+00:00` (string)
+        + description: `Timer description` (string)
+        + subject (object)
+            + type: `project` (enum[string], required)
+                + Members
+                    + company
+                    + contact
+                    + event
+                    + todo
+                    + project
+                    + milestone
+                    + ticket
+            + id: `456` (string, required)
+
 ### timetracking.start [POST /timetracking.start]
 
 Start a new timetracking timer.
@@ -1798,34 +1767,6 @@ Stop the current timetracking timer.
         + ended_at: `2017-04-26T10:01:49+00:00` (string, optional) - If not provided, current time will be used
 
 + Response 204 (application/json)
-
-### timetracking.current [POST /timetracking.current]
-
-Get the current timetracking timer.
-
-+ Response 200 (application/json)
-
-    + Attributes (object)
-        + id: `1` (string)
-        + user (object)
-            + _type: `user` (string)
-            + id: `123` (string)
-        + topic (object)
-            + _type: `topic` (string)
-            + id: `456` (string)
-        + started_at: `2017-04-26T10:01:49+00:00` (string)
-        + description: `Timer description` (string)
-        + subject (object)
-            + type: `project` (enum[string], required)
-                + Members
-                    + company
-                    + contact
-                    + event
-                    + todo
-                    + project
-                    + milestone
-                    + ticket
-            + id: `456` (string, required)
 
 ### timetracking.resume [POST /timetracking.resume]
 
@@ -1914,6 +1855,37 @@ Delete tracked time.
         + id: `1` (string, required)
 
 + Response 204
+
+## Settings [/activities]
+
+### activityTypes.list [GET /activityTypes.list]
+
+Get a list of all activity types.
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + _items (array[object])
+            + (object)
+                + id (string)
+                + name (string)
+                + color (string)
+                + icon (string)
+
+### topics.list [GET /topics.list]
+
+Get a list of all topics.
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + _items (array[object])
+            + (object)
+                + id (string)
+                + name (string)
+                + hourly_rate (number)
+                + ledger_account (string)
+                + billable (boolean)
 
 # Group Invoicing
 
@@ -2131,7 +2103,7 @@ Book a draft invoice.
 
 + Response 204
 
-### invoices.download [POST /invoices.download]
+### invoices.download [GET /invoices.download]
 
 + Request (application/json;charset=utf-8)
 
@@ -2183,41 +2155,7 @@ Create a credit note from an invoice.
         + _type: `creditNote` (string)
         + id: `1` (string) - ID of the credit note that was created
 
-### creditNotes.draft [POST /creditNotes.draft]
-
-Create a draft credit note.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id (string, optional)
-        + customer (object, optional)
-            + type (enum[string])
-                + Members
-                    + contact
-                    + company
-            + id (string)
-        + for_attention_of (object, optional)
-            + name (string, optional)
-            + contact_id (string, optional)
-        + department_id (string)
-        + payment_term (object, optional)
-            + type (enum[string])
-                + Members
-                    + cash - Direct payment, often cash
-                    + end_of_month - End of the month of Xth day after the invoice date
-                    + after_invoice_date - X days after invoice date
-            + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
-        + layout_id (string, optional) - Id of the layout you wish to use for this invoice
-        + purchase_order_number (string, optional) - The external order number. Overrides possible PO number coming from project.
-        + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
-        + grouped_lines (array[WriteLineItemGroup], optional)
-
-+ Response 201 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + _type: `creditNote` (string)
-        + id: `1` (string)
+## Creditnotes [/creditNotes]
 
 ### creditNotes.list [GET /creditNotes.list]
 
@@ -2278,6 +2216,42 @@ List credit notes
                             + _type: `contact` (string)
                             + id: `456` (string)
 
+### creditNotes.draft [POST /creditNotes.draft]
+
+Create a draft credit note.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id (string, optional)
+        + customer (object, optional)
+            + type (enum[string])
+                + Members
+                    + contact
+                    + company
+            + id (string)
+        + for_attention_of (object, optional)
+            + name (string, optional)
+            + contact_id (string, optional)
+        + department_id (string)
+        + payment_term (object, optional)
+            + type (enum[string])
+                + Members
+                    + cash - Direct payment, often cash
+                    + end_of_month - End of the month of Xth day after the invoice date
+                    + after_invoice_date - X days after invoice date
+            + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
+        + layout_id (string, optional) - Id of the layout you wish to use for this invoice
+        + purchase_order_number (string, optional) - The external order number. Overrides possible PO number coming from project.
+        + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
+        + grouped_lines (array[WriteLineItemGroup], optional)
+
++ Response 201 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + _type: `creditNote` (string)
+        + id: `1` (string)
+
 ### creditNotes.update [POST /creditNotes.update]
 
 + Request (application/json;charset=utf-8)
@@ -2319,26 +2293,6 @@ Book a draft creditNote.
         + on: `2016-02-04` (string, optional) - If not provided, today will be used
 
 + Response 204
-
-### taxRates.list [GET /taxRates.list]
-
-List tax rates
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + filter (object, optional)
-            + ids (array[string], optional)
-            + department_id: `1` (string, optional) - The ID of the department you wish to filter on.
-
-+ Response 200 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + _items (array)
-            + (object)
-                + id: `1` (string)
-                + description: `21%` (string)
-                + rate: `0.21` (number)
 
 ## Subscriptions [/subscriptions]
 
@@ -2402,6 +2356,28 @@ List tax rates
                     + rate: `0.21` (number)
                     + taxable (Money)
                     + tax (Money)
+
+## Settings [/invoicing]
+
+### taxRates.list [GET /taxRates.list]
+
+List tax rates
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + ids (array[string], optional)
+            + department_id: `1` (string, optional) - The ID of the department you wish to filter on.
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + _items (array)
+            + (object)
+                + id: `1` (string)
+                + description: `21%` (string)
+                + rate: `0.21` (number)
 
 # Group Projects
 
@@ -2667,7 +2643,7 @@ Get details for a single milestone.
                 + open
                 + closed
 
-### milestones.create [GET /milestones.create]
+### milestones.create [POST /milestones.create]
 
 Create a new milestone.
 
@@ -2683,7 +2659,7 @@ Create a new milestone.
     + Attributes (object)
         + id: `1` (string)
 
-### milestones.update [GET /milestones.update]
+### milestones.update [POST /milestones.update]
 
 Update a milestone.
 
@@ -2696,7 +2672,7 @@ Update a milestone.
 
 + Response 204 (application/json;charset=utf-8)
 
-### milestones.close [GET /milestones.close]
+### milestones.close [POST /milestones.close]
 
 Close a milestone.
 
@@ -2707,7 +2683,7 @@ Close a milestone.
 
 + Response 204 (application/json;charset=utf-8)
 
-### milestones.reopen [GET /milestones.reopen]
+### milestones.reopen [POST /milestones.reopen]
 
 Open a closed milestone.
 
@@ -2884,9 +2860,35 @@ Delete an attachment
 
 + Response 204
 
+## Users [/users]
+
+### users.list [GET /users.list]
+
+Get a list of all users.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + page (Page, optional)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + _items (array)
+            + (object)
+                + id: `1` (number)
+                + name: `John Smith` (string)
+                + email: `john@teamleader.eu` (string)
+                + gsm: `+32412654321` (string)
+                + phone: `+3291239843` (string)
+                + team (object)
+                    + id: 1 (number)
+                + title: `Sales` (string)
+                + active: `true` (boolean)
+
 ## Webhooks [/webhooks]
 
-### /webhooks.register [POST /webhooks.register]
+### webhooks.register [POST /webhooks.register]
 
 Register a new webhook.
 
@@ -2954,6 +2956,7 @@ Register a new webhook.
                 + COMPANY_CLOSING_DAYS_EDITED
 
 + Response 204
+
 
 # Data Structures
 
