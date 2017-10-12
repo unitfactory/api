@@ -1149,7 +1149,7 @@ Send a deal's quotation to a client via email.
 
 + Response 204
 
-## Tags [/tags]
+## Settings [/]
 
 ### tags.list [GET /tags.list]
 
@@ -1856,7 +1856,7 @@ Delete tracked time.
 
 + Response 204
 
-## Activity Types [/activityTypes]
+## Settings [/activities]
 
 ### activityTypes.list [GET /activityTypes.list]
 
@@ -1871,8 +1871,6 @@ Get a list of all activity types.
                 + name (string)
                 + color (string)
                 + icon (string)
-
-## Topics [/topics]
 
 ### topics.list [GET /topics.list]
 
@@ -2294,26 +2292,6 @@ Book a draft creditNote.
 
 + Response 204
 
-### taxRates.list [GET /taxRates.list]
-
-List tax rates
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + filter (object, optional)
-            + ids (array[string], optional)
-            + department_id: `1` (string, optional) - The ID of the department you wish to filter on.
-
-+ Response 200 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + _items (array)
-            + (object)
-                + id: `1` (string)
-                + description: `21%` (string)
-                + rate: `0.21` (number)
-
 ## Subscriptions [/subscriptions]
 
 ### subscriptions.info [GET /subscriptions.info]
@@ -2376,6 +2354,28 @@ List tax rates
                     + rate: `0.21` (number)
                     + taxable (Money)
                     + tax (Money)
+
+## Settings [/invoicing]
+
+### taxRates.list [GET /taxRates.list]
+
+List tax rates
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + filter (object, optional)
+            + ids (array[string], optional)
+            + department_id: `1` (string, optional) - The ID of the department you wish to filter on.
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + _items (array)
+            + (object)
+                + id: `1` (string)
+                + description: `21%` (string)
+                + rate: `0.21` (number)
 
 # Group Projects
 
