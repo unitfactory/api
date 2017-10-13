@@ -118,11 +118,9 @@ Add a new company.
         + tags: expo, upsell (array[string], optional)
         + custom_fields (array)
             + (object)
-                + One Of
-                    + field_id: 123 (string)
-                    + field (object)
-                        + type: `custom_field` (string)
-                        + id: 123 (string)
+                + field (object)
+                    + type: `custom_field` (string)
+                    + id: 123 (string)
                 + value
 
 + Response 201 (application/json;charset=utf-8)
@@ -153,20 +151,16 @@ Update a company.
         + iban: `BE12 1234 1234 1234` (string)
         + bic: `BICBANK` (string)
         + language: `en` (string, optional)
-        + One Of
-            + responsible_user_id (string, optional)
-            + responsible_user (object)
-                + type: `user` (string)
-                + id: `456` (string)
+        + responsible_user (object)
+            + type: `user` (string)
+            + id: `456` (string)
         + remarks: `Met at expo` (string, optional)
         + tags: expo, upsell (array[string], optional)
         + custom_fields (array)
             + (object)
-                + One Of
-                    + field_id: 123 (string)
-                    + field (object)
-                        + type: `custom_field` (string)
-                        + id: 123 (string)
+                + field (object)
+                    + type: `custom_field` (string)
+                    + id: 123 (string)
                 + value
 
 + Response 204
