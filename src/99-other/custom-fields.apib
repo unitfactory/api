@@ -1,0 +1,174 @@
+## Custom Fields [/customFieldDefinitions]
+
+### customFieldDefinitions.list [GET /customFieldDefinitions.list]
+
+Get a list of all the definitions of custom fields.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + page (Page, optional)
+        + context: `contact` (enum[string], required) - The context of the custom field definition
+            + Members
+                + contact
+                + company
+                + deal
+                + project
+                + activity
+                + ticket
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (array[object])
+            + id (string)
+            + context: `contact` (enum[string])
+                + Members
+                    + contact
+                    + company
+                    + deal
+                    + project
+                    + activity
+                    + ticket
+            + type (enum[string])
+                + Members
+                    + number
+                    + auto_increment
+                    + string
+                    + enum
+                    + user
+                    + company
+                    + contact
+                    + ___more___
+            + label (string)
+            + options (array[string])
+            + client - The client who made the integration
+            + readable (enum[string])
+                + Members
+                    + by_owning_client
+                    + by_all_clients
+            + writable (enum[string])
+                + Members
+                    + by_owning_client
+                    + by_all_clients
+
+### customFieldDefinitions.info [GET /customFieldDefinitions.info]
+
+Get a info about a specific custom field definition
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `20` (number, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + data (object)
+            + id (string)
+            + context: `contact` (enum[string])
+                + Members
+                    + contact
+                    + company
+                    + deal
+                    + project
+                    + activity
+                    + ticket
+            + type (enum[string])
+                + Members
+                    + number
+                    + auto_increment
+                    + string
+                    + enum
+                    + user
+                    + company
+                    + contact
+                    + ___more___
+            + label (string)
+            + options (array[string])
+            + client - The client who made the integration
+            + readable (enum[string])
+                + Members
+                    + by_owning_client
+                    + by_all_clients
+            + writable (enum[string])
+                + Members
+                    + by_owning_client
+                    + by_all_clients
+
+### customFieldDefinitions.add [GET /customFieldDefinitions.add]
+
+Add a custom field definition
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `20` (number, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id (string)
+        + context: `contact` (enum[string])
+            + Members
+                + contact
+                + company
+                + deal
+                + project
+                + activity
+                + ticket
+        + type (enum[string])
+            + Members
+                + number
+                + auto_increment
+                + string
+                + enum
+                + user
+                + company
+                + contact
+                + ___more___
+        + label (string)
+        + options (array[string])
+        + readable (enum[string])
+            + Members
+                + by_owning_client
+                + by_all_clients
+        + writable (enum[string])
+            + Members
+                + by_owning_client
+                + by_all_clients
+
+### customFieldDefinitions.update [GET /customFieldDefinitions.update]
+
+Add a custom field definition
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `20` (number, required)
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id (string)
+        + label (string)
+        + options (array[string])
+        + readable (enum[string])
+            + Members
+                + by_owning_client
+                + by_all_clients
+        + writable (enum[string])
+            + Members
+                + by_owning_client
+                + by_all_clients
+
+### customFieldDefinitions.delete [POST /customFieldDefinitions.delete]
+
+Delete a custom field definition
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id: `20` (number, required)
+
++ Response 204
