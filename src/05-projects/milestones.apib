@@ -55,7 +55,7 @@ Get details for a single milestone.
                 + open
                 + closed
 
-### milestones.create [GET /milestones.create]
+### milestones.create [POST /milestones.create]
 
 Create a new milestone.
 
@@ -71,7 +71,7 @@ Create a new milestone.
     + Attributes (object)
         + id: `1` (string)
 
-### milestones.update [GET /milestones.update]
+### milestones.update [POST /milestones.update]
 
 Update a milestone.
 
@@ -84,7 +84,7 @@ Update a milestone.
 
 + Response 204 (application/json;charset=utf-8)
 
-### milestones.close [GET /milestones.close]
+### milestones.close [POST /milestones.close]
 
 Close a milestone.
 
@@ -95,7 +95,7 @@ Close a milestone.
 
 + Response 204 (application/json;charset=utf-8)
 
-### milestones.reopen [GET /milestones.reopen]
+### milestones.reopen [POST /milestones.reopen]
 
 Open a closed milestone.
 

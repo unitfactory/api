@@ -17,14 +17,14 @@
         + starts_on (string)
         + ends_on (string)
         + frequency (object)
-        	+ every: 10 (number)
-        	+ period (enum[string])
-        		+ Members
-        			+ day
-        			+ week
-        			+ month
-        			+ quarter
-        			+ year
+            + every: 10 (number)
+            + period (enum[string])
+                + Members
+                    + day
+                    + week
+                    + month
+                    + quarter
+                    + year
         + payment_term (object)
             + type (enum[string])
                 + Members
@@ -44,7 +44,7 @@
                 + contact (object)
                     + _type: `contact` (string)
                     + id: `456` (string)
-        + grouped_lines (array[InvoiceLineItem])
+        + grouped_lines (array[ReadLineItemGroup])
         + total (object)
             + tax_exclusive (Money)
             + tax_inclusive (Money)

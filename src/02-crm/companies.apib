@@ -199,19 +199,3 @@ Remove a tag from a company.
         + tags: prospect, expo (array[string], required)
 
 + Response 204
-
-### companyTypes.list [GET /companyTypes.list]
-
-Get the names of business types (legal structures) a company can have within a certain country.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + country: `BE` (string)
-
-+ Response 200 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + _items (array)
-            + (object)
-                + name: `BVBA` (string)

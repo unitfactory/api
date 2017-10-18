@@ -28,7 +28,7 @@ Search projects
                 + reference: `PRO-2` (string)
                 + title: `New company website` (string)
                 + description (string)
-                + status: `active` (string)
+                + status: `active` (enum[string])
                     + Members
                         + active
                         + on_hold
@@ -43,7 +43,7 @@ Search projects
                     + _type: `deal` (string)
                     + id: `456` (string)
 
-### project.info [GET /project.info]
+### projects.info [GET /projects.info]
 
 + Request (application/json;charset=utf-8)
 
@@ -57,7 +57,7 @@ Search projects
         + project_number: `PRO-1` (string)
         + title: `New company website` (string)
         + description (string)
-        + status: `active` (string)
+        + status: `active` (enum[string])
             + Members
                 + active
                 + on_hold
@@ -79,8 +79,20 @@ Search projects
                 + (object)
                     + _type: `milestone` (string)
                     + id (string)
+        + participants (object)
+            + _items (array)
+                + (object)
+                    + participant (object)
+                        + _type: `user` (enum[string])
+                            + Members
+                                + user
+                        + id (string)
+                    + role (enum[string])
+                        + Members
+                            + decision_maker
+                            + member
 
-### project.create [POST /project.create]
+### projects.create [POST /projects.create]
 
 + Request (application/json;charset=utf-8)
 
@@ -105,7 +117,7 @@ Search projects
     + Attributes (object)
         + id: `1` (string)
 
-### project.update [POST /project.update]
+### projects.update [POST /projects.update]
 
 + Request (application/json;charset=utf-8)
 
@@ -113,7 +125,7 @@ Search projects
         + id: `1` (string, required)
         + title: `New company website` (string, optional)
         + description (string, optional)
-        + status: `active` (string, optional)
+        + status: `active` (enum[string], optional)
             + Members
                 + active
                 + on_hold
@@ -134,7 +146,53 @@ Search projects
 
 + Response 204 (application/json;charset=utf-8)
 
-### project.delete [POST /project.delete]
+### projects.addParticipant [POST /projects.addParticipant]
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id (string, required)
+        + participant (object, required)
+            + type: `user` (string)
+            + id (string)
+        + role (enum[string], optional)
+            + Members
+                + decision_maker
+                + member
+            + Default: `member`
+
++ Response 204
+
+### projects.updateParticipant [POST /projects.updateParticipant]
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id (string, required)
+        + participant (object, optional)
+            + type: `user` (string)
+            + id (string)
+        + role (enum[string], optional)
+            + Members
+                + decision_maker
+                + member
+            + Default: `member`
+
++ Response 204
+
+### projects.removeParticipant [POST /projects.removeParticipant]
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + id (string)
+        + participant (object)
+            + type: `user` (string)
+            + id (string)
+
++ Response 204
+
+### projects.delete [POST /projects.delete]
 
 Delete a project.
 

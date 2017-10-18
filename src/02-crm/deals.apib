@@ -216,32 +216,25 @@ Mark a deal as lost.
 
 + Response 204
 
-### dealPhases.list [GET /dealPhases.list]
+### deals.won [POST /deals.won]
 
-Get a list of all phases a deal can go through.
+Mark a deal as won.
 
-+ Response 200 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + _items (array)
-            + (object)
-                + id: 1 (string)
-                + name: `New` (string)
-
-### dealSources.list [GET /dealSources.list]
-
-Get a list of all deal sources.
-
-+ Response 200 (application/json;charset=utf-8)
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + _items: Facebook, Twitter (array[string])
+        + id: `1` (string, required)
 
-### lostReasons.list [GET /lostReasons.list]
++ Response 204
 
-Get a list of all deal lost reasons.
+### deals.lost [POST /deals.lost]
 
-+ Response 200 (application/json;charset=utf-8)
+Mark a deal as lost.
+
++ Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + _items: Facebook, Twitter (array[string])
+        + id: `1` (string, required)
+        + reason: `Bad product fit` (string, optional)
+
++ Response 204

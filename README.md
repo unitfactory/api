@@ -1,6 +1,6 @@
 # Teamleader API
 
-This repository contains the Teamleader API Definition (in [API Blueprint](https://apiblueprint.org/) format). We follow an [API-first]('./docs/api-first.md) development approach, so our implementation follows this definition for 100%.
+This repository contains the Teamleader API Definition (in [API Blueprint](https://apiblueprint.org/) format). We follow an [API-first]('docs/api-first.md) development approach, so our implementation follows this definition for 100%.
 
 ## Published documentation
 
