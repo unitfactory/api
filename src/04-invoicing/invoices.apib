@@ -58,12 +58,6 @@ List invoices
                             + rate: `0.21` (number)
                             + taxable (Money)
                             + tax (Money)
-                    + withheld_taxes (array)
-                        + (object)
-                            + type: `Trabajo`
-                            + rate: `0.21` (number)
-                            + taxable (Money)
-                            + tax (Money)
 
 ### invoices.info [GET /invoices.info]
 
@@ -130,7 +124,7 @@ Draft a new invoice
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + customer (object, optional) - Who is the invoice for?
+        + customer (object) - Who is the invoice for?
             + type (enum[string])
                 + Members
                     + contact
@@ -150,7 +144,7 @@ Draft a new invoice
         + layout_id (string, optional) - Id of the layout you wish to use for this invoice
         + purchase_order_number (string, optional) - The external order number. Overrides possible PO number coming from project.
         + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
-        + grouped_lines (array[WriteLineItemGroup], optional)
+        + grouped_lines (array[WriteLineItemGroup])
 
 + Response 201 (application/json;charset=utf-8)
 
