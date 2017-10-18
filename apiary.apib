@@ -2786,25 +2786,16 @@ Get a signed url where the attachment can be downloaded. The signed url will rem
 
               Location: The url of the downloadable file. This will remain valid for 30 seconds.
 
-### attachments.upload [POST /attachments.upload]
-
-Get a url where the attachment can be uploaded. The signed url will remain valid for 30 seconds.
-We should set a Header with content length and send the attachment as the body...
-
-+ Response 201 (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + data (object)
-            + url: `https://someplace.teamleader.eu/c9c2051d-611f-4f87-8138-923103974218` (string)
-            + valid_until: `2017-10-13T00:02:46+0200` (string)
-
 ### attachments.add [POST /attachments.add]
+
+Add a file, by first posting its meta-data and afterwards PUTting the contents to the returned Location header url.
 
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + url: `https://someplace.teamleader.eu/c9c2051d-611f-4f87-8138-923103974218` (string)
         + path: `design/v1.0/logo.jpg` (string, optional)
+        + size: `3355` (number) - In bytes
+        + mime_type (string)
         + subject (object, required)
             + type (enum[string])
                 + contact
@@ -2816,6 +2807,10 @@ We should set a Header with content length and send the attachment as the body..
             + id (string)
 
 + Response 201 (application/json;charset=utf-8)
+
+    + Headers
+
+            Location: the url where to PUT to, this url may be limited in time
 
     + Attributes (object)
         + data (object)
