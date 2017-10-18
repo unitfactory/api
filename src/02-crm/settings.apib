@@ -37,10 +37,10 @@ Get a list of all phases a deal can go through.
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + _items (array)
-            + (object)
-                + id: 1 (string)
-                + name: `New` (string)
+        + _items (array[object])
+            + id: 1 (string)
+            + name: `New` (string)
+
 
 ### dealSources.list [GET /dealSources.list]
 
@@ -49,4 +49,18 @@ Get a list of all deal sources.
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + _items: Facebook, Twitter (array[string])
+        + _items (array[object])
+            + id (string)
+            + description: 'Referral' (string)
+
+
+### lostReasons.list [GET /lostReasons.list]
+
+Get a list of all deal sources.
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + _items (array[object])
+            + id (string)
+            + description: 'Lost to competitor' (string)

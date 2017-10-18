@@ -935,8 +935,14 @@ Get a list of deals.
                     + _type: `user`
                     + id: 1 (string)
                 + closed_at: `2017-05-09T11:31:30+00:00` (string)
-                + lost_reason: `No interested` (string)
-                + source: `Facebook` (string)
+                + lost (object)
+                    + reason (object)
+                        + type: `lostReason` (string)
+                        + id (string)
+                    + extra_info (string, optional)
+                + source (object)
+                    + type: `dealSource` (string)
+                    + id (string)
                 + custom_fields (object)
                     + _items (array)
                         + (object)
@@ -983,8 +989,14 @@ Get details for a single deal.
             + _type: user (string)
             + id: 17 (string)
         + closed_at: `2017-05-09T11:31:30+00:00` (string)
-        + lost_reason: `No interest` (string)
-        + source: `Facebook` (string)
+        + lost (object)
+            + reason (object)
+                + type: `lostReason` (string)
+                + id (string)
+            + extra_info (string, optional)
+        + source (object)
+            + type: `dealSource` (string)
+            + id (string)
         + custom_fields (object)
             + _items (array)
                 + (object)
@@ -1023,7 +1035,7 @@ Create a new deal for a customer.
                     + company
             + id: 123 (string)
         + title: `Interesting business deal` (string, required)
-        + source: `Facebook` (string, required)
+        + source_id: `1` (string)
         + department_id: `1` (string, optional)
         + responsible_user_id: `1` (string, optional)
         + phase_id: `1` (string, optional)
@@ -1049,7 +1061,7 @@ Update a deal.
     + Attributes (object)
         + id: `1` (string, required)
         + title: `Interesting business deal` (string, optional)
-        + source: `Google Adwords` (string, optional)
+        + source_id: `1` (string, optional)
         + department_id: `1` (string, optional)
         + responsible_user_id: `1` (string, optional)
         + estimated_value (Money, optional)
@@ -1093,7 +1105,8 @@ Mark a deal as lost.
 
     + Attributes (object)
         + id: `1` (string, required)
-        + reason: `Bad product fit` (string, optional)
+        + reason_id: `1` (string, optional)
+        + extra_info: `Not ready for a change, decision postponed` (string, optional)
 
 + Response 204
 
@@ -1194,10 +1207,10 @@ Get a list of all phases a deal can go through.
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + _items (array)
-            + (object)
-                + id: 1 (string)
-                + name: `New` (string)
+        + _items (array[object])
+            + id: 1 (string)
+            + name: `New` (string)
+
 
 ### dealSources.list [GET /dealSources.list]
 
@@ -1206,7 +1219,21 @@ Get a list of all deal sources.
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + _items: Facebook, Twitter (array[string])
+        + _items (array[object])
+            + id (string)
+            + description: 'Referral' (string)
+
+
+### lostReasons.list [GET /lostReasons.list]
+
+Get a list of all deal sources.
+
++ Response 200 (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + _items (array[object])
+            + id (string)
+            + description: 'Lost to competitor' (string)
 
 # Group Activities
 
