@@ -2734,7 +2734,7 @@ Get a list of all attachments relating to an object
                             + user
                     + id (string)
                 + added_at: `2017-10-13T00:02:17+0200` (string)
-                + update_at: `2017-10-13T00:02:17+0200` (string)
+                + updated_at: `2017-10-13T00:02:17+0200` (string)
 
 ### attachments.info [GET /attachments.info]
 
@@ -2769,7 +2769,7 @@ Get a info about a specific attachment
                         + user
                 + id (string)
             + added_at: `2017-10-13T00:02:17+0200` (string)
-            + update_at: `2017-10-13T00:02:17+0200` (string)
+            + updated_at: `2017-10-13T00:02:17+0200` (string)
 
 ### attachments.download [GET /attachments.download]
 
@@ -2780,12 +2780,11 @@ Get a signed url where the attachment can be downloaded. The signed url will rem
     + Attributes (object)
         + id: `20` (string, required)
 
-+ Response 200 (application/json;charset=utf-8)
++ Response 307 (application/json;charset=utf-8)
 
-    + Attributes (object)
-        + data
-            + url: `https://someplace.teamleader.eu/c9c2051d-611f-4f87-8138-923103974218` (string)
-            + valid_until: `2017-10-13T00:02:46+0200` (string)
+    + Headers
+
+              Location: The url of the downloadable file. This will remain valid for 30 seconds.
 
 ### attachments.upload [POST /attachments.upload]
 
