@@ -59,6 +59,7 @@ Get a list of all the definitions of custom fields.
                         + product - Product
                         + user - User
                 + label (string)
+                + required: `false` (boolean)
                 + options: foo, bar (array[string], nullable)
                 + client (object) - The oauth client that is the owner for this custom field definition
                     + type: `client` (string)
@@ -118,6 +119,7 @@ Get a info about a specific custom field definition
                     + product - Product
                     + user - User
             + label (string)
+            + required: `false` (boolean)
             + options: foo, bar (array[string], nullable)
             + client (object) - The oauth client that is the owner for this custom field definition
                 + type: `client` (string)
@@ -138,7 +140,7 @@ Add a custom field definition
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + context: `contact` (enum[string])
+        + context: `contact` (enum[string], required)
             + Members
                 + contact
                 + company
@@ -150,7 +152,7 @@ Add a custom field definition
                 + subscription
                 + activity - Will be available on both calendar events & todos, as they are convertable to eachother
                 + ticket
-        + type (enum[string])
+        + type (enum[string], required)
             + Members
                 + single_line - Single line text
                 + multi_line - Multiline text
@@ -169,13 +171,14 @@ Add a custom field definition
                 + contact - Contact
                 + product - Product
                 + user - User
-        + label (string)
-        + options: 1, 2 (array[string], nullable)
-        + readable (enum[string])
+        + label (string, required)
+        + required: `false` (boolean, optional)
+        + options: 1, 2 (array[string], optional)
+        + readable (enum[string], required)
             + Members
                 + by_owning_client
                 + by_all_clients
-        + writable (enum[string])
+        + writable (enum[string], required)
             + Members
                 + by_owning_client
                 + by_all_clients
@@ -193,13 +196,14 @@ Add a custom field definition
 
     + Attributes (object)
         + id (string)
-        + label (string)
-        + options: 1, 2 (array[string], nullable)
-        + readable (enum[string])
+        + label (string, optional)
+        + required: `false` (boolean, optional)
+        + options: 1, 2 (array[string], optional)
+        + readable (enum[string], optional)
             + Members
                 + by_owning_client
                 + by_all_clients
-        + writable (enum[string])
+        + writable (enum[string], optional)
             + Members
                 + by_owning_client
                 + by_all_clients
