@@ -111,7 +111,7 @@ Endpoints used to create new objects **MUST**:
 Endpoints used to update existing objects **MUST**:
 
  - Not have unexpected side effects
- - Respons with an empty response and the `204` HTTP status code
+ - Respond with an empty response and the `204` HTTP status code
 
 ## Designing properties
 
