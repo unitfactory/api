@@ -2803,56 +2803,63 @@ Get a list of all the definitions of custom fields.
                 + company
                 + deal
                 + project
-                + activity
+                + milestone
+                + product
+                + invoice
+                + subscription
+                + activity - Will be available on both calendar events & todos, as they are convertable to eachother
                 + ticket
 
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + data (array[object])
-            + id (string)
-            + context: `contact` (enum[string])
-                + Members
-                    + contact
-                    + company
-                    + deal
-                    + project
-                    + milestone
-                    + product
-                    + invoice
-                    + subscription
-                    + activity - Will be available on both calendar events & todos, as they are convertable to eachother
-                    + ticket
-            + type (enum[string])
-                + Members
-                    + single_line - Single line text
-                    + multi_line - Multiline text
-                    + single_select - Single selection
-                    + multi_select - Multiple selection
-                    + date - Date
-                    + money - Money
-                    + auto_increment - Automatically incrementing field
-                    + integer - Integer
-                    + number - Number
-                    + boolean - Yes/No
-                    + email - Email address
-                    + telephone - Phone number
-                    + url - URL
-                    + company - Company
-                    + contact - Contact
-                    + product - Product
-                    + user - User
-            + label (string)
-            + options (array[string])
-            + client - The client who made the integration
-            + readable (enum[string])
-                + Members
-                    + by_owning_client
-                    + by_all_clients
-            + writable (enum[string])
-                + Members
-                    + by_owning_client
-                    + by_all_clients
+        + data (array)
+            + (object)
+                + id (string)
+                + context: `contact` (enum[string])
+                    + Members
+                        + contact
+                        + company
+                        + deal
+                        + project
+                        + milestone
+                        + product
+                        + invoice
+                        + subscription
+                        + activity - Will be available on both calendar events & todos, as they are convertable to eachother
+                        + ticket
+                + type (enum[string])
+                    + Members
+                        + single_line - Single line text
+                        + multi_line - Multiline text
+                        + single_select - Single selection
+                        + multi_select - Multiple selection
+                        + date - Date
+                        + money - Money
+                        + auto_increment - Automatically incrementing field
+                        + integer - Integer
+                        + number - Number
+                        + boolean - Yes/No
+                        + email - Email address
+                        + telephone - Phone number
+                        + url - URL
+                        + company - Company
+                        + contact - Contact
+                        + product - Product
+                        + user - User
+                + label (string)
+                + options: foo, bar (array[string], nullable)
+                + client (object) - The oauth client that is the owner for this custom field definition
+                    + type: `client` (string)
+                    + id: `123` (string)
+                + readable (enum[string])
+                    + Members
+                        + by_owning_client
+                        + by_all_clients
+                + writable (enum[string])
+                    + Members
+                        + by_owning_client
+                        + by_all_clients
 
 ### customFieldDefinitions.info [GET /customFieldDefinitions.info]
 
@@ -2900,8 +2907,10 @@ Get a info about a specific custom field definition
                     + product - Product
                     + user - User
             + label (string)
-            + options (array[string])
-            + client - The client who made the integration
+            + options: foo, bar (array[string], nullable)
+            + client (object) - The oauth client that is the owner for this custom field definition
+                + type: `client` (string)
+                + id: `123` (string)
             + readable (enum[string])
                 + Members
                     + by_owning_client
@@ -2950,7 +2959,7 @@ Add a custom field definition
                 + product - Product
                 + user - User
         + label (string)
-        + options (array[string])
+        + options: 1, 2 (array[string], nullable)
         + readable (enum[string])
             + Members
                 + by_owning_client
@@ -2974,7 +2983,7 @@ Add a custom field definition
     + Attributes (object)
         + id (string)
         + label (string)
-        + options (array[string])
+        + options: 1, 2 (array[string], nullable)
         + readable (enum[string])
             + Members
                 + by_owning_client
