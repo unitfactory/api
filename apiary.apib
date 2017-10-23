@@ -698,7 +698,7 @@ Get a list of companies.
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + `_items` (array)
+        + data (array)
             + (object)
                 + id: `123` (string)
                 + name: `Pied Piper` (string)
@@ -715,20 +715,17 @@ Get a list of companies.
                 + bic: `BICBANK` (string)
                 + language: `nl` (string)
                 + responsible_user (object)
-                    + _type: `user`
+                    + type: `user`
                     + id: 1 (string)
-                + tags (object)
-                    + _items: tag1, tag2 (array[string])
-                + custom_fields (object)
-                    + _items (array)
-                        + (object)
-                            + field (object)
-                                + _type: `customField`
-                                + id: 123 (string)
-                            + value: `092980616`
-                + _meta (object)
-                    + added_at: `2016-02-04T16:44:33+00:00` (string)
-                    + updated_at: `2016-02-05T16:44:33+00:00` (string)
+                + tags: tag1, tag2 (array[string])
+                + custom_fields (array)
+                    + (object)
+                        + field (object)
+                            + type: `customField`
+                            + id: 123 (string)
+                        + value: `092980616`
+                + added_at: `2016-02-04T16:44:33+00:00` (string)
+                + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
 ### companies.info [GET /companies.info]
 
@@ -760,21 +757,18 @@ Get details for a single company.
         + bic: `BICBANK` (string)
         + language: `nl` (string)
         + responsible_user (object)
-            + _type: `user`
+            + type: `user`
             + id: 1 (string)
         + remarks: `First contact at expo` (string)
-        + tags (object)
-            + _items: tag1, tag2 (array[string])
-        + custom_fields (object)
-            + _items (array)
-                + (object)
-                    + field (object)
-                        + _type: `customField`
-                        + id: 123 (string)
-                    + value: `092980616`
-        + _meta (object)
-            + added_at: `2016-02-04T16:44:33+00:00` (string)
-            + updated_at: `2016-02-05T16:44:33+00:00` (string)
+        + tags: tag1, tag2 (array[string])
+        + custom_fields (array)
+            + (object)
+                + field (object)
+                    + type: `customField`
+                    + id: 123 (string)
+                + value: `092980616`
+        + added_at: `2016-02-04T16:44:33+00:00` (string)
+        + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
 ### companies.add [POST /companies.create]
 
@@ -798,19 +792,23 @@ Add a new company.
         + iban: `BE12 1234 1234 1234` (string)
         + bic: `BICBANK` (string)
         + language: `en` (string, optional)
-        + responsible_user_id (string, optional)
+        + responsible_user (object, optional)
+            + type: `User` (string)
+            + id (string, optional)
         + remarks: `Met at expo` (string, optional)
         + tags: expo, upsell (array[string], optional)
-        + custom_fields (object)
-            + _items (array)
-                + (object)
-                    + custom_field_id: 123 (string)
-                    + value
+        + custom_fields (array)
+            + (object)
+                + field (object)
+                    + type: `customField`
+                    + id: 123 (string)
+                + value: `092980616`
 
 + Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `1` (string)
+        + data (object)
+            + id: `1` (string)
 
 ### companies.update [POST /companies.update]
 
@@ -835,13 +833,17 @@ Update a company.
         + iban: `BE12 1234 1234 1234` (string)
         + bic: `BICBANK` (string)
         + language: `en` (string, optional)
-        + responsible_user_id (string, optional)
+        + responsible_user (object, optional)
+                    + type: `User` (string)
+                    + id (string, optional)
         + remarks: `Met at expo` (string, optional)
         + tags: expo, upsell (array[string], optional)
         + custom_fields (array)
             + (object)
-                + field_id: 123 (string)
-                + value
+                + field (object)
+                    + type: `customField`
+                    + id: 123 (string)
+                + value: `092980616`
 
 + Response 204
 
