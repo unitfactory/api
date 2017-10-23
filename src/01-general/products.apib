@@ -15,21 +15,20 @@
 + Response 200 (application/json)
 
     + Attributes (object)
-        + _items (array)
+        + data (array)
             + (object)
                 + id: `1` (string)
-                + translations (object)
-                    + _items (array)
-                        + (object)
-                            + language: `EN` (string)
-                            + name: `Product name` (string)
-                            + description: `Product description` (string)
+                + translations (array)
+                    + (object)
+                        + language: `EN` (string)
+                        + name: `Product name` (string)
+                        + description: `Product description` (string)
                 + default_language (string)
                 + prices (array[ReadPrice])
                 + price_lists (array)
                     + (object)
                         + price_list (object)
-                            + _type (string)
+                            + type (string)
                             + id (string)
                         + price (ReadPrice)
 
@@ -44,27 +43,25 @@
 
     + Attributes (object)
         + id: `1` (string)
-        + translations (object)
-            + _items (array)
-                + (object)
-                    + language: `EN` (string)
-                    + name: `Product name` (string)
-                    + description: `Product description` (string)
+        + translations (array)
+            + (object)
+                + language: `EN` (string)
+                + name: `Product name` (string)
+                + description: `Product description` (string)
         + default_language (string)
         + prices (array[ReadPrice])
         + price_lists (array)
             + (object)
                 + price_list (object)
-                    + _type (string)
+                    + type (string)
                     + id (string)
                 + price (ReadPrice)
-        + custom_fields (object)
-            + _items (array)
-                + (object)
-                    + field (object)
-                        + _type: `customField`
-                        + id: 123 (string)
-                    + value: `092980616`
+        + custom_fields (array)
+            + (object)
+                + field (object)
+                    + type: `customField`
+                    + id: 123 (string)
+                + value: `092980616`
 
 ### products.add [POST /products.add]
 
@@ -80,13 +77,16 @@
         + prices (array[WritePrice], required)
         + custom_fields (array, optional)
             + (object)
-                + custom_field_id: 123 (string, required)
+                + field (object)
+                    + type: `customField`
+                    + id: 123 (string)
                 + value: `092980616` (required)
 
 + Response 201 (application/json)
 
     + Attributes (object)
-        + id: `1` (string)
+        + data
+            + id: `1` (string)
 
 ### products.update [POST /products.update]
 
@@ -103,7 +103,9 @@
         + prices (array[WritePrice], optional)
         + custom_fields (array, optional)
             + (object)
-                + custom_field_id: 123 (string, required)
+                + field (object)
+                    + type: `customField`
+                    + id: 123 (string)
                 + value: `092980616` (required)
 
 + Response 204 (application/json)
