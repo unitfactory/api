@@ -449,7 +449,7 @@ Get a list of contacts.
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + _items (array)
+        + data (array)
             + (object)
                 + id: `456` (string)
                 + first_name: `Erlich` (string)
@@ -468,27 +468,23 @@ Get a list of contacts.
                 + birthdate: `1987-04-25` (string)
                 + iban: `BE12123412341234` (string)
                 + bic: `BICBANK` (string)
-                + tags (object)
-                    + _items: tag1, tag2 (array[string])
-                + custom_fields (object)
-                    + _items (array)
-                        + (object)
-                            + field (object)
-                                + _type: `customField` (string)
-                                + id: 123 (string)
-                            + value: `092980616`
-                + companies (object)
-                    + _items (array)
-                        + (object)
-                            + position: `CEO` (string)
-                            + decision_maker: true (boolean)
-                            + company (object)
-                                + _type: `company` (string)
-                                + id: 123 (string)
+                + tags: tag1, tag2 (array[string])
+                + custom_fields (array)
+                    + (object)
+                        + field (object)
+                            + type: `customField` (string)
+                            + id: 123 (string)
+                        + value: `092980616`
+                + companies (array)
+                    + (object)
+                        + position: `CEO` (string)
+                        + decision_maker: true (boolean)
+                        + company (object)
+                            + type: `company` (string)
+                            + id: 123 (string)
                 + language: `en` (string)
-                + _meta (object)
-                    + added_at: `2016-02-04T16:44:33+00:00` (string)
-                    + updated_at: `2016-02-05T16:44:33+00:00` (string)
+                + added_at: `2016-02-04T16:44:33+00:00` (string)
+                + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
 ### contacts.info [GET /contacts.info]
 
@@ -523,28 +519,24 @@ Get details for a single contact.
         + birthdate: `1987-04-25` (string)
         + iban: `BE12123412341234` (string)
         + bic: `BICBANK` (string)
-        + tags (object)
-            + _items: tag1, tag2 (array[string])
-        + custom_fields (object)
-            + _items (array)
-                + (object)
-                    + field (object)
-                        + _type: `customField` (string)
-                        + id: 123 (string)
-                    + value: `092980616`
-        + companies (object)
-            + _items (array)
-                + (object)
-                    + position: `CEO` (string)
-                    + decision_maker: true (boolean)
-                    + company (object)
-                        + _type: `company` (string)
-                        + id: 123 (string)
+        + tags: tag1, tag2 (array[string])
+        + custom_fields (array)
+            + (object)
+                + field (object)
+                    + type: `customField` (string)
+                    + id: 123 (string)
+                + value: `092980616`
+        + companies (array)
+            + (object)
+                + position: `CEO` (string)
+                + decision_maker: true (boolean)
+                + company (object)
+                    + type: `company` (string)
+                    + id: 123 (string)
         + language: `en` (string)
         + remarks: `First contact at expo` (string)
-        + _meta (object)
-            + added_at: `2016-02-04T16:44:33+00:00` (string)
-            + updated_at: `2016-02-05T16:44:33+00:00` (string)
+        + added_at: `2016-02-04T16:44:33+00:00` (string)
+        + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
 ### contacts.add [POST /contacts.add]
 
@@ -575,13 +567,16 @@ Add a new contact.
         + tags: expo, upsell (array[string], optional)
         + custom_fields (array)
             + (object)
-                + custom_field_id: 123 (string)
-                + value
+                + field (object)
+                    + type: `customField` (string)
+                    + id: 123 (string)
+                + value: `092980616`
 
 + Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `1` (string)
+        + data (object)
+            + id: `1` (string)
 
 ### contacts.update [POST /contacts.update]
 
@@ -610,10 +605,12 @@ Update a contact.
         + birthdate: `1989-08-19` (string, optional)
         + remarks: `Met at expo` (string, optional)
         + tags: expo, upsell (array[string], optional)
-       + custom_fields (array)
+        + custom_fields (array)
             + (object)
-                + field_id: 123 (string)
-                + value
+                + field (object)
+                    + type: `customField` (string)
+                    + id: 123 (string)
+                + value: `092980616`
 
 + Response 204
 
@@ -660,7 +657,9 @@ Link a contact to a company.
 
     + Attributes (object)
         + id: `123` (string, required)
-        + company_id: `5` (string, required)
+        + company (object, required)
+            + type: `Company` (string, required)
+            + id: `5` (string, required)
         + position: `CEO` (string)
         + decision_maker: true (boolean)
 
@@ -674,7 +673,9 @@ Unlink a contact from a company.
 
     + Attributes (object)
         + id: `123` (string, required)
-        + company_id: `5` (string, required)
+        + company (object, required)
+            + type: `Company` (string, required)
+            + id: `5` (string, required)
 
 + Response 204
 
