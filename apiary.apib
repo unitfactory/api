@@ -2860,7 +2860,7 @@ Get a list of all users.
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + _items (array)
+        + data (array)
             + (object)
                 + id: `1` (number)
                 + name: `John Smith` (string)
@@ -2868,6 +2868,7 @@ Get a list of all users.
                 + gsm: `+32412654321` (string)
                 + phone: `+3291239843` (string)
                 + team (object)
+                    + type: `team` (string, required)
                     + id: 1 (number)
                 + title: `Sales` (string)
                 + active: `true` (boolean)
