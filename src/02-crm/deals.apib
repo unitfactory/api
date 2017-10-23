@@ -28,7 +28,7 @@ Get a list of deals.
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + _items (array)
+        + data (array)
             + (object)
                 + id: `164938` (string)
                 + title: `Interesting deal` (string)
@@ -39,19 +39,19 @@ Get a list of deals.
                         + won
                         + lost
                 + customer (object)
-                    + _type: `contact`
+                    + type: `contact`
                     + id: 1 (string)
                 + department (object)
-                    + _type: `department`
+                    + type: `department`
                     + id: 1 (string)
                 + estimated_value (Money)
                 + estimated_closing_date: `2017-05-09` (string)
                 + estimated_probability: `0.5` (number)
                 + current_phase (object)
-                    + _type: `dealPhase`
+                    + type: `dealPhase`
                     + id: 1 (string)
                 + responsible_user (object)
-                    + _type: `user`
+                    + type: `user`
                     + id: 1 (string)
                 + closed_at: `2017-05-09T11:31:30+00:00` (string)
                 + lost (object)
@@ -62,13 +62,12 @@ Get a list of deals.
                 + source (object)
                     + type: `dealSource` (string)
                     + id (string)
-                + custom_fields (object)
-                    + _items (array)
-                        + (object)
-                            + field (object)
-                                + _type: `customField`
-                                + id: 123 (string)
-                            + value: `092980616`
+                + custom_fields (array)
+                    + (object)
+                        + field (object)
+                            + type: `customField`
+                            + id: 123 (string)
+                        + value: `092980616`
                 + created_at: `2017-05-09T11:25:11+00:00` (string)
                 + updated_at: `2017-05-09T11:30:58+00:00` (string)
 
@@ -93,19 +92,19 @@ Get details for a single deal.
                 + won
                 + lost
         + customer (object)
-            + _type: `contact` (string)
+            + type: `contact` (string)
             + id: 123 (string)
         + department (object)
-            + _type: `department`
+            + type: `department`
             + id: 1 (string)
         + estimated_value (Money)
         + estimated_closing_date: `2017-05-09` (string)
         + estimated_probability: `0.5` (number)
         + current_phase (object)
-            + _type: dealPhase (string)
+            + type: dealPhase (string)
             + id: `5` (string)
         + responsible_user (object)
-            + _type: user (string)
+            + type: user (string)
             + id: 17 (string)
         + closed_at: `2017-05-09T11:31:30+00:00` (string)
         + lost (object)
@@ -116,27 +115,25 @@ Get details for a single deal.
         + source (object)
             + type: `dealSource` (string)
             + id (string)
-        + custom_fields (object)
-            + _items (array)
-                + (object)
-                    + field (object)
-                        + _type: `customField`
-                        + id: 123 (string)
-                    + value: `092980616`
-        + phase_history (object)
-            + _items (array)
-                + (object)
-                    + phase (object)
-                        + _type: dealPhase (string)
-                        + id: `1` (string)
-                    + started_by (object)
-                        + _type: user (string)
-                        + id: `5` (string)
-                    + started_at: `2017-05-01 12:00:00` (string)
-                    + ended_at: `2017-05-01 12:00:00` (string)
-                    + ended_by (object)
-                        + _type: user (string)
-                        + id: `5` (string)
+        + custom_fields (array)
+            + (object)
+                + field (object)
+                    + type: `customField`
+                    + id: 123 (string)
+                + value: `092980616`
+        + phase_history (array)
+            + (object)
+                + phase (object)
+                    + type: dealPhase (string)
+                    + id: `1` (string)
+                + started_at: `2017-05-01 12:00:00` (string)
+                + started_by (object)
+                    + type: user (string)
+                    + id: `5` (string)
+                + ended_at: `2017-05-01 12:00:00` (string)
+                + ended_by (object)
+                    + type: user (string)
+                    + id: `5` (string)
         + created_at: `2017-05-09T11:25:11+00:00` (string)
         + updated_at: `2017-05-09T11:30:58+00:00` (string)
 
@@ -154,22 +151,33 @@ Create a new deal for a customer.
                     + company
             + id: 123 (string)
         + title: `Interesting business deal` (string, required)
-        + source_id: `1` (string)
-        + department_id: `1` (string, optional)
-        + responsible_user_id: `1` (string, optional)
-        + phase_id: `1` (string, optional)
+        + source (object, optional)
+            + type: `dealSource` (string, required)
+            + id: `1` (string, required)
+        + department (object, optional)
+            + type: `dealSource` (string, required)
+            + id: `1` (string, required)
+        + responsible_user (object, optional)
+            + type: `user` (string, required)
+            + id: `1` (string, required)
+        + phase (object, optional)
+            + type: `dealPhase` (string, required)
+            + id: `1` (string, optional)
         + estimated_value (Money, optional)
         + estimated_probability: `0.75` (number, optional)
         + estimated_closing_date: `2017-05-09` (string, optional)
         + custom_fields (array)
             + (object)
-                + field_id: 123 (string)
-                + value
+                + field (object)
+                    + type: `customField`
+                    + id: 123 (string)
+                + value: `092980616`
 
 + Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `1` (string)
+        + data (object)
+            + id: `1` (string)
 
 ### deals.update [POST /deals.update]
 
@@ -180,16 +188,24 @@ Update a deal.
     + Attributes (object)
         + id: `1` (string, required)
         + title: `Interesting business deal` (string, optional)
-        + source_id: `1` (string, optional)
-        + department_id: `1` (string, optional)
-        + responsible_user_id: `1` (string, optional)
+        + source (object, optional)
+            + type: `dealSource` (string, required)
+            + id: `1` (string, required)
+        + department (object, optional)
+            + type: `dealSource` (string, required)
+            + id: `1` (string, required)
+        + responsible_user (object, optional)
+            + type: `user` (string, required)
+            + id: `1` (string, required)
         + estimated_value (Money, optional)
         + estimated_probability: `0.75` (number, optional)
         + estimated_closing_date: `2017-05-09` (string, optional)
         + custom_fields (array)
             + (object)
-                + field_id: 123 (string)
-                + value
+                + field (object)
+                    + type: `customField`
+                    + id: 123 (string)
+                + value: `092980616`
 
 + Response 204
 
@@ -201,7 +217,9 @@ Move the deal to a different phase.
 
     + Attributes (object)
         + id: `1` (string, required)
-        + phase_id: `1` (string, optional)
+        + phase (object, required)
+            + type: `dealPhase` (string, required)
+            + id: `1` (string, required)
 
 + Response 204
 
@@ -224,7 +242,9 @@ Mark a deal as lost.
 
     + Attributes (object)
         + id: `1` (string, required)
-        + reason_id: `1` (string, optional)
+        + phase (object, required)
+            + type: `lostReason` (string, required)
+            + id: `1` (string, required)
         + extra_info: `Not ready for a change, decision postponed` (string, optional)
 
 + Response 204
