@@ -2754,16 +2754,18 @@ Get a list of project milestones.
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `1` (string)
-        + project (object)
-            + _type: `project` (string)
-            + id: `2` (string)
-        + due_on: `2018-01-01` (string)
-        + name: `Initial setup` (string)
-        + status: `done` (enum[string])
-            + Members
-                + open
-                + closed
+        + data (array)
+            + (object)
+                + id: `1` (string)
+                + project (object)
+                    + type: `project` (string)
+                    + id: `2` (string)
+                + due_on: `2018-01-01` (string)
+                + name: `Initial setup` (string)
+                + status: `done` (enum[string])
+                    + Members
+                        + open
+                        + closed
 
 ### milestones.info [GET /milestones.info]
 
@@ -2777,16 +2779,17 @@ Get details for a single milestone.
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `1` (string)
-        + project (object)
-            + _type: `project` (string)
-            + id: `2` (string)
-        + due_on: `2018-01-01` (string)
-        + name: `Initial setup` (string)
-        + status: `done` (enum[string])
-            + Members
-                + open
-                + closed
+        + data (object)
+            + id: `1` (string)
+            + project (object)
+                + type: `project` (string)
+                + id: `2` (string)
+            + due_on: `2018-01-01` (string)
+            + name: `Initial setup` (string)
+            + status: `done` (enum[string])
+                + Members
+                    + open
+                    + closed
 
 ### milestones.create [POST /milestones.create]
 
@@ -2795,14 +2798,17 @@ Create a new milestone.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + project_id: `1` (string, required)
+        + project (object, required)
+            + type: `project` (string, required)
+            + id: `2` (string, required)
         + due_on: `2018-01-01` (string, required)
         + name: `Initial setup` (string, required)
 
 + Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `1` (string)
+        + data (object)
+            + id: `1` (string)
 
 ### milestones.update [POST /milestones.update]
 
