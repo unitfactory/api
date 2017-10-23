@@ -24,39 +24,37 @@ Get a list of todos.
 
 + Response 200 (application/json;charset=utf-8)
 
-    + Attributes (array)
-        + (object)
-            + id: 1 (string)
-            + title: `Meeting with stakeholders` (string)
-            + description (string)
-            + activity_type (object)
-                + _type: `activityType` (string)
-                + id: 2 (string)
-            + completed: false (boolean)
-            + completed_at: `2016-02-04T16:44:33+00:00` (string)
-            + creator (object)
-                + _type: `user` (string)
+    + Attributes (object)
+        + data (array)
+            + (object)
                 + id: 1 (string)
-            + due_at: `2016-02-04T16:44:33+00:00` (string)
-            + estimated_duration: 60 (number)
-            + links (array)
-                + (object)
-                    + _type (enum[string])
-                        + Members
-                            + deal
-                            + company
-                            + project
-                            + milestone
-                            + ticket
-                    + id (string)
-            + location (Address)
-            + attendees (array)
-                + (object)
-                    + _type (enum[string])
-                        + Members
-                            + user
-                            + contact
-                    + id (string)
+                + title: `Meeting with stakeholders` (string)
+                + description (string)
+                + activity_type (object)
+                    + type: `activityType` (string)
+                    + id: 2 (string)
+                + completed: false (boolean)
+                + completed_at: `2016-02-04T16:44:33+00:00` (string)
+                + due_at: `2016-02-04T16:44:33+00:00` (string)
+                + estimated_duration: 60 (number)
+                + links (array)
+                    + (object)
+                        + type (enum[string])
+                            + Members
+                                + deal
+                                + company
+                                + project
+                                + milestone
+                                + ticket
+                        + id (string)
+                + location (Address)
+                + attendees (array)
+                    + (object)
+                        + type (enum[string])
+                            + Members
+                                + user
+                                + contact
+                        + id (string)
 
 ### todos.info [GET /todos.info]
 
@@ -70,37 +68,35 @@ Get information about a todo.
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: 1 (string)
-        + title: `Meeting with stakeholders` (string)
-        + description (string)
-        + activity_type (object)
-            + _type: activityType (string)
-            + id: 2 (string)
-        + completed: false (boolean)
-        + completed_at: `2016-02-04T16:44:33+00:00` (string)
-        + creator (object)
-            + _type: `user` (string)
+        + data (object)
             + id: 1 (string)
-        + due_at: `2016-02-04T16:44:33+00:00` (string)
-        + estimated_duration: 60 (number)
-        + links (array)
-            + (object)
-                + _type (enum[string])
-                    + Members
-                        + deal
-                        + company
-                        + project
-                        + milestone
-                        + ticket
-                + id (string)
-        + location (Address)
-        + attendees (array)
-            + (object)
-                + _type (enum[string])
-                    + Members
-                        + user
-                        + contact
-                + id (string)
+            + title: `Meeting with stakeholders` (string)
+            + description (string)
+            + activity_type (object)
+                + type: activityType (string)
+                + id: 2 (string)
+            + completed: false (boolean)
+            + completed_at: `2016-02-04T16:44:33+00:00` (string)
+            + due_at: `2016-02-04T16:44:33+00:00` (string)
+            + estimated_duration: 60 (number)
+            + links (array)
+                + (object)
+                    + type (enum[string])
+                        + Members
+                            + deal
+                            + company
+                            + project
+                            + milestone
+                            + ticket
+                    + id (string)
+            + location (Address)
+            + attendees (array)
+                + (object)
+                    + type (enum[string])
+                        + Members
+                            + user
+                            + contact
+                    + id (string)
 
 ### todos.create [POST /todos.create]
 
@@ -109,9 +105,12 @@ Create a new todo.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + creator_id (string, optional)
-        + activity_type_id (string, optional)
-        + topic_id (string, optional)
+        + activity_type (object, optional)
+            + type: `activityType` (string, required)
+            + id: `1` (string, required)
+        + topic (object, optional)
+            + type: `topic` (string, required)
+            + id: `456` (string, required)
         + title: `Meeting with stakeholders` (string, required)
         + description (string, optional)
         + due_at: `2016-02-04T16:44:33+00:00` (string, optional)
@@ -138,7 +137,8 @@ Create a new todo.
 + Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `456` (string)
+        + data (object)
+            + id: `456` (string)
 
 ### todos.update [POST /todos.update]
 
@@ -148,9 +148,12 @@ Update a todo.
 
     + Attributes (object)
         + id (string, required)
-        + creator_id (string, optional)
-        + activity_type_id (string, optional)
-        + topic_id (string, optional)
+        + activity_type (object, optional)
+            + type: `activityType` (string, required)
+            + id: `1` (string, required)
+        + topic (object, optional)
+            + type: `topic` (string, required)
+            + id: `456` (string, required)
         + title: `Meeting with stakeholders` (string, optional)
         + description (string, optional)
         + due_at: `2016-02-04T16:44:33+00:00` (string, optional)
@@ -199,8 +202,9 @@ Schedule a todo in your calendar.
 + Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + _type: `event` (string)
-        + id: `456` (string)
+        + data (object)
+            + type: `event` (string)
+            + id: `456` (string)
 
 ### todos.complete [POST /todos.complete]
 
