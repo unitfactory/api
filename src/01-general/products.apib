@@ -42,26 +42,27 @@
 + Response 200 (application/json)
 
     + Attributes (object)
-        + id: `1` (string)
-        + translations (array)
-            + (object)
-                + language: `EN` (string)
-                + name: `Product name` (string)
-                + description: `Product description` (string)
-        + default_language (string)
-        + prices (array[ReadPrice])
-        + price_lists (array)
-            + (object)
-                + price_list (object)
-                    + type (string)
-                    + id (string)
-                + price (ReadPrice)
-        + custom_fields (array)
-            + (object)
-                + field (object)
-                    + type: `customField`
-                    + id: 123 (string)
-                + value: `092980616`
+        + data (object)
+            + id: `1` (string)
+            + translations (array)
+                + (object)
+                    + language: `EN` (string)
+                    + name: `Product name` (string)
+                    + description: `Product description` (string)
+            + default_language (string)
+            + prices (array[ReadPrice])
+            + price_lists (array)
+                + (object)
+                    + price_list (object)
+                        + type (string)
+                        + id (string)
+                    + price (ReadPrice)
+            + custom_fields (array)
+                + (object)
+                    + field (object)
+                        + type: `customField`
+                        + id: 123 (string)
+                    + value: `092980616`
 
 ### products.add [POST /products.add]
 

@@ -12,11 +12,12 @@ Get a quotation
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `1` (string)
-        + deal (object)
-            + type: `deal` (string)
+        + data (object)
             + id: `1` (string)
-        + grouped_lines (array[ReadLineItemGroup])
+            + deal (object)
+                + type: `deal` (string)
+                + id: `1` (string)
+            + grouped_lines (array[ReadLineItemGroup])
 
 ### quotations.add [POST /quotations.add]
 

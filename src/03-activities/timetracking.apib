@@ -160,7 +160,8 @@ Start a new timer based on previously tracked time.
 + Response 200 (application/json)
 
     + Attributes (object)
-        + id: `2` (string)
+        + data (object)
+            + id: `2` (string)
 
 ### timetracking.add [POST /timetracking.add]
 
@@ -169,7 +170,9 @@ Add tracked time.
 + Request (application/json)
 
     + Attributes (object)
-        + topic_id: `456` (string, optional)
+        + topic (object, optional)
+            + type: `topic` (string, required)
+            + id: `456` (string, required)
         + One Of
             + started_on: `2017-04-26` (string, required)
             + started_at: `2017-04-26T10:01:49+00:00` (string, required)
@@ -192,7 +195,8 @@ Add tracked time.
 + Response 201
 
     + Attributes (object)
-        + id: `1` (string)
+        + data (object)
+            + id: `1` (string)
 
 ### timetracking.update [POST /timetracking.update]
 

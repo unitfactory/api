@@ -350,26 +350,27 @@ Update a department.
 + Response 200 (application/json)
 
     + Attributes (object)
-        + id: `1` (string)
-        + translations (array)
-            + (object)
-                + language: `EN` (string)
-                + name: `Product name` (string)
-                + description: `Product description` (string)
-        + default_language (string)
-        + prices (array[ReadPrice])
-        + price_lists (array)
-            + (object)
-                + price_list (object)
-                    + type (string)
-                    + id (string)
-                + price (ReadPrice)
-        + custom_fields (array)
-            + (object)
-                + field (object)
-                    + type: `customField`
-                    + id: 123 (string)
-                + value: `092980616`
+        + data (object)
+            + id: `1` (string)
+            + translations (array)
+                + (object)
+                    + language: `EN` (string)
+                    + name: `Product name` (string)
+                    + description: `Product description` (string)
+            + default_language (string)
+            + prices (array[ReadPrice])
+            + price_lists (array)
+                + (object)
+                    + price_list (object)
+                        + type (string)
+                        + id (string)
+                    + price (ReadPrice)
+            + custom_fields (array)
+                + (object)
+                    + field (object)
+                        + type: `customField`
+                        + id: 123 (string)
+                    + value: `092980616`
 
 ### products.add [POST /products.add]
 
@@ -498,45 +499,46 @@ Get details for a single contact.
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `456` (string)
-        + first_name: `Erlich` (string)
-        + last_name: `Bachman` (string)
-        + salutation: `Mr` (string)
-        + email: `info@piedpiper.eu` (string)
-        + invoice_email: `invoicing@example.com` (string)
-        + telephones (array[Telephone])
-        + website: `https://piedpiper.com` (string)
-        + avatar (string)
-        + address (Address)
-        + delivery_address (Addressee)
-        + visiting_address (Addressee)
-        + invoice_address (Addressee)
-        + gender: `M` (enum[string])
-            + Members
-                + M
-                + F
-                + U
-        + birthdate: `1987-04-25` (string)
-        + iban: `BE12123412341234` (string)
-        + bic: `BICBANK` (string)
-        + tags: tag1, tag2 (array[string])
-        + custom_fields (array)
-            + (object)
-                + field (object)
-                    + type: `customField` (string)
-                    + id: 123 (string)
-                + value: `092980616`
-        + companies (array)
-            + (object)
-                + position: `CEO` (string)
-                + decision_maker: true (boolean)
-                + company (object)
-                    + type: `company` (string)
-                    + id: 123 (string)
-        + language: `en` (string)
-        + remarks: `First contact at expo` (string)
-        + added_at: `2016-02-04T16:44:33+00:00` (string)
-        + updated_at: `2016-02-05T16:44:33+00:00` (string)
+        + data (object)
+            + id: `456` (string)
+            + first_name: `Erlich` (string)
+            + last_name: `Bachman` (string)
+            + salutation: `Mr` (string)
+            + email: `info@piedpiper.eu` (string)
+            + invoice_email: `invoicing@example.com` (string)
+            + telephones (array[Telephone])
+            + website: `https://piedpiper.com` (string)
+            + avatar (string)
+            + address (Address)
+            + delivery_address (Addressee)
+            + visiting_address (Addressee)
+            + invoice_address (Addressee)
+            + gender: `M` (enum[string])
+                + Members
+                    + M
+                    + F
+                    + U
+            + birthdate: `1987-04-25` (string)
+            + iban: `BE12123412341234` (string)
+            + bic: `BICBANK` (string)
+            + tags: tag1, tag2 (array[string])
+            + custom_fields (array)
+                + (object)
+                    + field (object)
+                        + type: `customField` (string)
+                        + id: 123 (string)
+                    + value: `092980616`
+            + companies (array)
+                + (object)
+                    + position: `CEO` (string)
+                    + decision_maker: true (boolean)
+                    + company (object)
+                        + type: `company` (string)
+                        + id: 123 (string)
+            + language: `en` (string)
+            + remarks: `First contact at expo` (string)
+            + added_at: `2016-02-04T16:44:33+00:00` (string)
+            + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
 ### contacts.add [POST /contacts.add]
 
@@ -970,59 +972,60 @@ Get details for a single deal.
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `164938` (string)
-        + title: `Interesting deal` (string)
-        + reference: `2017/2` (string)
-        + status: `won` (enum[string])
-            + Members
-                + open
-                + won
-                + lost
-        + customer (object)
-            + type: `contact` (string)
-            + id: 123 (string)
-        + department (object)
-            + type: `department`
-            + id: 1 (string)
-        + estimated_value (Money)
-        + estimated_closing_date: `2017-05-09` (string)
-        + estimated_probability: `0.5` (number)
-        + current_phase (object)
-            + type: dealPhase (string)
-            + id: `5` (string)
-        + responsible_user (object)
-            + type: user (string)
-            + id: 17 (string)
-        + closed_at: `2017-05-09T11:31:30+00:00` (string)
-        + lost (object)
-            + reason (object)
-                + type: `lostReason` (string)
+        + data (object)
+            + id: `164938` (string)
+            + title: `Interesting deal` (string)
+            + reference: `2017/2` (string)
+            + status: `won` (enum[string])
+                + Members
+                    + open
+                    + won
+                    + lost
+            + customer (object)
+                + type: `contact` (string)
+                + id: 123 (string)
+            + department (object)
+                + type: `department`
+                + id: 1 (string)
+            + estimated_value (Money)
+            + estimated_closing_date: `2017-05-09` (string)
+            + estimated_probability: `0.5` (number)
+            + current_phase (object)
+                + type: dealPhase (string)
+                + id: `5` (string)
+            + responsible_user (object)
+                + type: user (string)
+                + id: 17 (string)
+            + closed_at: `2017-05-09T11:31:30+00:00` (string)
+            + lost (object)
+                + reason (object)
+                    + type: `lostReason` (string)
+                    + id (string)
+                + extra_info (string, optional)
+            + source (object)
+                + type: `dealSource` (string)
                 + id (string)
-            + extra_info (string, optional)
-        + source (object)
-            + type: `dealSource` (string)
-            + id (string)
-        + custom_fields (array)
-            + (object)
-                + field (object)
-                    + type: `customField`
-                    + id: 123 (string)
-                + value: `092980616`
-        + phase_history (array)
-            + (object)
-                + phase (object)
-                    + type: dealPhase (string)
-                    + id: `1` (string)
-                + started_at: `2017-05-01 12:00:00` (string)
-                + started_by (object)
-                    + type: user (string)
-                    + id: `5` (string)
-                + ended_at: `2017-05-01 12:00:00` (string)
-                + ended_by (object)
-                    + type: user (string)
-                    + id: `5` (string)
-        + created_at: `2017-05-09T11:25:11+00:00` (string)
-        + updated_at: `2017-05-09T11:30:58+00:00` (string)
+            + custom_fields (array)
+                + (object)
+                    + field (object)
+                        + type: `customField`
+                        + id: 123 (string)
+                    + value: `092980616`
+            + phase_history (array)
+                + (object)
+                    + phase (object)
+                        + type: dealPhase (string)
+                        + id: `1` (string)
+                    + started_at: `2017-05-01 12:00:00` (string)
+                    + started_by (object)
+                        + type: user (string)
+                        + id: `5` (string)
+                    + ended_at: `2017-05-01 12:00:00` (string)
+                    + ended_by (object)
+                        + type: user (string)
+                        + id: `5` (string)
+            + created_at: `2017-05-09T11:25:11+00:00` (string)
+            + updated_at: `2017-05-09T11:30:58+00:00` (string)
 
 ### deals.create [POST /deals.create]
 
@@ -1150,11 +1153,12 @@ Get a quotation
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `1` (string)
-        + deal (object)
-            + type: `deal` (string)
+        + data (object)
             + id: `1` (string)
-        + grouped_lines (array[ReadLineItemGroup])
+            + deal (object)
+                + type: `deal` (string)
+                + id: `1` (string)
+            + grouped_lines (array[ReadLineItemGroup])
 
 ### quotations.add [POST /quotations.add]
 
@@ -1901,7 +1905,8 @@ Start a new timer based on previously tracked time.
 + Response 200 (application/json)
 
     + Attributes (object)
-        + id: `2` (string)
+        + data (object)
+            + id: `2` (string)
 
 ### timetracking.add [POST /timetracking.add]
 
@@ -1910,7 +1915,9 @@ Add tracked time.
 + Request (application/json)
 
     + Attributes (object)
-        + topic_id: `456` (string, optional)
+        + topic (object, optional)
+            + type: `topic` (string, required)
+            + id: `456` (string, required)
         + One Of
             + started_on: `2017-04-26` (string, required)
             + started_at: `2017-04-26T10:01:49+00:00` (string, required)
@@ -1933,7 +1940,8 @@ Add tracked time.
 + Response 201
 
     + Attributes (object)
-        + id: `1` (string)
+        + data (object)
+            + id: `1` (string)
 
 ### timetracking.update [POST /timetracking.update]
 
