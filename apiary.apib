@@ -2973,7 +2973,9 @@ Register a new webhook.
 
 ## WritePrice (object)
 + Include Money
-+ tax_id: `1` (string, required)
++ rate (object, required)
+    + type: `tax` (string, required)
+    + id: `1` (string, required)
 + tax: `excluding` (enum[string], required)
     + Members
         + excluding
@@ -2981,8 +2983,8 @@ Register a new webhook.
 
 ## ReadPrice (object)
 + Include Money
-+ applied_tax (object)
-    + _type: `Tax` (string)
++ rate (object)
+    + type: `tax` (string)
     + id: `1` (string)
 + tax: `excluding` (enum[string])
     + Members
@@ -3028,12 +3030,16 @@ Register a new webhook.
     + title (string, required)
 + line_items (array, required)
     + (object)
-        + product_id: `1` (string, optional)
+        + product (object, optional)
+            + type: `product` (string, required)
+            + id: `1` (string, required)
         + quantity: `3` (number, required)
         + description: `An awesome product` (string, optional)
         + extended_description: `Additional information` (string, optional)
         + unit_price (WritePrice, optional)
-        + ledger_id: `1` (string, optional)
+        + ledger (object, optional)
+            + type: `ledger` (string, required)
+            + id: `1` (string, required)
         + source (object, optional)
             + type (enum[string], required)
                 + project
@@ -3048,17 +3054,17 @@ Register a new webhook.
 + line_items (array)
     + (object)
         + product (object)
-            + _type: `Product` (string)
+            + type: `Product` (string)
             + id: `1` (string)
         + quantity: `3` (number)
         + description: `An awesome product` (string)
         + extended_description: `Additional information` (string)
         + unit_price (ReadPrice)
         + ledger (object)
-            + _type: `Ledger` (string) - ?????
+            + type: `Ledger` (string) - ?????
             + id: `1` (string)
         + source (object)
-            + _type (enum[string])
+            + type (enum[string])
                 + project
                 + deal
                 + timetracking
