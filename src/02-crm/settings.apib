@@ -12,7 +12,7 @@ Get a list of all tags.
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + _items : expo, upsell (array[string])
+        + data : expo, upsell (array[string])
 
 ### companyTypes.list [GET /companyTypes.list]
 
@@ -26,9 +26,7 @@ Get the names of business types (legal structures) a company can have within a c
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + _items (array)
-            + (object)
-                + name: `BVBA` (string)
+        + data: `BVBA`, `NV` (array[string])
 
 ### dealPhases.list [GET /dealPhases.list]
 
@@ -37,7 +35,7 @@ Get a list of all phases a deal can go through.
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + _items (array[object])
+        + data (array[object])
             + id: 1 (string)
             + name: `New` (string)
 
@@ -49,9 +47,9 @@ Get a list of all deal sources.
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + _items (array[object])
+        + data (array[object])
             + id (string)
-            + description: 'Referral' (string)
+            + description: `Referral` (string)
 
 
 ### lostReasons.list [GET /lostReasons.list]
@@ -61,6 +59,6 @@ Get a list of all deal sources.
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + _items (array[object])
+        + data (array[object])
             + id (string)
-            + description: 'Lost to competitor' (string)
+            + description: `Lost to competitor` (string)
