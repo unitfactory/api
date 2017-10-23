@@ -22,11 +22,11 @@ List invoices
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + _items (array)
+        + data (array)
             + (object)
                 + id: `173111` (string)
                 + department (object)
-                    + _type: `department` (string)
+                    + type: `department` (string)
                     + id: `1` (string)
                 + invoice_number: `2017/5` (string)
                 + invoice_date: `2016-02-04` (string)
@@ -42,12 +42,12 @@ List invoices
                     + address (Address)
                     + vat_number: `BE0899623035` (string)
                     + customer (object)
-                        + _type: `contact` (string)
+                        + type: `contact` (string)
                         + id: `123` (string)
                     + for_attention_of (object)
                         + name: `Radja Nainggolan` (string)
                         + contact (object)
-                            + _type: `contact` (string)
+                            + type: `contact` (string)
                             + id: `456` (string)
                 + total (object)
                     + tax_exclusive (Money)
@@ -71,51 +71,52 @@ Get a single invoice.
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `173111` (string)
-        + department (object)
-            + _type: `department` (string)
-            + id: `1` (string)
-        + invoice_number: `2017/5` (string)
-        + invoice_date: `2016-02-04` (string)
-        + status: `booked` (enum[string])
-            + Members
-                + booked
-                + draft
-        + due_on: `2016-03-03` (string)
-        + paid: true (boolean)
-        + paid_at: `2016-02-04T16:44:33+00:00` (string)
-        + invoicee (object)
-            + name: `De Rode Duivels` (string)
-            + address (Address)
-            + vat_number: `BE0899623035` (string)
-            + customer (object)
-                + _type: `contact` (string)
-                + id: `123` (string)
-            + for_attention_of (object)
-                + name: `Radja Nainggolan` (string)
-                + contact (object)
-                    + _type: `contact` (string)
-                    + id: `456` (string)
-        + grouped_lines (array[ReadLineItemGroup], optional)
-        + payments (array)
-            + (object)
-                + amount (Money)
-                + paid_at: `2016-02-04T16:44:33+00:00` (string)
-        + total (object)
-            + tax_exclusive (Money)
-            + tax_inclusive (Money)
-            + payable (Money)
-            + taxes (array)
+        + data (object)
+            + id: `173111` (string)
+            + department (object)
+                + type: `department` (string)
+                + id: `1` (string)
+            + invoice_number: `2017/5` (string)
+            + invoice_date: `2016-02-04` (string)
+            + status: `booked` (enum[string])
+                + Members
+                    + booked
+                    + draft
+            + due_on: `2016-03-03` (string)
+            + paid: true (boolean)
+            + paid_at: `2016-02-04T16:44:33+00:00` (string)
+            + invoicee (object)
+                + name: `De Rode Duivels` (string)
+                + address (Address)
+                + vat_number: `BE0899623035` (string)
+                + customer (object)
+                    + type: `contact` (string)
+                    + id: `123` (string)
+                + for_attention_of (object)
+                    + name: `Radja Nainggolan` (string)
+                    + contact (object)
+                        + type: `contact` (string)
+                        + id: `456` (string)
+            + grouped_lines (array[ReadLineItemGroup], optional)
+            + payments (array)
                 + (object)
-                    + rate: `0.21` (number)
-                    + taxable (Money)
-                    + tax (Money)
-            + withheld_taxes (array)
-                + (object)
-                    + type: `Trabajo`
-                    + rate: `0.21` (number)
-                    + taxable (Money)
-                    + tax (Money)
+                    + amount (Money)
+                    + paid_at: `2016-02-04T16:44:33+00:00` (string)
+            + total (object)
+                + tax_exclusive (Money)
+                + tax_inclusive (Money)
+                + payable (Money)
+                + taxes (array)
+                    + (object)
+                        + rate: `0.21` (number)
+                        + taxable (Money)
+                        + tax (Money)
+                + withheld_taxes (array)
+                    + (object)
+                        + type: `Trabajo`
+                        + rate: `0.21` (number)
+                        + taxable (Money)
+                        + tax (Money)
 
 ### invoices.draft [POST /invoices.draft]
 
@@ -132,8 +133,14 @@ Draft a new invoice
             + id (string)
         + for_attention_of (object, optional)
             + name (string, optional)
-            + contact_id (string, optional)
-        + department_id (string) - Id of the department the invoice will be added to
+            + contact (object, optional)
+                 + type (enum[string])
+                     + Members
+                         + contact
+                 + id (string)
+        + department (object, required)
+            + type: `department` (string, required)
+            + id: `1` (string, required)
         + payment_term (object, optional)
             + type (enum[string])
                 + Members
@@ -141,7 +148,9 @@ Draft a new invoice
                     + end_of_month - End of the month of Xth day after the invoice date
                     + after_invoice_date - X days after invoice date
             + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
-        + layout_id (string, optional) - Id of the layout you wish to use for this invoice
+        + layout (object, optional) - Id of the layout you wish to use for this invoice
+            + type: `layout` (string, required)
+            + id: `123` (string, required)
         + purchase_order_number (string, optional) - The external order number. Overrides possible PO number coming from project.
         + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
         + grouped_lines (array[WriteLineItemGroup])
@@ -149,7 +158,8 @@ Draft a new invoice
 + Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `1` (string) - ID of the invoice that was created
+        + data (object)
+            + id: `1` (string) - ID of the invoice that was created
 
 ### invoices.update [POST /invoices.update]
 
@@ -158,7 +168,7 @@ Update an existing invoice.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + invoice_id: `123` (string)
+        + id: `123` (string)
         + customer (object, optional) - Who is the invoice for?
             + type (enum[string])
                 + Members
@@ -167,8 +177,14 @@ Update an existing invoice.
             + id (string)
         + for_attention_of (object, optional)
             + name (string, optional)
-            + contact_id (string, optional)
-        + department_id (string) - Id of the department the invoice will be added to
+            + contact (object, optional)
+                 + type (enum[string])
+                     + Members
+                         + contact
+                 + id (string)
+        + department (object, required)
+            + type: `department` (string, required)
+            + id: `1` (string, required)
         + payment_term (object, optional)
             + type (enum[string])
                 + Members
@@ -176,7 +192,9 @@ Update an existing invoice.
                     + end_of_month - End of the month of Xth day after the invoice date
                     + after_invoice_date - X days after invoice date
             + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
-        + layout_id (string, optional) - Id of the layout you wish to use for this invoice
+        + layout (object, optional) - Id of the layout you wish to use for this invoice
+            + type: `layout` (string, required)
+            + id: `123` (string, required)
         + purchase_order_number (string, optional) - The external order number. Overrides possible PO number coming from project.
         + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
         + grouped_lines (array[WriteLineItemGroup], optional)
@@ -190,7 +208,7 @@ Delete an existing invoice. Only possible for draft invoices or the last booked 
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + invoice_id: `1` (string, required)
+        + id: `1` (string, required)
 
 + Response 204
 
@@ -211,7 +229,7 @@ Book a draft invoice.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + invoice_id: `1` (string, required)
+        + id: `1` (string, required)
         + format: `pdf` (enum[string], required)
             + Members
                 + pdf
@@ -226,7 +244,7 @@ Book a draft invoice.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + invoice_id: `1` (string, required)
+        + id: `1` (string, required)
         + amount (Money, required)
         + paid_at: `2016-02-04T16:44:33+00:00` (string, optional)
 
@@ -237,7 +255,7 @@ Book a draft invoice.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + invoice_id: `1` (string, required)
+        + id: `1` (string, required)
         + amount (Money, required)
         + paid_at: `2016-02-04T16:44:33+00:00` (string, required)
 
@@ -250,10 +268,11 @@ Create a credit note from an invoice.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + invoice_id: `1` (string, required)
+        + id: `1` (string, required)
 
 + Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + _type: `creditNote` (string)
-        + id: `1` (string) - ID of the credit note that was created
+        + data (object)
+            + type: `creditNote` (string)
+            + id: `1` (string) - ID of the credit note that was created
