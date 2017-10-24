@@ -228,6 +228,7 @@ Get a list of all departments.
     + Attributes (object)
         + data (array)
             + (object)
+                + type: `department` (string)
                 + id: `42` (string)
                 + name: `Human Resources` (string)
                 + name_short: `HR` (string)
@@ -276,6 +277,7 @@ Add a new department.
 
     + Attributes
         + data (object)
+            + type: `department` (string)
             + id: `1` (string)
 
 ### departments.update [POST /departments.update]
@@ -395,6 +397,7 @@ Update a department.
 
     + Attributes (object)
         + data
+            + type: `product` (string)
             + id: `1` (string)
 
 ### products.update [POST /products.update]
@@ -579,6 +582,7 @@ Add a new contact.
 
     + Attributes (object)
         + data (object)
+            + type: `contact` (string)
             + id: `1` (string)
 
 ### contacts.update [POST /contacts.update]
@@ -813,6 +817,7 @@ Add a new company.
 
     + Attributes (object)
         + data (object)
+            + type: `company` (string)
             + id: `1` (string)
 
 ### companies.update [POST /companies.update]
@@ -1067,6 +1072,7 @@ Create a new deal for a customer.
 
     + Attributes (object)
         + data (object)
+            + type: `deal` (string)
             + id: `1` (string)
 
 ### deals.update [POST /deals.update]
@@ -1354,7 +1360,7 @@ Get details for a single calendar event.
     + Attributes (object)
         + id (string)
 
-+ Response 201 (application/json;charset=utf-8)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + data (object)
@@ -1437,6 +1443,7 @@ Create a new calendar event.
 
     + Attributes (object)
         + data (object)
+            + type: `event` (string)
             + id: `1` (string)
 
 ### events.update [POST /events.update]
@@ -1652,6 +1659,7 @@ Create a new todo.
 
     + Attributes (object)
         + data (object)
+            + type: `todo` (string)
             + id: `456` (string)
 
 ### todos.update [POST /todos.update]
@@ -1879,6 +1887,7 @@ Start a new timetracking timer.
 
     + Attributes (object)
         + data (object)
+            + type: `timetracking` (string)
             + id: `1` (string)
 
 ### timetracking.stop [POST /timetracking.stop]
@@ -1941,6 +1950,7 @@ Add tracked time.
 
     + Attributes (object)
         + data (object)
+            + type: `timetracking` (string)
             + id: `1` (string)
 
 ### timetracking.update [POST /timetracking.update]
@@ -2180,6 +2190,7 @@ Draft a new invoice
 
     + Attributes (object)
         + data (object)
+            + type: `invoice` (string)
             + id: `1` (string) - ID of the invoice that was created
 
 ### invoices.update [POST /invoices.update]
@@ -2655,6 +2666,7 @@ Search projects
 
     + Attributes (object)
         + data (object)
+            + type: `project` (string)
             + id: `1` (string)
 
 ### projects.update [POST /projects.update]
@@ -2819,6 +2831,7 @@ Create a new milestone.
 
     + Attributes (object)
         + data (object)
+            + type: `milestone` (string)
             + id: `1` (string)
 
 ### milestones.update [POST /milestones.update]

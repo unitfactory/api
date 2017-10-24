@@ -79,7 +79,7 @@ Get details for a single calendar event.
     + Attributes (object)
         + id (string)
 
-+ Response 201 (application/json;charset=utf-8)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + data (object)
@@ -162,6 +162,7 @@ Create a new calendar event.
 
     + Attributes (object)
         + data (object)
+            + type: `event` (string)
             + id: `1` (string)
 
 ### events.update [POST /events.update]
