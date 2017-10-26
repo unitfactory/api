@@ -78,8 +78,9 @@ Create a draft credit note.
                     + company
             + id (string)
         + for_attention_of (object, optional)
-            + name (string, optional)
-            + contact_id: `456` (string, optional)
+            + One Of
+                + name (string, required)
+                + contact_id: `456` (string, required)
         + department_id: `1` (string, required)
         + payment_term (object, optional)
             + type (enum[string])
@@ -113,8 +114,9 @@ Create a draft credit note.
                     + company
             + id (string)
         + for_attention_of (object, optional)
-            + name (string, optional)
-            + contact_id: `456` (string, optional)
+            + One Of
+                + name (string, required)
+                + contact_id: `456` (string, required)
         + department_id: `1` (string, optional)
         + payment_term (object, optional)
             + type (enum[string])
