@@ -138,7 +138,7 @@ Get details for a single deal.
             + created_at: `2017-05-09T11:25:11+00:00` (string)
             + updated_at: `2017-05-09T11:30:58+00:00` (string)
 
-### deals.create [POST /deals.create]
+### deal.create [POST /deals.create]
 
 Create a new deal for a customer.
 
@@ -152,26 +152,16 @@ Create a new deal for a customer.
                     + company
             + id: 123 (string)
         + title: `Interesting business deal` (string, required)
-        + source (object, optional)
-            + type: `dealSource` (string, required)
-            + id: `1` (string, required)
-        + department (object, optional)
-            + type: `dealSource` (string, required)
-            + id: `1` (string, required)
-        + responsible_user (object, optional)
-            + type: `user` (string, required)
-            + id: `1` (string, required)
-        + phase (object, optional)
-            + type: `dealPhase` (string, required)
-            + id: `1` (string, optional)
+        + source_id: `1` (string, required)
+        + department_id: `1` (string, required)
+        + responsible_user_id: `1` (string, required)
+        + phase_id: `1` (string, optional)
         + estimated_value (Money, optional)
         + estimated_probability: `0.75` (number, optional)
         + estimated_closing_date: `2017-05-09` (string, optional)
         + custom_fields (array)
             + (object)
-                + field (object)
-                    + type: `customField`
-                    + id: 123 (string)
+                + field_id: 123 (string)
                 + value: `092980616`
 
 + Response 201 (application/json;charset=utf-8)
@@ -190,23 +180,15 @@ Update a deal.
     + Attributes (object)
         + id: `1` (string, required)
         + title: `Interesting business deal` (string, optional)
-        + source (object, optional)
-            + type: `dealSource` (string, required)
-            + id: `1` (string, required)
-        + department (object, optional)
-            + type: `dealSource` (string, required)
-            + id: `1` (string, required)
-        + responsible_user (object, optional)
-            + type: `user` (string, required)
-            + id: `1` (string, required)
+        + source_id: `1` (string, required)
+        + department_id: `1` (string, required)
+        + responsible_user_id: `1` (string, required)
         + estimated_value (Money, optional)
         + estimated_probability: `0.75` (number, optional)
         + estimated_closing_date: `2017-05-09` (string, optional)
         + custom_fields (array)
             + (object)
-                + field (object)
-                    + type: `customField`
-                    + id: 123 (string)
+                + field_id: 123 (string)
                 + value: `092980616`
 
 + Response 204
@@ -219,9 +201,7 @@ Move the deal to a different phase.
 
     + Attributes (object)
         + id: `1` (string, required)
-        + phase (object, required)
-            + type: `dealPhase` (string, required)
-            + id: `1` (string, required)
+        + phase_id: `1` (string, required)
 
 + Response 204
 
@@ -244,9 +224,7 @@ Mark a deal as lost.
 
     + Attributes (object)
         + id: `1` (string, required)
-        + phase (object, required)
-            + type: `lostReason` (string, required)
-            + id: `1` (string, required)
+        + phase_id: `1` (string, required)
         + extra_info: `Not ready for a change, decision postponed` (string, optional)
 
 + Response 204

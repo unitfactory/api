@@ -138,9 +138,7 @@ Add a new contact.
             + tags: expo, upsell (array[string], optional)
             + custom_fields (array)
                 + (object)
-                    + field (object)
-                        + type: `custom_field` (string)
-                        + id: 123 (string)
+                    + field_id: 123 (string)
                     + value
 
 + Response 201 (application/json;charset=utf-8)
@@ -179,9 +177,7 @@ Update a contact.
         + tags: expo, upsell (array[string], optional)
         + custom_fields (array)
             + (object)
-                + field (object)
-                    + type: `customField` (string)
-                    + id: 123 (string)
+                + field_id: 123 (string)
                 + value: `092980616`
 
 + Response 204
@@ -229,9 +225,7 @@ Link a contact to a company.
 
     + Attributes (object)
         + id: `123` (string, required)
-        + company (object, required)
-            + type: `Company` (string, required)
-            + id: `5` (string, required)
+        + company_id: `5` (string, required)
         + position: `CEO` (string)
         + decision_maker: true (boolean)
 
@@ -245,8 +239,6 @@ Unlink a contact from a company.
 
     + Attributes (object)
         + id: `123` (string, required)
-        + company (object, required)
-            + type: `Company` (string, required)
-            + id: `5` (string, required)
+        + company_id: `5` (string, required)
 
 + Response 204

@@ -573,9 +573,7 @@ Add a new contact.
             + tags: expo, upsell (array[string], optional)
             + custom_fields (array)
                 + (object)
-                    + field (object)
-                        + type: `custom_field` (string)
-                        + id: 123 (string)
+                    + field_id: 123 (string)
                     + value
 
 + Response 201 (application/json;charset=utf-8)
@@ -614,9 +612,7 @@ Update a contact.
         + tags: expo, upsell (array[string], optional)
         + custom_fields (array)
             + (object)
-                + field (object)
-                    + type: `customField` (string)
-                    + id: 123 (string)
+                + field_id: 123 (string)
                 + value: `092980616`
 
 + Response 204
@@ -664,9 +660,7 @@ Link a contact to a company.
 
     + Attributes (object)
         + id: `123` (string, required)
-        + company (object, required)
-            + type: `Company` (string, required)
-            + id: `5` (string, required)
+        + company_id: `5` (string, required)
         + position: `CEO` (string)
         + decision_maker: true (boolean)
 
@@ -680,9 +674,7 @@ Unlink a contact from a company.
 
     + Attributes (object)
         + id: `123` (string, required)
-        + company (object, required)
-            + type: `Company` (string, required)
-            + id: `5` (string, required)
+        + company_id: `5` (string, required)
 
 + Response 204
 
@@ -801,16 +793,12 @@ Add a new company.
         + iban: `BE12 1234 1234 1234` (string)
         + bic: `BICBANK` (string)
         + language: `en` (string, optional)
-        + responsible_user (object, optional)
-            + type: `User` (string)
-            + id (string, optional)
+        + responsible_user_id: `123` (string, optional)
         + remarks: `Met at expo` (string, optional)
         + tags: expo, upsell (array[string], optional)
         + custom_fields (array)
             + (object)
-                + field (object)
-                    + type: `customField`
-                    + id: 123 (string)
+                + field_id: `123` (string)
                 + value: `092980616`
 
 + Response 201 (application/json;charset=utf-8)
@@ -843,16 +831,12 @@ Update a company.
         + iban: `BE12 1234 1234 1234` (string)
         + bic: `BICBANK` (string)
         + language: `en` (string, optional)
-        + responsible_user (object, optional)
-            + type: `User` (string)
-            + id (string, optional)
+        + responsible_user_id: `123` (string, optional)
         + remarks: `Met at expo` (string, optional)
         + tags: expo, upsell (array[string], optional)
         + custom_fields (array)
             + (object)
-                + field (object)
-                    + type: `customField` (string)
-                    + id: 123 (string)
+                + field_id: 123 (string)
                 + value: `092980616`
 
 + Response 204
@@ -1032,7 +1016,7 @@ Get details for a single deal.
             + created_at: `2017-05-09T11:25:11+00:00` (string)
             + updated_at: `2017-05-09T11:30:58+00:00` (string)
 
-### deals.create [POST /deals.create]
+### deal.create [POST /deals.create]
 
 Create a new deal for a customer.
 
@@ -1046,26 +1030,16 @@ Create a new deal for a customer.
                     + company
             + id: 123 (string)
         + title: `Interesting business deal` (string, required)
-        + source (object, optional)
-            + type: `dealSource` (string, required)
-            + id: `1` (string, required)
-        + department (object, optional)
-            + type: `dealSource` (string, required)
-            + id: `1` (string, required)
-        + responsible_user (object, optional)
-            + type: `user` (string, required)
-            + id: `1` (string, required)
-        + phase (object, optional)
-            + type: `dealPhase` (string, required)
-            + id: `1` (string, optional)
+        + source_id: `1` (string, required)
+        + department_id: `1` (string, required)
+        + responsible_user_id: `1` (string, required)
+        + phase_id: `1` (string, optional)
         + estimated_value (Money, optional)
         + estimated_probability: `0.75` (number, optional)
         + estimated_closing_date: `2017-05-09` (string, optional)
         + custom_fields (array)
             + (object)
-                + field (object)
-                    + type: `customField`
-                    + id: 123 (string)
+                + field_id: 123 (string)
                 + value: `092980616`
 
 + Response 201 (application/json;charset=utf-8)
@@ -1084,23 +1058,15 @@ Update a deal.
     + Attributes (object)
         + id: `1` (string, required)
         + title: `Interesting business deal` (string, optional)
-        + source (object, optional)
-            + type: `dealSource` (string, required)
-            + id: `1` (string, required)
-        + department (object, optional)
-            + type: `dealSource` (string, required)
-            + id: `1` (string, required)
-        + responsible_user (object, optional)
-            + type: `user` (string, required)
-            + id: `1` (string, required)
+        + source_id: `1` (string, required)
+        + department_id: `1` (string, required)
+        + responsible_user_id: `1` (string, required)
         + estimated_value (Money, optional)
         + estimated_probability: `0.75` (number, optional)
         + estimated_closing_date: `2017-05-09` (string, optional)
         + custom_fields (array)
             + (object)
-                + field (object)
-                    + type: `customField`
-                    + id: 123 (string)
+                + field_id: 123 (string)
                 + value: `092980616`
 
 + Response 204
@@ -1113,9 +1079,7 @@ Move the deal to a different phase.
 
     + Attributes (object)
         + id: `1` (string, required)
-        + phase (object, required)
-            + type: `dealPhase` (string, required)
-            + id: `1` (string, required)
+        + phase_id: `1` (string, required)
 
 + Response 204
 
@@ -1138,9 +1102,7 @@ Mark a deal as lost.
 
     + Attributes (object)
         + id: `1` (string, required)
-        + phase (object, required)
-            + type: `lostReason` (string, required)
-            + id: `1` (string, required)
+        + phase_id: `1` (string, required)
         + extra_info: `Not ready for a change, decision postponed` (string, optional)
 
 + Response 204
@@ -1173,9 +1135,7 @@ Add a quotation to a deal
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + deal (object, required)
-            + type: `deal` (string, required)
-            + id: `1` (string, required)
+        + deal_id: `1` (string, required)
         + grouped_lines (array[WriteLineItemGroup], required)
 
 + Response 204
@@ -1188,9 +1148,7 @@ Update a deal quotation's items
 
     + Attributes (object)
         + id: `1` (string, required)
-        + deal (object, optional)
-            + type: `deal` (string, required)
-            + id: `1` (string, required)
+        + deal_id: `1` (string, optional)
         + grouped_lines (array[WriteLineItemGroup], optional)
 
 + Response 204
@@ -1206,9 +1164,7 @@ Send a deal's quotation to a client via email.
         + email: `john@example.com` (string, required) - The email recipient
         + subject: Your quotation` (string, required) - The email subject
         + message: `1` (string, required) - The email body
-        + deal (object, optional)
-            + type: `deal` (string, required)
-            + id: `1` (string, required)
+        + deal_id: `1` (string, required)
 
 + Response 204
 
@@ -1409,15 +1365,9 @@ Create a new calendar event.
     + Attributes
         + title: `Meeting with stakeholders` (string, optional)
         + description (string, optional)
-        + todo (object, optional)
-            + type: `todo` (string, required)
-            + id: 1 (string, required)
-        + activity_type (object, required)
-            + type: `activity_type` (string, required)
-            + id: 1 (string, required)
-        + topic (object, optional)
-            + type: `topic` (string, optional)
-            + id: 1 (string, optional)
+        + todo_id: 1 (string, optional)
+        + activity_type_id: 1 (string, required)
+        + topic_id: 1 (string, optional)
         + starts_at: `2016-02-04T16:00:00+00:00` (string, required)
         + ends_at: `2016-02-04T18:00:00+00:00` (string, required)
         + location (Address, optional)
@@ -1456,15 +1406,9 @@ Update a calendar event.
         + id: 1 (string, required)
         + title: `Meeting with stakeholders` (string, optional)
         + description (string, optional)
-        + todo (object, optional)
-            + type: `todo` (string, required)
-            + id: 1 (string, required)
-        + activity_type (object, required)
-            + type: `activity_type` (string, required)
-            + id: 1 (string, required)
-        + topic (object, optional)
-            + type: `topic` (string, optional)
-            + id: 1 (string, optional)
+        + todo_id: 1 (string, optional)
+        + activity_type_id: 1 (string, optional)
+        + topic_id: 1 (string, optional)
         + starts_at: `2016-02-04T16:00:00+00:00` (string, optional)
         + ends_at: `2016-02-04T18:00:00+00:00` (string, optional)
         + location (Address, optional)
@@ -1626,12 +1570,8 @@ Create a new todo.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + activity_type (object, optional)
-            + type: `activityType` (string, required)
-            + id: `1` (string, required)
-        + topic (object, optional)
-            + type: `topic` (string, required)
-            + id: `456` (string, required)
+        + activity_type_id: `1` (string, required)
+        + topic_id: `456` (string, optional)
         + title: `Meeting with stakeholders` (string, required)
         + description (string, optional)
         + due_at: `2016-02-04T16:44:33+00:00` (string, optional)
@@ -1670,12 +1610,8 @@ Update a todo.
 
     + Attributes (object)
         + id (string, required)
-        + activity_type (object, optional)
-            + type: `activityType` (string, required)
-            + id: `1` (string, required)
-        + topic (object, optional)
-            + type: `topic` (string, required)
-            + id: `456` (string, required)
+        + activity_type_id: `1` (string, optional)
+        + topic_id: `456` (string, optional)
         + title: `Meeting with stakeholders` (string, optional)
         + description (string, optional)
         + due_at: `2016-02-04T16:44:33+00:00` (string, optional)
@@ -1911,10 +1847,11 @@ Start a new timer based on previously tracked time.
         + id: `1` (string, required)
         + started_at: `2017-04-26T10:01:49+00:00` (string, optional) - If not provided, current time will be used
 
-+ Response 200 (application/json)
++ Response 201
 
     + Attributes (object)
         + data (object)
+            + type: `timetracking` (string)
             + id: `2` (string)
 
 ### timetracking.add [POST /timetracking.add]
@@ -1924,9 +1861,7 @@ Add tracked time.
 + Request (application/json)
 
     + Attributes (object)
-        + topic (object, optional)
-            + type: `topic` (string, required)
-            + id: `456` (string, required)
+        + topic_id: `456` (string, optional)
         + One Of
             + started_on: `2017-04-26` (string, required)
             + started_at: `2017-04-26T10:01:49+00:00` (string, required)
@@ -1961,9 +1896,7 @@ Update tracked time.
 
     + Attributes (object)
         + id: `1` (string, required)
-        + topic (object, optional)
-            + type: `topic` (string, required)
-            + id: `456` (string, required)
+        + topic_id: `456` (string, optional)
         + One Of
             + started_on: `2017-04-26` (string, optional)
             + started_at: `2017-04-26T10:01:49+00:00` (string, optional)
@@ -2164,14 +2097,8 @@ Draft a new invoice
             + id (string)
         + for_attention_of (object, optional)
             + name (string, optional)
-            + contact (object, optional)
-                 + type (enum[string])
-                     + Members
-                         + contact
-                 + id (string)
-        + department (object, required)
-            + type: `department` (string, required)
-            + id: `1` (string, required)
+            + contact_id: `123` (string, optional)
+        + department_id: `1` (string, required)
         + payment_term (object, optional)
             + type (enum[string])
                 + Members
@@ -2179,9 +2106,7 @@ Draft a new invoice
                     + end_of_month - End of the month of Xth day after the invoice date
                     + after_invoice_date - X days after invoice date
             + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
-        + layout (object, optional) - Id of the layout you wish to use for this invoice
-            + type: `layout` (string, required)
-            + id: `123` (string, required)
+        + layout_id: `123` (string, required)
         + purchase_order_number (string, optional) - The external order number. Overrides possible PO number coming from project.
         + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
         + grouped_lines (array[WriteLineItemGroup])
@@ -2209,14 +2134,8 @@ Update an existing invoice.
             + id (string)
         + for_attention_of (object, optional)
             + name (string, optional)
-            + contact (object, optional)
-                 + type (enum[string])
-                     + Members
-                         + contact
-                 + id (string)
-        + department (object, required)
-            + type: `department` (string, required)
-            + id: `1` (string, required)
+            + contact_id: `123` (string, optional)
+        + department_id: `1` (string, optional)
         + payment_term (object, optional)
             + type (enum[string])
                 + Members
@@ -2224,9 +2143,7 @@ Update an existing invoice.
                     + end_of_month - End of the month of Xth day after the invoice date
                     + after_invoice_date - X days after invoice date
             + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
-        + layout (object, optional) - Id of the layout you wish to use for this invoice
-            + type: `layout` (string, required)
-            + id: `123` (string, required)
+        + layout_id: `123` (string, optional)
         + purchase_order_number (string, optional) - The external order number. Overrides possible PO number coming from project.
         + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
         + grouped_lines (array[WriteLineItemGroup], optional)
@@ -2386,12 +2303,8 @@ Create a draft credit note.
             + id (string)
         + for_attention_of (object, optional)
             + name (string, optional)
-            + contact (object, optional)
-                + type: `contact` (string)
-                + id: `456` (string)
-        + department (object, required)
-            + type: `department` (string, required)
-            + id: `1` (string, required)
+            + contact_id: `456` (string, optional)
+        + department_id: `1` (string, required)
         + payment_term (object, optional)
             + type (enum[string])
                 + Members
@@ -2399,9 +2312,7 @@ Create a draft credit note.
                     + end_of_month - End of the month of Xth day after the invoice date
                     + after_invoice_date - X days after invoice date
             + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
-        + layout (object, optional) - Id of the layout you wish to use for this invoice
-            + type: `layout` (string, required)
-            + id: `123` (string, required)
+        + layout_id: `123` (string, optional)
         + purchase_order_number (string, optional) - The external order number. Overrides possible PO number coming from project.
         + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
         + grouped_lines (array[WriteLineItemGroup], optional)
@@ -2427,12 +2338,8 @@ Create a draft credit note.
             + id (string)
         + for_attention_of (object, optional)
             + name (string, optional)
-            + contact (object, optional)
-                + type: `contact` (string)
-                + id: `456` (string)
-        + department (object, required)
-            + type: `department` (string, required)
-            + id: `1` (string, required)
+            + contact_id: `456` (string, optional)
+        + department_id: `1` (string, optional)
         + payment_term (object, optional)
             + type (enum[string])
                 + Members
@@ -2440,9 +2347,7 @@ Create a draft credit note.
                     + end_of_month - End of the month of Xth day after the invoice date
                     + after_invoice_date - X days after invoice date
             + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
-        + layout (object, optional) - Id of the layout you wish to use for this invoice
-            + type: `layout` (string, required)
-            + id: `123` (string, required)
+        + layout_id: `123` (string, optional)
         + purchase_order_number (string, optional) - The external order number. Overrides possible PO number coming from project.
         + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
         + grouped_lines (array[WriteLineItemGroup], optional)
@@ -2821,9 +2726,7 @@ Create a new milestone.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + project (object, required)
-            + type: `project` (string, required)
-            + id: `2` (string, required)
+        + project_id: `2` (string, required)
         + due_on: `2018-01-01` (string, required)
         + name: `Initial setup` (string, required)
 
@@ -2998,9 +2901,7 @@ Register a new webhook.
 
 ## WritePrice (object)
 + Include Money
-+ rate (object, required)
-    + type: `tax` (string, required)
-    + id: `1` (string, required)
++ rate_id: `1` (string, required)
 + tax: `excluding` (enum[string], required)
     + Members
         + excluding
@@ -3055,16 +2956,12 @@ Register a new webhook.
     + title (string, required)
 + line_items (array, required)
     + (object)
-        + product (object, optional)
-            + type: `product` (string, required)
-            + id: `1` (string, required)
+        + product_id: `1` (string, required)
         + quantity: `3` (number, required)
         + description: `An awesome product` (string, optional)
         + extended_description: `Additional information` (string, optional)
         + unit_price (WritePrice, optional)
-        + ledger (object, optional)
-            + type: `ledger` (string, required)
-            + id: `1` (string, required)
+        + ledger_id: `1` (string, required)
         + source (object, optional)
             + type (enum[string], required)
                 + project

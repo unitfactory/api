@@ -75,12 +75,8 @@ Create a draft credit note.
             + id (string)
         + for_attention_of (object, optional)
             + name (string, optional)
-            + contact (object, optional)
-                + type: `contact` (string)
-                + id: `456` (string)
-        + department (object, required)
-            + type: `department` (string, required)
-            + id: `1` (string, required)
+            + contact_id: `456` (string, optional)
+        + department_id: `1` (string, required)
         + payment_term (object, optional)
             + type (enum[string])
                 + Members
@@ -88,9 +84,7 @@ Create a draft credit note.
                     + end_of_month - End of the month of Xth day after the invoice date
                     + after_invoice_date - X days after invoice date
             + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
-        + layout (object, optional) - Id of the layout you wish to use for this invoice
-            + type: `layout` (string, required)
-            + id: `123` (string, required)
+        + layout_id: `123` (string, optional)
         + purchase_order_number (string, optional) - The external order number. Overrides possible PO number coming from project.
         + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
         + grouped_lines (array[WriteLineItemGroup], optional)
@@ -116,12 +110,8 @@ Create a draft credit note.
             + id (string)
         + for_attention_of (object, optional)
             + name (string, optional)
-            + contact (object, optional)
-                + type: `contact` (string)
-                + id: `456` (string)
-        + department (object, required)
-            + type: `department` (string, required)
-            + id: `1` (string, required)
+            + contact_id: `456` (string, optional)
+        + department_id: `1` (string, optional)
         + payment_term (object, optional)
             + type (enum[string])
                 + Members
@@ -129,9 +119,7 @@ Create a draft credit note.
                     + end_of_month - End of the month of Xth day after the invoice date
                     + after_invoice_date - X days after invoice date
             + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
-        + layout (object, optional) - Id of the layout you wish to use for this invoice
-            + type: `layout` (string, required)
-            + id: `123` (string, required)
+        + layout_id: `123` (string, optional)
         + purchase_order_number (string, optional) - The external order number. Overrides possible PO number coming from project.
         + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
         + grouped_lines (array[WriteLineItemGroup], optional)

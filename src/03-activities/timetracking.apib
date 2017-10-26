@@ -158,10 +158,11 @@ Start a new timer based on previously tracked time.
         + id: `1` (string, required)
         + started_at: `2017-04-26T10:01:49+00:00` (string, optional) - If not provided, current time will be used
 
-+ Response 200 (application/json)
++ Response 201
 
     + Attributes (object)
         + data (object)
+            + type: `timetracking` (string)
             + id: `2` (string)
 
 ### timetracking.add [POST /timetracking.add]
@@ -171,9 +172,7 @@ Add tracked time.
 + Request (application/json)
 
     + Attributes (object)
-        + topic (object, optional)
-            + type: `topic` (string, required)
-            + id: `456` (string, required)
+        + topic_id: `456` (string, optional)
         + One Of
             + started_on: `2017-04-26` (string, required)
             + started_at: `2017-04-26T10:01:49+00:00` (string, required)
@@ -208,9 +207,7 @@ Update tracked time.
 
     + Attributes (object)
         + id: `1` (string, required)
-        + topic (object, optional)
-            + type: `topic` (string, required)
-            + id: `456` (string, required)
+        + topic_id: `456` (string, optional)
         + One Of
             + started_on: `2017-04-26` (string, optional)
             + started_at: `2017-04-26T10:01:49+00:00` (string, optional)

@@ -113,16 +113,12 @@ Add a new company.
         + iban: `BE12 1234 1234 1234` (string)
         + bic: `BICBANK` (string)
         + language: `en` (string, optional)
-        + responsible_user (object, optional)
-            + type: `User` (string)
-            + id (string, optional)
+        + responsible_user_id: `123` (string, optional)
         + remarks: `Met at expo` (string, optional)
         + tags: expo, upsell (array[string], optional)
         + custom_fields (array)
             + (object)
-                + field (object)
-                    + type: `customField`
-                    + id: 123 (string)
+                + field_id: `123` (string)
                 + value: `092980616`
 
 + Response 201 (application/json;charset=utf-8)
@@ -155,16 +151,12 @@ Update a company.
         + iban: `BE12 1234 1234 1234` (string)
         + bic: `BICBANK` (string)
         + language: `en` (string, optional)
-        + responsible_user (object, optional)
-            + type: `User` (string)
-            + id (string, optional)
+        + responsible_user_id: `123` (string, optional)
         + remarks: `Met at expo` (string, optional)
         + tags: expo, upsell (array[string], optional)
         + custom_fields (array)
             + (object)
-                + field (object)
-                    + type: `customField` (string)
-                    + id: 123 (string)
+                + field_id: 123 (string)
                 + value: `092980616`
 
 + Response 204
