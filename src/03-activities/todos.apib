@@ -36,7 +36,7 @@ Get a list of todos.
                 + completed: false (boolean)
                 + completed_at: `2016-02-04T16:44:33+00:00` (string)
                 + due_at: `2016-02-04T16:44:33+00:00` (string)
-                + estimated_duration: 60 (number)
+                + estimated_duration: 3600 (number) - In seconds
                 + links (array)
                     + (object)
                         + type (enum[string])
@@ -78,7 +78,7 @@ Get information about a todo.
             + completed: false (boolean)
             + completed_at: `2016-02-04T16:44:33+00:00` (string)
             + due_at: `2016-02-04T16:44:33+00:00` (string)
-            + estimated_duration: 60 (number)
+            + estimated_duration: 3600 (number) - In seconds
             + links (array)
                 + (object)
                     + type (enum[string])
@@ -110,7 +110,7 @@ Create a new todo.
         + title: `Meeting with stakeholders` (string, required)
         + description (string, optional)
         + due_at: `2016-02-04T16:44:33+00:00` (string, optional)
-        + estimated_duration: 60 (number, optional)
+        + estimated_duration: 3600 (number, optional) - In seconds
         + location (Address, optional)
         + attendees (array, optional)
             + (object)
@@ -150,7 +150,7 @@ Update a todo.
         + title: `Meeting with stakeholders` (string, optional)
         + description (string, optional)
         + due_at: `2016-02-04T16:44:33+00:00` (string, optional)
-        + estimated_duration: 60 (number, optional)
+        + estimated_duration: 3600 (number, optional) - In seconds
         + location (Address, optional)
         + attendees (array, optional)
             + (object)

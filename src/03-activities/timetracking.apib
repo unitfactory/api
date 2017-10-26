@@ -30,7 +30,7 @@ Get a list of tracked time.
                 + started_on: `2017-04-26` (string)
                 + started_at: `2017-04-26T10:01:49+00:00` (string, nullable)
                 + ended_at: `2017-04-26T11:01:49+00:00` (string, nullable)
-                + duration: 3600 (number) - Tracked time in seconds
+                + duration: 3600 (number) - In seconds
                 + description: `Timer description` (string)
                 + subject (object)
                     + type: `project` (enum[string])
@@ -67,7 +67,7 @@ Get information about tracked time.
             + started_on: `2017-04-26` (string)
             + started_at: `2017-04-26T10:01:49+00:00` (string, nullable)
             + ended_at: `2017-04-26T11:01:49+00:00` (string, nullable)
-            + duration: 3600 (number) - Tracked time in seconds
+            + duration: 3600 (number) - In seconds
             + description: `Timer description` (string)
             + subject (object)
                 + type: `project` (enum[string])
@@ -180,7 +180,7 @@ Add tracked time.
             + started_at: `2017-04-26T10:01:49+00:00` (string, required)
         + One Of
             + ended_at: `2017-04-26T11:01:49+00:00` (string, required)
-            + duration: 3600 (number, required)
+            + duration: 3600 (number, required) - In seconds
         + description (string, optional)
         + subject (object)
             + type: `project` (enum[string], required)
@@ -215,7 +215,7 @@ Update tracked time.
             + started_at: `2017-04-26T10:01:49+00:00` (string, optional)
         + One Of
             + ended_at: `2017-04-26T11:01:49+00:00` (string, optional)
-            + duration: 3600 (number, optional)
+            + duration: 3600 (number, optional) - In seconds
         + description (string, optional)
         + subject (object)
             + type: `project` (enum[string], required)

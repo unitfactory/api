@@ -1554,7 +1554,7 @@ Get a list of todos.
                 + completed: false (boolean)
                 + completed_at: `2016-02-04T16:44:33+00:00` (string)
                 + due_at: `2016-02-04T16:44:33+00:00` (string)
-                + estimated_duration: 60 (number)
+                + estimated_duration: 3600 (number) - In seconds
                 + links (array)
                     + (object)
                         + type (enum[string])
@@ -1596,7 +1596,7 @@ Get information about a todo.
             + completed: false (boolean)
             + completed_at: `2016-02-04T16:44:33+00:00` (string)
             + due_at: `2016-02-04T16:44:33+00:00` (string)
-            + estimated_duration: 60 (number)
+            + estimated_duration: 3600 (number) - In seconds
             + links (array)
                 + (object)
                     + type (enum[string])
@@ -1628,7 +1628,7 @@ Create a new todo.
         + title: `Meeting with stakeholders` (string, required)
         + description (string, optional)
         + due_at: `2016-02-04T16:44:33+00:00` (string, optional)
-        + estimated_duration: 60 (number, optional)
+        + estimated_duration: 3600 (number, optional) - In seconds
         + location (Address, optional)
         + attendees (array, optional)
             + (object)
@@ -1668,7 +1668,7 @@ Update a todo.
         + title: `Meeting with stakeholders` (string, optional)
         + description (string, optional)
         + due_at: `2016-02-04T16:44:33+00:00` (string, optional)
-        + estimated_duration: 60 (number, optional)
+        + estimated_duration: 3600 (number, optional) - In seconds
         + location (Address, optional)
         + attendees (array, optional)
             + (object)
@@ -1772,7 +1772,7 @@ Get a list of tracked time.
                 + started_on: `2017-04-26` (string)
                 + started_at: `2017-04-26T10:01:49+00:00` (string, nullable)
                 + ended_at: `2017-04-26T11:01:49+00:00` (string, nullable)
-                + duration: 3600 (number) - Tracked time in seconds
+                + duration: 3600 (number) - In seconds
                 + description: `Timer description` (string)
                 + subject (object)
                     + type: `project` (enum[string])
@@ -1809,7 +1809,7 @@ Get information about tracked time.
             + started_on: `2017-04-26` (string)
             + started_at: `2017-04-26T10:01:49+00:00` (string, nullable)
             + ended_at: `2017-04-26T11:01:49+00:00` (string, nullable)
-            + duration: 3600 (number) - Tracked time in seconds
+            + duration: 3600 (number) - In seconds
             + description: `Timer description` (string)
             + subject (object)
                 + type: `project` (enum[string])
@@ -1922,7 +1922,7 @@ Add tracked time.
             + started_at: `2017-04-26T10:01:49+00:00` (string, required)
         + One Of
             + ended_at: `2017-04-26T11:01:49+00:00` (string, required)
-            + duration: 3600 (number, required)
+            + duration: 3600 (number, required) - In seconds
         + description (string, optional)
         + subject (object)
             + type: `project` (enum[string], required)
@@ -1957,7 +1957,7 @@ Update tracked time.
             + started_at: `2017-04-26T10:01:49+00:00` (string, optional)
         + One Of
             + ended_at: `2017-04-26T11:01:49+00:00` (string, optional)
-            + duration: 3600 (number, optional)
+            + duration: 3600 (number, optional) - In seconds
         + description (string, optional)
         + subject (object)
             + type: `project` (enum[string], required)
