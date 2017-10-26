@@ -22,6 +22,7 @@ Get the names of business types (legal structures) a company can have within a c
 
     + Attributes (object)
         + country: `BE` (string)
+        + page (Page, optional)
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -31,6 +32,11 @@ Get the names of business types (legal structures) a company can have within a c
 ### dealPhases.list [GET /dealPhases.list]
 
 Get a list of all phases a deal can go through.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + page (Page, optional)
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -44,6 +50,11 @@ Get a list of all phases a deal can go through.
 
 Get a list of all deal sources.
 
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + page (Page, optional)
+
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
@@ -55,6 +66,11 @@ Get a list of all deal sources.
 ### lostReasons.list [GET /lostReasons.list]
 
 Get a list of all deal sources.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + page (Page, optional)
 
 + Response 200 (application/json;charset=utf-8)
 

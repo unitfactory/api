@@ -221,7 +221,11 @@ To retrieve information about the user who authorized your application (the reso
 
 ### departments.list [GET /departments.list]
 
-Get a list of all departments.
++ Request (application/json)
+
+    + Attributes (object)
+        + ids: 92296ad0-2d61-4179-b174-9f354ca2157f,53635682-c382-4fbf-9fd9-9506ca4fbcdd` (array[string], optional)
+        + page (Page, optional)
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -316,11 +320,7 @@ Update a department.
 
     + Attributes (object)
         + ids: 15597b58-fb69-4ed6-9be7-64f18ef20cbd,e4d4b524-b881-4e45-a4b2-9561736e4168 (array[string], optional)
-        + page (object, optional)
-            + size: `20` (number, optional) - The amount of products returned per request, max 1 to 100
-                + Default: `20`
-            + number: `1` (number, optional) - The current page, the first page is 1
-                + Default: `1`
+        + page (Page, optional)
 
 + Response 200 (application/json)
 
@@ -436,11 +436,7 @@ Update a department.
 
     + Attributes (object)
         + ids: 92296ad0-2d61-4179-b174-9f354ca2157f,53635682-c382-4fbf-9fd9-9506ca4fbcdd` (array[string], optional)
-        + page (object, optional)
-            + size: `20` (number, optional) - The amount of pricelists returned per request, max 1 to 100
-                + Default: `20`
-            + number: `1` (number, optional) - The current page, the first page is 1
-                + Default: `1`
+        + page (Page, optional)
 
 + Response 200 (application/json)
 
@@ -1221,6 +1217,7 @@ Get the names of business types (legal structures) a company can have within a c
 
     + Attributes (object)
         + country: `BE` (string)
+        + page (Page, optional)
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -1230,6 +1227,11 @@ Get the names of business types (legal structures) a company can have within a c
 ### dealPhases.list [GET /dealPhases.list]
 
 Get a list of all phases a deal can go through.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + page (Page, optional)
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -1243,6 +1245,11 @@ Get a list of all phases a deal can go through.
 
 Get a list of all deal sources.
 
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + page (Page, optional)
+
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
@@ -1254,6 +1261,11 @@ Get a list of all deal sources.
 ### lostReasons.list [GET /lostReasons.list]
 
 Get a list of all deal sources.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + page (Page, optional)
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -1730,6 +1742,7 @@ Get a list of tracked time.
             + topic_id: `ce1287f0-0480-458d-b371-22862d864074` (string, optional)
             + tracked_after: `2017-04-26T10:01:49+00:00` (string, optional)
             + tracked_before: `2017-04-26T10:01:49+00:00` (string, optional)
+        + page (Page, optional)
 
 + Response 200 (application/json)
 
@@ -1964,6 +1977,11 @@ Delete tracked time.
 
 Get a list of all activity types.
 
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + page (Page, optional)
+
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
@@ -1977,6 +1995,11 @@ Get a list of all activity types.
 ### topics.list [GET /topics.list]
 
 Get a list of all topics.
+
++ Request (application/json;charset=utf-8)
+
+    + Attributes (object)
+        + page (Page, optional)
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -2483,6 +2506,7 @@ List tax rates
         + filter (object, optional)
             + ids (array[string], optional)
             + department_id: `66766830-3bd0-41b2-a279-5987aa6153c2` (string, optional) - The ID of the department you wish to filter on.
+        + page (Page, optional)
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -2515,6 +2539,7 @@ Search projects
             + starts_after: `2016-01-01` (string, optional) - Format ISO 8601: yyyy-mm-dd
             + due_before: `2017-01-01` (string, optional) - Format ISO 8601: yyyy-mm-dd
             + due_after: `2016-01-01` (string, optional) - Format ISO 8601: yyyy-mm-dd
+        + page (Page, optional)
 
 + Response 200 (application/json;charset=utf-8)
 
