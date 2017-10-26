@@ -152,9 +152,9 @@ Create a new deal for a customer.
                     + company
             + id: 123 (string)
         + title: `Interesting business deal` (string, required)
-        + source_id: `1` (string, required)
-        + department_id: `1` (string, required)
-        + responsible_user_id: `1` (string, required)
+        + source_id: `1` (string, optional)
+        + department_id: `1` (string, optional)
+        + responsible_user_id: `1` (string, optional)
         + phase_id: `1` (string, optional)
         + estimated_value (Money, optional)
         + estimated_probability: `0.75` (number, optional)
@@ -224,7 +224,7 @@ Mark a deal as lost.
 
     + Attributes (object)
         + id: `1` (string, required)
-        + phase_id: `1` (string, required)
+        + reason_id: `1` (string, required)
         + extra_info: `Not ready for a change, decision postponed` (string, optional)
 
 + Response 204

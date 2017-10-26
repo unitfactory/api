@@ -26,7 +26,7 @@
 
 ## WritePrice (object)
 + Include Money
-+ rate_id: `1` (string, required)
++ tax_id: `1` (string, required)
 + tax: `excluding` (enum[string], required)
     + Members
         + excluding
@@ -34,7 +34,7 @@
 
 ## ReadPrice (object)
 + Include Money
-+ rate (object)
++ applied_tax (object)
     + type: `tax` (string)
     + id: `1` (string)
 + tax: `excluding` (enum[string])
@@ -81,12 +81,12 @@
     + title (string, required)
 + line_items (array, required)
     + (object)
-        + product_id: `1` (string, required)
+        + product_id: `1` (string, optional)
         + quantity: `3` (number, required)
         + description: `An awesome product` (string, optional)
         + extended_description: `Additional information` (string, optional)
         + unit_price (WritePrice, optional)
-        + ledger_id: `1` (string, required)
+        + ledger_id: `1` (string, optional)
         + source (object, optional)
             + type (enum[string], required)
                 + project
