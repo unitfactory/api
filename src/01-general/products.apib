@@ -114,25 +114,3 @@
         + id: `1` (string, required)
 
 + Response 204 (application/json)
-
-### priceLists.list [GET /pricelists.list]
-
-+ Request (application/json)
-
-    + Attributes (object)
-        + ids: 1,2 (array[string], optional)
-        + page (object, optional)
-            + size: `20` (number, optional) - The amount of pricelists returned per request, max 1 to 100
-                + Default: `20`
-            + number: `1` (number, optional) - The current page, the first page is 1
-                + Default: `1`
-
-+ Response 200 (application/json)
-
-    + Attributes (object)
-        + data (array)
-            + (object)
-                + type: `priceList` (string)
-                + id: `1` (string)
-                + description: `Default (EUR)` (string, nullable)
-                + default_currency: `EUR` (string, nullable)
