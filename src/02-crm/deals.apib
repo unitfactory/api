@@ -21,14 +21,17 @@ Get a list of deals.
             + responsible_user_id: `79a70273-f293-433f-9d9c-80cc422da0ad` (string, optional) - Only return deals for this user
         + sort (array, optional)
             + (object)
-                + field: `created_at` (enum[string], required)
+                + field (enum[string], required)
                     + Members
                         + created_at
-                    + Default: `created_at`
-                + order: `desc` (enum[string], optional)
+                + order (enum[string], optional)
                     + Members
                         + desc
-                    + Default: `created_at`
+            + Default
+                + (object)
+                    + field: `created_at`
+                    + order: `desc`
+
 
 + Response 200 (application/json;charset=utf-8)
 
