@@ -1138,7 +1138,12 @@ Add a quotation to a deal
         + deal_id: `1` (string, required)
         + grouped_lines (array[WriteLineItemGroup], required)
 
-+ Response 204
++ Response 201
+
+    + Attributes (object)
+        + data (object)
+            + type: `quotation` (string)
+            + id: `123` (string)
 
 ### quotations.update [POST /quotations.update]
 
