@@ -7,6 +7,18 @@
         + filter (object)
             + ids: `eff9788e-dd81-47bc-98a0-f8431fee117d`,`cea3fc6a-52cb-4024-b714-1c55a186f044` (array[string], optional)
         + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + description
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `description`
+                    + order: `asc`
 
 + Response 200 (application/json)
 

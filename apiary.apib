@@ -227,13 +227,24 @@ To retrieve information about the user who authorized your application (the reso
         + filter (object)
             + ids: `92296ad0-2d61-4179-b174-9f354ca2157f`,`53635682-c382-4fbf-9fd9-9506ca4fbcdd` (array[string], optional)
         + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + name
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `name`
+                    + order: `asc`
 
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + data (array)
             + (object)
-                + type: `department` (string)
                 + id: `67c576e7-7e6f-465d-b6ab-a864f6e5e95b` (string)
                 + name: `Human Resources` (string)
                 + name_short: `HR` (string)
@@ -323,6 +334,18 @@ Update a department.
         + filter
             + ids: `b7dc55d0-f74d-4b24-8ca6-51dcf539ebbd`,`40c37f79-f856-4965-986a-5e9de14435c0` (array[string], optional)
         + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + code
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `code`
+                    + order: `asc`
 
 + Response 200 (application/json)
 
@@ -330,11 +353,12 @@ Update a department.
         + data (array)
             + (object)
                 + id: `0bfb320e-b0b8-4dc8-8d90-e611ff343b3f` (string)
+                + code: `PEN-BLUE` (string)
                 + translations (array)
                     + (object)
                         + language: `EN` (string)
-                        + name: `Product name` (string)
-                        + description: `Product description` (string)
+                        + name: `Pen (blue)` (string)
+                        + description: `Our best blue pen` (string)
                 + default_language (string)
                 + prices (array)
                     + (object)
@@ -355,24 +379,25 @@ Update a department.
     + Attributes (object)
         + data (object)
             + id: `84119cff-40b0-490d-9caa-f47151bd2da1` (string)
+            + code: `PEN-BLUE` (string)
             + translations (array)
                 + (object)
                     + language: `EN` (string)
                     + name: `Product name` (string)
                     + description: `Product description` (string)
-        + default_language (string)
-        + prices (array)
-            + (object)
-                + price_list (object, nullable)
-                    + type: `priceList` (string)
-                    + id: `8c2ec7df-931a-4fe0-ad97-8bd9b9da9548` (string)
-                + price (ReadPrice)
-        + custom_fields (array)
-            + (object)
-                + field (object)
-                    + type: `customField`
-                    + id: `b7ce90df-5101-4ea6-82bb-65e98e82a70c` (string)
-                + value: `092980616`
+            + default_language (string)
+            + prices (array)
+                + (object)
+                    + price_list (object, nullable)
+                        + type: `priceList` (string)
+                        + id: `8c2ec7df-931a-4fe0-ad97-8bd9b9da9548` (string)
+                    + price (ReadPrice)
+            + custom_fields (array)
+                + (object)
+                    + field (object)
+                        + type: `customField`
+                        + id: `b7ce90df-5101-4ea6-82bb-65e98e82a70c` (string)
+                    + value: `092980616`
 
 ### products.add [POST /products.add]
 
@@ -440,6 +465,18 @@ Update a department.
         + filter (object)
             + ids: `eff9788e-dd81-47bc-98a0-f8431fee117d`,`cea3fc6a-52cb-4024-b714-1c55a186f044` (array[string], optional)
         + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + description
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `description`
+                    + order: `asc`
 
 + Response 200 (application/json)
 
@@ -469,6 +506,19 @@ Get a list of contacts.
             + telephone: `092980615` (string, optional)
             + updated_after: `2017-04-26T10:01:49+00:00` (string, optional)
         + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + added_at
+                + order (enum[string], optional)
+                    + Members
+                        + desc
+            + Default
+                + (object)
+                    + field: `added_at`
+                    + order: `desc`
+
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -714,6 +764,18 @@ Get a list of companies.
             + term: `teamleader` (string, optional)
             + telephone: `092980615` (string, optional)
         + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + added_at
+                + order (enum[string], optional)
+                    + Members
+                        + desc
+            + Default
+                + (object)
+                    + field: `added_at`
+                    + order: `desc`
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -1204,7 +1266,7 @@ Send a deal's quotation to a client via email.
 
 ### tags.list [GET /tags.list]
 
-Get a list of all tags.
+Get a list of all tags, sorted alphabetically
 
 + Request (application/json;charset=utf-8)
 
@@ -1220,7 +1282,7 @@ Get a list of all tags.
 
 ### companyTypes.list [GET /companyTypes.list]
 
-Get the names of business types (legal structures) a company can have within a certain country.
+Get the names of business types (legal structures) a company can have within a certain country, sorted alphabetically.
 
 + Request (application/json;charset=utf-8)
 
@@ -1235,7 +1297,7 @@ Get the names of business types (legal structures) a company can have within a c
 
 ### dealPhases.list [GET /dealPhases.list]
 
-Get a list of all phases a deal can go through.
+Get a list of all phases a deal can go through, sorted by their order in the flow.
 
 + Request (application/json;charset=utf-8)
 
@@ -1254,7 +1316,7 @@ Get a list of all phases a deal can go through.
 
 ### dealSources.list [GET /dealSources.list]
 
-Get a list of all deal sources.
+Get a list of all deal sources, sorted alphabetically (on description)
 
 + Request (application/json;charset=utf-8)
 
@@ -1273,7 +1335,7 @@ Get a list of all deal sources.
 
 ### lostReasons.list [GET /lostReasons.list]
 
-Get a list of all deal sources.
+Get a list of all deal sources, sorted alphabetically (on description)
 
 + Request (application/json;charset=utf-8)
 
@@ -1321,6 +1383,10 @@ Get a list of calendar events.
                     + Members
                         + asc
                         + desc
+            + Default
+                + (object)
+                    + field: starts_at
+                    + order: asc
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -1542,6 +1608,18 @@ Get a list of todos.
                     + completed
                     + overdue
         + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + due_at
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `due_at`
+                    + order: `asc`
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -1759,6 +1837,18 @@ Get a list of tracked time.
             + tracked_after: `2017-04-26T10:01:49+00:00` (string, optional)
             + tracked_before: `2017-04-26T10:01:49+00:00` (string, optional)
         + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + started_on
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `started_on`
+                    + order: `asc`
 
 + Response 200 (application/json)
 
@@ -1991,7 +2081,7 @@ Delete tracked time.
 
 ### activityTypes.list [GET /activityTypes.list]
 
-Get a list of all activity types.
+Get a list of all activity types, sorted alphabetically (on their name).
 
 + Request (application/json;charset=utf-8)
 
@@ -2012,7 +2102,7 @@ Get a list of all activity types.
 
 ### topics.list [GET /topics.list]
 
-Get a list of all topics.
+Get a list of all topics, sorted alphabetically (on their name).
 
 + Request (application/json;charset=utf-8)
 
@@ -2059,6 +2149,18 @@ List invoices
                     + draft
                     + booked
         + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + invoice_number
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `invoice_number`
+                    + order: `asc`
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -2327,6 +2429,18 @@ List credit notes
             + department_id: `320c7e39-26c1-45b5-84aa-75ef89e8890f` (string, optional) - The ID of the department you wish to filter on.
             + invoice_id: `841b63a5-1b38-4480-8538-25a0d6a237b9` (string, optional) - The ID of the invoice you wih to filter on.
         + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + credit_note_number
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `credit_note_number`
+                    + order: `asc`
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -2341,6 +2455,7 @@ List credit notes
                     + type: `invoice` (string)
                     + id: `53484141-8382-4948-9a4c-9cd7e79b30bd` (string)
                 + credit_note_number: `2017/5` (string)
+                + credit_note_date: `2016-02-04` (string)
                 + paid: `true` (boolean)
                 + paid_at: `2016-03-03T16:44:33+00:00` (string)
                 + total (object)
@@ -2520,7 +2635,7 @@ Book a draft creditNote.
 
 ### taxRates.list [GET /taxRates.list]
 
-List tax rates
+List tax rates, sorted by rate and description.
 
 + Request (application/json;charset=utf-8)
 
@@ -2563,6 +2678,18 @@ Search projects
             + due_before: `2017-01-01` (string, optional) - Format ISO 8601: yyyy-mm-dd
             + due_after: `2016-01-01` (string, optional) - Format ISO 8601: yyyy-mm-dd
         + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + due_on
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `due_on`
+                    + order: `asc`
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -2781,6 +2908,18 @@ Get a list of project milestones.
             + due_before: `2017-01-01` (string, optional)
             + due_after: `2017-01-01` (string, optional)
         + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + due_on
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `due_on`
+                    + order: `asc`
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -2889,6 +3028,18 @@ Get a list of all users.
         + filter (object, optional)
             + ids: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
         + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + name
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `name`
+                    + order: `asc`
 
 + Response 200 (application/json;charset=utf-8)
 

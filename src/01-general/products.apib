@@ -8,6 +8,18 @@
         + filter
             + ids: `b7dc55d0-f74d-4b24-8ca6-51dcf539ebbd`,`40c37f79-f856-4965-986a-5e9de14435c0` (array[string], optional)
         + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + code
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `code`
+                    + order: `asc`
 
 + Response 200 (application/json)
 
@@ -15,11 +27,12 @@
         + data (array)
             + (object)
                 + id: `0bfb320e-b0b8-4dc8-8d90-e611ff343b3f` (string)
+                + code: `PEN-BLUE` (string)
                 + translations (array)
                     + (object)
                         + language: `EN` (string)
-                        + name: `Product name` (string)
-                        + description: `Product description` (string)
+                        + name: `Pen (blue)` (string)
+                        + description: `Our best blue pen` (string)
                 + default_language (string)
                 + prices (array)
                     + (object)
@@ -40,24 +53,25 @@
     + Attributes (object)
         + data (object)
             + id: `84119cff-40b0-490d-9caa-f47151bd2da1` (string)
+            + code: `PEN-BLUE` (string)
             + translations (array)
                 + (object)
                     + language: `EN` (string)
                     + name: `Product name` (string)
                     + description: `Product description` (string)
-        + default_language (string)
-        + prices (array)
-            + (object)
-                + price_list (object, nullable)
-                    + type: `priceList` (string)
-                    + id: `8c2ec7df-931a-4fe0-ad97-8bd9b9da9548` (string)
-                + price (ReadPrice)
-        + custom_fields (array)
-            + (object)
-                + field (object)
-                    + type: `customField`
-                    + id: `b7ce90df-5101-4ea6-82bb-65e98e82a70c` (string)
-                + value: `092980616`
+            + default_language (string)
+            + prices (array)
+                + (object)
+                    + price_list (object, nullable)
+                        + type: `priceList` (string)
+                        + id: `8c2ec7df-931a-4fe0-ad97-8bd9b9da9548` (string)
+                    + price (ReadPrice)
+            + custom_fields (array)
+                + (object)
+                    + field (object)
+                        + type: `customField`
+                        + id: `b7ce90df-5101-4ea6-82bb-65e98e82a70c` (string)
+                    + value: `092980616`
 
 ### products.add [POST /products.add]
 

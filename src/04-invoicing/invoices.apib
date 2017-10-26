@@ -23,6 +23,18 @@ List invoices
                     + draft
                     + booked
         + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + invoice_number
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `invoice_number`
+                    + order: `asc`
 
 + Response 200 (application/json;charset=utf-8)
 

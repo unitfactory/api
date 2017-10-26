@@ -20,6 +20,18 @@ List credit notes
             + department_id: `320c7e39-26c1-45b5-84aa-75ef89e8890f` (string, optional) - The ID of the department you wish to filter on.
             + invoice_id: `841b63a5-1b38-4480-8538-25a0d6a237b9` (string, optional) - The ID of the invoice you wih to filter on.
         + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + credit_note_number
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `credit_note_number`
+                    + order: `asc`
 
 + Response 200 (application/json;charset=utf-8)
 
@@ -34,6 +46,7 @@ List credit notes
                     + type: `invoice` (string)
                     + id: `53484141-8382-4948-9a4c-9cd7e79b30bd` (string)
                 + credit_note_number: `2017/5` (string)
+                + credit_note_date: `2016-02-04` (string)
                 + paid: `true` (boolean)
                 + paid_at: `2016-03-03T16:44:33+00:00` (string)
                 + total (object)

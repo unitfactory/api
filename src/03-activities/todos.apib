@@ -21,6 +21,18 @@ Get a list of todos.
                     + completed
                     + overdue
         + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + due_at
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `due_at`
+                    + order: `asc`
 
 + Response 200 (application/json;charset=utf-8)
 

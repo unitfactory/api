@@ -20,6 +20,18 @@ Search projects
             + due_before: `2017-01-01` (string, optional) - Format ISO 8601: yyyy-mm-dd
             + due_after: `2016-01-01` (string, optional) - Format ISO 8601: yyyy-mm-dd
         + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + due_on
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `due_on`
+                    + order: `asc`
 
 + Response 200 (application/json;charset=utf-8)
 
