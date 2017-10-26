@@ -2559,6 +2559,20 @@ Search projects
                 + Members
                     + deal
             + id: `456` (string, required)
+        + milestones (array, required) - At least one milestone is required
+            + (object)
+                + due_on: `2018-01-01` (string, required)
+                + name: `Initial setup` (string, required)
+        + participants (array, required) - At least one decision making participant is required
+            + (object)
+                + participant (object, required)
+                    + type: `user` (string)
+                    + id (string)
+                + role (enum[string], optional)
+                    + Members
+                        + decision_maker
+                        + member
+                    + Default: `member`
 
 + Response 201 (application/json;charset=utf-8)
 
