@@ -889,8 +889,12 @@ Get a list of deals.
         + filter (object, optional)
             + term: `Teamleader` (string, optional) - A search string. Teamleader will try to search deals matching this string.
             + phase_id: `5` (string, optional) - Only return deals with this phase ID
-            + company_id: `123` (string, optional) - Only return deals for this company
-            + contact_id: `456` (string, optional) - Only return deals for this contact
+            + customer (object, optional)
+                + type: `contact` (enum[string], required)
+                    + Members
+                        + contact
+                        + company
+                + id: `123` (string)
             + responsible_user_id: `456` (string, optional) - Only return deals for this user
         + sort (array, optional)
             + (object)
@@ -1976,8 +1980,12 @@ List invoices
 
     + Attributes (object)
         + filter (object, optional)
-            + contact_id: `123` (string, optional) - The ID of the contact you wish to filter on. You can't provide a company ID.
-            + company_id: `123` (string, optional) - The ID of the company you wish to filter on. You can't provide a contact ID.
+            + customer (object, optional)
+                + type: `contact` (enum[string], required)
+                    + Members
+                        + contact
+                        + company
+                + id: `123` (string)
             + invoice_date_after: `2016-01-01` (string, optional) - Format: yyyy-mm-dd
             + invoice_date_before: `2016-01-01` (string, optional) - Format: yyyy-mm-dd
             + department_id: `1` (string, optional) - The ID of the department you wish to filter on.
@@ -2240,8 +2248,12 @@ List credit notes
 
     + Attributes (object)
         + filter (object, optional)
-            + contact_id: `123` (string, optional) - The ID of the contact you wish to filter on. You can't provide a company ID.
-            + company_id: `123` (string, optional) - The ID of the company you wish to filter on. You can't provide a contact ID.
+            + customer (object, optional)
+                + type: `contact` (enum[string], required)
+                    + Members
+                        + contact
+                        + company
+                + id: `123` (string)
             + credit_note_date_after: `2016-01-01` (string, optional) - Format: yyyy-mm-dd
             + credit_note_date_before: `2016-01-01` (string, optional) - yyyy-mm-dd
             + department_id: `1` (string, optional) - The ID of the department you wish to filter on.

@@ -11,8 +11,12 @@ Get a list of deals.
         + filter (object, optional)
             + term: `Teamleader` (string, optional) - A search string. Teamleader will try to search deals matching this string.
             + phase_id: `5` (string, optional) - Only return deals with this phase ID
-            + company_id: `123` (string, optional) - Only return deals for this company
-            + contact_id: `456` (string, optional) - Only return deals for this contact
+            + customer (object, optional)
+                + type: `contact` (enum[string], required)
+                    + Members
+                        + contact
+                        + company
+                + id: `123` (string)
             + responsible_user_id: `456` (string, optional) - Only return deals for this user
         + sort (array, optional)
             + (object)
