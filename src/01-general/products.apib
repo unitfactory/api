@@ -7,7 +7,7 @@
     + Attributes (object)
         + ids: 1,2 (array[string], optional)
         + page (object, optional)
-            + size: `20` (number, optional) - The amount of contacts returned per request, max 1 to 100
+            + size: `20` (number, optional) - The amount of products returned per request, max 1 to 100
                 + Default: `20`
             + number: `1` (number, optional) - The current page, the first page is 1
                 + Default: `1`
@@ -25,12 +25,11 @@
                             + name: `Product name` (string)
                             + description: `Product description` (string)
                 + default_language (string)
-                + prices (array[ReadPrice])
-                + price_lists (array)
+                + prices (array)
                     + (object)
-                        + price_list (object)
-                            + _type (string)
-                            + id (string)
+                        + price_list (object, nullable)
+                            + type: `priceList` (string)
+                            + id: `1` (string)
                         + price (ReadPrice)
 
 ### products.info [GET /products.info]
@@ -51,12 +50,11 @@
                     + name: `Product name` (string)
                     + description: `Product description` (string)
         + default_language (string)
-        + prices (array[ReadPrice])
-        + price_lists (array)
+        + prices (array)
             + (object)
-                + price_list (object)
-                    + _type (string)
-                    + id (string)
+                + price_list (object, nullable)
+                    + type: `priceList` (string)
+                    + id: `1` (string)
                 + price (ReadPrice)
         + custom_fields (object)
             + _items (array)
@@ -116,3 +114,25 @@
         + id: `1` (string, required)
 
 + Response 204 (application/json)
+
+### priceLists.list [GET /pricelists.list]
+
++ Request (application/json)
+
+    + Attributes (object)
+        + ids: 1,2 (array[string], optional)
+        + page (object, optional)
+            + size: `20` (number, optional) - The amount of pricelists returned per request, max 1 to 100
+                + Default: `20`
+            + number: `1` (number, optional) - The current page, the first page is 1
+                + Default: `1`
+
++ Response 200 (application/json)
+
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + type: `priceList` (string)
+                + id: `1` (string)
+                + description: `Default (EUR)` (string, nullable)
+                + default: `EUR` (string, nullable)
