@@ -238,10 +238,11 @@ Book a draft invoice.
             + Members
                 + pdf
 
-+ Response 200
++ Response 307 (application/json;charset=utf-8)
 
-    + Attributes (object)
-        + WHAT_WILL_THIS_CONTAIN - ?????
+    + Headers
+
+              Location: The url of the downloadable file. This will remain valid for 30 seconds.
 
 ### invoices.registerPayment [POST /invoices.registerPayment]
 
