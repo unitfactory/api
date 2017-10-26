@@ -19,14 +19,14 @@ List credit notes
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + _items (array[object])
+        + data (array)
             + (object)
                 + id: `173111` (string)
                 + department (object)
-                    + _type: `department` (string)
+                    + type: `department` (string)
                     + id: `1` (string)
                 + invoice (object)
-                    + _type: `invoice` (string)
+                    + type: `invoice` (string)
                     + id: `1` (string)
                 + credit_note_number: `2017/5` (string)
                 + paid: `true` (boolean)
@@ -51,12 +51,12 @@ List credit notes
                     + address (Address)
                     + vat_number: `BE0899623035` (string)
                     + customer (object)
-                        + _type: `contact` (string)
+                        + type: `contact` (string)
                         + id: `123` (string)
                     + for_attention_of (object)
                         + name: `Radja Nainggolan` (string)
                         + contact (object)
-                            + _type: `contact` (string)
+                            + type: `contact` (string)
                             + id: `456` (string)
 
 ### creditNotes.draft [POST /creditNotes.draft]
@@ -75,8 +75,8 @@ Create a draft credit note.
             + id (string)
         + for_attention_of (object, optional)
             + name (string, optional)
-            + contact_id (string, optional)
-        + department_id (string)
+            + contact_id: `456` (string, optional)
+        + department_id: `1` (string, required)
         + payment_term (object, optional)
             + type (enum[string])
                 + Members
@@ -84,7 +84,7 @@ Create a draft credit note.
                     + end_of_month - End of the month of Xth day after the invoice date
                     + after_invoice_date - X days after invoice date
             + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
-        + layout_id (string, optional) - Id of the layout you wish to use for this invoice
+        + layout_id: `123` (string, optional)
         + purchase_order_number (string, optional) - The external order number. Overrides possible PO number coming from project.
         + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
         + grouped_lines (array[WriteLineItemGroup], optional)
@@ -92,8 +92,9 @@ Create a draft credit note.
 + Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + _type: `creditNote` (string)
-        + id: `1` (string)
+        + data (object)
+            + type: `creditNote` (string)
+            + id: `1` (string)
 
 ### creditNotes.update [POST /creditNotes.update]
 
@@ -109,8 +110,8 @@ Create a draft credit note.
             + id (string)
         + for_attention_of (object, optional)
             + name (string, optional)
-            + contact_id (string, optional)
-        + department_id (string)
+            + contact_id: `456` (string, optional)
+        + department_id: `1` (string, optional)
         + payment_term (object, optional)
             + type (enum[string])
                 + Members
@@ -118,7 +119,7 @@ Create a draft credit note.
                     + end_of_month - End of the month of Xth day after the invoice date
                     + after_invoice_date - X days after invoice date
             + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
-        + layout_id (string, optional) - Id of the layout you wish to use for this invoice
+        + layout_id: `123` (string, optional)
         + purchase_order_number (string, optional) - The external order number. Overrides possible PO number coming from project.
         + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
         + grouped_lines (array[WriteLineItemGroup], optional)

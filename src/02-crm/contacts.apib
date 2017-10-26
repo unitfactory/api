@@ -41,7 +41,7 @@ Get a list of contacts.
                 + custom_fields (array)
                     + (object)
                         + field (object)
-                            + type: `custom_field` (string)
+                            + type: `customField` (string)
                             + id: 123 (string)
                         + value: `092980616`
                 + companies (array)
@@ -93,7 +93,7 @@ Get details for a single contact.
             + custom_fields (array)
                 + (object)
                     + field (object)
-                        + type: `custom_field` (string)
+                        + type: `customField` (string)
                         + id: 123 (string)
                     + value: `092980616`
             + companies (array)
@@ -115,37 +115,38 @@ Add a new contact.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + first_name: `John` (string, required)
-        + last_name: `Smith` (string, required)
-        + email: `john@example.com` (string, required)
-        + salutation: `Mr` (string, optional)
-        + email: `john@example.com` (string, required)
-        + telephones (array[Telephone])
-        + website: `http://example.com` (string, optional)
-        + address (Address, optional)
-        + delivery_address (Addressee, optional)
-        + visiting_address (Addressee, optional)
-        + invoice_address (Addressee, optional)
-        + language: `en` (string, optional)
-        + gender: `M` (enum[string], optional)
-            + Members
-                + M
-                + F
-                + U
-        + birthdate: `1989-08-19` (string, optional)
-        + remarks: `Met at expo` (string, optional)
-        + tags: expo, upsell (array[string], optional)
-        + custom_fields (array)
-            + (object)
-                + field (object)
-                    + type: `custom_field` (string)
-                    + id: 123 (string)
-                + value
+        + data
+            + first_name: `John` (string, required)
+            + last_name: `Smith` (string, required)
+            + email: `john@example.com` (string, required)
+            + salutation: `Mr` (string, optional)
+            + email: `john@example.com` (string, required)
+            + telephones (array[Telephone])
+            + website: `http://example.com` (string, optional)
+            + address (Address, optional)
+            + delivery_address (Addressee, optional)
+            + visiting_address (Addressee, optional)
+            + invoice_address (Addressee, optional)
+            + language: `en` (string, optional)
+            + gender: `M` (enum[string], optional)
+                + Members
+                    + M
+                    + F
+                    + U
+            + birthdate: `1989-08-19` (string, optional)
+            + remarks: `Met at expo` (string, optional)
+            + tags: expo, upsell (array[string], optional)
+            + custom_fields (array)
+                + (object)
+                    + field_id: 123 (string)
+                    + value
 
 + Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `1` (string)
+        + data (object)
+            + type: `contact` (string)
+            + id: `1` (string)
 
 ### contacts.update [POST /contacts.update]
 
@@ -176,10 +177,8 @@ Update a contact.
         + tags: expo, upsell (array[string], optional)
         + custom_fields (array)
             + (object)
-                + field (object)
-                    + type: `custom_field` (string)
-                    + id: 123 (string)
-                + value
+                + field_id: 123 (string)
+                + value: `092980616`
 
 + Response 204
 
@@ -226,9 +225,7 @@ Link a contact to a company.
 
     + Attributes (object)
         + id: `123` (string, required)
-        + company (object)
-            + type: `company` (string, optional)
-            + id: `5` (string, required)
+        + company_id: `5` (string, required)
         + position: `CEO` (string)
         + decision_maker: true (boolean)
 
@@ -242,8 +239,6 @@ Unlink a contact from a company.
 
     + Attributes (object)
         + id: `123` (string, required)
-        + company (object)
-            + type: `company` (string, optional)
-            + id: `5` (string, required)
+        + company_id: `5` (string, required)
 
 + Response 204
