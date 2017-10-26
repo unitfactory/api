@@ -35,7 +35,7 @@
 ## ReadPrice (object)
 + Include Money
 + applied_tax (object)
-    + _type: `Tax` (string)
+    + type: `tax` (string)
     + id: `1` (string)
 + tax: `excluding` (enum[string])
     + Members
@@ -101,17 +101,17 @@
 + line_items (array)
     + (object)
         + product (object)
-            + _type: `Product` (string)
+            + type: `Product` (string)
             + id: `1` (string)
         + quantity: `3` (number)
         + description: `An awesome product` (string)
         + extended_description: `Additional information` (string)
         + unit_price (ReadPrice)
         + ledger (object)
-            + _type: `Ledger` (string) - ?????
+            + type: `Ledger` (string) - ?????
             + id: `1` (string)
         + source (object)
-            + _type (enum[string])
+            + type (enum[string])
                 + project
                 + deal
                 + timetracking

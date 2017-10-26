@@ -22,7 +22,7 @@ Search projects
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + _items (array)
+        + data (array)
             + (object)
                 + id: `1` (string)
                 + reference: `PRO-2` (string)
@@ -35,12 +35,12 @@ Search projects
                         + done
                         + canceled
                 + customer (object)
-                    + _type: `contact` (string)
+                    + type: `contact` (string)
                     + id: `123` (string)
                 + starts_on: `2016-02-04` (string)
                 + due_on: `2016-10-14` (string)
                 + source (object)
-                    + _type: `deal` (string)
+                    + type: `deal` (string)
                     + id: `456` (string)
 
 ### projects.info [GET /projects.info]
@@ -53,37 +53,36 @@ Search projects
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `1` (string)
-        + reference: `PRO-1` (string)
-        + title: `New company website` (string)
-        + description (string)
-        + status: `active` (enum[string])
-            + Members
-                + active
-                + on_hold
-                + done
-                + canceled
-        + customer (object)
-            + _type: `contact` (enum[string])
+        + data (object)
+            + id: `1` (string)
+            + reference: `PRO-1` (string)
+            + title: `New company website` (string)
+            + description (string)
+            + status: `active` (enum[string])
                 + Members
-                    + contact
-                    + company
-            + id: `123` (string)
-        + starts_on: `2016-02-04` (string)
-        + due_on: `2016-02-04` (string)
-        + source (object)
-            + _type: `deal` (string)
-            + id: `456` (string)
-        + milestones (object)
-            + _items (array)
+                    + active
+                    + on_hold
+                    + done
+                    + canceled
+            + customer (object)
+                + type: `contact` (enum[string])
+                    + Members
+                        + contact
+                        + company
+                + id: `123` (string)
+            + starts_on: `2016-02-04` (string)
+            + due_on: `2016-02-04` (string)
+            + source (object)
+                + type: `deal` (string)
+                + id: `456` (string)
+            + milestones (array)
                 + (object)
-                    + _type: `milestone` (string)
+                    + type: `milestone` (string)
                     + id (string)
-        + participants (object)
-            + _items (array)
+            + participants (array)
                 + (object)
                     + participant (object)
-                        + _type: `user` (enum[string])
+                        + type: `user` (enum[string])
                             + Members
                                 + user
                         + id (string)
@@ -129,7 +128,9 @@ Search projects
 + Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `1` (string)
+        + data (object)
+            + type: `project` (string)
+            + id: `1` (string)
 
 ### projects.update [POST /projects.update]
 
@@ -186,11 +187,10 @@ Search projects
         + participant (object, optional)
             + type: `user` (string)
             + id (string)
-        + role (enum[string], optional)
+        + role (enum[string], required)
             + Members
                 + decision_maker
                 + member
-            + Default: `member`
 
 + Response 204
 

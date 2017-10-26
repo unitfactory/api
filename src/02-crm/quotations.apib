@@ -12,9 +12,12 @@ Get a quotation
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `1` (string)
-        + deal_id: `1` (string)
-        + grouped_lines (array[ReadLineItemGroup])
+        + data (object)
+            + id: `1` (string)
+            + deal (object)
+                + type: `deal` (string)
+                + id: `1` (string)
+            + grouped_lines (array[ReadLineItemGroup])
 
 ### quotations.add [POST /quotations.add]
 
@@ -52,6 +55,6 @@ Send a deal's quotation to a client via email.
         + email: `john@example.com` (string, required) - The email recipient
         + subject: Your quotation` (string, required) - The email subject
         + message: `1` (string, required) - The email body
-        + template_id: `1` (string, optional)
+        + deal_id: `1` (string, required)
 
 + Response 204

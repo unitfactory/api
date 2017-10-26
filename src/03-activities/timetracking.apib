@@ -15,31 +15,32 @@ Get a list of tracked time.
 
 + Response 200 (application/json)
 
-    + Attributes (array)
-        + (object)
-            + id: `1` (string)
-            + user (object)
-                + _type: `user` (string)
-                + id: `123` (string)
-            + topic (object)
-                + _type: `topic` (string)
-                + id: `456` (string)
-            + started_on: `2017-04-26` (string)
-            + started_at: `2017-04-26T10:01:49+00:00` (string, nullable)
-            + ended_at: `2017-04-26T11:01:49+00:00` (string, nullable)
-            + duration: 3600 (number) - Tracked time in seconds
-            + description: `Timer description` (string)
-            + subject (object)
-                + type: `project` (enum[string], required)
-                    + Members
-                        + company
-                        + contact
-                        + event
-                        + todo
-                        + project
-                        + milestone
-                        + ticket
-                + id: `456` (string, required)
+    + Attributes (object)
+        + data (array)
+            + (object)
+                + id: `1` (string)
+                + user (object)
+                    + type: `user` (string)
+                    + id: `123` (string)
+                + topic (object)
+                    + type: `topic` (string)
+                    + id: `456` (string)
+                + started_on: `2017-04-26` (string)
+                + started_at: `2017-04-26T10:01:49+00:00` (string, nullable)
+                + ended_at: `2017-04-26T11:01:49+00:00` (string, nullable)
+                + duration: 3600 (number) - Tracked time in seconds
+                + description: `Timer description` (string)
+                + subject (object)
+                    + type: `project` (enum[string])
+                        + Members
+                            + company
+                            + contact
+                            + event
+                            + todo
+                            + project
+                            + milestone
+                            + ticket
+                    + id: `456` (string, required)
 
 ### timetracking.info [GET /timetracking.info]
 
@@ -53,29 +54,30 @@ Get information about tracked time.
 + Response 200 (application/json)
 
     + Attributes (object)
-        + id: `1` (string)
-        + user (object)
-            + _type: `user` (string)
-            + id: `123` (string)
-        + topic (object)
-            + _type: `topic` (string)
-            + id: `456` (string)
-        + started_on: `2017-04-26` (string)
-        + started_at: `2017-04-26T10:01:49+00:00` (string, nullable)
-        + ended_at: `2017-04-26T11:01:49+00:00` (string, nullable)
-        + duration: 3600 (number) - Tracked time in seconds
-        + description: `Timer description` (string)
-        + subject (object)
-            + type: `project` (enum[string])
-                + Members
-                    + company
-                    + contact
-                    + event
-                    + todo
-                    + project
-                    + milestone
-                    + ticket
-            + id: `456` (string, required)
+        + data (object)
+            + id: `1` (string)
+            + user (object)
+                + type: `user` (string)
+                + id: `123` (string)
+            + topic (object)
+                + type: `topic` (string)
+                + id: `456` (string)
+            + started_on: `2017-04-26` (string)
+            + started_at: `2017-04-26T10:01:49+00:00` (string, nullable)
+            + ended_at: `2017-04-26T11:01:49+00:00` (string, nullable)
+            + duration: 3600 (number) - Tracked time in seconds
+            + description: `Timer description` (string)
+            + subject (object)
+                + type: `project` (enum[string])
+                    + Members
+                        + company
+                        + contact
+                        + event
+                        + todo
+                        + project
+                        + milestone
+                        + ticket
+                + id: `456` (string, required)
 
 ### timetracking.current [GET /timetracking.current]
 
@@ -84,26 +86,27 @@ Get the current timetracking timer.
 + Response 200 (application/json)
 
     + Attributes (object)
-        + id: `1` (string)
-        + user (object)
-            + _type: `user` (string)
-            + id: `123` (string)
-        + topic (object)
-            + _type: `topic` (string)
-            + id: `456` (string)
-        + started_at: `2017-04-26T10:01:49+00:00` (string)
-        + description: `Timer description` (string)
-        + subject (object)
-            + type: `project` (enum[string], required)
-                + Members
-                    + company
-                    + contact
-                    + event
-                    + todo
-                    + project
-                    + milestone
-                    + ticket
-            + id: `456` (string, required)
+        + data (object)
+            + id: `1` (string)
+            + user (object)
+                + type: `user` (string)
+                + id: `123` (string)
+            + topic (object)
+                + type: `topic` (string)
+                + id: `456` (string)
+            + started_at: `2017-04-26T10:01:49+00:00` (string)
+            + description: `Timer description` (string)
+            + subject (object)
+                + type: `project` (enum[string])
+                    + Members
+                        + company
+                        + contact
+                        + event
+                        + todo
+                        + project
+                        + milestone
+                        + ticket
+                + id: `456` (string, required)
 
 ### timetracking.start [POST /timetracking.start]
 
@@ -130,7 +133,9 @@ Start a new timetracking timer.
 + Response 201
 
     + Attributes (object)
-        + id: `1` (string)
+        + data (object)
+            + type: `timetracking` (string)
+            + id: `1` (string)
 
 ### timetracking.stop [POST /timetracking.stop]
 
@@ -153,10 +158,12 @@ Start a new timer based on previously tracked time.
         + id: `1` (string, required)
         + started_at: `2017-04-26T10:01:49+00:00` (string, optional) - If not provided, current time will be used
 
-+ Response 200 (application/json)
++ Response 201
 
     + Attributes (object)
-        + id: `2` (string)
+        + data (object)
+            + type: `timetracking` (string)
+            + id: `2` (string)
 
 ### timetracking.add [POST /timetracking.add]
 
@@ -188,7 +195,9 @@ Add tracked time.
 + Response 201
 
     + Attributes (object)
-        + id: `1` (string)
+        + data (object)
+            + type: `timetracking` (string)
+            + id: `1` (string)
 
 ### timetracking.update [POST /timetracking.update]
 
