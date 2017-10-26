@@ -9,7 +9,7 @@ Get a list of contacts.
     + Attributes (object)
         + filter (object, optional)
             + ids (array[string], optional)
-            + company_id: `1` (string, optional)
+            + company_id: `1cbc7742-263d-49ed-83fe-2b0d0681021e` (string, optional)
             + term: `teamleader` (string, optional)
             + telephone: `092980615` (string, optional)
             + updated_after: `2017-04-26T10:01:49+00:00` (string, optional)
@@ -20,7 +20,7 @@ Get a list of contacts.
     + Attributes (object)
         + data (array)
             + (object)
-                + id: `456` (string)
+                + id: `2a39e420-3ba3-4384-8024-fa702ef99c9f` (string)
                 + first_name: `Erlich` (string)
                 + last_name: `Bachman` (string)
                 + salutation: `Mr` (string)
@@ -42,7 +42,7 @@ Get a list of contacts.
                     + (object)
                         + field (object)
                             + type: `customField` (string)
-                            + id: 123 (string)
+                            + id: `ef73405d-d89c-410c-bc5c-3110cd1660f2` (string)
                         + value: `092980616`
                 + companies (array)
                     + (object)
@@ -50,7 +50,7 @@ Get a list of contacts.
                         + decision_maker: true (boolean)
                         + company (object)
                             + type: `company` (string)
-                            + id: 123 (string)
+                            + id: `40157f9d-1322-4f2e-b245-188efdc52cc2` (string)
                 + language: `en` (string)
                 + added_at: `2016-02-04T16:44:33+00:00` (string)
                 + updated_at: `2016-02-05T16:44:33+00:00` (string)
@@ -62,13 +62,13 @@ Get details for a single contact.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `1` (string, required)
+        + id: `cde0bc5f-8602-4e12-b5d3-f03436b54c0d` (string, required)
 
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + data (object)
-            + id: `456` (string)
+            + id: `cde0bc5f-8602-4e12-b5d3-f03436b54c0d` (string)
             + first_name: `Erlich` (string)
             + last_name: `Bachman` (string)
             + salutation: `Mr` (string)
@@ -94,7 +94,7 @@ Get details for a single contact.
                 + (object)
                     + field (object)
                         + type: `customField` (string)
-                        + id: 123 (string)
+                        + id: `bf6765de-56eb-40ec-ad14-9096c5dc5fe1` (string)
                     + value: `092980616`
             + companies (array)
                 + (object)
@@ -102,7 +102,7 @@ Get details for a single contact.
                     + decision_maker: true (boolean)
                     + company (object)
                         + type: `company` (string)
-                        + id: 123 (string)
+                        + id: `3a11bcc8-a2f3-4c37-abc2-477d1732ef67` (string)
             + language: `en` (string)
             + remarks: `First contact at expo` (string)
             + added_at: `2016-02-04T16:44:33+00:00` (string)
@@ -138,7 +138,7 @@ Add a new contact.
             + tags: expo, upsell (array[string], optional)
             + custom_fields (array)
                 + (object)
-                    + field_id: 123 (string)
+                    + field_id: `803579e7-1694-4bf3-a294-0a7f3905c16d` (string)
                     + value
 
 + Response 201 (application/json;charset=utf-8)
@@ -146,7 +146,7 @@ Add a new contact.
     + Attributes (object)
         + data (object)
             + type: `contact` (string)
-            + id: `1` (string)
+            + id: `7c1d8672-f502-4333-9ea4-7a45add15115` (string)
 
 ### contacts.update [POST /contacts.update]
 
@@ -155,7 +155,7 @@ Update a contact.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `1` (string, required)
+        + id: `76c9d03c-ec5c-4b21-9fc6-7ffee488b12d` (string, required)
         + first_name: `John` (string)
         + last_name: `Smith` (string)
         + salutation: `Mr` (string, optional)
@@ -177,7 +177,7 @@ Update a contact.
         + tags: expo, upsell (array[string], optional)
         + custom_fields (array)
             + (object)
-                + field_id: 123 (string)
+                + field_id: `9b48244c-3be9-4f8e-b4d4-da18ffedfb6b` (string)
                 + value: `092980616`
 
 + Response 204
@@ -189,7 +189,7 @@ Delete a contact.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `1` (string, required)
+        + id: `4e235f27-0af0-40e5-82f3-d32d0aa9edb3` (string, required)
 
 + Response 204
 
@@ -200,7 +200,7 @@ Add a new or existing tag to a contact.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `123` (string, required)
+        + id: `9ad67730-2445-4c2b-8a8d-949b9513f1b8` (string, required)
         + tags: prospect, expo (array[string], required)
 
 + Response 204
@@ -212,7 +212,7 @@ Remove a tag from a contact.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `123` (string, required)
+        + id: `502283f6-914c-4f9e-915a-613d69ba32f8` (string, required)
         + tags: prospect, expo (array[string], required)
 
 + Response 204
@@ -224,8 +224,8 @@ Link a contact to a company.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `123` (string, required)
-        + company_id: `5` (string, required)
+        + id: `75596038-b9c8-4a37-969d-61059e300a28` (string, required)
+        + company_id: `4da20f00-0628-4336-b885-aa90e580dd85` (string, required)
         + position: `CEO` (string)
         + decision_maker: true (boolean)
 
@@ -238,7 +238,7 @@ Unlink a contact from a company.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `123` (string, required)
-        + company_id: `5` (string, required)
+        + id: `b4b3160a-b55e-4033-bdae-25b6d22949b4` (string, required)
+        + company_id: `3f1c8650-4292-4187-bb02-4aa00bbe9632` (string, required)
 
 + Response 204

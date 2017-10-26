@@ -24,7 +24,7 @@ Search projects
     + Attributes (object)
         + data (array)
             + (object)
-                + id: `1` (string)
+                + id: `624ca743-8998-4f8c-add1-c427bb022166` (string)
                 + reference: `PRO-2` (string)
                 + title: `New company website` (string)
                 + description (string)
@@ -36,25 +36,25 @@ Search projects
                         + canceled
                 + customer (object)
                     + type: `contact` (string)
-                    + id: `123` (string)
+                    + id: `abbf02c0-8ff9-4048-b83f-5195035161e1` (string)
                 + starts_on: `2016-02-04` (string)
                 + due_on: `2016-10-14` (string)
                 + source (object)
                     + type: `deal` (string)
-                    + id: `456` (string)
+                    + id: `5023d7c2-80d7-4d4b-b2bd-0fcaa6a1f069` (string)
 
 ### projects.info [GET /projects.info]
 
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id (string, required)
+        + id: `8a04371b-2ffb-407b-9b24-d5b5452009c7` (string, required)
 
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
         + data (object)
-            + id: `1` (string)
+            + id: `8a04371b-2ffb-407b-9b24-d5b5452009c7` (string)
             + reference: `PRO-1` (string)
             + title: `New company website` (string)
             + description (string)
@@ -69,23 +69,23 @@ Search projects
                     + Members
                         + contact
                         + company
-                + id: `123` (string)
+                + id: `de41d3e8-808f-4279-b6ff-4706b04c8df2` (string)
             + starts_on: `2016-02-04` (string)
             + due_on: `2016-02-04` (string)
             + source (object)
                 + type: `deal` (string)
-                + id: `456` (string)
+                + id: `39abbf9e-9692-4cca-b20d-79577890752c` (string)
             + milestones (array)
                 + (object)
                     + type: `milestone` (string)
-                    + id (string)
+                    + id: `7c6b5e26-3068-47a6-bf3b-431d7ab7e704` (string)
             + participants (array)
                 + (object)
                     + participant (object)
                         + type: `user` (enum[string])
                             + Members
                                 + user
-                        + id (string)
+                        + id: `b0ef899b-143c-4708-90ce-aecb3350e116` (string)
                     + role (enum[string])
                         + Members
                             + decision_maker
@@ -103,13 +103,13 @@ Search projects
                 + Members
                     + contact
                     + company
-            + id: `123` (string, required)
+            + id: `58951403-f5c6-4914-aac8-fe00539f02e7` (string, required)
         + starts_on: `2016-02-04` (string, required)
         + source (object, optional)
             + type: `deal` (enum[string], required)
                 + Members
                     + deal
-            + id: `456` (string, required)
+            + id: `ce2ddfa8-06d5-4ec2-8b21-bac98f095757` (string, required)
         + milestones (array, required) - At least one milestone is required
             + (object)
                 + due_on: `2018-01-01` (string, required)
@@ -118,7 +118,7 @@ Search projects
             + (object)
                 + participant (object, required)
                     + type: `user` (string)
-                    + id (string)
+                    + id: `e1240972-6cfc-4549-b49c-edda7568cc48` (string)
                 + role (enum[string], optional)
                     + Members
                         + decision_maker
@@ -130,14 +130,14 @@ Search projects
     + Attributes (object)
         + data (object)
             + type: `project` (string)
-            + id: `1` (string)
+            + id: `c47e8e40-9a16-468f-9b29-38aea8ae4210` (string)
 
 ### projects.update [POST /projects.update]
 
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `1` (string, required)
+        + id: `dcc2e8ed-51be-4cb6-9c01-034aedac86fd` (string, required)
         + title: `New company website` (string, optional)
         + description (string, optional)
         + status: `active` (enum[string], optional)
@@ -151,13 +151,13 @@ Search projects
                 + Members
                     + contact
                     + company
-            + id: `123` (string, required)
+            + id: `a16414e6-f80f-470c-997c-6a4913b8df5d` (string, required)
         + starts_on: `2016-02-04` (string, optional)
         + source (object, optional)
             + type: `deal` (enum[string], required)
                 + Members
                     + deal
-            + id: `456` (string, required)
+            + id: `2427e192-e7a1-4e13-a16b-ff5d0b96da6c` (string, required)
 
 + Response 204 (application/json;charset=utf-8)
 
@@ -166,10 +166,10 @@ Search projects
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id (string, required)
+        + id: `8dbfa9db-c53f-410c-97d3-755b19685809` (string, required)
         + participant (object, required)
             + type: `user` (string)
-            + id (string)
+            + id: `a1388f3d-6116-4792-ac1c-04657697539e` (string)
         + role (enum[string], optional)
             + Members
                 + decision_maker
@@ -183,10 +183,10 @@ Search projects
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id (string, required)
+        + id: `55fbe14f-7399-48e5-b4e0-64b7f5c50451` (string, required)
         + participant (object, optional)
             + type: `user` (string)
-            + id (string)
+            + id: `5ccbc008-f65e-4192-836c-4d7e21f54052` (string)
         + role (enum[string], required)
             + Members
                 + decision_maker
@@ -199,10 +199,10 @@ Search projects
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id (string)
+        + id: `4250966c-7fa4-4747-a474-39fb7e53d54c` (string)
         + participant (object)
             + type: `user` (string)
-            + id (string)
+            + id: `fe17a32a-279e-41f1-84e5-1196ce6fb49d` (string)
 
 + Response 204
 
@@ -213,6 +213,6 @@ Delete a project.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `1` (string, required)
+        + id: `01548b10-4932-4a18-8a89-005ad09db2c8` (string, required)
 
 + Response 204 (application/json;charset=utf-8)

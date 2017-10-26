@@ -13,11 +13,11 @@ List credit notes
                     + Members
                         + contact
                         + company
-                + id: `123` (string)
+                + id: `90162683-d5ff-4ec0-b3d1-6a26022c5009` (string)
             + credit_note_date_after: `2016-01-01` (string, optional) - Format: yyyy-mm-dd
             + credit_note_date_before: `2016-01-01` (string, optional) - yyyy-mm-dd
-            + department_id: `1` (string, optional) - The ID of the department you wish to filter on.
-            + invoice_id: `1` (string, optional) - The ID of the invoice you wih to filter on.
+            + department_id: `320c7e39-26c1-45b5-84aa-75ef89e8890f` (string, optional) - The ID of the department you wish to filter on.
+            + invoice_id: `841b63a5-1b38-4480-8538-25a0d6a237b9` (string, optional) - The ID of the invoice you wih to filter on.
         + page (Page, optional)
 
 + Response 200 (application/json;charset=utf-8)
@@ -25,13 +25,13 @@ List credit notes
     + Attributes (object)
         + data (array)
             + (object)
-                + id: `173111` (string)
+                + id: `2b43633b-22d1-41b6-b87b-e1fd742325d4` (string)
                 + department (object)
                     + type: `department` (string)
-                    + id: `1` (string)
+                    + id: `36386b05-936e-4cc0-9523-bd20d797ebf5` (string)
                 + invoice (object)
                     + type: `invoice` (string)
-                    + id: `1` (string)
+                    + id: `53484141-8382-4948-9a4c-9cd7e79b30bd` (string)
                 + credit_note_number: `2017/5` (string)
                 + paid: `true` (boolean)
                 + paid_at: `2016-03-03T16:44:33+00:00` (string)
@@ -56,12 +56,12 @@ List credit notes
                     + vat_number: `BE0899623035` (string)
                     + customer (object)
                         + type: `contact` (string)
-                        + id: `123` (string)
+                        + id: `dc2a40bf-f050-4c8e-a002-872a051150b9` (string)
                     + for_attention_of (object)
                         + name: `Radja Nainggolan` (string)
                         + contact (object)
                             + type: `contact` (string)
-                            + id: `456` (string)
+                            + id: `0fe33f4a-7a77-4e1b-8f34-b70d47e377fd` (string)
 
 ### creditNotes.draft [POST /creditNotes.draft]
 
@@ -70,18 +70,18 @@ Create a draft credit note.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id (string, optional)
+        + id: `5ff010c0-7d88-457b-98ae-7ddee607cd8c`  (string, optional)
         + customer (object, optional)
             + type (enum[string])
                 + Members
                     + contact
                     + company
-            + id (string)
+            + id: `adf63e53-689a-4efb-9521-1dc2a300cec4` (string)
         + for_attention_of (object, optional)
             + One Of
                 + name (string, required)
-                + contact_id: `456` (string, required)
-        + department_id: `1` (string, required)
+                + contact_id: `3f31dfd3-f238-4909-8ff0-e891da9beba2` (string, required)
+        + department_id: `ac44fb43-8fb0-4b80-82c6-676117d558e5` (string, required)
         + payment_term (object, optional)
             + type (enum[string])
                 + Members
@@ -89,7 +89,7 @@ Create a draft credit note.
                     + end_of_month - End of the month of Xth day after the invoice date
                     + after_invoice_date - X days after invoice date
             + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
-        + layout_id: `123` (string, optional)
+        + layout_id: `fbc2edb9-f2ab-4a3f-b49f-3602a5e2a09b` (string, optional)
         + purchase_order_number (string, optional) - The external order number. Overrides possible PO number coming from project.
         + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
         + grouped_lines (array[WriteLineItemGroup], optional)
@@ -99,25 +99,25 @@ Create a draft credit note.
     + Attributes (object)
         + data (object)
             + type: `creditNote` (string)
-            + id: `1` (string)
+            + id: `af89d055-ffa0-4832-8af1-cc1bc1700daf` (string)
 
 ### creditNotes.update [POST /creditNotes.update]
 
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id (string, required)
+        + id: `41aadb77-9d31-4e68-8670-de30dd0c7e39` (string, required)
         + customer (object, optional)
             + type (enum[string])
                 + Members
                     + contact
                     + company
-            + id (string)
+            + id: `fdb8a326-8696-4dae-927e-7c001f99b4bb` (string)
         + for_attention_of (object, optional)
             + One Of
                 + name (string, required)
-                + contact_id: `456` (string, required)
-        + department_id: `1` (string, optional)
+                + contact_id: `3dacb02f-aa3b-4ff4-bfac-1a585f87ebfe` (string, required)
+        + department_id: `c8d8e910-1d17-48ff-b09e-2f77f2551c96` (string, optional)
         + payment_term (object, optional)
             + type (enum[string])
                 + Members
@@ -125,7 +125,7 @@ Create a draft credit note.
                     + end_of_month - End of the month of Xth day after the invoice date
                     + after_invoice_date - X days after invoice date
             + days (number, optional) - Modifier "X" for the above statements. Not required when type is 'cash'.
-        + layout_id: `123` (string, optional)
+        + layout_id: `fdd68c4a-77bf-4888-97c2-a81682fe9330` (string, optional)
         + purchase_order_number (string, optional) - The external order number. Overrides possible PO number coming from project.
         + remarks (string, optional) - Free form text. Visible on the invoice depending on the template.
         + grouped_lines (array[WriteLineItemGroup], optional)
@@ -139,7 +139,7 @@ Book a draft creditNote.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `1` (string, required)
+        + id: `dfe72aa9-7812-496c-ac60-2c259941036f` (string, required)
         + on: `2016-02-04` (string, optional) - If not provided, today will be used
 
 + Response 204
