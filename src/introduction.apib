@@ -27,20 +27,20 @@ POST https://api.teamleader.eu/invoices.list
 
 {
     "filter": {
-        "department_id": 1
+        "department_id": "9d4096c3-813f-4bd5-b3c4-4091807b5b74"
     },
     "page": {
         "size": 50,
         "number": 3
     },
-    "company_id": 1234
+    "company_id": "3250c613-c478-4a43-9640-b97da923eb21"
 }
 ```
 
 The GET equivalent:
 
 ```
-GET https://api.teamleader.eu/invoices.list?filter[department_id]=1&page[number]=3&page[size]=50&company_id=1234
+GET https://api.teamleader.eu/invoices.list?filter[department_id]=9d4096c3-813f-4bd5-b3c4-4091807b5b74&page[number]=3&page[size]=50&company_id=3250c613-c478-4a43-9640-b97da923eb21
 ```
 
 ### Responses
@@ -49,7 +49,7 @@ All data is returned as JSON objects:
 
 ```
 {
-    "id": 456,
+    "id": "48d0d538-735d-4b68-b2b1-13c23d86d587",
     "first_name": "Erlich",
     "last_name": "Bachman",
     "salutation": "Mr",
@@ -91,7 +91,7 @@ Errors are always returned as an array of error objects under an `errors` top le
 
 ### Status codes
 
-When objects are created, we return a `201` response containing the id of the resource. When objects are updated or actions are performated, we othen return an empty response with a `204` status code.
+When objects are created, we return a `201` response containing the type and the id of the resource. When objects are updated or actions are performated, we othen return an empty response with a `204` status code.
 
 Common used status codes:
 

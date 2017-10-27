@@ -191,15 +191,14 @@ We will use it whenever we represent money, both on **queries** and **commands**
 
 ### Referring to other objects/data
 
-When referring to other objects (by `id`) or data of those object, we **need** to represent it as an object (see [spec](./spec/specification.md)).
-Even if that is only for the `id`, we might want to add/embed more data later on and don't want to break backwards compatibility then.
+When referring to other objects (by `id`) or data of those object, we **need** to represent it as an object (see [spec](./spec/specification.md)). Even if that is only for the `id`, we might want to add/embed more data later on and don't want to break backwards compatibility then.
 
-The specification also says to include the `_type` for consistency and to be future proof.
+The specification also says to include the `type` for consistency and to be future proof.
 
 ```json
 {
    "buyer" : {
-      "_type": "contact",
+      "type": "contact",
       "id" : 1
    }
 }
@@ -208,13 +207,3 @@ The specification also says to include the `_type` for consistency and to be fut
 
 As you can see, like this it is also pretty clear when naming the fields different than the type.
 It increases flexibility in naming, which helps understandability.
-
-### Meta data
-
-According to the specification you can include `_meta` on almost every level.
-So if you want to include data that is not tied to the domain, you have to add it there.
-
-- a _contact's creation date_ is not part of the domain*, so we add it in `_meta`.
-- an _invoice's creation date_ is important in the invoicing domain, so it is not in `_meta` data.
-
-* we keep it for audition, synchronization, ... purposes, but in some cases this is arguable
