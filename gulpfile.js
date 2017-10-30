@@ -1,8 +1,6 @@
 var gulp = require('gulp');
 var watch = require('gulp-watch');
 var run = require('gulp-run');
-var hercule = require('hercule');
-var through = require('through2');
 
 gulp.task('default', ['watch']);
 
