@@ -6,8 +6,8 @@ var through = require('through2');
 
 gulp.task('default', ['watch']);
 
-gulp.task('watch', ['build'], function() {
-    return gulp.watch('src/*.apib', ['build'])
+gulp.task('watch', ['preview'], function() {
+    return gulp.watch('src/**/*.apib', ['preview'])
 });
 
 gulp.task('preview', ['build'], function(cb) {
