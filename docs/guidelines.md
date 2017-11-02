@@ -74,8 +74,9 @@ We try to interpret HTTP Status codes the right way:
  - `204` - No Content, on resource updates or actions
  - `400` - Bad Request, if the request contains invalid data
  - `401` - Unauthorized, invalid or missing access token
- - `403` - Forbidden, not allowd to access this resource
+ - `403` - Forbidden, not allowed to access this resource
  - `404` - Not Found, resource not found
+ - `429` - Too Many Requets, rate limiting
  - `500` - Internal Server Error, something went wrong on our end
 
 ### Content-Type & Accept headers
@@ -115,15 +116,21 @@ Endpoints used to update existing objects **MUST**:
 
 ## Designing properties
 
+### Adding and modifying endpoints
+
+Adding endpoints and properties are typically always non-breaking and backwards compatible. Modifying, renaming and removing endpoints and properties is allowed during the beta period is allowed. Once our API is released, we will tag our API with a new version for each breaking change.
+
 ### Empty properties
 
-If a property has an empty value, we return the `null` value.
+If a property has an empty value, we return `null` as value.
 
 ```json
 {
-  "id": "ee72ae60-d4df-4f27-beec-d105d5b3e170",
-  "name": "John Doe",
-  "email": null
+  "data": {
+    "id": "ee72ae60-d4df-4f27-beec-d105d5b3e170",
+    "name": "John Doe",
+    "email": null
+  }
 }
 ```
 
@@ -163,7 +170,7 @@ When representing money in requests or responses, we must always follow this dat
 
 ### Relationships
 
-When referring to related objects, we always use a datastructure that includes the type of the related object. This way there is no difference between regular and dynamic relationships where the related object can have different types.
+When referring to related objects, we always use a relation structure that includes the type of the related object. This way there is no difference between regular and dynamic relationships where the related object can have different types.
 
 Example:
 
