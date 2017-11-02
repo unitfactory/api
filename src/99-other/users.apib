@@ -7,19 +7,34 @@ Get a list of all users.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
+        + filter (object, optional)
+            + ids: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5`,`f8a57a6f-dd1e-41a3-b8d3-428663f1d09e` (array[string], optional)
         + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + name
+                + order (enum[string], optional)
+                    + Members
+                        + asc
+            + Default
+                + (object)
+                    + field: `name`
+                    + order: `asc`
 
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + _items (array)
+        + data (array)
             + (object)
-                + id: `1` (number)
+                + id: `ab470aa4-cf86-4252-8baa-02cbd3109f65` (string)
                 + name: `John Smith` (string)
                 + email: `john@teamleader.eu` (string)
                 + gsm: `+32412654321` (string)
                 + phone: `+3291239843` (string)
                 + team (object)
-                    + id: 1 (number)
+                    + type: `team` (string, required)
+                    + id: `51a323f5-c772-4cad-b89b-61be1eb9e45c` (string)
                 + title: `Sales` (string)
                 + active: `true` (boolean)

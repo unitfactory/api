@@ -8,19 +8,31 @@ Get a list of companies.
 
     + Attributes (object)
         + filter (object, optional)
-            + ids (array[string], optional)
+            + ids: `9aa13f8d-145a-448e-a332-cb4e0dfbad69`,`fdd4b1a8-a76b-43c1-9d89-e1ceb8fb669a` (array[string], optional)
             + tag: `upsell` (string, optional)
             + updated_after: `2017-04-26T10:01:49+00:00` (string, optional)
             + term: `teamleader` (string, optional)
             + telephone: `092980615` (string, optional)
         + page (Page, optional)
+        + sort (array, optional)
+            + (object)
+                + field (enum[string], required)
+                    + Members
+                        + added_at
+                + order (enum[string], optional)
+                    + Members
+                        + desc
+            + Default
+                + (object)
+                    + field: `added_at`
+                    + order: `desc`
 
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + `_items` (array)
+        + data (array)
             + (object)
-                + id: `123` (string)
+                + id: `96a38bbf-24ed-4083-8a5c-20db92aa471e` (string)
                 + name: `Pied Piper` (string)
                 + business_type: `NV` (string)
                 + vat_number: `BE0899623035` (string)
@@ -35,20 +47,17 @@ Get a list of companies.
                 + bic: `BICBANK` (string)
                 + language: `nl` (string)
                 + responsible_user (object)
-                    + _type: `user`
-                    + id: 1 (string)
-                + tags (object)
-                    + _items: tag1, tag2 (array[string])
-                + custom_fields (object)
-                    + _items (array)
-                        + (object)
-                            + field (object)
-                                + _type: `customField`
-                                + id: 123 (string)
-                            + value: `092980616`
-                + _meta (object)
-                    + added_at: `2016-02-04T16:44:33+00:00` (string)
-                    + updated_at: `2016-02-05T16:44:33+00:00` (string)
+                    + type: `user` (string)
+                    + id: `9b99d8f8-183b-4c7b-8354-9b98b47a192e` (string)
+                + tags: tag1, tag2 (array[string])
+                + custom_fields (array)
+                    + (object)
+                        + field (object)
+                            + type: `customField`
+                            + id: `89d6faed-1cf1-4143-8d9b-24c1baf741fb` (string)
+                        + value: `092980616`
+                + added_at: `2016-02-04T16:44:33+00:00` (string)
+                + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
 ### companies.info [GET /companies.info]
 
@@ -57,42 +66,40 @@ Get details for a single company.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: 123 (string)
+        + id: `e8d31ae7-8258-4fcd-9b2d-78f41b0aa5d5 (string)
 
 + Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `123` (string)
-        + name: `Pied Piper` (string)
-        + business_type: `NV` (string)
-        + vat_number: `BE0899623035` (string)
-        + local_business_number: `63326426` (string)
-        + email: `info@piedpiper.eu` (string)
-        + invoice_email: `invoicing@example.com` (string, optional)
-        + telephones (array[Telephone])
-        + website: `https://piedpiper.com` (string)
-        + avatar (string)
-        + address (Address)
-        + delivery_address (Addressee)
-        + visiting_address (Addressee)
-        + invoice_address (Addressee)
-        + iban: `BE12123412341234` (string)
-        + bic: `BICBANK` (string)
-        + language: `nl` (string)
-        + responsible_user (object)
-            + _type: `user`
-            + id: 1 (string)
-        + remarks: `First contact at expo` (string)
-        + tags (object)
-            + _items: tag1, tag2 (array[string])
-        + custom_fields (object)
-            + _items (array)
+        + data (object)
+            + id: `c5685b0f-87b8-456f-8d9e-a5866814c47a` (string)
+            + name: `Pied Piper` (string)
+            + business_type: `NV` (string)
+            + vat_number: `BE0899623035` (string)
+            + local_business_number: `63326426` (string)
+            + email: `info@piedpiper.eu` (string)
+            + invoice_email: `invoicing@example.com` (string, optional)
+            + telephones (array[Telephone])
+            + website: `https://piedpiper.com` (string)
+            + avatar (string)
+            + address (Address)
+            + delivery_address (Addressee)
+            + visiting_address (Addressee)
+            + invoice_address (Addressee)
+            + iban: `BE12123412341234` (string)
+            + bic: `BICBANK` (string)
+            + language: `nl` (string)
+            + responsible_user (object)
+                + type: `user`
+                + id: `7ba98a20-5e2b-4b46-81b9-a3364432d4f0` (string)
+            + remarks: `First contact at expo` (string)
+            + tags: tag1, tag2 (array[string])
+            + custom_fields (array)
                 + (object)
                     + field (object)
-                        + _type: `customField`
-                        + id: 123 (string)
+                        + type: `customField`
+                        + id: `2d695501-0498-49ae-b088-ab9b41ea8aae` (string)
                     + value: `092980616`
-        + _meta (object)
             + added_at: `2016-02-04T16:44:33+00:00` (string)
             + updated_at: `2016-02-05T16:44:33+00:00` (string)
 
@@ -118,19 +125,20 @@ Add a new company.
         + iban: `BE12 1234 1234 1234` (string)
         + bic: `BICBANK` (string)
         + language: `en` (string, optional)
-        + responsible_user_id (string, optional)
+        + responsible_user_id: `2b12bd5d-d2d9-43ac-8755-36a1e00bd67f` (string, optional)
         + remarks: `Met at expo` (string, optional)
         + tags: expo, upsell (array[string], optional)
-        + custom_fields (object)
-            + _items (array)
-                + (object)
-                    + custom_field_id: 123 (string)
-                    + value
+        + custom_fields (array)
+            + (object)
+                + field_id: `23099afb-b944-48ea-898d-d79269b5ba0e` (string)
+                + value: `092980616`
 
 + Response 201 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `1` (string)
+        + data (object)
+            + type: `company` (string)
+            + id: `4784189d-610b-4488-b3a5-5f324f752417` (string)
 
 ### companies.update [POST /companies.update]
 
@@ -139,7 +147,7 @@ Update a company.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `1` (string, required) - The ID of the contact you want to update
+        + id: `e7dff0b5-ec37-4fcd-b574-1c88c3362d93` (string, required)
         + name: `1` (string)
         + business_type: `NV` (string, optional) - containing the company type (eg NV, BVBA,..)
         + vat_number: `BE0899623035` (string, optional)
@@ -155,13 +163,13 @@ Update a company.
         + iban: `BE12 1234 1234 1234` (string)
         + bic: `BICBANK` (string)
         + language: `en` (string, optional)
-        + responsible_user_id (string, optional)
+        + responsible_user_id: `0ea94804-401d-4dbd-a577-c2d60998f798` (string, optional)
         + remarks: `Met at expo` (string, optional)
         + tags: expo, upsell (array[string], optional)
         + custom_fields (array)
             + (object)
-                + field_id: 123 (string)
-                + value
+                + field_id: `afcfb4ac-01b6-4a59-89a7-61f528820961` (string)
+                + value: `092980616`
 
 + Response 204
 
@@ -172,7 +180,7 @@ Delete a company.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `1` (string, required)
+        + id: `f3d67f3e-b8a9-45e8-99b1-17a3b14de8a6` (string, required)
 
 + Response 204
 
@@ -183,7 +191,7 @@ Add a new or existing tag to a company.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `123` (string, required)
+        + id: `cadd94ba-a41e-4eb4-a46e-39a7f6f96070` (string, required)
         + tags: prospect, expo (array[string], required)
 
 + Response 204
@@ -195,7 +203,7 @@ Remove a tag from a company.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `123` (string, required)
+        + id: `518d2e5e-99bc-4c66-8509-78e6820a1418` (string, required)
         + tags: prospect, expo (array[string], required)
 
 + Response 204

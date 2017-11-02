@@ -23,8 +23,6 @@
     "apib-lint": "^0.2.0",
     "gulp": "^3.9.1",
     "gulp-run": "^1.7.1",
-    "gulp-watch": "^4.3.11",
-    "hercule": "^4.0.1",
-    "through2": "^2.0.3"
+    "gulp-watch": "^4.3.11"
   }
 }
