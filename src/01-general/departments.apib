@@ -28,79 +28,17 @@
             + (object)
                 + id: `67c576e7-7e6f-465d-b6ab-a864f6e5e95b` (string)
                 + name: `Human Resources` (string)
-                + name_short: `HR` (string)
-                + email: `hr@example.com` (string)
-                + invoicing_email: `invoicing@example.com` (string)
-                + website: `http://example.com` (string)
-                + phone: `1234567` (string)
-                + fax: `7654321` (string)
-                + address (Address)
-                + vat_number: `BE0899623035` (string)
-                + local_business_number: `63326426` (string)
-                + bank_name: `Bank of Switzerland` (string)
-                + iban: `BE12 1234 1234 1234` (string)
-                + bic: `BICBANK` (string)
-                + interest_rate: `12` (number)
-                + late_fee: `12` (number)
-                + minimum_late_fee: `12` (number)
-                + registration_number: `12` (number)
 
-### departments.add [POST /departments.add]
+### departments.info [GET /departments.info]
 
-Add a new department.
-
-+ Request (application/json;charset=utf-8)
++ Request (application/json)
 
     + Attributes (object)
-        + name: `Human Resources` (string, required)
-        + name_short: `HR` (string)
-        + email: `hr@example.com` (string, required)
-        + invoicing_email: `invoicing@example.com` (string) - Automatic invoice reminders are sent from this e-mail address
-        + website: `http://example.com` (string)
-        + phone: `1234567` (string)
-        + fax: `7654321` (string)
-        + address (Address, required)
-        + vat_number: `BE0899623035` (string)
-        + local_business_number: `63326426` (string) - Local business number (KVK in the Netherlands)
-        + bank_name: `Bank of Switzerland` (string)
-        + iban: `BE12 1234 1234 1234` (string)
-        + bic: `BICBANK` (string)
-        + interest_rate: `12` (number) - Interest rate (percentage)
-        + late_fee: `12` (number) - Late fee (percentage)
-        + minimum_late_fee: `12` (number) - Minimum late fee
-        + registration_number: `12` (number)
+        + id: `92296ad0-2d61-4179-b174-9f354ca2157f` (string)
 
-+ Response 201 (application/json;charset=utf-8)
-
-    + Attributes
-        + data (object)
-            + type: `department` (string)
-            + id: `d31eda68-63ec-4a15-937b-19ed3944f6ae` (string)
-
-### departments.update [POST /departments.update]
-
-Update a department.
-
-+ Request (application/json;charset=utf-8)
++ Response 200 (application/json;charset=utf-8)
 
     + Attributes (object)
-        + id: `0c557a1e-8d16-4d50-a389-777c4d129e4e` (string, required)
-        + name: `Human Resources` (string)
-        + name_short: `HR` (string)
-        + email: `hr@example.com` (string)
-        + invoicing_email: `invoicing@example.com` (string) - Automatic invoice reminders are sent from this e-mail address
-        + website: `http://example.com` (string)
-        + phone: `1234567` (string)
-        + fax: `7654321` (string)
-        + address (Address)
-        + vat_number: `BE0899623035` (string)
-        + local_business_number: `63326426` (string) - Local business number (KVK in the Netherlands)
-        + bank_name: `Bank of Switzerland` (string)
-        + iban: `BE12 1234 1234 1234` (string)
-        + bic: `BICBANK` (string)
-        + interest_rate: `12` (number) - Interest rate (percentage)
-        + late_fee: `12` (number) - Late fee (percentage)
-        + minimum_late_fee: `12` (number) - Minimum late fee
-        + registration_number: `12` (number)
-
-+ Response 204
+        + data  (object)
+            + id: `67c576e7-7e6f-465d-b6ab-a864f6e5e95b` (string)
+            + name: `Human Resources` (string)

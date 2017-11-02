@@ -47,18 +47,3 @@ Update a deal quotation's items
         + grouped_lines (array[WriteLineItemGroup], optional)
 
 + Response 204
-
-### quotations.send [POST /quotations.send]
-
-Send a deal's quotation to a client via email.
-
-+ Request (application/json;charset=utf-8)
-
-    + Attributes (object)
-        + id: `c6a520f8-d15e-4073-91b1-8cc43d7c3602` (string, required)
-        + email: `john@example.com` (string, required) - The email recipient
-        + subject: Your quotation` (string, required) - The email subject
-        + message: `1` (string, required) - The email body
-        + deal_id: `bc6c0cd9-def1-45c2-baa2-4515ef92a5ac` (string, required)
-
-+ Response 204
