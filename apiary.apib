@@ -558,31 +558,30 @@ Add a new contact.
 + Request (application/json;charset=utf-8)
 
     + Attributes (object)
-        + data
-            + first_name: `John` (string, required)
-            + last_name: `Smith` (string, required)
-            + email: `john@example.com` (string, required)
-            + salutation: `Mr` (string, optional)
-            + email: `john@example.com` (string, required)
-            + telephones (array[Telephone])
-            + website: `http://example.com` (string, optional)
-            + address (Address, optional)
-            + delivery_address (Addressee, optional)
-            + visiting_address (Addressee, optional)
-            + invoice_address (Addressee, optional)
-            + language: `en` (string, optional)
-            + gender: `M` (enum[string], optional)
-                + Members
-                    + M
-                    + F
-                    + U
-            + birthdate: `1989-08-19` (string, optional)
-            + remarks: `Met at expo` (string, optional)
-            + tags: expo, upsell (array[string], optional)
-            + custom_fields (array)
-                + (object)
-                    + field_id: `803579e7-1694-4bf3-a294-0a7f3905c16d` (string)
-                    + value
+        + first_name: `John` (string, required)
+        + last_name: `Smith` (string, required)
+        + email: `john@example.com` (string, required)
+        + salutation: `Mr` (string, optional)
+        + email: `john@example.com` (string, required)
+        + telephones (array[Telephone])
+        + website: `http://example.com` (string, optional)
+        + address (Address, optional)
+        + delivery_address (Addressee, optional)
+        + visiting_address (Addressee, optional)
+        + invoice_address (Addressee, optional)
+        + language: `en` (string, optional)
+        + gender: `M` (enum[string], optional)
+            + Members
+                + M
+                + F
+                + U
+        + birthdate: `1989-08-19` (string, optional)
+        + remarks: `Met at expo` (string, optional)
+        + tags: expo, upsell (array[string], optional)
+        + custom_fields (array)
+            + (object)
+                + field_id: `803579e7-1694-4bf3-a294-0a7f3905c16d` (string)
+                + value
 
 + Response 201 (application/json;charset=utf-8)
 
