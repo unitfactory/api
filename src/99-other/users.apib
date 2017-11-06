@@ -1,5 +1,21 @@
 ## Users [/users]
 
+### users.me [GET /users.me]
+
+Get the current authenticated user.
+
++ Response 200 (application/json)
+
+    + Attributes
+        + id: `cb8da52a-ce89-4bf6-8f7e-8ee6cb85e3b5` (string)
+        + name: `John Smith` (string)
+        + email: `john@teamleader.eu` (string)
+        + mobile: `+32412654321` (string)
+        + phone: `+3291239843` (string)
+        + title: `Sales` (string)
+        + language: `nl` (string)
+        + modules: contacts,companies,invoices (array[string])
+
 ### users.list [GET /users.list]
 
 Get a list of all users.
