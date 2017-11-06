@@ -40,7 +40,7 @@ There are exceptions however:
 
 ### Ids
 
-Ids are **always** returned as uuids.
+Ids are **always** returned as uuids. Currently these can not be defined by the client, and are generated on our side.
 
 ### Paging
 
@@ -133,10 +133,6 @@ If a property has an empty value, we return `null` as value.
   }
 }
 ```
-
-### Ids
-
-All ids must be uuids. Currently these can not be defined by the client, and are generated on our side.
 
 ### Date and time
 
