@@ -118,7 +118,7 @@ Endpoints used to update existing objects **MUST**:
 
 ### Adding and modifying endpoints
 
-Adding endpoints and properties are typically always non-breaking and backwards compatible. Modifying, renaming and removing endpoints and properties is allowed during the beta period is allowed. Once our API is released, we will tag our API with a new version for each breaking change.
+Adding endpoints and properties are typically always non-breaking and backwards compatible. Modifying, renaming and removing endpoints and properties is allowed during the beta period. Once our API is released, we will tag our API with a new version for each breaking change.
 
 ### Empty properties
 
