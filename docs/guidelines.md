@@ -91,7 +91,7 @@ We try to interpret HTTP Status codes the right way:
 Endpoints used to read single or multiple objects **MUST**:
 
  - Respond with the `200` HTTP status code
- - Have a top level data property
+ - Return a top level `data` property containing a single object or a list of objects
 
 And **MAY**:
 
@@ -104,7 +104,7 @@ And **MAY**:
 
 Endpoints used to create new objects **MUST**:
 
- - Return the new uuid as a top-level `id` attribute, and the `type` of the object
+ - Return the `id` and `type` of the new object in a top-level `data` attribute
  - Respond with the `201` HTTP status code
 
 ### Updating objects
