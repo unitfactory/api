@@ -76,7 +76,7 @@ We try to interpret HTTP Status codes the right way:
  - `401` - Unauthorized, invalid or missing access token
  - `403` - Forbidden, not allowed to access this resource
  - `404` - Not Found, resource not found
- - `429` - Too Many Requets, rate limiting
+ - `429` - Too Many Requests, client has reached the API rate limit
  - `500` - Internal Server Error, something went wrong on our end
 
 ### Content-Type & Accept headers
@@ -104,7 +104,7 @@ And **MAY**:
 
 Endpoints used to create new objects **MUST**:
 
- - Return the new uuid as a top-level `id` attribute
+ - Return the new uuid as a top-level `id` attribute, and the `type` of the object
  - Respond with the `201` HTTP status code
 
 ### Updating objects
