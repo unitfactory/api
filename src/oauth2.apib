@@ -37,6 +37,11 @@ The following values should be passed as POST parameters:
  - `grant_type` - must be "authorization_code"
  - `redirect_uri` - the original submitted redirect URL
 
+Please note that a `content-type` header is **required** for this request. These types are supported:
+
+ - application/x-www-form-urlencoded
+ - application/json
+
 You will receive a JSON response containing an `access_token` and `refresh_token`:
 
 ```

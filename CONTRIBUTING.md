@@ -42,8 +42,7 @@ npm run preview
 
 ## Follow our guidelines
 
-We are documenting our [API Design Guidelines](./docs/guidelines.md).
-Please follow our recommendations when making a pull request.
+We are documenting our [API Design Guidelines](./docs/guidelines.md). Please follow our recommendations when making a pull request.
 
 ## Making a pull request
 

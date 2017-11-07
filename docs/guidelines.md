@@ -1,17 +1,12 @@
 # Teamleader API Design Guidelines
 
-#### REMARK : GUIDELINES ARE RECOMMENDATIONS, NOT LAWS
-
-If for some reason these doesn't fit your case, this can always be discussed.
-But it should at least force you to think about the preferred way first.
-
 ## General guidelines
 
-### RPC
+### Endpoints
 
-We are creating an *RPC*-style API, similar to the [Slack API](https://api.slack.com/methods).
+We are creating an *RPC*-style HTTP API, similar to the [Slack API](https://api.slack.com/methods). Our API endpoints follow a `resource`.`action` structure.
 
-These are common actions we use. *Note*:
+These are common actions for resources:
 
  - **resource.list** - Get a list objects
  - **resource.info** - Information about a single object
@@ -20,18 +15,18 @@ These are common actions we use. *Note*:
  - **resource.update** - Update an existing object (*try to look for better domain language*)
  - **resource.delete** - Delete an existing object (*try to look for better domain language*)
 
-Usually there will be other actions available for your resource. We need to make sure we make these as explicit and clear as possible.
+Usually there will be other actions available for your resource. We need to make sure we make these as explicit and clear as possible. Eg. `invoice.draft` is better than `invoice.create`.
 
 ### Casing
 
 For casing, we agreed the following:
 
-- The objects are camelCased
-- The actions are camelCased
-- The parameters or object properties are snake_cased
+- The resource and action of the API endpoint are camelCased
+- The API endpoint parameters are snake_cased
+- All json properties in a request/response are snake_cased
 
 ```
-/someObject.someAction?some_parameter=value
+/myResource.myAction?my_parameter=value
 ```
 
 ### Abbreviations
@@ -40,19 +35,22 @@ We avoid abbreviations, for clarity.
 
 There are exceptions however:
 
-- `id`
-- abbreviations common in the **domain**
-  - `VAT`
-  - (more possible, add when discovered)
+- The `id` field
+- Abbreviations common in the **domain** such as `VAT`
+
+### Ids
+
+Ids are **always** returned as uuids. Currently these can not be defined by the client, and are generated on our side.
+
+### Paging
+
+Paging is 1-based. This means that `page.number: 1` returns the very first page.
 
 ## HTTP
 
-### Methods : GET vs. POST
+### Methods
 
-For actions, we require people to `POST` with a `json` body.
-
-For retrieving data, we suggest to `GET` with query parameters.
-For sake of simplicity, we also allow you to `POST` with your query as a json body.
+All API endpoints support `POST` requests with a `json` body. For simplicity we also allow `GET` requests on endpoints which are used to retrieve data such as info or list endpoints.
 
 ```json
 POST deals.list
@@ -67,118 +65,97 @@ POST deals.list
 }
 ```
 
-#### Paging
-
-Paging is 1-based. This means that `page.number: 1` equals the first page.
-
 ### Status codes
 
 We try to interpret HTTP Status codes the right way:
 
-- `200 Success` - Used for most [queries](#queries)
-- `201 Created` - Used for [commands](#commands) that create an object
-- `204 No content` - Used for [commands](#commands) that just need to `ack`
+ - `200` - OK
+ - `201` - Created, when resources are created
+ - `204` - No Content, on resource updates or actions
+ - `400` - Bad Request, if the request contains invalid data
+ - `401` - Unauthorized, invalid or missing access token
+ - `403` - Forbidden, not allowed to access this resource
+ - `404` - Not Found, resource not found
+ - `429` - Too Many Requests, client has reached the API rate limit
+ - `500` - Internal Server Error, something went wrong on our end
 
-- `400 Bad request` - Used when the request is in the wrong format or doesn't validate
-- `401 Unauthorized` - Used when you don't provide a valid Oauth-token
-- `403 Forbidden` - Used when you can't access the requested data, because of missing scopes or insufficient rights
-- `404 Not found` - Used when requesting something by id, but the id doesn't exist (in your account)
-- `500 Intenal Server Error` -  Used when there are uncaught exceptions
+### Content-Type & Accept headers
 
-### Content-Type & Accept
+ - `application/json` or `application/json;charset=utf-8` for request accept headers.
+ - `application/json;charset=utf-8` for response content-type headers.
 
-Use `application/json` for both requests (`Accept`) and responses (`Content-Type`).
+## Response format
 
-### Response format
+### Fetching objects
 
-We wrote our own specification for the format of the response.
-You can read it [here](./spec/specification.md) and look at some examples [here](./spec/examples)
+Endpoints used to read single or multiple objects **MUST**:
 
-## Designing endpoints
+ - Respond with the `200` HTTP status code
+ - Return a top level `data` property containing a single object or a list of objects
 
-### Adding endpoints
+And **MAY**:
 
-- is allowed, because is doesn't break backwards compatibility
+ - Allow filters using the `filter` request parameter
+ - Allow an `ids` filter to fetch multiple objects by id
+ - Allow pagination using the `page` request parameter
+ - Return pagination information in the `meta` response attribute
 
-### Editing, renaming or deleting endpoints
+### Creating objects
 
-- as long as we don't have a versioning system, this is **NOT** allowed
+Endpoints used to create new objects **MUST**:
 
-### Queries
+ - Return the `id` and `type` of the new object in a top-level `data` attribute
+ - Respond with the `201` HTTP status code
 
-If you write **read** endpoints, you might consider the following:
+### Updating objects
 
-- do I need to add filters on the request (might be relevant for `list` endpoints)
+Endpoints used to update existing objects **MUST**:
 
-### Commands
-
-For commands, we normally return an empty body.
-Except when we generated a new `id`, then we return it.
-
-```json
-{
-  "id": 1
-}
-```
-
-If you write **command** or **writing** endpoints, you might consider the following:
-
-- if your command can accept multiple values at the same time, allow that
-
-```json
-POST contacts.tag
-{
-  "id": "e8e4510d-87f7-49be-8d88-d13dd03e23b4",
-  "tags": ["foo", "bar", "baz"]
-}
-```
-
-**note** : currently we don't want this for ids, as we don't know how to cope with transactionality yet.
+ - Not have unexpected side effects
+ - Respond with an empty response and the `204` HTTP status code
 
 ## Designing properties
 
-### Adding properties
+### Adding and modifying endpoints
 
-- is allowed, because is doesn't break backwards compatibility
-- think about :
-    - do we also need to add this in similar calls
-    - do we need to add this as a filter
-    - can this be embedded in other calls
-
-### Editing, renaming or deleting properties
-
-- as long as we don't have a versioning system, this is **NOT** allowed
+Adding endpoints and properties are typically always non-breaking and backwards compatible. Modifying, renaming and removing endpoints and properties is allowed during the beta period. Once our API is released, we will tag our API with a new version for each breaking change.
 
 ### Empty properties
 
-If a property has an empty value, we return the property with `null` value.
+If a property has an empty value, we return `null` as value.
 
 ```json
 {
-  "id": 123,
-  "name": "John Doe",
-  "email": null
+  "data": {
+    "id": "ee72ae60-d4df-4f27-beec-d105d5b3e170",
+    "name": "John Doe",
+    "email": null
+  }
 }
 ```
 
-### Ids
-
-Ids that are visibile in the API should always be uuids.
-For that case, they need to be represented as a string.
-
 ### Date and time
 
-For dates, also timezones might be relevant, so whenever this doesn't add to much confusion, using datetimes **with timezone information** is preferred.
-In writes we might allow sending only a date in that case, but time `00:00:00` is assumed, as well as the default timezone of the account.
+Dates, times and datetimes returned must follow the `ISO8601` standard. Times and datetimes may include timezone information. In PHP this can be generated using `format('c')`.
 
-We always use a `string` for dates in `YYYY-MM-DD` format and a `string` for datetime is the `ISO8601` format (`->format('c')` in `php`).
+We follow these rules for the property names:
 
-We should call fields that represent dates `...._on`.
-We should call fields that represent times `...._at`.
+ - Dates must end on `_on`.
+ - Time and datetimes must end on `_at`.
+
+Examples:
+
+```json
+{
+  "contacted_on": "2017-10-13",
+  "updated_at": "2017-10-15T10:01:49+01:00",
+  "available_at": "11:00:00",
+}
+```
 
 ### Money
 
-We have added a datastructure for representing Money.
+When representing money in requests or responses, we must always follow this data structure:
 
 ```json
 {
@@ -187,23 +164,20 @@ We have added a datastructure for representing Money.
 }
 ```
 
-We will use it whenever we represent money, both on **queries** and **commands**.
+### Relationships
 
-### Referring to other objects/data
+When referring to related objects, we always use a relation structure that includes the type of the related object. This way there is no difference between regular and dynamic relationships where the related object can have different types.
 
-When referring to other objects (by `id`) or data of those object, we **need** to represent it as an object (see [spec](./spec/specification.md)). Even if that is only for the `id`, we might want to add/embed more data later on and don't want to break backwards compatibility then.
-
-The specification also says to include the `type` for consistency and to be future proof.
+Example:
 
 ```json
 {
    "buyer" : {
       "type": "contact",
-      "id" : 1
+      "id": "ee72ae60-d4df-4f27-beec-d105d5b3e170"
    }
 }
 
 ```
 
-As you can see, like this it is also pretty clear when naming the fields different than the type.
-It increases flexibility in naming, which helps understandability.
+This also allows us to add meta data in the future.
